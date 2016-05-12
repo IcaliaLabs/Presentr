@@ -75,7 +75,7 @@ public class Presentr {
     // MARK: Class Helper Methods
     
     public static func alertViewController(title title: String = PresentrConstants.Alert.defaultTitle, body: String = PresentrConstants.Alert.defaultBody) -> AlertViewController {
-        let bundle = NSBundle(identifier: "danielozano.Presentr")
+        let bundle = NSBundle(forClass: self)
         let alertController = AlertViewController(nibName: "Alert", bundle: bundle)
         alertController.titleText = title
         alertController.bodyText = body
