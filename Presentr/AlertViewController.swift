@@ -42,7 +42,7 @@ public class AlertViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        updateScreen()
+        updateScreen()        
     }
 
     override public func didReceiveMemoryWarning() {

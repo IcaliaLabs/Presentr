@@ -7,10 +7,10 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "http://github.com/icalialabs/Presentr"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.author             = { "Daniel Lozano" => "dan@danielozano.com" }
+  s.author       = { "Daniel Lozano" => "dan@danielozano.com" }
   s.social_media_url   = "http://twitter.com/danlozanov"
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/icalialabs/Presentr.git", :tag => "0.1.0" }
   s.source_files = "Presentr/**/*.{swift}"
-  s.resources = "Presentr/**/*.{xib}"
+  s.resources    = "Presentr/**/*.{xib}"
 end
