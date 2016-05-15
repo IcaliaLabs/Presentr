@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /**
- This the basic type for Presentr. Its job is to describe the 'type' of presentation. It basically describes the size and position of the presented view controller. If a new type is added we have to add its size and position to the included Size and Position methods, but also implement its exact sizing in the PresentrPresentationController class sizing/position methods.
+ This the basic type for Presentr. Its job is to describe the 'type' of presentation. Describes the size and position of the presented view controller in a generic, non device-specific way.
  
  - Alert:      This is a small 270 x 180 alert which is the same size as the default iOS alert.
  - Popup:      This is a average/default size 'popup'.
@@ -57,25 +57,53 @@ public enum PresentrType {
             return .BottomCenter
         }
     }
+    
 }
 
 /**
- Descibes the presented modal's sizing. It is mean to be relative or non-specific. The exact position is determined inside the 'PresentrPresentationController' which knows the exact sizing for the screen.
+ Descibes a presented modal's size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the 'calculate' methods, passing in the 'parentSize' which only the Presentation Controller should be aware of.
  
  - Default: Default.
  - Half:    Half of the screen.
  - Full:    Full screen.
- - Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device's screen.
+ - Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device's screen, like in a small Alert.
  */
 public enum ModalSize {
     case Default
     case Half
     case Full
     case Custom(size: Float)
+
+    func calculateWidth(parentSize: CGSize) -> Float{
+        switch self {
+        case .Default:
+            return floorf(Float(parentSize.width) - (PresentrConstants.Values.defaultSideMargin * 2.0))
+        case .Half:
+            return floorf(Float(parentSize.width) / 2.0)
+        case .Full:
+            return Float(parentSize.width)
+        case .Custom(let size):
+            return size
+        }
+    }
+    
+    func calculateHeight(parentSize: CGSize) -> Float{
+        switch self {
+        case .Default:
+            return floorf(Float(parentSize.height) * PresentrConstants.Values.defaultHeightPercentage)
+        case .Half:
+            return floorf(Float(parentSize.height) / 2.0)
+        case .Full:
+            return Float(parentSize.height)
+        case .Custom(let size):
+            return size
+        }
+    }
+    
 }
 
 /**
- Describes the presented modal's center position. It is meant to be non-specific.
+ Describes the presented modal's center position. It is meant to be non-specific, but we can use the 'calculatePoint' method when we want to calculate the exact point by passing in the 'containerBounds' rect that only the presentation controller should be aware of.
  
  - Center:       Center of the screen.
  - TopCenter:    Center of the top half of the screen.
@@ -85,12 +113,27 @@ public enum ModalCenterPosition {
     case Center
     case TopCenter
     case BottomCenter
+    
+    func calculatePoint(containerBounds: CGRect) -> CGPoint{
+        switch self {
+        case .Center:
+            return CGPointMake(containerBounds.width / 2, containerBounds.height / 2)
+        case .TopCenter:
+            return CGPointMake(containerBounds.width / 2, containerBounds.height * (1 / 4))
+        case .BottomCenter:
+            return CGPointMake(containerBounds.width / 2, containerBounds.height * (3 / 4))
+        }
+    }
 }
 
 private struct PresentrConstants {
-    struct Alert {
-        static let defaultTitle = "Are you sure?"
-        static let defaultBody = "If you delete this card you will have to add it again."
+    struct Values {
+        static let defaultSideMargin: Float = 30.0
+        static let defaultHeightPercentage: Float = 0.66
+    }
+    struct Strings {
+        static let alertTitle = "Are you sure?"
+        static let alertBody = "If you delete this card you will have to add it again."
     }
 }
 
@@ -119,7 +162,7 @@ public class Presentr {
      
      - returns: Returns a configured instance of 'AlertViewController'
      */
-    public static func alertViewController(title title: String = PresentrConstants.Alert.defaultTitle, body: String = PresentrConstants.Alert.defaultBody) -> AlertViewController {
+    public static func alertViewController(title title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
         let bundle = NSBundle(forClass: self)
         let alertController = AlertViewController(nibName: "Alert", bundle: bundle)
         alertController.titleText = title

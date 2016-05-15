@@ -10,9 +10,6 @@ import UIKit
 
 class PresentrPresentationController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
 
-    var defaultSideMargin: Float = 30.0
-    var defaultHeightPercentage: Float = 0.66
-
     var presentationType: PresentrType = .Popup {
         didSet {
             if presentationType == .BottomHalf || presentationType == .TopHalf {
@@ -63,41 +60,19 @@ class PresentrPresentationController: UIPresentationController, UIAdaptivePresen
     // MARK: Sizing Helper's
 
     private func calculateWidth(parentSize: CGSize) -> Float {
-        switch presentationType.size().width {
-        case .Default:
-            return floorf(Float(parentSize.width) - (defaultSideMargin * 2.0))
-        case .Half:
-            return floorf(Float(parentSize.width) / 2.0)
-        case .Full:
-            return Float(parentSize.width)
-        case .Custom(let size):
-            return size
-        }
+        let width = presentationType.size().width
+        return width.calculateWidth(parentSize)
     }
 
     private func calculateHeight(parentSize: CGSize) -> Float {
-        switch presentationType.size().height {
-        case .Default:
-            return floorf(Float(parentSize.height) * defaultHeightPercentage)
-        case .Half:
-            return floorf(Float(parentSize.height) / 2.0)
-        case .Full:
-            return Float(parentSize.height)
-        case .Custom(let size):
-            return size
-        }
+        let height = presentationType.size().height
+        return height.calculateHeight(parentSize)
     }
 
     private func calculateCenterPoint() -> CGPoint {
         let containerBounds = containerView!.bounds
-        switch presentationType.position() {
-        case .Center:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height / 2)
-        case .TopCenter:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height * (1 / 4))
-        case .BottomCenter:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height * (3 / 4))
-        }
+        let position = presentationType.position()
+        return position.calculatePoint(containerBounds)
     }
 
     private func calculateOrigin(center: CGPoint, size: CGSize) -> CGPoint {
