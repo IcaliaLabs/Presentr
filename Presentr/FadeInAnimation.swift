@@ -15,6 +15,7 @@ class FadeInAnimation: NSObject, PresentrAnimation{
 // MARK: UIViewControllerAnimatedTransitioning
 
 extension FadeInAnimation: UIViewControllerAnimatedTransitioning{
+    
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.5
     }
@@ -57,4 +58,5 @@ extension FadeInAnimation: UIViewControllerAnimatedTransitioning{
                 
         })
     }
+    
 }

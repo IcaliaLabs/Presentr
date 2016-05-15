@@ -13,7 +13,7 @@ class PresentrDelegate: NSObject {
     var presentationType: PresentrType?
     var transitionType: TransitionType?
 
-    func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
+    private func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
         let presentationController = PresentrController(presentedViewController: presented, presentingViewController: presenting)
         if let type = presentationType {
             presentationController.presentationType = type
@@ -21,7 +21,7 @@ class PresentrDelegate: NSObject {
         return presentationController
     }
     
-    func animation(isPresenting presenting: Bool) -> PresentrAnimation?{
+    private func animation(isPresenting presenting: Bool) -> PresentrAnimation?{
         if let animation = transitionType?.animation() {
             animation.isPresenting = presenting
             return animation

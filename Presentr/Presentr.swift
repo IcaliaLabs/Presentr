@@ -47,9 +47,7 @@ public enum PresentrType {
      */
     func position() -> ModalCenterPosition {
         switch self {
-        case .Alert:
-            return .Center
-        case .Popup:
+        case .Alert, .Popup:
             return .Center
         case .TopHalf:
             return .TopCenter
@@ -60,19 +58,25 @@ public enum PresentrType {
     
     func defaultTransitionType() -> TransitionType{
         switch self {
-        case .Alert:
-            return .CoverVertical
-        case .Popup:
+        case .Alert, .Popup, .BottomHalf:
             return .CoverVertical
         case .TopHalf:
             return .CoverVerticalFromTop
-        case .BottomHalf:
-            return .CoverVertical
         }
     }
     
 }
 
+/**
+ <#Description#>
+ 
+ - CoverVertical:        <#CoverVertical description#>
+ - CrossDissolve:        <#CrossDissolve description#>
+ - FlipHorizontal:       <#FlipHorizontal description#>
+ - PartialCurl:          <#PartialCurl description#>
+ - CoverVerticalFromTop: <#CoverVerticalFromTop description#>
+ - FadeIn:               <#FadeIn description#>
+ */
 public enum TransitionType{
     
     // Apple
@@ -80,7 +84,6 @@ public enum TransitionType{
     case CrossDissolve
     case FlipHorizontal
     case PartialCurl
-    
     // Custom
     case CoverVerticalFromTop
     case FadeIn
@@ -110,6 +113,7 @@ public enum TransitionType{
             return nil
         }
     }
+    
 }
 
 /**
@@ -121,6 +125,7 @@ public enum TransitionType{
  - Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device's screen, like in a small Alert.
  */
 public enum ModalSize {
+    
     case Default
     case Half
     case Full
@@ -235,8 +240,7 @@ public class Presentr {
      - parameter animated:     Animation boolean.
      - parameter completion:   Completion block.
      */
-    private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        presentedVC.modalPresentationStyle = .Custom
+    private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?){
         
         let transition = transitionType ?? presentationType.defaultTransitionType()
         if let systemTransition = transition.systemTransition(){
@@ -245,10 +249,10 @@ public class Presentr {
         }else{
             transitionDelegate.transitionType = transition
         }
-    
         transitionDelegate.presentationType = presentationType
-        presentedVC.transitioningDelegate = transitionDelegate
         
+        presentedVC.modalPresentationStyle = .Custom
+        presentedVC.transitioningDelegate = transitionDelegate
         presentingVC.presentViewController(presentedVC, animated: animated, completion: nil)
     }
 

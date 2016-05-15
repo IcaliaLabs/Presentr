@@ -15,6 +15,7 @@ class CoverVerticalFromTopAnimation: NSObject, PresentrAnimation{
 // MARK: UIViewControllerAnimatedTransitioning
 
 extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning{
+    
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.5
     }
@@ -57,4 +58,5 @@ extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning{
                 
         })
     }
+    
 }
