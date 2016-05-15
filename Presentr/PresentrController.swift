@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PresentrPresentationController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
+class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
 
     var presentationType: PresentrType = .Popup {
         didSet {
@@ -85,7 +85,7 @@ class PresentrPresentationController: UIPresentationController, UIAdaptivePresen
 
 // MARK: UIPresentationController
 
-extension PresentrPresentationController {
+extension PresentrController {
 
     // MARK: Presentation
 

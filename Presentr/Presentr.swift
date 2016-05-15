@@ -58,6 +58,58 @@ public enum PresentrType {
         }
     }
     
+    func defaultTransitionType() -> TransitionType{
+        switch self {
+        case .Alert:
+            return .CoverVertical
+        case .Popup:
+            return .CoverVertical
+        case .TopHalf:
+            return .CoverVerticalFromTop
+        case .BottomHalf:
+            return .CoverVertical
+        }
+    }
+    
+}
+
+public enum TransitionType{
+    
+    // Apple
+    case CoverVertical
+    case CrossDissolve
+    case FlipHorizontal
+    case PartialCurl
+    
+    // Custom
+    case CoverVerticalFromTop
+    case FadeIn
+    
+    func animation() -> PresentrAnimation?{
+        switch self {
+        case .CoverVerticalFromTop:
+            return CoverVerticalFromTopAnimation()
+        case .FadeIn:
+            return FadeInAnimation()
+        default:
+            return nil
+        }
+    }
+    
+    func systemTransition() -> UIModalTransitionStyle?{
+        switch self {
+        case .CoverVertical:
+            return UIModalTransitionStyle.CoverVertical
+        case .CrossDissolve:
+            return UIModalTransitionStyle.CrossDissolve
+        case .FlipHorizontal:
+            return UIModalTransitionStyle.FlipHorizontal
+        case .PartialCurl:
+            return UIModalTransitionStyle.PartialCurl
+        default:
+            return nil
+        }
+    }
 }
 
 /**
@@ -99,7 +151,7 @@ public enum ModalSize {
             return size
         }
     }
-    
+        
 }
 
 /**
@@ -140,11 +192,14 @@ private struct PresentrConstants {
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr {
 
-    /// Stores the presentation type. This must be set during initialization, but can be changed to reuse a Presentr object.
+    /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentrType
     
+    /// The type of transition animation to be used to present the view controller. This is optional, if not set the default for each presentation type will be used.
+    public var transitionType: TransitionType?
+    
     /// Transitioning delegate which handles providing the presentation controller.
-    private var transitionDelegate = PresentrTransitioningDelegate()
+    private var transitionDelegate = PresentrDelegate()
 
     // MARK: Init
     
@@ -182,8 +237,15 @@ public class Presentr {
      */
     private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
         presentedVC.modalPresentationStyle = .Custom
-        presentedVC.modalTransitionStyle = .CoverVertical
         
+        let transition = transitionType ?? presentationType.defaultTransitionType()
+        if let systemTransition = transition.systemTransition(){
+            presentedVC.modalTransitionStyle = systemTransition
+            transitionDelegate.transitionType = nil
+        }else{
+            transitionDelegate.transitionType = transition
+        }
+    
         transitionDelegate.presentationType = presentationType
         presentedVC.transitioningDelegate = transitionDelegate
         
