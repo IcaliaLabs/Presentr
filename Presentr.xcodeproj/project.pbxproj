@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C731CE8248D00F88216 /* PresentrAnimation.swift */; };
 		06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */; };
-		06686C781CE825B700F88216 /* FadeInAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C771CE825B700F88216 /* FadeInAnimation.swift */; };
+		06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */; };
 		0680CC331CE3EFA900CBAE4F /* Presentr.h in Headers */ = {isa = PBXBuildFile; fileRef = 0680CC321CE3EFA900CBAE4F /* Presentr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0680CC3A1CE3EFA900CBAE4F /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0680CC2F1CE3EFA900CBAE4F /* Presentr.framework */; };
 		0680CC3F1CE3EFA900CBAE4F /* PresentrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC3E1CE3EFA900CBAE4F /* PresentrTests.swift */; };
@@ -33,7 +33,7 @@
 /* Begin PBXFileReference section */
 		06686C731CE8248D00F88216 /* PresentrAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrAnimation.swift; sourceTree = "<group>"; };
 		06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalFromTopAnimation.swift; sourceTree = "<group>"; };
-		06686C771CE825B700F88216 /* FadeInAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeInAnimation.swift; sourceTree = "<group>"; };
+		06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverHorizontalAnimation.swift; sourceTree = "<group>"; };
 		0680CC2F1CE3EFA900CBAE4F /* Presentr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0680CC321CE3EFA900CBAE4F /* Presentr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentr.h; sourceTree = "<group>"; };
 		0680CC341CE3EFA900CBAE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +66,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06686CB41CE96DCE00F88216 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				06686C731CE8248D00F88216 /* PresentrAnimation.swift */,
+				06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */,
+				06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
 		0680CC251CE3EFA900CBAE4F = {
 			isa = PBXGroup;
 			children = (
@@ -119,9 +129,7 @@
 			children = (
 				0680CC4A1CE3EFC500CBAE4F /* PresentrDelegate.swift */,
 				0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */,
-				06686C731CE8248D00F88216 /* PresentrAnimation.swift */,
-				06686C771CE825B700F88216 /* FadeInAnimation.swift */,
-				06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */,
+				06686CB41CE96DCE00F88216 /* Animation */,
 			);
 			name = Presentation;
 			sourceTree = "<group>";
@@ -236,12 +244,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */,
+				06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */,
 				0680CC4D1CE3EFC500CBAE4F /* Presentr.swift in Sources */,
 				0680CC4E1CE3EFC500CBAE4F /* PresentrDelegate.swift in Sources */,
 				0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */,
 				0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */,
 				06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */,
-				06686C781CE825B700F88216 /* FadeInAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

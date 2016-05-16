@@ -90,8 +90,8 @@ public enum TransitionType{
     case FlipHorizontal
     // Custom
     case CoverVerticalFromTop
-    case CoverHorizontalFromLeft
     case CoverHorizontalFromRight
+    case CoverHorizontalFromLeft
     
     /**
      Matches the 'TransitionType' to the system provided transition. If this returns nil it should be taken to mean that it's a custom transition, and should call the animation() method.
@@ -120,10 +120,10 @@ public enum TransitionType{
         switch self {
         case .CoverVerticalFromTop:
             return CoverVerticalFromTopAnimation()
-        case .CoverHorizontalFromLeft:
-            return FadeInAnimation()
         case .CoverHorizontalFromRight:
-            return FadeInAnimation()
+            return CoverHorizontalAnimation(fromRight: true)
+        case .CoverHorizontalFromLeft:
+            return CoverHorizontalAnimation(fromRight: false)
         default:
             return nil
         }
