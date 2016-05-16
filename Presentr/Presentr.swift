@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 /**
- This the basic type for Presentr. Its job is to describe the 'type' of presentation. Describes the size and position of the presented view controller in a generic, non device-specific way.
+ Basic Presentr type. Its job is to describe the 'type' of presentation. The type describes the size and position of the presented view controller.
  
  - Alert:      This is a small 270 x 180 alert which is the same size as the default iOS alert.
- - Popup:      This is a average/default size 'popup'.
+ - Popup:      This is a average/default size 'popup' modal.
  - TopHalf:    This takes up half of the screen, on the top side.
  - BottomHalf: This takes up half of the screen, on the bottom side.
  */
@@ -25,7 +25,7 @@ public enum PresentrType {
     case BottomHalf
     
     /**
-     This method decides the sizing for each Presentr type. It is meant to be non device/width specific. Except with the .Custom type which should be for cases when the modal size is very small, i.e. smaller than any device.
+     Describes the sizing for each Presentr type. It is meant to be non device/width specific. Except with the .Custom type which should be for cases when the modal size is very small, i.e. smaller than any device.
      
      - returns: A tuple containing two 'ModalSize' enums, describing its width and height.
      */
@@ -41,7 +41,7 @@ public enum PresentrType {
     }
     
     /**
-     This method decides the position for each Presentr type. It is meant to be non device/width specific.
+     Describes the position for each Presentr type. It is meant to be non device/width specific.
      
      - returns: Returns a 'ModalCenterPosition' enum describing the center point for the presented modal.
      */
@@ -56,6 +56,11 @@ public enum PresentrType {
         }
     }
     
+    /**
+     Associates each Presentr type with a default transition type, in case one is not provided to the Presentr object.
+     
+     - returns: Return a 'TransitionType' which describes a system provided or custom transition animation.
+     */
     func defaultTransitionType() -> TransitionType{
         switch self {
         case .Alert, .Popup, .BottomHalf:
@@ -68,37 +73,31 @@ public enum PresentrType {
 }
 
 /**
- <#Description#>
+ Describes the transition animation for presenting the view controller. Includes the default system transitions and custom ones.
  
- - CoverVertical:        <#CoverVertical description#>
- - CrossDissolve:        <#CrossDissolve description#>
- - FlipHorizontal:       <#FlipHorizontal description#>
- - PartialCurl:          <#PartialCurl description#>
- - CoverVerticalFromTop: <#CoverVerticalFromTop description#>
- - FadeIn:               <#FadeIn description#>
+ - CoverVertical:            System provided transition style. UIModalTransitionStyle.CoverVertical
+ - CrossDissolve:            System provided transition style. UIModalTransitionStyle.CrossDissolve
+ - FlipHorizontal:           System provided transition style. UIModalTransitionStyle.FlipHorizontal
+ - CoverVerticalFromTop:     Custom transition animation. Slides in vertically from top.
+ - CoverHorizontalFromLeft:  Custom transition animation. Slides in horizontally from left.
+ - CoverHorizontalFromRight: Custom transition animation. Slides in horizontally from  right.
  */
 public enum TransitionType{
     
-    // Apple
+    // System provided
     case CoverVertical
     case CrossDissolve
     case FlipHorizontal
-    case PartialCurl
     // Custom
     case CoverVerticalFromTop
-    case FadeIn
+    case CoverHorizontalFromLeft
+    case CoverHorizontalFromRight
     
-    func animation() -> PresentrAnimation?{
-        switch self {
-        case .CoverVerticalFromTop:
-            return CoverVerticalFromTopAnimation()
-        case .FadeIn:
-            return FadeInAnimation()
-        default:
-            return nil
-        }
-    }
-    
+    /**
+     Matches the 'TransitionType' to the system provided transition. If this returns nil it should be taken to mean that it's a custom transition, and should call the animation() method.
+     
+     - returns: UIKit transition style
+     */
     func systemTransition() -> UIModalTransitionStyle?{
         switch self {
         case .CoverVertical:
@@ -107,8 +106,24 @@ public enum TransitionType{
             return UIModalTransitionStyle.CrossDissolve
         case .FlipHorizontal:
             return UIModalTransitionStyle.FlipHorizontal
-        case .PartialCurl:
-            return UIModalTransitionStyle.PartialCurl
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Associates a custom transition type to the class responsible for its animation.
+     
+     - returns: Object conforming to the 'PresentrAnimation' protocol, which in turn conforms to 'UIViewControllerAnimatedTransitioning'. Use this object for the custom animation.
+     */
+    func animation() -> PresentrAnimation?{
+        switch self {
+        case .CoverVerticalFromTop:
+            return CoverVerticalFromTopAnimation()
+        case .CoverHorizontalFromLeft:
+            return FadeInAnimation()
+        case .CoverHorizontalFromRight:
+            return FadeInAnimation()
         default:
             return nil
         }
@@ -131,6 +146,13 @@ public enum ModalSize {
     case Full
     case Custom(size: Float)
 
+    /**
+     Calculates the exact width value for the presented view controller.
+     
+     - parameter parentSize: The presenting view controller's size. Provided by the presentation controller.
+     
+     - returns: Exact float width value.
+     */
     func calculateWidth(parentSize: CGSize) -> Float{
         switch self {
         case .Default:
@@ -144,6 +166,13 @@ public enum ModalSize {
         }
     }
     
+    /**
+     Calculates the exact height value for the presented view controller.
+     
+     - parameter parentSize: The presenting view controller's size. Provided by the presentation controller.
+     
+     - returns: Exact float height value.
+     */
     func calculateHeight(parentSize: CGSize) -> Float{
         switch self {
         case .Default:
@@ -160,17 +189,25 @@ public enum ModalSize {
 }
 
 /**
- Describes the presented modal's center position. It is meant to be non-specific, but we can use the 'calculatePoint' method when we want to calculate the exact point by passing in the 'containerBounds' rect that only the presentation controller should be aware of.
+ Describes the presented presented view controller's center position. It is meant to be non-specific, but we can use the 'calculatePoint' method when we want to calculate the exact point by passing in the 'containerBounds' rect that only the presentation controller should be aware of.
  
  - Center:       Center of the screen.
  - TopCenter:    Center of the top half of the screen.
  - BottomCenter: Center of the bottom half of the screen.
  */
 public enum ModalCenterPosition {
+    
     case Center
     case TopCenter
     case BottomCenter
     
+    /**
+     Calculates the exact position for the presented view controller center.
+     
+     - parameter containerBounds: The container bounds the controller is being presented in.
+     
+     - returns: CGPoint representing the presented view controller's center point.
+     */
     func calculatePoint(containerBounds: CGRect) -> CGPoint{
         switch self {
         case .Center:
@@ -181,6 +218,7 @@ public enum ModalCenterPosition {
             return CGPointMake(containerBounds.width / 2, containerBounds.height * (3 / 4))
         }
     }
+    
 }
 
 private struct PresentrConstants {
@@ -200,7 +238,7 @@ public class Presentr {
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentrType
     
-    /// The type of transition animation to be used to present the view controller. This is optional, if not set the default for each presentation type will be used.
+    /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
     public var transitionType: TransitionType?
     
     /// Transitioning delegate which handles providing the presentation controller.
