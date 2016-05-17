@@ -10,7 +10,6 @@ import Foundation
 
 class CoverVerticalFromTopAnimation: NSObject, PresentrAnimation{
     
-    var isPresenting = false
     var animationDuration: NSTimeInterval
     
     init(animationDuration: NSTimeInterval = 0.5){
@@ -28,7 +27,7 @@ extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning{
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        animateSlideIn(transitionContext) { finalFrame, _ in
+        animate(transitionContext) { finalFrame, _ in
             var initialFrame = finalFrame
             initialFrame.origin.y = 0 - initialFrame.size.height
             return initialFrame

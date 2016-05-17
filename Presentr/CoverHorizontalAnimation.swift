@@ -10,9 +10,7 @@ import Foundation
 
 class CoverHorizontalAnimation: NSObject, PresentrAnimation{
     
-    var isPresenting = false
     var animationDuration: NSTimeInterval
-    
     var fromRight: Bool
     
     init(animationDuration: NSTimeInterval = 0.5, fromRight: Bool = true){
@@ -31,7 +29,7 @@ extension CoverHorizontalAnimation: UIViewControllerAnimatedTransitioning{
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        animateSlideIn(transitionContext) { finalFrame, containerFrame in
+        animate(transitionContext) { finalFrame, containerFrame in
             var initialFrame = finalFrame
             if self.fromRight{
                 initialFrame.origin.x = containerFrame.size.width + initialFrame.size.width

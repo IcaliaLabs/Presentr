@@ -10,7 +10,7 @@ import UIKit
 
 class PresentrDelegate: NSObject {
 
-    var presentationType: PresentrType?
+    var presentationType: PresentationType?
     var transitionType: TransitionType?
 
     private func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
@@ -21,9 +21,8 @@ class PresentrDelegate: NSObject {
         return presentationController
     }
     
-    private func animation(isPresenting presenting: Bool) -> PresentrAnimation?{
+    private func animation() -> PresentrAnimation?{
         if let animation = transitionType?.animation() {
-            animation.isPresenting = presenting
             return animation
         }else{
             return nil
@@ -39,11 +38,11 @@ extension PresentrDelegate: UIViewControllerTransitioningDelegate {
     }
 
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation(isPresenting: true)
+        return animation()
     }
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation(isPresenting: false)
+        return animation()
     }
     
 }

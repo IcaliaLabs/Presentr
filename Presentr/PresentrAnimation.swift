@@ -10,10 +10,9 @@ import Foundation
 
 protocol PresentrAnimation: UIViewControllerAnimatedTransitioning{
 
-    var isPresenting: Bool { get set }
     var animationDuration: NSTimeInterval { get set }
 
-    func animateSlideIn(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer)
+    func animate(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer)
     
 }
 
@@ -21,22 +20,21 @@ typealias frameTransformer = (finalFrame: CGRect, containerFrame: CGRect) -> CGR
 
 extension PresentrAnimation{
     
-    func animateSlideIn(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer){
+    func animate(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer){
+        
         guard let containerView = transitionContext.containerView() else {
             return
         }
         
-        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromView = fromVC?.view
-        let toView = toVC?.view
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
+        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
         
-        if isPresenting {
-            containerView.addSubview(toView!)
-        }
+        let isPresenting: Bool = (toViewController?.presentingViewController == fromViewController)
         
-        let animatingVC = isPresenting ? toVC : fromVC
-        let animatingView = animatingVC?.view
+        let animatingVC = isPresenting ? toViewController : fromViewController
+        let animatingView = isPresenting ? toView : fromView
         
         let finalFrameForVC = transitionContext.finalFrameForViewController(animatingVC!)
         let initialFrameForVC = transform(finalFrame: finalFrameForVC, containerFrame: containerView.frame)
@@ -44,18 +42,26 @@ extension PresentrAnimation{
         let initialFrame = isPresenting ? initialFrameForVC : finalFrameForVC
         let finalFrame = isPresenting ? finalFrameForVC : initialFrameForVC
         
+        let duration = transitionDuration(transitionContext)
+        
+        if isPresenting {
+            containerView.addSubview(toView!)
+        }
+        
         animatingView?.frame = initialFrame
         
-        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
+        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: .AllowUserInteraction, animations: {
             
             animatingView?.frame = finalFrame
             
             }, completion: { (value: Bool) in
                 
-                if !self.isPresenting {
+                if !isPresenting {
                     fromView?.removeFromSuperview()
                 }
-                transitionContext.completeTransition(true)
+                
+                let wasCancelled = transitionContext.transitionWasCancelled()
+                transitionContext.completeTransition(!wasCancelled)
                 
         })
     }

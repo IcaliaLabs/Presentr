@@ -17,7 +17,7 @@ import UIKit
  - TopHalf:    This takes up half of the screen, on the top side.
  - BottomHalf: This takes up half of the screen, on the bottom side.
  */
-public enum PresentrType {
+public enum PresentationType {
 
     case Alert
     case Popup
@@ -236,7 +236,7 @@ private struct PresentrConstants {
 public class Presentr {
 
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
-    public var presentationType: PresentrType
+    public var presentationType: PresentationType
     
     /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
     public var transitionType: TransitionType?
@@ -246,7 +246,7 @@ public class Presentr {
 
     // MARK: Init
     
-    public init(presentationType: PresentrType){
+    public init(presentationType: PresentationType){
         self.presentationType = presentationType
     }
     

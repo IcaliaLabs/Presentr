@@ -10,7 +10,7 @@ import UIKit
 
 class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
 
-    var presentationType: PresentrType = .Popup {
+    var presentationType: PresentationType = .Popup {
         didSet {
             if presentationType == .BottomHalf || presentationType == .TopHalf {
                 removeCornerRadiusFromPresentedView()
