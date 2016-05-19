@@ -8,11 +8,22 @@
 
 import UIKit
 
+/// <#Description#>
 class PresentrDelegate: NSObject {
 
+    /// <#Description#>
     var presentationType: PresentationType?
+    /// <#Description#>
     var transitionType: TransitionType?
 
+    /**
+     <#Description#>
+     
+     - parameter presented:  <#presented description#>
+     - parameter presenting: <#presenting description#>
+     
+     - returns: <#return value description#>
+     */
     private func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
         let presentationController = PresentrController(presentedViewController: presented, presentingViewController: presenting)
         if let type = presentationType {
@@ -21,6 +32,11 @@ class PresentrDelegate: NSObject {
         return presentationController
     }
     
+    /**
+     <#Description#>
+     
+     - returns: <#return value description#>
+     */
     private func animation() -> PresentrAnimation?{
         if let animation = transitionType?.animation() {
             return animation

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ *  <#Description#>
+ */
 protocol PresentrAnimation: UIViewControllerAnimatedTransitioning{
 
     var animationDuration: NSTimeInterval { get set }
@@ -16,10 +19,17 @@ protocol PresentrAnimation: UIViewControllerAnimatedTransitioning{
     
 }
 
+/// <#Description#>
 typealias frameTransformer = (finalFrame: CGRect, containerFrame: CGRect) -> CGRect
 
 extension PresentrAnimation{
     
+    /**
+     <#Description#>
+     
+     - parameter transitionContext: <#transitionContext description#>
+     - parameter transform:         <#transform description#>
+     */
     func animate(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer){
         
         guard let containerView = transitionContext.containerView() else {

@@ -227,8 +227,8 @@ private struct PresentrConstants {
         static let defaultHeightPercentage: Float = 0.66
     }
     struct Strings {
-        static let alertTitle = "Are you sure?"
-        static let alertBody = "If you delete this card you will have to add it again."
+        static let alertTitle = "Alert"
+        static let alertBody = "This is an alert."
     }
 }
 

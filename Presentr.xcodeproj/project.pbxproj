@@ -18,6 +18,8 @@
 		0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */; };
 		0680CC531CE3EFFA00CBAE4F /* Alert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0680CC511CE3EFFA00CBAE4F /* Alert.xib */; };
 		0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */; };
+		06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */; };
+		06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrController.swift; sourceTree = "<group>"; };
 		0680CC511CE3EFFA00CBAE4F /* Alert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Alert.xib; sourceTree = "<group>"; };
 		0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				06D8AE8E1CE40BF300E00A6C /* Alert */,
 				0680CC321CE3EFA900CBAE4F /* Presentr.h */,
 				0680CC341CE3EFA900CBAE4F /* Info.plist */,
+				06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */,
+				06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */,
 			);
 			path = Presentr;
 			sourceTree = "<group>";
@@ -225,7 +231,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */,
 				0680CC531CE3EFFA00CBAE4F /* Alert.xib in Resources */,
+				06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

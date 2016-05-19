@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// <#Description#>
 class CoverVerticalFromTopAnimation: NSObject, PresentrAnimation{
     
     var animationDuration: NSTimeInterval
