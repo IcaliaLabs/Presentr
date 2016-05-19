@@ -184,9 +184,12 @@ public class AlertViewController: UIViewController {
 
 extension AlertViewController {
     
+    struct PresentrStatic{
+        static var onceToken: dispatch_once_t = 0
+    }
+    
     func loadFonts(){
-        var predicate = dispatch_once_t()
-        dispatch_once(&predicate) {
+        dispatch_once(&PresentrStatic.onceToken) {
             self.loadFont(Font.Montserrat.rawValue)
             self.loadFont(Font.SourceSansPro.rawValue)
         }
@@ -203,7 +206,8 @@ extension AlertViewController {
         if let font = CGFontCreateWithDataProvider(provider) {
             let success = CTFontManagerRegisterGraphicsFont(font, &error)
             if !success {
-                print(error)
+                print("Error loading font. Font is possibly already registered.")
+                //print(error)
                 return false
             }
         }else{
