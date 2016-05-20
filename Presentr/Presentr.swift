@@ -233,16 +233,13 @@ private struct PresentrConstants {
 }
 
 /// Main Presentr class. This is the point of entry for using the framework.
-public class Presentr {
+public class Presentr: NSObject {
 
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentationType
     
     /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
     public var transitionType: TransitionType?
-    
-    /// Transitioning delegate which handles providing the presentation controller.
-    private var transitionDelegate = PresentrDelegate()
 
     // MARK: Init
     
@@ -279,22 +276,18 @@ public class Presentr {
      - parameter completion:   Completion block.
      */
     private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?){
-        
         let transition = transitionType ?? presentationType.defaultTransitionType()
         if let systemTransition = transition.systemTransition(){
             presentedVC.modalTransitionStyle = systemTransition
-            transitionDelegate.transitionType = nil
-        }else{
-            transitionDelegate.transitionType = transition
         }
-        transitionDelegate.presentationType = presentationType
-        
+        presentedVC.transitioningDelegate = self
         presentedVC.modalPresentationStyle = .Custom
-        presentedVC.transitioningDelegate = transitionDelegate
         presentingVC.presentViewController(presentedVC, animated: animated, completion: nil)
     }
 
 }
+
+// MARK: - UIViewController extension to provide customPresentViewController(_:viewController:animated:completion:) method
 
 public extension UIViewController {
     func customPresentViewController(presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
@@ -303,4 +296,38 @@ public extension UIViewController {
                                        animated: animated,
                                        completion: completion)
     }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension Presentr: UIViewControllerTransitioningDelegate{
+    
+    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+        return presentationController(presented, presenting: presenting)
+    }
+    
+    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
+        return animation()
+    }
+    
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
+        return animation()
+    }
+    
+    // MARK: - Private Helper's
+    
+    private func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
+        let presentationController = PresentrController(presentedViewController: presented, presentingViewController: presenting)
+        presentationController.presentationType = presentationType
+        return presentationController
+    }
+    
+    private func animation() -> PresentrAnimation?{
+        if let animation = transitionType?.animation() {
+            return animation
+        }else{
+            return nil
+        }
+    }
+    
 }

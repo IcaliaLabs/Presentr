@@ -14,7 +14,7 @@
     <a title="Presentr Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Presentr Docs</a> (17% documented)</p>
+        <p><a href="../index.html">Presentr Docs</a> (41% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,6 +31,9 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/AlertAction.html">AlertAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/AlertViewController.html">AlertViewController</a>
               </li>
               <li class="nav-group-task">
@@ -42,13 +45,19 @@
             <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/AlertActionStyle.html">AlertActionStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/ModalCenterPosition.html">ModalCenterPosition</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ModalSize.html">ModalSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PresentrType.html">PresentrType</a>
+                <a href="../Enums/PresentationType.html">PresentationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransitionType.html">TransitionType</a>
               </li>
             </ul>
           </li>
@@ -56,7 +65,7 @@
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Extensions.html#/s:C8Presentr30PresentrPresentationController">PresentrPresentationController</a>
+                <a href="../Extensions.html#/s:C8Presentr18PresentrController">PresentrController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/UIViewController.html">UIViewController</a>
@@ -64,10 +73,10 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Protocols.html">Protocols</a>
+            <a href="../Typealiases.html">Typealiases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/AlertViewControllerDelegate.html">AlertViewControllerDelegate</a>
+                <a href="../Typealiases.html#/s:8Presentr16FrameTransformer">FrameTransformer</a>
               </li>
             </ul>
           </li>
@@ -79,7 +88,7 @@
             <h1>Presentr</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
@@ -92,9 +101,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC8Presentr8Presentr16presentationTypeOS_12PresentrType"></a>
+                    <a name="/s:vC8Presentr8Presentr16presentationTypeOS_16PresentationType"></a>
                     <a name="//apple_ref/swift/Property/presentationType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC8Presentr8Presentr16presentationTypeOS_12PresentrType">presentationType</a>
+                    <a class="token" href="#/s:vC8Presentr8Presentr16presentationTypeOS_16PresentationType">presentationType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -102,14 +111,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Stores the presentation type. This must be set during initialization, but can be changed to reuse a Presentr object.</p>
+                        <p>This must be set during initialization, but can be changed to reuse a Presentr object.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">presentationType</span><span class="p">:</span> <span class="kt">PresentrType</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">presentationType</span><span class="p">:</span> <span class="kt">PresentationType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC8Presentr8Presentr14transitionTypeGSqOS_14TransitionType_"></a>
+                    <a name="//apple_ref/swift/Property/transitionType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8Presentr8Presentr14transitionTypeGSqOS_14TransitionType_">transitionType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">transitionType</span><span class="p">:</span> <span class="kt">TransitionType</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -130,9 +166,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC8Presentr8PresentrcFT16presentationTypeOS_12PresentrType_S0_"></a>
+                    <a name="/s:FC8Presentr8PresentrcFT16presentationTypeOS_16PresentationType_S0_"></a>
                     <a name="//apple_ref/swift/Method/init(presentationType:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC8Presentr8PresentrcFT16presentationTypeOS_12PresentrType_S0_">init(presentationType:)</a>
+                    <a class="token" href="#/s:FC8Presentr8PresentrcFT16presentationTypeOS_16PresentationType_S0_">init(presentationType:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -147,7 +183,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -185,7 +221,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">alertViewController</span><span class="p">(</span><span class="n">title</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">PresentrConstants</span><span class="o">.</span><span class="kt">Alert</span><span class="o">.</span><span class="n">defaultTitle</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">PresentrConstants</span><span class="o">.</span><span class="kt">Alert</span><span class="o">.</span><span class="n">defaultBody</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AlertViewController</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">alertViewController</span><span class="p">(</span><span class="n">title</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">PresentrConstants</span><span class="o">.</span><span class="kt">Strings</span><span class="o">.</span><span class="n">alertTitle</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">PresentrConstants</span><span class="o">.</span><span class="kt">Strings</span><span class="o">.</span><span class="n">alertBody</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AlertViewController</span></code></pre>
 
                         </div>
                       </div>
@@ -232,10 +268,95 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8Presentr8Presentr48presentationControllerForPresentedViewControllerFTCSo16UIViewController24presentingViewControllerS1_20sourceViewControllerS1__GSqCSo24UIPresentationController_"></a>
+                    <a name="//apple_ref/swift/Method/presentationControllerForPresentedViewController(_:presentingViewController:sourceViewController:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8Presentr8Presentr48presentationControllerForPresentedViewControllerFTCSo16UIViewController24presentingViewControllerS1_20sourceViewControllerS1__GSqCSo24UIPresentationController_">presentationControllerForPresentedViewController(_:presentingViewController:sourceViewController:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8Presentr8Presentr41animationControllerForPresentedControllerFTCSo16UIViewController20presentingControllerS1_16sourceControllerS1__GSqPSo37UIViewControllerAnimatedTransitioning__"></a>
+                    <a name="//apple_ref/swift/Method/animationControllerForPresentedController(_:presentingController:sourceController:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8Presentr8Presentr41animationControllerForPresentedControllerFTCSo16UIViewController20presentingControllerS1_16sourceControllerS1__GSqPSo37UIViewControllerAnimatedTransitioning__">animationControllerForPresentedController(_:presentingController:sourceController:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8Presentr8Presentr41animationControllerForDismissedControllerFCSo16UIViewControllerGSqPSo37UIViewControllerAnimatedTransitioning__"></a>
+                    <a name="//apple_ref/swift/Method/animationControllerForDismissedController(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8Presentr8Presentr41animationControllerForDismissedControllerFCSo16UIViewControllerGSqPSo37UIViewControllerAnimatedTransitioning__">animationControllerForDismissedController(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-13)</p>
+          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

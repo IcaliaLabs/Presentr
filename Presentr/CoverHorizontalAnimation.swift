@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// <#Description#>
+/// Custom 'CoverHorizontalAnimation' animation. Conforms to 'PresentrAnimation' protocol
 class CoverHorizontalAnimation: NSObject, PresentrAnimation{
     
     var animationDuration: NSTimeInterval

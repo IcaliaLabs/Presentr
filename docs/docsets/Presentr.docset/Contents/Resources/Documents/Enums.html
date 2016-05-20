@@ -13,7 +13,7 @@
     <a title="Enums  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Presentr Docs</a> (17% documented)</p>
+        <p><a href="index.html">Presentr Docs</a> (41% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -30,6 +30,9 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Classes/AlertAction.html">AlertAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/AlertViewController.html">AlertViewController</a>
               </li>
               <li class="nav-group-task">
@@ -41,13 +44,19 @@
             <a href="Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Enums/AlertActionStyle.html">AlertActionStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/ModalCenterPosition.html">ModalCenterPosition</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/ModalSize.html">ModalSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/PresentrType.html">PresentrType</a>
+                <a href="Enums/PresentationType.html">PresentationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TransitionType.html">TransitionType</a>
               </li>
             </ul>
           </li>
@@ -55,7 +64,7 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Extensions.html#/s:C8Presentr30PresentrPresentationController">PresentrPresentationController</a>
+                <a href="Extensions.html#/s:C8Presentr18PresentrController">PresentrController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/UIViewController.html">UIViewController</a>
@@ -63,10 +72,10 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Protocols.html">Protocols</a>
+            <a href="Typealiases.html">Typealiases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/AlertViewControllerDelegate.html">AlertViewControllerDelegate</a>
+                <a href="Typealiases.html#/s:8Presentr16FrameTransformer">FrameTransformer</a>
               </li>
             </ul>
           </li>
@@ -85,9 +94,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:O8Presentr12PresentrType"></a>
-                    <a name="//apple_ref/swift/Enum/PresentrType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O8Presentr12PresentrType">PresentrType</a>
+                    <a name="/s:O8Presentr16PresentationType"></a>
+                    <a name="//apple_ref/swift/Enum/PresentationType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:O8Presentr16PresentationType">PresentationType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -95,22 +104,59 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This the basic type for Presentr. Its job is to describe the &lsquo;type&rsquo; of presentation. It basically describes the size and position of the presented view controller. If a new type is added we have to add its size and position to the included Size and Position methods, but also implement its exact sizing in the PresentrPresentationController class sizing/position methods.</p>
+                        <p>Basic Presentr type. Its job is to describe the &lsquo;type&rsquo; of presentation. The type describes the size and position of the presented view controller.</p>
 
 <ul>
 <li>Alert:      This is a small 270 x 180 alert which is the same size as the default iOS alert.</li>
-<li>Popup:      This is a average/default size &lsquo;popup&rsquo;.</li>
+<li>Popup:      This is a average/default size &lsquo;popup&rsquo; modal.</li>
 <li>TopHalf:    This takes up half of the screen, on the top side.</li>
 <li>BottomHalf: This takes up half of the screen, on the bottom side.</li>
 </ul>
 
-                        <a href="Enums/PresentrType.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/PresentationType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentrType</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:O8Presentr14TransitionType"></a>
+                    <a name="//apple_ref/swift/Enum/TransitionType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:O8Presentr14TransitionType">TransitionType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Describes the transition animation for presenting the view controller. Includes the default system transitions and custom ones.</p>
+
+<ul>
+<li>CoverVertical:            System provided transition style. UIModalTransitionStyle.CoverVertical</li>
+<li>CrossDissolve:            System provided transition style. UIModalTransitionStyle.CrossDissolve</li>
+<li>FlipHorizontal:           System provided transition style. UIModalTransitionStyle.FlipHorizontal</li>
+<li>CoverVerticalFromTop:     Custom transition animation. Slides in vertically from top.</li>
+<li>CoverHorizontalFromLeft:  Custom transition animation. Slides in horizontally from left.</li>
+<li>CoverHorizontalFromRight: Custom transition animation. Slides in horizontally from  right.</li>
+</ul>
+
+                        <a href="Enums/TransitionType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
 
                         </div>
                       </div>
@@ -130,13 +176,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Descibes the presented modal&rsquo;s sizing. It is mean to be relative or non-specific. The exact position is determined inside the &lsquo;PresentrPresentationController&rsquo; which knows the exact sizing for the screen.</p>
+                        <p>Descibes a presented modal&rsquo;s size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the &lsquo;calculate&rsquo; methods, passing in the &lsquo;parentSize&rsquo; which only the Presentation Controller should be aware of.</p>
 
 <ul>
 <li>Default: Default.</li>
 <li>Half:    Half of the screen.</li>
 <li>Full:    Full screen.</li>
-<li>Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device&rsquo;s screen.</li>
+<li>Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device&rsquo;s screen, like in a small Alert.</li>
 </ul>
 
                         <a href="Enums/ModalSize.html" class="slightly-smaller">See more</a>
@@ -165,7 +211,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Describes the presented modal&rsquo;s center position. It is meant to be non-specific.</p>
+                        <p>Describes the presented presented view controller&rsquo;s center position. It is meant to be non-specific, but we can use the &lsquo;calculatePoint&rsquo; method when we want to calculate the exact point by passing in the &lsquo;containerBounds&rsquo; rect that only the presentation controller should be aware of.</p>
 
 <ul>
 <li>Center:       Center of the screen.</li>
@@ -188,10 +234,48 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:O8Presentr16AlertActionStyle"></a>
+                    <a name="//apple_ref/swift/Enum/AlertActionStyle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:O8Presentr16AlertActionStyle">AlertActionStyle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Describes the style for an action, that will be used to style a button in the alert controller.</p>
+
+<ul>
+<li>Default:     Green text label. Meant to draw attention to the action.</li>
+<li>Cancel:      Gray text label. Meant to be neutral.</li>
+<li>Destructive: Red text label. Meant to warn the user about the action.</li>
+</ul>
+
+                        <a href="Enums/AlertActionStyle.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AlertActionStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-13)</p>
+          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

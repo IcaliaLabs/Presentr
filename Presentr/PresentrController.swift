@@ -8,8 +8,10 @@
 
 import UIKit
 
+/// Presentr's custom presentation controller. Handles the position and sizing for the view controller's.
 class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
 
+    /// Presentation type must be passed in to make all the sizing and position decisions.
     var presentationType: PresentationType = .Popup {
         didSet {
             if presentationType == .BottomHalf || presentationType == .TopHalf {
@@ -21,7 +23,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private var chromeView = UIView()
 
     // MARK: Init
-
+    
     override init(presentedViewController: UIViewController, presentingViewController: UIViewController) {
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
         setupChromeView()
@@ -57,8 +59,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
 
-    // MARK: Sizing Helper's
-
+    // MARK: - Sizing Helper's
+    
     private func calculateWidth(parentSize: CGSize) -> Float {
         let width = presentationType.size().width
         return width.calculateWidth(parentSize)

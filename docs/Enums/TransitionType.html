@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ModalSize Enum Reference</title>
+    <title>TransitionType Enum Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/ModalSize" class="dashAnchor"></a>
-    <a title="ModalSize Enum Reference"></a>
+    <a name="//apple_ref/swift/Enum/TransitionType" class="dashAnchor"></a>
+    <a title="TransitionType Enum Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">Presentr Docs</a> (41% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">Presentr Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ModalSize Enum Reference
+        TransitionType Enum Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -85,20 +85,22 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ModalSize</h1>
+            <h1>TransitionType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
 
                 </div>
               </div>
-            <p>Descibes a presented modal&rsquo;s size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the &lsquo;calculate&rsquo; methods, passing in the &lsquo;parentSize&rsquo; which only the Presentation Controller should be aware of.</p>
+            <p>Describes the transition animation for presenting the view controller. Includes the default system transitions and custom ones.</p>
 
 <ul>
-<li>Default: Default.</li>
-<li>Half:    Half of the screen.</li>
-<li>Full:    Full screen.</li>
-<li>Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device&rsquo;s screen, like in a small Alert.</li>
+<li>CoverVertical:            System provided transition style. UIModalTransitionStyle.CoverVertical</li>
+<li>CrossDissolve:            System provided transition style. UIModalTransitionStyle.CrossDissolve</li>
+<li>FlipHorizontal:           System provided transition style. UIModalTransitionStyle.FlipHorizontal</li>
+<li>CoverVerticalFromTop:     Custom transition animation. Slides in vertically from top.</li>
+<li>CoverHorizontalFromLeft:  Custom transition animation. Slides in horizontally from left.</li>
+<li>CoverHorizontalFromRight: Custom transition animation. Slides in horizontally from  right.</li>
 </ul>
 
           </section>
@@ -108,9 +110,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize7DefaultFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Default" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize7DefaultFMS0_S0_">Default</a>
+                    <a name="/s:FO8Presentr14TransitionType13CoverVerticalFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/CoverVertical" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr14TransitionType13CoverVerticalFMS0_S0_">CoverVertical</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -125,7 +127,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
 
                         </div>
                       </div>
@@ -139,9 +141,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize4HalfFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Half" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize4HalfFMS0_S0_">Half</a>
+                    <a name="/s:FO8Presentr14TransitionType13CrossDissolveFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/CrossDissolve" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr14TransitionType13CrossDissolveFMS0_S0_">CrossDissolve</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -156,7 +158,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
 
                         </div>
                       </div>
@@ -170,9 +172,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize4FullFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Full" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize4FullFMS0_S0_">Full</a>
+                    <a name="/s:FO8Presentr14TransitionType14FlipHorizontalFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/FlipHorizontal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr14TransitionType14FlipHorizontalFMS0_S0_">FlipHorizontal</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -187,7 +189,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
 
                         </div>
                       </div>
@@ -201,9 +203,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize6CustomFMS0_FT4sizeSf_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Custom" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize6CustomFMS0_FT4sizeSf_S0_">Custom</a>
+                    <a name="/s:FO8Presentr14TransitionType20CoverVerticalFromTopFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/CoverVerticalFromTop" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr14TransitionType20CoverVerticalFromTopFMS0_S0_">CoverVerticalFromTop</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -218,7 +220,69 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO8Presentr14TransitionType24CoverHorizontalFromRightFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/CoverHorizontalFromRight" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr14TransitionType24CoverHorizontalFromRightFMS0_S0_">CoverHorizontalFromRight</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO8Presentr14TransitionType23CoverHorizontalFromLeftFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/CoverHorizontalFromLeft" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr14TransitionType23CoverHorizontalFromLeftFMS0_S0_">CoverHorizontalFromLeft</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span></code></pre>
 
                         </div>
                       </div>

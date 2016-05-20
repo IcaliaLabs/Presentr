@@ -14,7 +14,7 @@
     <a title="AlertViewController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Presentr Docs</a> (17% documented)</p>
+        <p><a href="../index.html">Presentr Docs</a> (41% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,6 +31,9 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/AlertAction.html">AlertAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/AlertViewController.html">AlertViewController</a>
               </li>
               <li class="nav-group-task">
@@ -42,13 +45,19 @@
             <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/AlertActionStyle.html">AlertActionStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/ModalCenterPosition.html">ModalCenterPosition</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ModalSize.html">ModalSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PresentrType.html">PresentrType</a>
+                <a href="../Enums/PresentationType.html">PresentationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransitionType.html">TransitionType</a>
               </li>
             </ul>
           </li>
@@ -56,7 +65,7 @@
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Extensions.html#/s:C8Presentr30PresentrPresentationController">PresentrPresentationController</a>
+                <a href="../Extensions.html#/s:C8Presentr18PresentrController">PresentrController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/UIViewController.html">UIViewController</a>
@@ -64,10 +73,10 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Protocols.html">Protocols</a>
+            <a href="../Typealiases.html">Typealiases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/AlertViewControllerDelegate.html">AlertViewControllerDelegate</a>
+                <a href="../Typealiases.html#/s:8Presentr16FrameTransformer">FrameTransformer</a>
               </li>
             </ul>
           </li>
@@ -77,31 +86,18 @@
         <section>
           <section class="section">
             <h1>AlertViewController</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AlertViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                </div>
+              </div>
+            <p>UIViewController subclass that displays the alert</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vC8Presentr19AlertViewController8delegateXwGSqPS_27AlertViewControllerDelegate__"></a>
-                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC8Presentr19AlertViewController8delegateXwGSqPS_27AlertViewControllerDelegate__">delegate</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -115,8 +111,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Text that will be used as the title for the alert</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">titleText</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -134,8 +138,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Text that will be used as the body for the alert</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bodyText</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -143,9 +155,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC8Presentr19AlertViewController10cancelTextGSqSS_"></a>
-                    <a name="//apple_ref/swift/Property/cancelText" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC8Presentr19AlertViewController10cancelTextGSqSS_">cancelText</a>
+                    <a name="/s:vC8Presentr19AlertViewController11autoDismissSb"></a>
+                    <a name="//apple_ref/swift/Property/autoDismiss" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8Presentr19AlertViewController11autoDismissSb">autoDismiss</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -153,8 +165,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>If set to false, alert wont auto-dismiss the controller when an action is clicked. Dismissal will be up to the action&rsquo;s handler. Default is true.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">autoDismiss</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -162,9 +182,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC8Presentr19AlertViewController6okTextGSqSS_"></a>
-                    <a name="//apple_ref/swift/Property/okText" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC8Presentr19AlertViewController6okTextGSqSS_">okText</a>
+                    <a name="/s:vC8Presentr19AlertViewController15dismissAnimatedSb"></a>
+                    <a name="//apple_ref/swift/Property/dismissAnimated" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC8Presentr19AlertViewController15dismissAnimatedSb">dismissAnimated</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -172,8 +192,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>If autoDismiss is set to true, then set this property if you want the dismissal to be animated. Default is true.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dismissAnimated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -194,6 +222,14 @@
                         <p>Undocumented</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AlertViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -213,6 +249,99 @@
                         <p>Undocumented</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AlertViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8Presentr19AlertViewController21updateViewConstraintsFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/updateViewConstraints()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8Presentr19AlertViewController21updateViewConstraintsFT_T_">updateViewConstraints()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AlertViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/AlertAction&#39;s"></a>
+                <a name="//apple_ref/swift/Section/AlertAction&#39;s" class="dashAnchor"></a>
+                <a href="#/AlertAction&#39;s">
+                  <h3 class="section-name">AlertAction&#39;s</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC8Presentr19AlertViewController9addActionFCS_11AlertActionT_"></a>
+                    <a name="//apple_ref/swift/Method/addAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC8Presentr19AlertViewController9addActionFCS_11AlertActionT_">addAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds an &lsquo;AlertAction&rsquo; to the alert controller. There can be maximum 2 actions. Any more will be ignored. The order is important.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addAction</span><span class="p">(</span><span class="nv">action</span><span class="p">:</span> <span class="kt">AlertAction</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>action</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The &lsquo;AlertAction&rsquo; to be added</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -221,7 +350,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-13)</p>
+          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

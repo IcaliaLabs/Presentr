@@ -9,28 +9,30 @@
 import Foundation
 
 /**
- *  <#Description#>
+ *  Protocol that represents a custom PresentrAnimation. Conforms to 'UIViewControllerAnimatedTransitioning'
  */
 protocol PresentrAnimation: UIViewControllerAnimatedTransitioning{
 
+    /// The duration for the animation. Must be set by the class that implements protocol.
     var animationDuration: NSTimeInterval { get set }
 
-    func animate(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer)
+    /**
+     This method has a default implementation by the 'PresentrAnimation' extension. It handles animating the view controller.
+     
+     - parameter transitionContext: Receives the transition context from the class implementing the protocol
+     - parameter transform:         Transform block used to obtain the initial frame for the animation, given the finalFrame and the container's frame.
+     
+     */
+    func animate(transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer)
     
 }
 
-/// <#Description#>
-typealias frameTransformer = (finalFrame: CGRect, containerFrame: CGRect) -> CGRect
+/// Transform block used to obtain the initial frame for the animation, given the finalFrame and the container's frame.
+typealias FrameTransformer = (finalFrame: CGRect, containerFrame: CGRect) -> CGRect
 
 extension PresentrAnimation{
     
-    /**
-     <#Description#>
-     
-     - parameter transitionContext: <#transitionContext description#>
-     - parameter transform:         <#transform description#>
-     */
-    func animate(transitionContext: UIViewControllerContextTransitioning, transform: frameTransformer){
+    func animate(transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer){
         
         guard let containerView = transitionContext.containerView() else {
             return
