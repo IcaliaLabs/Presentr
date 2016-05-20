@@ -207,7 +207,6 @@ extension AlertViewController {
             let success = CTFontManagerRegisterGraphicsFont(font, &error)
             if !success {
                 print("Error loading font. Font is possibly already registered.")
-                //print(error)
                 return false
             }
         }else{
