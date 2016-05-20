@@ -13,7 +13,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Presentr Docs</a> (17% documented)</p>
+        <p><a href="index.html">Presentr Docs</a> (41% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -30,6 +30,9 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Classes/AlertAction.html">AlertAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/AlertViewController.html">AlertViewController</a>
               </li>
               <li class="nav-group-task">
@@ -41,13 +44,19 @@
             <a href="Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Enums/AlertActionStyle.html">AlertActionStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/ModalCenterPosition.html">ModalCenterPosition</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/ModalSize.html">ModalSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/PresentrType.html">PresentrType</a>
+                <a href="Enums/PresentationType.html">PresentationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TransitionType.html">TransitionType</a>
               </li>
             </ul>
           </li>
@@ -55,7 +64,7 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Extensions.html#/s:C8Presentr30PresentrPresentationController">PresentrPresentationController</a>
+                <a href="Extensions.html#/s:C8Presentr18PresentrController">PresentrController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/UIViewController.html">UIViewController</a>
@@ -63,10 +72,10 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Protocols.html">Protocols</a>
+            <a href="Typealiases.html">Typealiases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/AlertViewControllerDelegate.html">AlertViewControllerDelegate</a>
+                <a href="Typealiases.html#/s:8Presentr16FrameTransformer">FrameTransformer</a>
               </li>
             </ul>
           </li>
@@ -103,7 +112,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Presentr</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -117,6 +126,34 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:C8Presentr11AlertAction"></a>
+                    <a name="//apple_ref/swift/Class/AlertAction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C8Presentr11AlertAction">AlertAction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Describes each action that is going to be shown in the &lsquo;AlertViewController&rsquo;</p>
+
+                        <a href="Classes/AlertAction.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AlertAction</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:C8Presentr19AlertViewController"></a>
                     <a name="//apple_ref/swift/Class/AlertViewController" class="dashAnchor"></a>
                     <a class="token" href="#/s:C8Presentr19AlertViewController">AlertViewController</a>
@@ -127,9 +164,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>UIViewController subclass that displays the alert</p>
 
                         <a href="Classes/AlertViewController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AlertViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -139,7 +184,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-13)</p>
+          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
