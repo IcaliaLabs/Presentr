@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ModalSize Enum Reference</title>
+    <title>PresentationType Enum Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/ModalSize" class="dashAnchor"></a>
-    <a title="ModalSize Enum Reference"></a>
+    <a name="//apple_ref/swift/Enum/PresentationType" class="dashAnchor"></a>
+    <a title="PresentationType Enum Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">Presentr Docs</a> (41% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">Presentr Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ModalSize Enum Reference
+        PresentationType Enum Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -85,20 +85,20 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ModalSize</h1>
+            <h1>PresentationType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
 
                 </div>
               </div>
-            <p>Descibes a presented modal&rsquo;s size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the &lsquo;calculate&rsquo; methods, passing in the &lsquo;parentSize&rsquo; which only the Presentation Controller should be aware of.</p>
+            <p>Basic Presentr type. Its job is to describe the &lsquo;type&rsquo; of presentation. The type describes the size and position of the presented view controller.</p>
 
 <ul>
-<li>Default: Default.</li>
-<li>Half:    Half of the screen.</li>
-<li>Full:    Full screen.</li>
-<li>Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device&rsquo;s screen, like in a small Alert.</li>
+<li>Alert:      This is a small 270 x 180 alert which is the same size as the default iOS alert.</li>
+<li>Popup:      This is a average/default size &lsquo;popup&rsquo; modal.</li>
+<li>TopHalf:    This takes up half of the screen, on the top side.</li>
+<li>BottomHalf: This takes up half of the screen, on the bottom side.</li>
 </ul>
 
           </section>
@@ -108,9 +108,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize7DefaultFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Default" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize7DefaultFMS0_S0_">Default</a>
+                    <a name="/s:FO8Presentr16PresentationType5AlertFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/Alert" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr16PresentationType5AlertFMS0_S0_">Alert</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -125,7 +125,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
 
                         </div>
                       </div>
@@ -139,9 +139,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize4HalfFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Half" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize4HalfFMS0_S0_">Half</a>
+                    <a name="/s:FO8Presentr16PresentationType5PopupFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/Popup" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr16PresentationType5PopupFMS0_S0_">Popup</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -156,7 +156,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
 
                         </div>
                       </div>
@@ -170,9 +170,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize4FullFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Full" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize4FullFMS0_S0_">Full</a>
+                    <a name="/s:FO8Presentr16PresentationType7TopHalfFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/TopHalf" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr16PresentationType7TopHalfFMS0_S0_">TopHalf</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -187,7 +187,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
 
                         </div>
                       </div>
@@ -201,9 +201,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO8Presentr9ModalSize6CustomFMS0_FT4sizeSf_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Custom" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO8Presentr9ModalSize6CustomFMS0_FT4sizeSf_S0_">Custom</a>
+                    <a name="/s:FO8Presentr16PresentationType10BottomHalfFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/BottomHalf" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO8Presentr16PresentationType10BottomHalfFMS0_S0_">BottomHalf</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -218,7 +218,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
 
                         </div>
                       </div>

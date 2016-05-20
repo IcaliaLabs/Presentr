@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// <#Description#>
+/// Custom 'CoverVerticalFromTopAnimation' animation. Conforms to 'PresentrAnimation' protocol
 class CoverVerticalFromTopAnimation: NSObject, PresentrAnimation{
     
     var animationDuration: NSTimeInterval

@@ -8,12 +8,50 @@
 
 import UIKit
 
+public typealias AlertActionHandler = (() -> Void)
+
+/// Describes each action that is going to be shown in the 'AlertViewController'
+public class AlertAction{
+    
+    let title: String
+    let style: AlertActionStyle
+    let handler: AlertActionHandler?
+    
+    /**
+     Initialized an 'AlertAction'
+     
+     - parameter title:   The title for the action, that will be used as the title for a button in the alert controller
+     - parameter style:   The style for the action, that will be used to style a button in the alert controller.
+     - parameter handler: The handler for the action, that will be called when the user clicks on a button in the alert controller.
+     
+     - returns: An inmutable AlertAction object
+     */
+    public init(title: String, style: AlertActionStyle, handler: AlertActionHandler?){
+        self.title = title
+        self.style = style
+        self.handler = handler
+    }
+    
+}
+
+/**
+ Describes the style for an action, that will be used to style a button in the alert controller.
+ 
+ - Default:     Green text label. Meant to draw attention to the action.
+ - Cancel:      Gray text label. Meant to be neutral.
+ - Destructive: Red text label. Meant to warn the user about the action.
+ */
 public enum AlertActionStyle{
     
     case Default
     case Cancel
     case Destructive
     
+    /**
+     Decides which color to use for each style
+     
+     - returns: UIColor representing the color for the current style
+     */
     func color() -> UIColor{
         switch self {
         case .Default:
@@ -27,23 +65,7 @@ public enum AlertActionStyle{
     
 }
 
-public typealias AlertActionHandler = (() -> Void)
-
-public class AlertAction{
-    
-    let title: String
-    let style: AlertActionStyle
-    let handler: AlertActionHandler?
-    
-    public init(title: String, style: AlertActionStyle, handler: AlertActionHandler?){
-        self.title = title
-        self.style = style
-        self.handler = handler
-    }
-    
-}
-
-enum Font: String {
+private enum Font: String {
     
     case Montserrat = "Montserrat-Regular"
     case SourceSansPro = "SourceSansPro-Regular"
@@ -54,7 +76,7 @@ enum Font: String {
     
 }
 
-struct ColorPalette {
+private struct ColorPalette {
     
     static let grayColor = UIColor(red: 151.0/255.0, green: 151.0/255.0, blue: 151.0/255.0, alpha: 1)
     static let greenColor = UIColor(red: 58.0/255.0, green: 213.0/255.0, blue: 91.0/255.0, alpha: 1)
@@ -62,12 +84,17 @@ struct ColorPalette {
     
 }
 
+/// UIViewController subclass that displays the alert
 public class AlertViewController: UIViewController {
     
+    /// Text that will be used as the title for the alert
     public var titleText: String?
+    /// Text that will be used as the body for the alert
     public var bodyText: String?
     
+    /// If set to false, alert wont auto-dismiss the controller when an action is clicked. Dismissal will be up to the action's handler. Default is true.
     public var autoDismiss: Bool = true
+    /// If autoDismiss is set to true, then set this property if you want the dismissal to be animated. Default is true.
     public var dismissAnimated: Bool = true
     
     private var actions = [AlertAction]()
@@ -116,6 +143,11 @@ public class AlertViewController: UIViewController {
     
     // MARK: AlertAction's
     
+    /**
+     Adds an 'AlertAction' to the alert controller. There can be maximum 2 actions. Any more will be ignored. The order is important.
+     
+     - parameter action: The 'AlertAction' to be added
+     */
     public func addAction(action: AlertAction){
         guard actions.count < 2 else { return }
         actions += [action]
@@ -123,19 +155,19 @@ public class AlertViewController: UIViewController {
     
     // MARK: Setup
     
-    func setupFonts(){
+    private func setupFonts(){
         titleLabel.font = Font.Montserrat.font()
         bodyLabel.font = Font.SourceSansPro.font()
         firstButton.titleLabel?.font = Font.Montserrat.font(11.0)
         secondButton.titleLabel?.font = Font.Montserrat.font(11.0)
     }
     
-    func setupLabels(){
+    private func setupLabels(){
         titleLabel.text = titleText ?? "Alert"
         bodyLabel.text = bodyText ?? "This is an alert."
     }
     
-    func setupButtons(){
+    private func setupButtons(){
         guard let firstAction = actions.first else { return }
         apply(firstAction, toButton: firstButton)
         if actions.count == 2{
@@ -146,7 +178,7 @@ public class AlertViewController: UIViewController {
         }
     }
     
-    func apply(action: AlertAction, toButton: UIButton){
+    private func apply(action: AlertAction, toButton: UIButton){
         let title = action.title.uppercaseString
         let style = action.style
         toButton.setTitle(title, forState: .Normal)
@@ -188,14 +220,14 @@ extension AlertViewController {
         static var onceToken: dispatch_once_t = 0
     }
     
-    func loadFonts(){
+    private func loadFonts(){
         dispatch_once(&PresentrStatic.onceToken) {
             self.loadFont(Font.Montserrat.rawValue)
             self.loadFont(Font.SourceSansPro.rawValue)
         }
     }
     
-    func loadFont(name: String) -> Bool{
+    private func loadFont(name: String) -> Bool{
         let bundle = NSBundle(forClass: self.dynamicType)
         guard let fontPath = bundle.pathForResource(name, ofType: "ttf") else {
             return false
