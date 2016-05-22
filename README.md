@@ -65,19 +65,18 @@ It is **important to hold on to the Presentr object as an instance variable(prop
 let presenter = Presentr(presentationType: .Alert)
 presenter.transitionType = .CoverHorizontalFromRight // Optional
 ```
-The presentation type is required for initialization. The transition type is optional.
 
+Both types can be changed later on in order to reuse the Presentr object for other presentations.
 ```swift
 presenter.presentationType = .Popup
 presenter.transitionType = .CoverVerticalFromTop
 ```
-Both types can be changed later on in order to reuse the Presentr object for other presentations.
 
 #### Present the view controller.
 ```swift
 customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
 ```
-This is a helper method provided for you as an extension on UIViewController. It handles setting up the view controller's delegates and other boilerplate. 
+This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition. 
 
 #### Presentr also comes with a cool AlertViewController baked in if you want something different. API is very similar to Apple's alert controller.
 ```swift
@@ -103,6 +102,12 @@ alertController.addAction(okAction)
 ## Documentation
 
 Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](https://github.com/realm/jazzy).
+
+## To Do
+- Add more presentation types
+- Add more transition types (animations)
+- Add other baked in View Controller's for common uses (like the AlertViewController)
+- Add Testing
 
 ## Author
 [Daniel Lozano](http://danielozano.com) <br>
