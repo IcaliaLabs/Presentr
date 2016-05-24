@@ -42,13 +42,13 @@ public enum PresentationType {
 ```
 
 ##### Alert
-<img src="http://danielozano.com/PresentrScreenshots/Alert.png" width="375">
+<img src="http://danielozano.com/PresentrScreenshots/Alert1.png" width="375">
 ##### Popup
-<img src="http://danielozano.com/PresentrScreenshots/Popup.png" width="375">
+<img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="375">
 ##### BottomHalf
-<img src="http://danielozano.com/PresentrScreenshots/BottomHalf.png" width="375">
+<img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="375">
 ##### TopHalf
-<img src="http://danielozano.com/PresentrScreenshots/TopHalf.png" width="375">
+<img src="http://danielozano.com/PresentrScreenshots/TopHalf1.png" width="375">
 
 #### Transition Type
 
