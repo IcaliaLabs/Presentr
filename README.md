@@ -40,15 +40,12 @@ public enum PresentationType {
   case BottomHalf
 }
 ```
-
-##### Alert
-<img src="http://danielozano.com/PresentrScreenshots/Alert1.png" width="375">
-##### Popup
-<img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="375">
-##### BottomHalf
-<img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="375">
-##### TopHalf
-<img src="http://danielozano.com/PresentrScreenshots/TopHalf1.png" width="375">
+##### Alert & Popup
+<img src="http://danielozano.com/PresentrScreenshots/Alert1.png" width="250">
+<img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="250">
+##### BottomHalf & TopHalf
+<img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="250">
+<img src="http://danielozano.com/PresentrScreenshots/TopHalf1.png" width="250">
 
 #### Transition Type
 
