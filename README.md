@@ -45,7 +45,7 @@ public enum PresentationType {
 <img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="250">
 ##### BottomHalf & TopHalf
 <img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="250">
-<img src="http://danielozano.com/PresentrScreenshots/TopHalf1.png" width="250">
+<img src="http://danielozano.com/PresentrScreenshots/TopHalf2.png" width="250">
 
 #### Transition Type
 
