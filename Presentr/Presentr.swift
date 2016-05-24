@@ -213,7 +213,7 @@ public enum ModalCenterPosition {
         case .Center:
             return CGPointMake(containerBounds.width / 2, containerBounds.height / 2)
         case .TopCenter:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height * (1 / 4))
+            return CGPointMake(containerBounds.width / 2, containerBounds.height * (1 / 4) - 1)
         case .BottomCenter:
             return CGPointMake(containerBounds.width / 2, containerBounds.height * (3 / 4))
         }
