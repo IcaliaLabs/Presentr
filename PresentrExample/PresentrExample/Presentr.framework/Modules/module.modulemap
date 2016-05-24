@@ -1,0 +1,10 @@
+framework module Presentr {
+  umbrella header "Presentr.h"
+
+  export *
+  module * { export * }
+}
+
+module Presentr.Swift {
+    header "Presentr-Swift.h"
+}

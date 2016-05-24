@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PresentrExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-Fi-Ymy">
+                                <rect key="frame" x="212" y="40" width="175" height="30"/>
+                                <state key="normal" title="Alert w/Default Animation"/>
+                                <connections>
+                                    <action selector="alertDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eby-Y6-dMP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gon-oh-70F">
+                                <rect key="frame" x="210" y="70" width="179" height="30"/>
+                                <state key="normal" title="Alert w/Custom Animation"/>
+                                <connections>
+                                    <action selector="alertCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j83-jb-Aya"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilc-C6-x1v">
+                                <rect key="frame" x="207" y="120" width="186" height="30"/>
+                                <state key="normal" title="Popup w/Default Animation"/>
+                                <connections>
+                                    <action selector="popupDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T09-Xh-vML"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ic-aL-jyr">
+                                <rect key="frame" x="205" y="150" width="190" height="30"/>
+                                <state key="normal" title="Popup w/Custom Animation"/>
+                                <connections>
+                                    <action selector="popupCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eR3-Jo-pJR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwV-nj-alV">
+                                <rect key="frame" x="202" y="200" width="196" height="30"/>
+                                <state key="normal" title="TopHalf w/Default Animation"/>
+                                <connections>
+                                    <action selector="topHalfDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="40t-qQ-Wr4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-IE-pX3">
+                                <rect key="frame" x="200" y="230" width="199" height="30"/>
+                                <state key="normal" title="TopHalf w/Custom Animation"/>
+                                <connections>
+                                    <action selector="topHalfCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bba-V0-nBu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbt-hT-F8E">
+                                <rect key="frame" x="188" y="310" width="224" height="30"/>
+                                <state key="normal" title="BottomHalf w/Custom Animation"/>
+                                <connections>
+                                    <action selector="bottomHalfCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KmZ-zV-m7U"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbM-kV-4Lu">
+                                <rect key="frame" x="190" y="280" width="220" height="30"/>
+                                <state key="normal" title="BottomHalf w/Default Animation"/>
+                                <connections>
+                                    <action selector="bottomHalfDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbD-vc-lQQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fbt-hT-F8E" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="308-nI-Q34"/>
+                            <constraint firstItem="VbM-kV-4Lu" firstAttribute="top" secondItem="cq4-IE-pX3" secondAttribute="bottom" constant="20" id="4iJ-g5-Kqy"/>
+                            <constraint firstItem="Ilc-C6-x1v" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CMU-c5-O8R"/>
+                            <constraint firstItem="MwV-nj-alV" firstAttribute="top" secondItem="1ic-aL-jyr" secondAttribute="bottom" constant="20" id="D5D-ed-mEv"/>
+                            <constraint firstItem="Fbt-hT-F8E" firstAttribute="top" secondItem="VbM-kV-4Lu" secondAttribute="bottom" id="PKt-Ro-CAt"/>
+                            <constraint firstItem="gon-oh-70F" firstAttribute="top" secondItem="iX4-Fi-Ymy" secondAttribute="bottom" id="QsA-TN-y4J"/>
+                            <constraint firstItem="iX4-Fi-Ymy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="Vig-iF-3tf"/>
+                            <constraint firstItem="cq4-IE-pX3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WBh-wj-4Fz"/>
+                            <constraint firstItem="Ilc-C6-x1v" firstAttribute="top" secondItem="gon-oh-70F" secondAttribute="bottom" constant="20" id="YNv-dV-VKC"/>
+                            <constraint firstItem="MwV-nj-alV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iQO-jc-y2n"/>
+                            <constraint firstItem="gon-oh-70F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oMk-eM-bJK"/>
+                            <constraint firstItem="1ic-aL-jyr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sgw-wx-9M7"/>
+                            <constraint firstItem="1ic-aL-jyr" firstAttribute="top" secondItem="Ilc-C6-x1v" secondAttribute="bottom" id="so6-r2-xJ0"/>
+                            <constraint firstItem="VbM-kV-4Lu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="swb-Ki-0IY"/>
+                            <constraint firstItem="cq4-IE-pX3" firstAttribute="top" secondItem="MwV-nj-alV" secondAttribute="bottom" id="tLm-ma-mKO"/>
+                            <constraint firstItem="iX4-Fi-Ymy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="td6-gG-2Yp"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="443" y="372"/>
+        </scene>
+    </scenes>
+</document>

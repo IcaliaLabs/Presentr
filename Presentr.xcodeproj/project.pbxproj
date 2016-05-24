@@ -99,14 +99,12 @@
 		0680CC311CE3EFA900CBAE4F /* Presentr */ = {
 			isa = PBXGroup;
 			children = (
+				0680CC321CE3EFA900CBAE4F /* Presentr.h */,
 				0680CC491CE3EFC500CBAE4F /* Presentr.swift */,
 				0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */,
 				06686CB41CE96DCE00F88216 /* Animation */,
 				06D8AE8E1CE40BF300E00A6C /* Alert */,
-				0680CC321CE3EFA900CBAE4F /* Presentr.h */,
-				0680CC341CE3EFA900CBAE4F /* Info.plist */,
-				06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */,
-				06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */,
+				06A1F0C51CF3D1C70057C79B /* Assets */,
 			);
 			path = Presentr;
 			sourceTree = "<group>";
@@ -118,6 +116,16 @@
 				0680CC401CE3EFA900CBAE4F /* Info.plist */,
 			);
 			path = PresentrTests;
+			sourceTree = "<group>";
+		};
+		06A1F0C51CF3D1C70057C79B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0680CC341CE3EFA900CBAE4F /* Info.plist */,
+				06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */,
+				06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		06D8AE8E1CE40BF300E00A6C /* Alert */ = {
