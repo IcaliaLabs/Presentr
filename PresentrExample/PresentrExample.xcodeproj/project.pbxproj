@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		066E4DB01CF3E38F00A027EA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 066E4DAF1CF3E38F00A027EA /* Presentr.framework */; };
 		06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */; };
 		06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B51CF3D17E0057C79B /* ViewController.swift */; };
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
-		06A1F0C71CF3D27E0057C79B /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A1F0C61CF3D27E0057C79B /* Presentr.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		066E4DAF1CF3E38F00A027EA /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 		06A1F0B01CF3D17E0057C79B /* PresentrExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentrExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06A1F0B51CF3D17E0057C79B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,7 +24,6 @@
 		06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A1F0BD1CF3D17E0057C79B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		06A1F0C61CF3D27E0057C79B /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06A1F0C71CF3D27E0057C79B /* Presentr.framework in Frameworks */,
+				066E4DB01CF3E38F00A027EA /* Presentr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +63,7 @@
 				06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */,
 				06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */,
 				06A1F0BF1CF3D17E0057C79B /* Info.plist */,
-				06A1F0C61CF3D27E0057C79B /* Presentr.framework */,
+				066E4DAF1CF3E38F00A027EA /* Presentr.framework */,
 			);
 			path = PresentrExample;
 			sourceTree = "<group>";
@@ -298,6 +298,7 @@
 				06A1F0C41CF3D17E0057C79B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
