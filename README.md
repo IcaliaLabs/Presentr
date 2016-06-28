@@ -86,19 +86,30 @@ customPresentViewController(presenter, viewController: alertController, animated
 This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition. 
 
 #### Presentr also comes with a cool AlertViewController baked in if you want something different. API is very similar to Apple's alert controller.
-```swift
-let alertController = Presentr.alertViewController(title: "Warning", body: "Are you sure?")
 
-let cancelAction = AlertAction(title: "Cancel", style: .Cancel) {
-  print("CANCEL!")
-}
-        
-let okAction = AlertAction(title: "Ok", style: .Destructive) {
-  print("OK!")
-}
-        
-alertController.addAction(cancelAction)
-alertController.addAction(okAction)
+<img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
+
+```swift
+
+  let title = "Are you sure?"
+  let body = "There is no way to go back after you do this!"
+  
+  let alertController = Presentr.alertViewController(title: title, body: body)
+  
+  let deleteAction = AlertAction(title: "Sure 🕶", style: .Destructive) {
+    print("Deleted!")
+  }
+  
+  let okAction = AlertAction(title: "NO, sorry 🙄", style: .Cancel){
+    print("Ok!")
+  }
+  
+  controller.addAction(deleteAction)
+  controller.addAction(okAction)
+  
+  presenter.presentationType = .Alert
+  customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
+
 ```
 
 ## Requirements
