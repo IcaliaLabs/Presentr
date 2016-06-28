@@ -19,7 +19,7 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 
 ## Installation
 
-#### [Cocoapods](http://cocoapods.org)
+#### [CocoaPods](http://cocoapods.org)
 
 ```ruby
 use_frameworks!
