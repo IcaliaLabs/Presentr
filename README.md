@@ -130,8 +130,8 @@ Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](ht
 ## Author
 [Daniel Lozano](http://danielozano.com) <br>
 iOS Developer @ [Icalia Labs](http://www.icalialabs.com)
-
-Logo design by [Eduardo Higareda](http://eldelentes.mx)
+<br><br>
+Logo design by [Eduardo Higareda](http://eldelentes.mx)<br>
 Alert design by [Noe Araujo](http://www.noearaujo.com)
 
 ## License
