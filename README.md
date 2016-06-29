@@ -131,6 +131,8 @@ Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](ht
 [Daniel Lozano](http://danielozano.com) <br>
 iOS Developer @ [Icalia Labs](http://www.icalialabs.com)
 
+Logo design by [Lentes](http://eldelentes.mx)
+
 ## License
 Presentr is released under the MIT license.  
 See LICENSE for details.
