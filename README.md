@@ -1,4 +1,4 @@
-# Presentr
+<img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png">
 
 [![Version](https://img.shields.io/cocoapods/v/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![Platform](https://img.shields.io/cocoapods/p/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
