@@ -94,7 +94,7 @@ This is a helper method provided for you as an extension on UIViewController. It
   let title = "Are you sure?"
   let body = "There is no way to go back after you do this!"
   
-  let alertController = Presentr.alertViewController(title: title, body: body)
+  let controller = Presentr.alertViewController(title: title, body: body)
   
   let deleteAction = AlertAction(title: "Sure 🕶", style: .Destructive) {
     print("Deleted!")
