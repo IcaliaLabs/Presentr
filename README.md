@@ -67,7 +67,7 @@ public enum TransitionType{
 
 #### Create a Presentr object
 
-It is **important to hold on to the Presentr object as an instance variable(property)** since internally it will be used as a delegate for the custom presentation.
+It is **important to hold on to the Presentr object as an instance variable(property)** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation.
 ```swift
 let presenter = Presentr(presentationType: .Alert)
 presenter.transitionType = .CoverHorizontalFromRight // Optional
@@ -80,12 +80,14 @@ presenter.transitionType = .CoverVerticalFromTop
 ```
 
 #### Present the view controller.
+Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
 ```swift
-customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+let controller = SomeViewController()
+customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
 ```
 This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition. 
 
-#### Presentr also comes with a cool AlertViewController baked in if you want something different. API is very similar to Apple's alert controller.
+#### Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
 
 <img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
 
