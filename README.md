@@ -27,6 +27,10 @@ use_frameworks!
 pod 'Presentr'
 ```
 
+#### Manually
+1. Download and drop ```/Presentr``` folder in your project.  
+2. Congratulations! 
+
 ## Usage
 
 ### Main Types
