@@ -1,4 +1,4 @@
-<img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png">
+<img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png" width="700">
 
 [![Version](https://img.shields.io/cocoapods/v/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![Platform](https://img.shields.io/cocoapods/p/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
@@ -43,6 +43,7 @@ public enum PresentationType {
   case Popup
   case TopHalf
   case BottomHalf
+  case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 }
 ```
 ##### Alert & Popup
@@ -71,25 +72,82 @@ public enum TransitionType{
 
 #### Create a Presentr object
 
-It is **important to hold on to the Presentr object as an instance variable(property)** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation.
+It is **important to hold on to the Presentr object as a property** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation, so you must hold a strong reference to it.
+
 ```swift
-let presenter = Presentr(presentationType: .Alert)
-presenter.transitionType = .CoverHorizontalFromRight // Optional
+class ViewController: UIViewController{
+
+  let presenter: Presentr = {
+      let presenter = Presentr(presentationType: .Alert)
+      presenter.transitionType = .CoverHorizontalFromRight // Optional
+      return presenter
+  }()
+
+}
 ```
 
 Both types can be changed later on in order to reuse the Presentr object for other presentations.
+
 ```swift
 presenter.presentationType = .Popup
 presenter.transitionType = .CoverVerticalFromTop
 ```
 
+Now you can also choose to disable rounded corners on the view controller that will be presented. Default is true except for .TopHalf and .BottomHalf presentation types.
+
+```swift
+presenter.roundCorners = false
+```
+
 #### Present the view controller.
+
 Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
+
 ```swift
 let controller = SomeViewController()
 customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
 ```
+
 This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition. 
+
+#### Creating a custom PresentationType
+
+If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. The following code creates a Presentr object with a custom PresentationType which shows the alert in a small top banner.
+
+```swift
+class ViewController: UIViewController{
+
+  let customPresenter: Presentr = {
+  
+    let width = ModalSize.Full
+    let height = ModalSize.Custom(size: 150)
+    let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
+
+    let customType = PresentationType.Custom(width: width, height: height, center: center)
+
+    let customPresenter = Presentr(presentationType: customType)
+    customPresenter.transitionType = .CoverVerticalFromTop
+    customPresenter.roundCorners = false
+    return customPresenter
+    
+  }()
+
+}
+```
+
+<img src="http://danielozano.com/PresentrScreenshots/CustomPresentationType.png" width="250">
+
+You create a custom PresentationType using the .Custom case on the PresentationType enum. It has three associated values for the width, height and center position of the presented controller or 'modal'.
+
+```Swift
+public enum ModalSize {
+  case Default
+  case Half
+  case Full
+  case Custom(size: Float)
+}
+```
+
 
 #### Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
 
