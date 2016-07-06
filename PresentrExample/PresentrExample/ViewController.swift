@@ -17,13 +17,18 @@ class ViewController: UIViewController {
         return presenter
     }()
     
-    let customPresenter: Presentr = {
+    var customPresentationType: PresentationType {
         let width = ModalSize.Full
         let height = ModalSize.Custom(size: 150)
         let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
-        let customPresentation = PresentationType.Custom(width: width, height: height, center: center)
-        
-        let presenter = Presentr(presentationType: customPresentation)
+        let customType = PresentationType.Custom(width: width, height: height, center: center)
+        return customType
+    }
+    
+    lazy var customPresenter: Presentr = {
+        let presenter = Presentr(presentationType: self.customPresentationType)
+        presenter.transitionType = .CoverVerticalFromTop
+        presenter.roundCorners = false
         return presenter
     }()
     
