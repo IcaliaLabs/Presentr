@@ -17,6 +17,7 @@
 		0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */; };
 		0680CC531CE3EFFA00CBAE4F /* Alert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0680CC511CE3EFFA00CBAE4F /* Alert.xib */; };
 		0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */; };
+		06B585471D2D5FDB0045C8DA /* Presentr+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B585461D2D5FDB0045C8DA /* Presentr+Equatable.swift */; };
 		06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */; };
 		06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrController.swift; sourceTree = "<group>"; };
 		0680CC511CE3EFFA00CBAE4F /* Alert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Alert.xib; sourceTree = "<group>"; };
 		0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		06B585461D2D5FDB0045C8DA /* Presentr+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Presentr+Equatable.swift"; sourceTree = "<group>"; };
 		06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				0680CC321CE3EFA900CBAE4F /* Presentr.h */,
 				0680CC491CE3EFC500CBAE4F /* Presentr.swift */,
 				0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */,
+				06B585461D2D5FDB0045C8DA /* Presentr+Equatable.swift */,
 				06686CB41CE96DCE00F88216 /* Animation */,
 				06D8AE8E1CE40BF300E00A6C /* Alert */,
 				06A1F0C51CF3D1C70057C79B /* Assets */,
@@ -253,6 +256,7 @@
 				0680CC4D1CE3EFC500CBAE4F /* Presentr.swift in Sources */,
 				0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */,
 				0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */,
+				06B585471D2D5FDB0045C8DA /* Presentr+Equatable.swift in Sources */,
 				06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

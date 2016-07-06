@@ -23,6 +23,7 @@ public enum PresentationType {
     case Popup
     case TopHalf
     case BottomHalf
+    case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
     
     /**
      Describes the sizing for each Presentr type. It is meant to be non device/width specific. Except with the .Custom type which should be for cases when the modal size is very small, i.e. smaller than any device.
@@ -37,6 +38,8 @@ public enum PresentationType {
             return (.Default, .Default)
         case .TopHalf, .BottomHalf:
             return (.Full, .Half)
+        case .Custom(let width, let height, _):
+            return (width, height)
         }
     }
     
@@ -53,6 +56,8 @@ public enum PresentationType {
             return .TopCenter
         case .BottomHalf:
             return .BottomCenter
+        case .Custom(_, _, let center):
+            return center
         }
     }
     
@@ -63,7 +68,7 @@ public enum PresentationType {
      */
     func defaultTransitionType() -> TransitionType{
         switch self {
-        case .Alert, .Popup, .BottomHalf:
+        case .Alert, .Popup, .BottomHalf, .Custom:
             return .CoverVertical
         case .TopHalf:
             return .CoverVerticalFromTop
@@ -200,6 +205,8 @@ public enum ModalCenterPosition {
     case Center
     case TopCenter
     case BottomCenter
+    case Custom(centerPoint: CGPoint)
+    case CustomOrigin(origin: CGPoint)
     
     /**
      Calculates the exact position for the presented view controller center.
@@ -208,7 +215,7 @@ public enum ModalCenterPosition {
      
      - returns: CGPoint representing the presented view controller's center point.
      */
-    func calculatePoint(containerBounds: CGRect) -> CGPoint{
+    func calculatePoint(containerBounds: CGRect) -> CGPoint?{
         switch self {
         case .Center:
             return CGPointMake(containerBounds.width / 2, containerBounds.height / 2)
@@ -216,6 +223,19 @@ public enum ModalCenterPosition {
             return CGPointMake(containerBounds.width / 2, containerBounds.height * (1 / 4) - 1)
         case .BottomCenter:
             return CGPointMake(containerBounds.width / 2, containerBounds.height * (3 / 4))
+        case .Custom(let point):
+            return point
+        case .CustomOrigin(_):
+            return nil
+        }
+    }
+    
+    func calculateOrigin() -> CGPoint?{
+        switch self {
+        case .CustomOrigin(let origin):
+            return origin
+        default:
+            return nil
         }
     }
     

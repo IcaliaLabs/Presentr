@@ -61,20 +61,25 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: - Sizing Helper's
     
-    private func calculateWidth(parentSize: CGSize) -> Float {
+    private func getWidthFromType(parentSize: CGSize) -> Float {
         let width = presentationType.size().width
         return width.calculateWidth(parentSize)
     }
 
-    private func calculateHeight(parentSize: CGSize) -> Float {
+    private func getHeightFromType(parentSize: CGSize) -> Float {
         let height = presentationType.size().height
         return height.calculateHeight(parentSize)
     }
 
-    private func calculateCenterPoint() -> CGPoint {
+    private func getCenterPointFromType() -> CGPoint? {
         let containerBounds = containerView!.bounds
         let position = presentationType.position()
         return position.calculatePoint(containerBounds)
+    }
+    
+    private func getOriginFromType() -> CGPoint? {
+        let position = presentationType.position()
+        return position.calculateOrigin()
     }
 
     private func calculateOrigin(center: CGPoint, size: CGSize) -> CGPoint {
@@ -96,8 +101,13 @@ extension PresentrController {
         let containerBounds = containerView!.bounds
 
         let size = sizeForChildContentContainer(presentedViewController, withParentContainerSize: containerBounds.size)
-        let center = calculateCenterPoint()
-        let origin = calculateOrigin(center, size: size)
+
+        let origin: CGPoint
+        if let center = getCenterPointFromType(){
+            origin = calculateOrigin(center, size: size)
+        }else{
+            origin = getOriginFromType() ?? CGPointMake(0, 0)
+        }
 
         presentedViewFrame.size = size
         presentedViewFrame.origin = origin
@@ -106,8 +116,8 @@ extension PresentrController {
     }
 
     override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-        let width = calculateWidth(parentSize)
-        let height = calculateHeight(parentSize)
+        let width = getWidthFromType(parentSize)
+        let height = getHeightFromType(parentSize)
         return CGSizeMake(CGFloat(width), CGFloat(height))
     }
 

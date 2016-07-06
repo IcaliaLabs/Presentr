@@ -11,9 +11,19 @@ import Presentr
 
 class ViewController: UIViewController {
 
-    var presenter: Presentr = {
+    let presenter: Presentr = {
         let presenter = Presentr(presentationType: .Alert)
         presenter.transitionType = TransitionType.CoverHorizontalFromRight
+        return presenter
+    }()
+    
+    let customPresenter: Presentr = {
+        let width = ModalSize.Full
+        let height = ModalSize.Custom(size: 150)
+        let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
+        let customPresentation = PresentationType.Custom(width: width, height: height, center: center)
+        
+        let presenter = Presentr(presentationType: customPresentation)
         return presenter
     }()
     
@@ -45,10 +55,11 @@ class ViewController: UIViewController {
     // MARK: - IBAction's
 
     @IBAction func alertDefault(sender: AnyObject) {
-        presenter.presentationType = .Alert
-        // For default transitions you do not need to set this, this is to reset it just in case it was already changed by another presentation below.
-        presenter.transitionType = .CoverVertical
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+//        presenter.presentationType = .Alert
+//        // For default transitions you do not need to set this, this is to reset it just in case it was already changed by another presentation below.
+//        presenter.transitionType = .CoverVertical
+//        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
     }
     
     @IBAction func alertCustom(sender: AnyObject) {
