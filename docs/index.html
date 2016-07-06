@@ -13,7 +13,7 @@
     <a title="Presentr  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Presentr Docs</a> (41% documented)</p>
+        <p><a href="index.html">Presentr Docs</a> (38% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -72,6 +72,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF8Presentroi2eeFTOS_16PresentationTypeS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF8Presentroi2eeFTOS_9ModalSizeS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF8Presentroi2eeFTOS_19ModalCenterPositionS0__Sb">==(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Typealiases.html">Typealiases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -85,16 +99,136 @@
         <section>
           <section class="section">
             
-            <a href='#presentr' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='presentr'>Presentr</h1>
+            <p><img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png"></p>
 
-<p>Presentr is a micro-framework, a simple wrapper on top of the Custom View Controller Presentation API introduced in iOS 8.</p>
+<p><a href="http://cocoapods.org/pods/Presentr"><img src="https://img.shields.io/cocoapods/v/Presentr.svg?style=flat" alt="Version"></a>
+<a href="http://cocoapods.org/pods/Presentr"><img src="https://img.shields.io/cocoapods/p/Presentr.svg?style=flat" alt="Platform"></a>
+<a href="http://cocoapods.org/pods/Presentr"><img src="https://img.shields.io/cocoapods/l/Presentr.svg?style=flat" alt="License"></a>
+<a href="https://codebeat.co/projects/github-com-icalialabs-presentr"><img src="https://codebeat.co/badges/f89d5cdf-b0c3-441d-b4e1-d56dcea48544" alt="codebeat badge"></a></p>
 
-<p>It is meant to handle the most typical custom presentations, but it is has been designed so new ones can be added easily.
-Just send me a pull request and I will add it.</p>
+<p><em>Presentr is a simple wrapper for the Custom View Controller Presentation API introduced in iOS 8.</em></p>
+<a href='#about' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='about'>About</h2>
+
+<p>It is very common in an app to want to modally present a view on top of the current screen without covering it completely. It can be for presenting an alert, a menu, or any kind of popup with some other functionality.</p>
+
+<p>Before iOS 8 this was done by adding a subiew on top of your content, but that is not the recommended way since a modal should ideally have its own view controller for handling all of the logic. View controller containment was also used, and was a better alternative, but still not ideal for this use case.</p>
+
+<p>iOS 8 fixed all of this by introducing Custom View Controller Presentations, which allowed us to modally present view controllers in new ways. But in order to use this API it is up to us to implement a couple of classes and delegates that could be confusing for some.</p>
+
+<p><strong>Presentr</strong> is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!</p>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<a href='#a_href_http_cocoapods_org_cocoapods_a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_href_http_cocoapods_org_cocoapods_a'><a href="http://cocoapods.org">CocoaPods</a></h4>
+<pre class="highlight ruby"><code><span class="n">use_frameworks!</span>
+
+<span class="n">pod</span> <span class="s1">'Presentr'</span>
+</code></pre>
+<a href='#manually' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='manually'>Manually</h4>
+
+<ol>
+<li>Download and drop <code>/Presentr</code> folder in your project.<br></li>
+<li>Congratulations!</li>
+</ol>
+<a href='#usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='usage'>Usage</h2>
+<a href='#main_types' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='main_types'>Main Types</h3>
+<a href='#presentation_type' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='presentation_type'>Presentation Type</h4>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="kt">Alert</span>
+  <span class="k">case</span> <span class="kt">Popup</span>
+  <span class="k">case</span> <span class="kt">TopHalf</span>
+  <span class="k">case</span> <span class="kt">BottomHalf</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#alert_amp_popup' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h5 id='alert_amp_popup'>Alert &amp; Popup</h5>
+
+<p><img src="http://danielozano.com/PresentrScreenshots/Alert1.png" width="250">
+<img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="250"></p>
+<a href='#bottomhalf_amp_tophalf' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h5 id='bottomhalf_amp_tophalf'>BottomHalf &amp; TopHalf</h5>
+
+<p><img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="250">
+<img src="http://danielozano.com/PresentrScreenshots/TopHalf2.png" width="250"></p>
+<a href='#transition_type' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='transition_type'>Transition Type</h4>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransitionType</span><span class="p">{</span>
+  <span class="c1">// System provided</span>
+  <span class="k">case</span> <span class="kt">CoverVertical</span>
+  <span class="k">case</span> <span class="kt">CrossDissolve</span>
+  <span class="k">case</span> <span class="kt">FlipHorizontal</span>
+  <span class="c1">// Custom</span>
+  <span class="k">case</span> <span class="kt">CoverVerticalFromTop</span>
+  <span class="k">case</span> <span class="kt">CoverHorizontalFromRight</span>
+  <span class="k">case</span> <span class="kt">CoverHorizontalFromLeft</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#getting_started' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='getting_started'>Getting Started</h3>
+<a href='#create_a_presentr_object' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='create_a_presentr_object'>Create a Presentr object</h4>
+
+<p>It is <strong>important to hold on to the Presentr object as an instance variable(property)</strong> on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation.
+<code>swift
+let presenter = Presentr(presentationType: .Alert)
+presenter.transitionType = .CoverHorizontalFromRight // Optional
+</code></p>
+
+<p>Both types can be changed later on in order to reuse the Presentr object for other presentations.
+<code>swift
+presenter.presentationType = .Popup
+presenter.transitionType = .CoverVerticalFromTop
+</code></p>
+<a href='#present_the_view_controller' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='present_the_view_controller'>Present the view controller.</h4>
+
+<p>Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
+<code>swift
+let controller = SomeViewController()
+customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
+</code>
+This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation &amp; transition. </p>
+<a href='#presentr_also_comes_with_a_cool_alertviewcontroller_baked_in_if_you_want_something_different_from_apple_39_s_the_api_is_very_similar_to_apple_39_s_alert_controller' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='presentr_also_comes_with_a_cool_alertviewcontroller_baked_in_if_you_want_something_different_from_apple_39_s_the_api_is_very_similar_to_apple_39_s_alert_controller'>Presentr also comes with a cool AlertViewController baked in if you want something different from Apple&rsquo;s. The API is very similar to Apple&rsquo;s alert controller.</h4>
+
+<p><img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250"></p>
+<pre class="highlight swift"><code>
+  <span class="k">let</span> <span class="nv">title</span> <span class="o">=</span> <span class="s">"Are you sure?"</span>
+  <span class="k">let</span> <span class="nv">body</span> <span class="o">=</span> <span class="s">"There is no way to go back after you do this!"</span>
+
+  <span class="k">let</span> <span class="nv">controller</span> <span class="o">=</span> <span class="kt">Presentr</span><span class="o">.</span><span class="nf">alertViewController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="n">body</span><span class="p">)</span>
+
+  <span class="k">let</span> <span class="nv">deleteAction</span> <span class="o">=</span> <span class="kt">AlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Sure 🕶"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="kt">Destructive</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Deleted!"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">let</span> <span class="nv">okAction</span> <span class="o">=</span> <span class="kt">AlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"NO, sorry 🙄"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="kt">Cancel</span><span class="p">){</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Ok!"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="n">controller</span><span class="o">.</span><span class="nf">addAction</span><span class="p">(</span><span class="n">deleteAction</span><span class="p">)</span>
+  <span class="n">controller</span><span class="o">.</span><span class="nf">addAction</span><span class="p">(</span><span class="n">okAction</span><span class="p">)</span>
+
+  <span class="n">presenter</span><span class="o">.</span><span class="n">presentationType</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Alert</span>
+  <span class="nf">customPresentViewController</span><span class="p">(</span><span class="n">presenter</span><span class="p">,</span> <span class="nv">viewController</span><span class="p">:</span> <span class="n">controller</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+</code></pre>
+<a href='#requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='requirements'>Requirements</h2>
+
+<ul>
+<li>Xcode 7.3+</li>
+<li>iOS 8.0+</li>
+<li>Swift 2.2+</li>
+</ul>
+<a href='#documentation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='documentation'>Documentation</h2>
+
+<p>Read the <a href="http://danielozano.com/PresentrDocs/">docs</a>. Generated with <a href="https://github.com/realm/jazzy">jazzy</a>.</p>
+<a href='#to_do' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='to_do'>To Do</h2>
+
+<ul>
+<li>Add more presentation types</li>
+<li>Add more transition types (animations)</li>
+<li>Add other baked in View Controller&rsquo;s for common uses (like the AlertViewController)</li>
+<li>Add Testing</li>
+</ul>
 <a href='#author' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='author'>Author</h2>
 
 <p><a href="http://danielozano.com">Daniel Lozano</a> <br>
-iOS Developer @ <a href="http://www.icalialabs.com">Icalia Labs</a></p>
+iOS Developer @ <a href="http://www.icalialabs.com">Icalia Labs</a>
+<br><br>
+Logo design by <a href="http://eldelentes.mx">Eduardo Higareda</a><br>
+Alert design by <a href="http://www.noearaujo.com">Noe Araujo</a></p>
 <a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='license'>License</h2>
 
 <p>Presentr is released under the MIT license.<br>
@@ -103,7 +237,7 @@ See LICENSE for details.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-19)</p>
+          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-07-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

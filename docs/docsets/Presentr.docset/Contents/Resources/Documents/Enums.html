@@ -13,7 +13,7 @@
     <a title="Enums  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Presentr Docs</a> (41% documented)</p>
+        <p><a href="index.html">Presentr Docs</a> (38% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -72,6 +72,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF8Presentroi2eeFTOS_16PresentationTypeS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF8Presentroi2eeFTOS_9ModalSizeS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF8Presentroi2eeFTOS_19ModalCenterPositionS0__Sb">==(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Typealiases.html">Typealiases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -91,41 +105,6 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:O8Presentr16PresentationType"></a>
-                    <a name="//apple_ref/swift/Enum/PresentationType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O8Presentr16PresentationType">PresentationType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Basic Presentr type. Its job is to describe the &lsquo;type&rsquo; of presentation. The type describes the size and position of the presented view controller.</p>
-
-<ul>
-<li>Alert:      This is a small 270 x 180 alert which is the same size as the default iOS alert.</li>
-<li>Popup:      This is a average/default size &lsquo;popup&rsquo; modal.</li>
-<li>TopHalf:    This takes up half of the screen, on the top side.</li>
-<li>BottomHalf: This takes up half of the screen, on the bottom side.</li>
-</ul>
-
-                        <a href="Enums/PresentationType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -163,41 +142,10 @@
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:O8Presentr9ModalSize"></a>
-                    <a name="//apple_ref/swift/Enum/ModalSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O8Presentr9ModalSize">ModalSize</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Descibes a presented modal&rsquo;s size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the &lsquo;calculate&rsquo; methods, passing in the &lsquo;parentSize&rsquo; which only the Presentation Controller should be aware of.</p>
-
-<ul>
-<li>Default: Default.</li>
-<li>Half:    Half of the screen.</li>
-<li>Full:    Full screen.</li>
-<li>Custom:  Custom fixed size. To be used only when we want a specific size, and are sure it wont be bigger than any device&rsquo;s screen, like in a small Alert.</li>
-</ul>
-
-                        <a href="Enums/ModalSize.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -217,6 +165,8 @@
 <li>Center:       Center of the screen.</li>
 <li>TopCenter:    Center of the top half of the screen.</li>
 <li>BottomCenter: Center of the bottom half of the screen.</li>
+<li>Custom: A custom center position using a CGPoint which represents the center point of the presented view controller.</li>
+<li>Custom: A custom center position to be calculated, using a CGPoint which represents the origin of the presented view controller.</li>
 </ul>
 
                         <a href="Enums/ModalCenterPosition.html" class="slightly-smaller">See more</a>
@@ -272,10 +222,89 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:O8Presentr9ModalSize"></a>
+                    <a name="//apple_ref/swift/Enum/ModalSize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:O8Presentr9ModalSize">ModalSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Descibes a presented modal&rsquo;s size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the &lsquo;calculate&rsquo; methods, passing in the &lsquo;parentSize&rsquo; which only the Presentation Controller should be aware of.</p>
+
+<ul>
+<li>Default: Default size. Will use Presentr&rsquo;s default margins to calculate size of presented controller. This is the size the .Popup presentation type uses.</li>
+<li>Half:    Half of the screen.</li>
+<li>Full:    Full screen.</li>
+<li>Custom:  Custom fixed size.</li>
+</ul>
+
+                        <a href="Enums/ModalSize.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ModalSize</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:O8Presentr16PresentationType"></a>
+                    <a name="//apple_ref/swift/Enum/PresentationType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:O8Presentr16PresentationType">PresentationType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Basic Presentr type. Its job is to describe the &lsquo;type&rsquo; of presentation. The type describes the size and position of the presented view controller.</p>
+
+<ul>
+<li>Alert:      This is a small 270 x 180 alert which is the same size as the default iOS alert.</li>
+<li>Popup:      This is a average/default size &lsquo;popup&rsquo; modal.</li>
+<li>TopHalf:    This takes up half of the screen, on the top side.</li>
+<li>BottomHalf: This takes up half of the screen, on the bottom side.</li>
+<li>Custom: Provide a custom width, height and center position.</li>
+</ul>
+
+                        <a href="Enums/PresentationType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresentationType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-05-19)</p>
+          <p>&copy; 2016 <a class="link" href="http://github.com/icalialabs/Presentr" target="_blank" rel="external">Daniel Lozano</a>. All rights reserved. (Last updated: 2016-07-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
