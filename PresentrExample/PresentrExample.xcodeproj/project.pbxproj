@@ -12,8 +12,8 @@
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
-		06B5853B1D2D59670045C8DA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B5853A1D2D59670045C8DA /* Presentr.framework */; };
-		06B5853C1D2D59670045C8DA /* Presentr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06B5853A1D2D59670045C8DA /* Presentr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		06B5853F1D2D59D30045C8DA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B5853E1D2D59D30045C8DA /* Presentr.framework */; };
+		06B585411D2D59D70045C8DA /* Presentr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06B5853E1D2D59D30045C8DA /* Presentr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				06B5853C1D2D59670045C8DA /* Presentr.framework in Embed Frameworks */,
+				06B585411D2D59D70045C8DA /* Presentr.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +38,7 @@
 		06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A1F0BD1CF3D17E0057C79B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		06B5853A1D2D59670045C8DA /* Presentr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Presentr.framework; path = "/Users/danlozano/Library/Developer/Xcode/DerivedData/Presentr-elslpvvbvgpbzadghlnjymweqyly/Build/Products/Debug-iphonesimulator/Presentr.framework"; sourceTree = "<absolute>"; };
+		06B5853E1D2D59D30045C8DA /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06B5853B1D2D59670045C8DA /* Presentr.framework in Frameworks */,
+				06B5853F1D2D59D30045C8DA /* Presentr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 			children = (
 				06A1F0B21CF3D17E0057C79B /* PresentrExample */,
 				06A1F0B11CF3D17E0057C79B /* Products */,
-				06B5853A1D2D59670045C8DA /* Presentr.framework */,
+				06B5853E1D2D59D30045C8DA /* Presentr.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -272,6 +272,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PresentrExample",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PresentrExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -287,6 +288,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PresentrExample",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PresentrExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
