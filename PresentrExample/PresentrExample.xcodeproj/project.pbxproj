@@ -12,18 +12,18 @@
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
-		06B585531D2D6CD10045C8DA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B585521D2D6CD10045C8DA /* Presentr.framework */; };
-		06B585551D2D6CD70045C8DA /* Presentr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06B585521D2D6CD10045C8DA /* Presentr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		06B585681D2D77030045C8DA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B585671D2D77030045C8DA /* Presentr.framework */; };
+		06B5856A1D2D77060045C8DA /* Presentr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06B585671D2D77030045C8DA /* Presentr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		06B585561D2D6CD70045C8DA /* Embed Frameworks */ = {
+		06B5856B1D2D77060045C8DA /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				06B585551D2D6CD70045C8DA /* Presentr.framework in Embed Frameworks */,
+				06B5856A1D2D77060045C8DA /* Presentr.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +38,7 @@
 		06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A1F0BD1CF3D17E0057C79B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		06B585521D2D6CD10045C8DA /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
+		06B585671D2D77030045C8DA /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06B585531D2D6CD10045C8DA /* Presentr.framework in Frameworks */,
+				06B585681D2D77030045C8DA /* Presentr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 			children = (
 				06A1F0B21CF3D17E0057C79B /* PresentrExample */,
 				06A1F0B11CF3D17E0057C79B /* Products */,
-				06B585521D2D6CD10045C8DA /* Presentr.framework */,
+				06B585671D2D77030045C8DA /* Presentr.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,7 +93,7 @@
 				06A1F0AC1CF3D17E0057C79B /* Sources */,
 				06A1F0AD1CF3D17E0057C79B /* Frameworks */,
 				06A1F0AE1CF3D17E0057C79B /* Resources */,
-				06B585561D2D6CD70045C8DA /* Embed Frameworks */,
+				06B5856B1D2D77060045C8DA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

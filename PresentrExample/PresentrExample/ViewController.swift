@@ -17,19 +17,16 @@ class ViewController: UIViewController {
         return presenter
     }()
     
-    var customPresentationType: PresentationType {
+    let customPresenter: Presentr = {
         let width = ModalSize.Full
         let height = ModalSize.Custom(size: 150)
         let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
         let customType = PresentationType.Custom(width: width, height: height, center: center)
-        return customType
-    }
-    
-    lazy var customPresenter: Presentr = {
-        let presenter = Presentr(presentationType: self.customPresentationType)
-        presenter.transitionType = .CoverVerticalFromTop
-        presenter.roundCorners = false
-        return presenter
+        
+        let customPresenter = Presentr(presentationType: customType)
+        customPresenter.transitionType = .CoverVerticalFromTop
+        customPresenter.roundCorners = false
+        return customPresenter
     }()
     
     var alertController: AlertViewController = {
@@ -60,11 +57,10 @@ class ViewController: UIViewController {
     // MARK: - IBAction's
 
     @IBAction func alertDefault(sender: AnyObject) {
-//        presenter.presentationType = .Alert
-//        // For default transitions you do not need to set this, this is to reset it just in case it was already changed by another presentation below.
-//        presenter.transitionType = .CoverVertical
-//        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
-        customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
+        presenter.presentationType = .Alert
+        // For default transitions you do not need to set this, this is to reset it just in case it was already changed by another presentation below.
+        presenter.transitionType = .CoverVertical
+        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
     @IBAction func alertCustom(sender: AnyObject) {
@@ -107,6 +103,10 @@ class ViewController: UIViewController {
         presenter.presentationType = .BottomHalf
         presenter.transitionType = .CoverHorizontalFromLeft
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func customPresentation(sender: AnyObject) {
+        customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
     }
     
 }

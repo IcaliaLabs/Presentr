@@ -134,7 +134,7 @@ SWIFT_CLASS("_TtC8Presentr19AlertViewController")
 SWIFT_CLASS("_TtC8Presentr8Presentr")
 @interface Presentr : NSObject
 
-/// Should the presented controller have rounded corners. Default is true.
+/// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
 @property (nonatomic) BOOL roundCorners;
 
 /// Public helper class method for creating and configuring an instance of the 'AlertViewController'

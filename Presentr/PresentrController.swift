@@ -32,10 +32,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     init(presentedViewController: UIViewController, presentingViewController: UIViewController, presentationType: PresentationType, roundCorners: Bool) {
         self.presentationType = presentationType
         self.roundCorners = roundCorners
+        
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+        
         setupChromeView()
         if shouldRoundCorners{
             addCornerRadiusToPresentedView()
+        }else{
+            removeCornerRadiusFromPresentedView()
         }
     }
 
@@ -53,6 +57,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.layer.masksToBounds = true
     }
 
+    private func removeCornerRadiusFromPresentedView() {
+        presentedViewController.view.layer.cornerRadius = 0
+    }
+    
     // MARK: Actions
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
@@ -61,7 +69,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
 
-    // MARK: - Sizing Helper's
+    // MARK: Sizing Helper's
     
     private func getWidthFromType(parentSize: CGSize) -> Float {
         let width = presentationType.size().width
@@ -92,7 +100,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
 }
 
-// MARK: UIPresentationController
+// MARK: - UIPresentationController
 
 extension PresentrController {
 

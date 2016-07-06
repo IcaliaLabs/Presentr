@@ -30,7 +30,7 @@ public enum TransitionType{
     case CoverHorizontalFromLeft
     
     /**
-     Matches the 'TransitionType' to the system provided transition. If this returns nil it should be taken to mean that it's a custom transition, and should call the animation() method.
+     Maps the 'TransitionType' to the system provided transition. If this returns nil it should be taken to mean that it's a custom transition, and should call the animation() method.
      
      - returns: UIKit transition style
      */

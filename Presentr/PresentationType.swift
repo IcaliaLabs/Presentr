@@ -26,7 +26,7 @@ public enum PresentationType {
     case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
     
     /**
-     Describes the sizing for each Presentr type. It is meant to be non device/width specific. Except with the .Custom type which should be for cases when the modal size is very small, i.e. smaller than any device.
+     Describes the sizing for each Presentr type. It is meant to be non device/width specific, except for the .Custom case.
      
      - returns: A tuple containing two 'ModalSize' enums, describing its width and height.
      */
@@ -44,7 +44,7 @@ public enum PresentationType {
     }
     
     /**
-     Describes the position for each Presentr type. It is meant to be non device/width specific.
+     Describes the position for each Presentr type. It is meant to be non device/width specific, except for the .Custom case.
      
      - returns: Returns a 'ModalCenterPosition' enum describing the center point for the presented modal.
      */
@@ -68,10 +68,10 @@ public enum PresentationType {
      */
     func defaultTransitionType() -> TransitionType{
         switch self {
-        case .Alert, .Popup, .BottomHalf, .Custom:
-            return .CoverVertical
         case .TopHalf:
             return .CoverVerticalFromTop
+        default:
+            return .CoverVertical
         }
     }
     

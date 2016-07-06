@@ -29,7 +29,7 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
     public var transitionType: TransitionType?
 
-    /// Should the presented controller have rounded corners. Default is true.
+    /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var roundCorners = true
     
     // MARK: Init
