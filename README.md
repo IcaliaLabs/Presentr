@@ -112,9 +112,7 @@ This is a helper method provided for you as an extension on UIViewController. It
 
 #### Creating a custom PresentationType
 
-If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own.
-
-You create a custom PresentationType using the .Custom case on the PresentationType enum. 
+If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
 ```swift 
 let customType = PresentationType.Custom(width: width, height: height, center: center)
 ```
@@ -124,17 +122,17 @@ It has three associated values for the width, height and center position of the 
 ```Swift
 // This is used to calculate either a width or height value.
 public enum ModalSize {
-  case Default   // Default modal size. Uses margins to calculate width or height. Used in the .Popup presentation type.
-  case Half      // Half of the screen 
-  case Full      // Whole screen
-  case Custom(size: Float) // Custom fixed value
+  case Default
+  case Half   
+  case Full      
+  case Custom(size: Float)
 }
 
 // This is used to calculate the center point position for the modal.
 public enum ModalCenterPosition {
-  case Center        // Center of the screen
-  case TopCenter     // Center of the top half of the screen
-  case BottomCenter  // Center of the bottom half of the screen
+  case Center     
+  case TopCenter  
+  case BottomCenter
   case Custom(centerPoint: CGPoint)  // Custom fixed center point.
   case CustomOrigin(origin: CGPoint) // Custom fixed origin point.
 }
@@ -142,17 +140,17 @@ public enum ModalCenterPosition {
 
 This allows us to use a fixed value when we want
 ```swift
-let width = ModalSize.Custom(size: 300)
+let width = ModalSize.Custom(size: 300) // Custom 300pt width
 ```
 
 But also let Presentr handle the calculations when we want something more common.
 ```swift
-let height = ModalSize.Full // Whole Screen
+let height = ModalSize.Full // Whole screen height
 ```
 
 We could also set a fixed position
 ```swift
-let position = ModalCenterPosition.Custom(centerPoint: CGPoint(x: 150, y: 150))
+let position = ModalCenterPosition.Custom(centerPoint: CGPoint(x: 150, y: 150))  // Custom center point
 ```
 
 Or let presentr calculate the position
@@ -160,9 +158,7 @@ Or let presentr calculate the position
 let position = ModalCenterPosition.Center // Center of the screen
 ```
 
-So we can mix and match, and have the benefit of a custom PresentationType but still have Presentr calculating the values we don't want to do ourselves.
-
-The following code creates a Presentr object with a custom PresentationType which shows the alert in a small top banner.
+So we can mix and match, and have the benefit of a custom **PresentationType** but still have *Presentr* calculating the values we don't want to do ourselves. The following code creates a *Presentr* object with a custom **PresentationType** which shows the alert in a small top banner.
 
 ```swift
 class ViewController: UIViewController{
@@ -187,10 +183,7 @@ class ViewController: UIViewController{
 
 <img src="http://danielozano.com/PresentrScreenshots/CustomPresentationType.png" width="250">
 
-
 #### Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
-
-<img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
 
 ```swift
 
@@ -214,6 +207,8 @@ class ViewController: UIViewController{
   customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
 
 ```
+
+<img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
 
 ## Requirements
 * Xcode 7.3+
