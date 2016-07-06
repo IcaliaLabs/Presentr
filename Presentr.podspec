@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Presentr"
-  s.version      = "0.1.5"
+  s.version      = "0.1.6"
   s.summary      = "A simple Swift wrapper for typical custom view controller presentations."
   s.description  = <<-DESC
                     A micro framework created in Swift. Simplifies creating custom view controller presentations. Specially the typical ones we use which are a popup, an alert, or a any non-full-screen modal. Abstracts having to deal with custom presentation controllers and transitioning delegates
