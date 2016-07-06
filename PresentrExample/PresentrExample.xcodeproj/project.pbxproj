@@ -7,16 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		066E4DB01CF3E38F00A027EA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 066E4DAF1CF3E38F00A027EA /* Presentr.framework */; };
 		06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */; };
 		06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B51CF3D17E0057C79B /* ViewController.swift */; };
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
+		06B5853B1D2D59670045C8DA /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B5853A1D2D59670045C8DA /* Presentr.framework */; };
+		06B5853C1D2D59670045C8DA /* Presentr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06B5853A1D2D59670045C8DA /* Presentr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		06B5853D1D2D59670045C8DA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				06B5853C1D2D59670045C8DA /* Presentr.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		066E4DAF1CF3E38F00A027EA /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 		06A1F0B01CF3D17E0057C79B /* PresentrExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentrExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06A1F0B51CF3D17E0057C79B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +38,7 @@
 		06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A1F0BD1CF3D17E0057C79B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06B5853A1D2D59670045C8DA /* Presentr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Presentr.framework; path = "/Users/danlozano/Library/Developer/Xcode/DerivedData/Presentr-elslpvvbvgpbzadghlnjymweqyly/Build/Products/Debug-iphonesimulator/Presentr.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				066E4DB01CF3E38F00A027EA /* Presentr.framework in Frameworks */,
+				06B5853B1D2D59670045C8DA /* Presentr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +58,7 @@
 			children = (
 				06A1F0B21CF3D17E0057C79B /* PresentrExample */,
 				06A1F0B11CF3D17E0057C79B /* Products */,
+				06B5853A1D2D59670045C8DA /* Presentr.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,7 +79,6 @@
 				06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */,
 				06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */,
 				06A1F0BF1CF3D17E0057C79B /* Info.plist */,
-				066E4DAF1CF3E38F00A027EA /* Presentr.framework */,
 			);
 			path = PresentrExample;
 			sourceTree = "<group>";
@@ -78,6 +93,7 @@
 				06A1F0AC1CF3D17E0057C79B /* Sources */,
 				06A1F0AD1CF3D17E0057C79B /* Frameworks */,
 				06A1F0AE1CF3D17E0057C79B /* Resources */,
+				06B5853D1D2D59670045C8DA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
