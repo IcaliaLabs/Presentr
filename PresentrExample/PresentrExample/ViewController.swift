@@ -11,10 +11,22 @@ import Presentr
 
 class ViewController: UIViewController {
 
-    var presenter: Presentr = {
+    let presenter: Presentr = {
         let presenter = Presentr(presentationType: .Alert)
         presenter.transitionType = TransitionType.CoverHorizontalFromRight
         return presenter
+    }()
+    
+    let customPresenter: Presentr = {
+        let width = ModalSize.Full
+        let height = ModalSize.Custom(size: 150)
+        let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
+        let customType = PresentationType.Custom(width: width, height: height, center: center)
+        
+        let customPresenter = Presentr(presentationType: customType)
+        customPresenter.transitionType = .CoverVerticalFromTop
+        customPresenter.roundCorners = false
+        return customPresenter
     }()
     
     var alertController: AlertViewController = {
@@ -91,6 +103,10 @@ class ViewController: UIViewController {
         presenter.presentationType = .BottomHalf
         presenter.transitionType = .CoverHorizontalFromLeft
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func customPresentation(sender: AnyObject) {
+        customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
     }
     
 }
