@@ -32,6 +32,9 @@ public class Presentr: NSObject {
     /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var roundCorners = true
     
+    /// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
+    public var dismissOnTap = true
+    
     // MARK: Init
     
     public init(presentationType: PresentationType){
@@ -100,7 +103,8 @@ extension Presentr: UIViewControllerTransitioningDelegate{
         let presentationController = PresentrController(presentedViewController: presented,
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
-                                                        roundCorners: roundCorners)
+                                                        roundCorners: roundCorners,
+                                                        dismissOnTap: dismissOnTap)
         return presentationController
     }
     

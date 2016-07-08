@@ -17,6 +17,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Should the presented controller have rounded corners.
     let roundCorners: Bool
     
+    /// Should the presented controller dismiss on background tap.
+    let dismissOnTap: Bool
+    
     private var shouldRoundCorners: Bool{
         if presentationType == .BottomHalf || presentationType == .TopHalf {
             return false
@@ -29,9 +32,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Init
     
-    init(presentedViewController: UIViewController, presentingViewController: UIViewController, presentationType: PresentationType, roundCorners: Bool) {
+    init(presentedViewController: UIViewController, presentingViewController: UIViewController, presentationType: PresentationType, roundCorners: Bool, dismissOnTap: Bool) {
         self.presentationType = presentationType
         self.roundCorners = roundCorners
+        self.dismissOnTap = dismissOnTap
         
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
         
@@ -64,7 +68,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Actions
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
-        if gesture.state == .Ended {
+        if gesture.state == .Ended && dismissOnTap {
+            
             presentingViewController.dismissViewControllerAnimated(true, completion: nil)
         }
     }
