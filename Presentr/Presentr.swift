@@ -35,7 +35,7 @@ public class Presentr: NSObject {
     /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var roundCorners = true
     
-    /// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
+    /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
     
     // MARK: Private Helper Var's

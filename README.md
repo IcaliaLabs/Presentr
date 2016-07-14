@@ -82,21 +82,35 @@ class ViewController: UIViewController{
       presenter.transitionType = .CoverHorizontalFromRight // Optional
       return presenter
   }()
-
+  
 }
 ```
 
-Both types can be changed later on in order to reuse the Presentr object for other presentations.
+The PresentationType (and all other properties) can be changed later on in order to reuse the Presentr object for other presentations.
 
 ```swift
 presenter.presentationType = .Popup
-presenter.transitionType = .CoverVerticalFromTop
 ```
 
-Now you can also choose to disable rounded corners on the view controller that will be presented. Default is true except for .TopHalf and .BottomHalf presentation types.
+#### Properties (These are optional, as they all have Default values)
+
+You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller. 
+
+```swift
+presenter.transitionType = .CoverVerticalFromTop
+presenter.dismissTransitionType = .CoverVertical
+```
+
+You can choose to disable rounded corners on the view controller that will be presented. Default is true.
 
 ```swift
 presenter.roundCorners = false
+```
+
+You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true.
+
+```swift
+presenter.dismissOnTap = false
 ```
 
 #### Present the view controller.

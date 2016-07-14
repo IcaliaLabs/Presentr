@@ -69,7 +69,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
         if gesture.state == .Ended && dismissOnTap {
-            
             presentingViewController.dismissViewControllerAnimated(true, completion: nil)
         }
     }
