@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         
         let customPresenter = Presentr(presentationType: customType)
         customPresenter.transitionType = .CoverVerticalFromTop
+        customPresenter.dismissTransitionType = .CoverVertical
         customPresenter.roundCorners = false
         return customPresenter
     }()

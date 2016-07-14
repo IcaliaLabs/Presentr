@@ -29,6 +29,9 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
     public var transitionType: TransitionType?
 
+    /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType value will be used.
+    public var dismissTransitionType: TransitionType?
+
     /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var roundCorners = true
     
@@ -90,11 +93,11 @@ extension Presentr: UIViewControllerTransitioningDelegate{
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation()
+        return animation(for: transitionType)
     }
     
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation()
+        return animation(for: dismissTransitionType)
     }
     
     // MARK: - Private Helper's
@@ -108,8 +111,8 @@ extension Presentr: UIViewControllerTransitioningDelegate{
         return presentationController
     }
     
-    private func animation() -> PresentrAnimation?{
-        if let animation = transitionType?.animation() {
+    private func animation(for transition: TransitionType?) -> PresentrAnimation?{
+        if let animation = transition?.animation() {
             return animation
         }else{
             return nil
