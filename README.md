@@ -17,9 +17,22 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 
 **Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
 
+### What's New
+#### 0.1.6
+- Custom PresentationType's
+- Round corners option
+
+## Contributing
+
+1. Fork project
+2. Checkout **Develop** branch
+3. Create awesome feature/enhancement/bug-fix
+4. Optionally create *Issue* to discuss feature
+5. Submit pull request to **Develop** branch
+
 ## Installation
 
-#### [CocoaPods](http://cocoapods.org)
+### [Cocoapods](http://cocoapods.org)
 
 ```ruby
 use_frameworks!
@@ -27,7 +40,7 @@ use_frameworks!
 pod 'Presentr'
 ```
 
-#### Manually
+### Manually
 1. Download and drop ```/Presentr``` folder in your project.  
 2. Congratulations! 
 
@@ -90,13 +103,28 @@ The PresentationType (and all other properties) can be changed later on in order
 presenter.presentationType = .Popup
 ```
 
-### Properties (These are optional, as they all have Default values)
+### Properties
+#### Properties are optional, as they all have Default values.
 
 You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller. 
 
 ```swift
 presenter.transitionType = .CoverVerticalFromTop
 presenter.dismissTransitionType = .CoverVertical
+```
+
+You can change the background color & opacity for the background view that will be displayed below the presented view controller. Default is black with 0.7 opacity.
+
+```swift
+presenter.backgroundColor = UIColor.redColor()
+presenter.backgroundOpacity = 1.0
+```
+
+You could also turn on the blur effect for the background, and change it's style. Default is false for the blur effect, and .Dark for the style. If you turn on the blur effect the background color and opacity will be ignored.
+
+```swift
+presenter.blurBackground = true
+presenter.blurStyle = UIBlurEffectStyle.Light
 ```
 
 You can choose to disable rounded corners on the view controller that will be presented. Default is true.
