@@ -31,11 +31,9 @@ pod 'Presentr'
 1. Download and drop ```/Presentr``` folder in your project.  
 2. Congratulations! 
 
-## Usage
+## Main Types
 
-### Main Types
-
-#### Presentation Type
+### Presentation Type
 
 ```swift
 public enum PresentationType {
@@ -46,14 +44,14 @@ public enum PresentationType {
   case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 }
 ```
-##### Alert & Popup
+#### Alert & Popup
 <img src="http://danielozano.com/PresentrScreenshots/Alert1.png" width="250">
 <img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="250">
-##### BottomHalf & TopHalf
+#### BottomHalf & TopHalf
 <img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="250">
 <img src="http://danielozano.com/PresentrScreenshots/TopHalf2.png" width="250">
 
-#### Transition Type
+### Transition Type
 
 ```swift
 public enum TransitionType{
@@ -68,9 +66,9 @@ public enum TransitionType{
 }
 ```
 
-### Getting Started
+## Getting Started
 
-#### Create a Presentr object
+### Create a Presentr object
 
 It is **important to hold on to the Presentr object as a property** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation, so you must hold a strong reference to it.
 
@@ -92,7 +90,7 @@ The PresentationType (and all other properties) can be changed later on in order
 presenter.presentationType = .Popup
 ```
 
-#### Properties (These are optional, as they all have Default values)
+### Properties (These are optional, as they all have Default values)
 
 You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller. 
 
@@ -113,7 +111,7 @@ You can choose to disable dismissOnTap that dismisses the presented view control
 presenter.dismissOnTap = false
 ```
 
-#### Present the view controller.
+### Present the view controller.
 
 Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
 
@@ -124,7 +122,7 @@ customPresentViewController(presenter, viewController: controller, animated: tru
 
 This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition. 
 
-#### Creating a custom PresentationType
+### Creating a custom PresentationType
 
 If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
 ```swift 
@@ -197,7 +195,7 @@ class ViewController: UIViewController{
 
 <img src="http://danielozano.com/PresentrScreenshots/CustomPresentationType.png" width="250">
 
-#### Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
+### Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
 
 ```swift
 
