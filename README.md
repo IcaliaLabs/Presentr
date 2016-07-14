@@ -22,6 +22,7 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 - Ability to set dismiss transition type
 - Modify background color & opacity
 - Add blur to background
+
 #### 0.1.6
 - Custom PresentationType's
 - Round corners option
