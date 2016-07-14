@@ -18,6 +18,10 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 **Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
 
 ### What's New
+#### 0.1.7
+- Ability to set dismiss transition type
+- Modify background color & opacity
+- Add blur to background
 #### 0.1.6
 - Custom PresentationType's
 - Round corners option
