@@ -38,6 +38,16 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var dismissOnTap = true
     
+    // MARK: Private Helper Var's
+    
+    private var transitionForPresent: TransitionType{
+        return transitionType ?? presentationType.defaultTransitionType()
+    }
+    
+    private var transitionForDismiss: TransitionType{
+        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
+    }
+    
     // MARK: Init
     
     public init(presentationType: PresentationType){
@@ -73,18 +83,19 @@ public class Presentr: NSObject {
      - parameter completion:   Completion block.
      */
     private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?){
-        let presentTransition = self.presentTransition()
-        let dismissTransition = self.dismissTransition()
         
-        if let systemPresentTransition = presentTransition.systemTransition(){
+        if let systemPresentTransition = transitionForPresent.systemTransition(){
             presentedVC.modalTransitionStyle = systemPresentTransition
-        }else if let systemDismissTransition = dismissTransition.systemTransition(){
-            presentedVC.modalTransitionStyle = systemDismissTransition
         }
         
         presentedVC.transitioningDelegate = self
         presentedVC.modalPresentationStyle = .Custom
         presentingVC.presentViewController(presentedVC, animated: animated, completion: nil)
+        
+        if let systemDismissTransition = transitionForDismiss.systemTransition(){
+            presentedVC.modalTransitionStyle = systemDismissTransition
+        }
+        
     }
 
 }
@@ -98,11 +109,11 @@ extension Presentr: UIViewControllerTransitioningDelegate{
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation(forPresenting: true)
+        return animation(for: transitionForPresent)
     }
     
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation(forPresenting: false)
+        return animation(for: transitionForDismiss)
     }
     
     // MARK: - Private Helper's
@@ -116,28 +127,11 @@ extension Presentr: UIViewControllerTransitioningDelegate{
         return presentationController
     }
     
-    private func animation(forPresenting presenting: Bool) -> PresentrAnimation?{
-        let transition = presenting ? presentTransition() : dismissTransition()
-        if let _ = transition.systemTransition(){
-            return nil
+    private func animation(for transition: TransitionType?) -> PresentrAnimation?{
+        if let _ = transition?.systemTransition(){
+            return nil // If transition is handled by OS then no custom animation. Must return nil.
         }
-        return transition.animation()
-    }
-    
-    private func presentTransition() -> TransitionType{
-        return transitionType ?? presentationType.defaultTransitionType()
-    }
-    
-    private func dismissTransition() -> TransitionType{
-        let transition: TransitionType
-        if let dismissTransition = dismissTransitionType{
-            transition = dismissTransition
-        }else if let presentTransition = transitionType{
-            transition = presentTransition
-        }else{
-            transition = presentationType.defaultTransitionType()
-        }
-        return transition
+        return transition?.animation()
     }
     
 }
