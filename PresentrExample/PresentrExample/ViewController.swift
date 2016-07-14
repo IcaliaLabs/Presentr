@@ -59,8 +59,7 @@ class ViewController: UIViewController {
 
     @IBAction func alertDefault(sender: AnyObject) {
         presenter.presentationType = .Alert
-        // For default transitions you do not need to set this, this is to reset it just in case it was already changed by another presentation below.
-        presenter.transitionType = .CoverVertical
+        presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
@@ -72,7 +71,7 @@ class ViewController: UIViewController {
 
     @IBAction func popupDefault(sender: AnyObject) {
         presenter.presentationType = .Popup
-        presenter.transitionType = .CoverVertical
+        presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
@@ -84,19 +83,19 @@ class ViewController: UIViewController {
     
     @IBAction func topHalfDefault(sender: AnyObject) {
         presenter.presentationType = .TopHalf
-        presenter.transitionType = .CoverVertical
+        presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
     @IBAction func topHalfCustom(sender: AnyObject) {
         presenter.presentationType = .TopHalf
-        presenter.transitionType = .CoverVerticalFromTop
+        presenter.transitionType = .CoverHorizontalFromLeft
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
     @IBAction func bottomHalfDefault(sender: AnyObject) {
         presenter.presentationType = .BottomHalf
-        presenter.transitionType = .CoverVertical
+        presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     

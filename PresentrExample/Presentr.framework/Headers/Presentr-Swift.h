@@ -137,6 +137,9 @@ SWIFT_CLASS("_TtC8Presentr8Presentr")
 /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
 @property (nonatomic) BOOL roundCorners;
 
+/// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
+@property (nonatomic) BOOL dismissOnTap;
+
 /// Public helper class method for creating and configuring an instance of the 'AlertViewController'
 ///
 /// \param title Title to be used in the Alert View Controller.
