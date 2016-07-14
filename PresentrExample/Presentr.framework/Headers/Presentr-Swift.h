@@ -128,6 +128,7 @@ SWIFT_CLASS("_TtC8Presentr19AlertViewController")
 @interface AlertViewController (SWIFT_EXTENSION(Presentr))
 @end
 
+@class UIColor;
 
 
 /// Main Presentr class. This is the point of entry for using the framework.
@@ -137,8 +138,20 @@ SWIFT_CLASS("_TtC8Presentr8Presentr")
 /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
 @property (nonatomic) BOOL roundCorners;
 
-/// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
+/// Should the presented controller dismiss on background tap. Default is true.
 @property (nonatomic) BOOL dismissOnTap;
+
+/// Color of the background. Default is Black.
+@property (nonatomic, strong) UIColor * _Nonnull backgroundColor;
+
+/// Opacity of the background. Default is 0.7.
+@property (nonatomic) float backgroundOpacity;
+
+/// Should the presented controller blur the background. Default is false.
+@property (nonatomic) BOOL blurBackground;
+
+/// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
+@property (nonatomic) UIBlurEffectStyle blurStyle;
 
 /// Public helper class method for creating and configuring an instance of the 'AlertViewController'
 ///

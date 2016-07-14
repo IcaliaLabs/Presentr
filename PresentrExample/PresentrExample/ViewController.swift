@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: - IBAction's
-
+    
     @IBAction func alertDefault(sender: AnyObject) {
         presenter.presentationType = .Alert
         presenter.transitionType = nil

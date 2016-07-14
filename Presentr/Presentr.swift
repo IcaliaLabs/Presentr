@@ -23,6 +23,8 @@ struct PresentrConstants {
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
 
+    // MARK: Public Properties
+    
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentationType
     
@@ -38,22 +40,26 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
     
+    /// Color of the background. Default is Black.
+    public var backgroundColor = UIColor.blackColor()
+    
+    /// Opacity of the background. Default is 0.7.
+    public var backgroundOpacity: Float = 0.7
+    
     /// Should the presented controller blur the background. Default is false.
     public var blurBackground = false
     
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .Dark
     
-    /// Color of the background. Default is Black.
-    public var backgroundColor = UIColor.blackColor()
+    // MARK: Private Helper Properties
+    
     private var transitionForPresent: TransitionType{
         return transitionType ?? presentationType.defaultTransitionType()
     }
     
     private var transitionForDismiss: TransitionType{
         return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
-    /// Opacity of the background. Default is 0.7.
-    public var backgroundOpacity: CGFloat = 0.7
     }
     
     // MARK: Init
@@ -132,10 +138,10 @@ extension Presentr: UIViewControllerTransitioningDelegate{
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
                                                         dismissOnTap: dismissOnTap,
-                                                        blurBackground: blurBackground,
-                                                        blurStyle: blurStyle,
                                                         backgroundColor: backgroundColor,
-                                                        backgroundOpacity: backgroundOpacity)
+                                                        backgroundOpacity: backgroundOpacity,
+                                                        blurBackground: blurBackground,
+                                                        blurStyle: blurStyle)
         return presentationController
     }
     
