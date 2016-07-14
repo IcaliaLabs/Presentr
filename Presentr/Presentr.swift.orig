@@ -38,6 +38,17 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
     
+<<<<<<< HEAD
+    // MARK: Private Helper Var's
+    
+    private var transitionForPresent: TransitionType{
+        return transitionType ?? presentationType.defaultTransitionType()
+    }
+    
+    private var transitionForDismiss: TransitionType{
+        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
+    }
+=======
     /// Should the presented controller blur the background. Default is false.
     public var blurBackground = false
     
@@ -46,15 +57,10 @@ public class Presentr: NSObject {
     
     /// Color of the background. Default is Black.
     public var backgroundColor = UIColor.blackColor()
-    private var transitionForPresent: TransitionType{
-        return transitionType ?? presentationType.defaultTransitionType()
-    }
     
-    private var transitionForDismiss: TransitionType{
-        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
     /// Opacity of the background. Default is 0.7.
     public var backgroundOpacity: CGFloat = 0.7
-    }
+>>>>>>> 4e01b981c814d6c8e6b35cbb8d5b2fbf9e883f01
     
     // MARK: Init
     
