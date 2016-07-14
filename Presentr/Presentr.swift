@@ -20,6 +20,10 @@ struct PresentrConstants {
     }
 }
 
+public protocol PresentrKeyboardDelegate {
+    func shouldDismissKeyboard();
+}
+
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
 
@@ -29,14 +33,12 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
     public var transitionType: TransitionType?
 
-    /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType value will be used.
-    public var dismissTransitionType: TransitionType?
-
     /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var roundCorners = true
     
-    /// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
-    public var dismissOnTap = true
+    /// Should the presenter controller observe the showing and dismissal of the keyboard. Default is false. Only avaiable Popup Presentation Type. for Use this when you have a text field or text view in the presented controller to use taps on the outside of the controller to dismiss the keyboard instead of dismissing the controller. Also translates the view controller based on the keyboard offset if part of the view would be covered by the keyboard.
+    public var observeKeyboard = false
+    
     
     // MARK: Init
     
@@ -93,11 +95,11 @@ extension Presentr: UIViewControllerTransitioningDelegate{
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation(for: transitionType)
+        return animation()
     }
     
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
-        return animation(for: dismissTransitionType)
+        return animation()
     }
     
     // MARK: - Private Helper's
@@ -107,12 +109,12 @@ extension Presentr: UIViewControllerTransitioningDelegate{
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
-                                                        dismissOnTap: dismissOnTap)
+                                                        observeKeyboard: observeKeyboard)
         return presentationController
     }
     
-    private func animation(for transition: TransitionType?) -> PresentrAnimation?{
-        if let animation = transition?.animation() {
+    private func animation() -> PresentrAnimation?{
+        if let animation = transitionType?.animation() {
             return animation
         }else{
             return nil
