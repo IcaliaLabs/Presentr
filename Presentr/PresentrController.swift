@@ -20,6 +20,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
     
+    /// Should the presented controller blur background.
+    let blurBackground: Bool
+    
     private var shouldRoundCorners: Bool{
         if presentationType == .BottomHalf || presentationType == .TopHalf {
             return false
@@ -32,14 +35,25 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Init
     
-    init(presentedViewController: UIViewController, presentingViewController: UIViewController, presentationType: PresentationType, roundCorners: Bool, dismissOnTap: Bool) {
+    init(presentedViewController: UIViewController,
+         presentingViewController: UIViewController,
+         presentationType: PresentationType,
+         roundCorners: Bool,
+         dismissOnTap: Bool,
+         blurBackground: Bool,
+         blurStyle: UIBlurEffectStyle,
+         backgroundColor: UIColor,
+         backgroundOpacity: CGFloat
+         ) {
         self.presentationType = presentationType
         self.roundCorners = roundCorners
         self.dismissOnTap = dismissOnTap
+        self.blurBackground = blurBackground
         
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
         
-        setupChromeView()
+        setupChromeView(backgroundColor, backgroundOpacity: backgroundOpacity, blurStyle: blurStyle)
+        
         if shouldRoundCorners{
             addCornerRadiusToPresentedView()
         }else{
@@ -49,11 +63,19 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Setup
 
-    private func setupChromeView() {
+    private func setupChromeView(backgroundColor: UIColor, backgroundOpacity: CGFloat, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
-        chromeView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-        chromeView.alpha = 0
+        
+        if blurBackground {
+            let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
+            blurEffectView.frame = chromeView.bounds
+            blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            chromeView.addSubview(blurEffectView)
+        } else {
+            chromeView.backgroundColor = backgroundColor.colorWithAlphaComponent(backgroundOpacity)
+            chromeView.alpha = 0
+        }
     }
     
     private func addCornerRadiusToPresentedView() {

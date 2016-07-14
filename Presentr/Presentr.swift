@@ -38,6 +38,18 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on background tap. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var dismissOnTap = true
     
+    /// Should the presented controller blur the background. Default is false.
+    public var blurBackground = false
+    
+    /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
+    public var blurStyle: UIBlurEffectStyle = .Dark
+    
+    /// Color of the background. Default is Black.
+    public var backgroundColor = UIColor.blackColor()
+    
+    /// Opacity of the background. Default is 0.7.
+    public var backgroundOpacity: CGFloat = 0.7
+    
     // MARK: Init
     
     public init(presentationType: PresentationType){
@@ -107,7 +119,11 @@ extension Presentr: UIViewControllerTransitioningDelegate{
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
-                                                        dismissOnTap: dismissOnTap)
+                                                        dismissOnTap: dismissOnTap,
+                                                        blurBackground: blurBackground,
+                                                        blurStyle: blurStyle,
+                                                        backgroundColor: backgroundColor,
+                                                        backgroundOpacity: backgroundOpacity)
         return presentationController
     }
     
