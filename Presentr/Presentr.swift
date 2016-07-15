@@ -20,6 +20,10 @@ struct PresentrConstants {
     }
 }
 
+public protocol PresentrKeyboardDelegate {
+    func shouldDismissKeyboard();
+}
+
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
 
@@ -123,7 +127,7 @@ extension Presentr: UIViewControllerTransitioningDelegate{
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
-                                                        dismissOnTap: dismissOnTap)
+                                                        observeKeyboard: observeKeyboard)
         return presentationController
     }
     
