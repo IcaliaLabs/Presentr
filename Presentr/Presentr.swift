@@ -43,7 +43,7 @@ public class Presentr: NSObject {
     public var observeKeyboard = false
     
     /// How the presented view controller should respond in response to keyboard presentation.
-    let keyboardTranslationType: KeyboardTranslationType = .None
+    public var keyboardTranslationType: KeyboardTranslationType = .None
     
     // MARK: Private Helper Var's
     
