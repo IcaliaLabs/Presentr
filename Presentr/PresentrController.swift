@@ -17,7 +17,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Should the presented controller have rounded corners.
     let roundCorners: Bool
     
+    /// Should the presented controller observe keyboard.
     let observeKeyboard: Bool
+    
+    /// How the presented view controller should respond in response to keyboard presentation.
+    let keyboardTranslationType: KeyboardTranslationType
+    
+    /// Should the presented controller dismiss on background tap.
+    let dismissOnTap: Bool
     
     var keyboardIsShowing: Bool = false
     
@@ -37,10 +44,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Init
     
-    init(presentedViewController: UIViewController, presentingViewController: UIViewController, presentationType: PresentationType, roundCorners: Bool, observeKeyboard: Bool) {
+    init(presentedViewController: UIViewController, presentingViewController: UIViewController, presentationType: PresentationType, roundCorners: Bool, dismissOnTap: Bool, observeKeyboard: Bool, keyboardTranslationType : KeyboardTranslationType) {
+        
         self.presentationType = presentationType
         self.roundCorners = roundCorners
         self.observeKeyboard = observeKeyboard
+        self.dismissOnTap = dismissOnTap
+        self.keyboardTranslationType = keyboardTranslationType
         
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
         
@@ -81,6 +91,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Actions
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
+        if let keyboardObserver = presentedViewController as? PresentrKeyboardDelegate where keyboardIsShowing {
+            keyboardObserver.shouldDismissKeyboard()
+            return
+        }
         if gesture.state == .Ended && dismissOnTap {
             presentingViewController.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -119,15 +133,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     
     func keyboardWasShown (notification : NSNotification) {
         // gets the keyboard frame and compares it to the presented view so the view gets moved up with the keyboard.
-        if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue() {
+        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue() {
             let presentedFrame = frameOfPresentedViewInContainerView()
-            let keyboardTop = UIScreen.mainScreen().bounds.height - keyboardSize.size.height
-            let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20 // add a 20 pt buffer
-            let offset = presentedViewBottom - keyboardTop
-            print(offset)
-            if offset > 0 {
+            let translatedFrame = KeyboardTranslationType.getTranslationFrame(keyboardTranslationType, keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
+            if translatedFrame != presentedFrame {
                 UIView.animateWithDuration(0.5, animations: {
-                    self.presentedView()!.frame.origin.y =  presentedFrame.origin.y-offset
+                    self.presentedView()!.frame = translatedFrame
                 })
             }
             keyboardIsShowing = true

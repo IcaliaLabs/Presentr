@@ -20,9 +20,6 @@ struct PresentrConstants {
     }
 }
 
-public protocol PresentrKeyboardDelegate {
-    func shouldDismissKeyboard();
-}
 
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
@@ -41,6 +38,12 @@ public class Presentr: NSObject {
     
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
+    
+    /// Should the presenter controller observe the showing and dismissal of the keyboard. Default is false. Only avaiable Popup Presentation Type. for Use this when you have a text field or text view in the presented controller to use taps on the outside of the controller to dismiss the keyboard instead of dismissing the controller. Also translates the view controller based on the keyboard offset if part of the view would be covered by the keyboard.
+    public var observeKeyboard = false
+    
+    /// How the presented view controller should respond in response to keyboard presentation.
+    let keyboardTranslationType: KeyboardTranslationType = .None
     
     // MARK: Private Helper Var's
     
@@ -127,7 +130,9 @@ extension Presentr: UIViewControllerTransitioningDelegate{
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
-                                                        observeKeyboard: observeKeyboard)
+                                                        dismissOnTap: dismissOnTap,
+                                                        observeKeyboard: observeKeyboard,
+                                                        keyboardTranslationType: keyboardTranslationType)
         return presentationController
     }
     

@@ -55,5 +55,4 @@ public enum ModalCenterPosition {
             return nil
         }
     }
-    
 }
