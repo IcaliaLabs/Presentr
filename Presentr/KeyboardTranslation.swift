@@ -17,23 +17,20 @@ public enum KeyboardTranslationType {
     case None, MoveUp, Compress
     
     public static func getTranslationFrame (type : KeyboardTranslationType, keyboardFrame : CGRect, presentedFrame : CGRect) -> CGRect {
+        let keyboardTop = UIScreen.mainScreen().bounds.height - keyboardFrame.size.height
+        let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20 // add a 20 pt buffer
+        let offset = presentedViewBottom - keyboardTop
         switch type {
         case MoveUp:
-            let keyboardTop = UIScreen.mainScreen().bounds.height - keyboardFrame.size.height
-            let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20 // add a 20 pt buffer
-            let offset = presentedViewBottom - keyboardTop
-            print(offset)
             if offset > 0 {
                 return CGRectMake(presentedFrame.origin.x, presentedFrame.origin.y-offset, presentedFrame.size.width, presentedFrame.size.height)
             }
             return presentedFrame
         case Compress:
-            let keyboardTop = UIScreen.mainScreen().bounds.height - keyboardFrame.size.height
-            let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20 // add a 20 pt buffer
-            let offset = presentedViewBottom - keyboardTop
-            print(offset)
             if offset > 0 {
-                return CGRectMake(presentedFrame.origin.x, max(presentedFrame.origin.y-offset, presentedFrame.origin.y+20), presentedFrame.size.width, presentedFrame.size.height)
+                let y = max(presentedFrame.origin.y-offset, 20)
+                let frame = CGRectMake(presentedFrame.origin.x, y, presentedFrame.size.width, y != 20 ? presentedFrame.size.height : keyboardTop - 40)
+                return frame
             }
             return presentedFrame
         case None:

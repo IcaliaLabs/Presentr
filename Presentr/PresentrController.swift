@@ -194,6 +194,7 @@ extension PresentrController {
     }
 
     override func containerViewWillLayoutSubviews() {
+        guard keyboardIsShowing == false else { return }
         chromeView.frame = containerView!.bounds
         presentedView()!.frame = frameOfPresentedViewInContainerView()
     }
