@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         return customPresenter
     }()
     
-    var alertController: AlertViewController = {
+    lazy var alertController: AlertViewController = {
         let alertController = Presentr.alertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
         let cancelAction = AlertAction(title: "NO, SORRY! 😱", style: .Cancel) { alert in
             print("CANCEL!!")
@@ -57,55 +57,68 @@ class ViewController: UIViewController {
     
     // MARK: - IBAction's
     
-    @IBAction func alertDefault(sender: AnyObject) {
+    @IBAction func alertDefault(sender: UIButton) {
         presenter.presentationType = .Alert
         presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func alertCustom(sender: AnyObject) {
+    @IBAction func alertCustom(sender: UIButton) {
         presenter.presentationType = .Alert
         presenter.transitionType = .CoverHorizontalFromLeft
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func alertDefaultWithoutAnimation(sender: UIButton) {
+        let animated = false
+        let nonAnimatedAlertController = self.alertController
+        nonAnimatedAlertController.dismissAnimated = animated
+        presenter.presentationType = .Alert
+        presenter.transitionType = nil
+        customPresentViewController(presenter, viewController: alertController, animated: animated, completion: self.completition)
+    }
+    
+    private func completition() {
+        print("the alert controller has been presented")
+    }
 
-    @IBAction func popupDefault(sender: AnyObject) {
+    @IBAction func popupDefault(sender: UIButton) {
         presenter.presentationType = .Popup
         presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func popupCustom(sender: AnyObject) {
+    @IBAction func popupCustom(sender: UIButton) {
         presenter.presentationType = .Popup
         presenter.transitionType = .CoverHorizontalFromRight
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func topHalfDefault(sender: AnyObject) {
+    @IBAction func topHalfDefault(sender: UIButton) {
         presenter.presentationType = .TopHalf
         presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func topHalfCustom(sender: AnyObject) {
+    @IBAction func topHalfCustom(sender: UIButton) {
         presenter.presentationType = .TopHalf
         presenter.transitionType = .CoverHorizontalFromLeft
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func bottomHalfDefault(sender: AnyObject) {
+    @IBAction func bottomHalfDefault(sender: UIButton) {
         presenter.presentationType = .BottomHalf
         presenter.transitionType = nil
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func bottomHalfCustom(sender: AnyObject) {
+    @IBAction func bottomHalfCustom(sender: UIButton) {
         presenter.presentationType = .BottomHalf
         presenter.transitionType = .CoverHorizontalFromLeft
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
     
-    @IBAction func customPresentation(sender: AnyObject) {
+    @IBAction func customPresentation(sender: UIButton) {
         customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
     }
     
