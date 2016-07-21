@@ -1,0 +1,36 @@
+disabled_rules:
+  - line_length
+  - missing_docs
+  - function_parameter_count
+opt_in_rules:
+  - empty_count
+  - missing_docs
+included:
+excluded:
+  - docs
+  - PresentrExample
+  - PresentrTests
+force_cast: warning
+force_try:
+  severity: warning
+line_length: 150
+type_body_length:
+  - 300 # warning
+  - 400 # error
+file_length:
+  warning: 500
+  error: 1200
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 40
+    error: 50
+  excluded: iPhone # excluded via string
+variable_name:
+  min_length:
+    error: 1 # only error
+  excluded: # excluded via string array
+    - id
+    - URL
+    - GlobalAPIKey
+reporter: "json" # reporter type (xcode, json, csv, checkstyle)
