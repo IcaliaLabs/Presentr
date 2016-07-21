@@ -20,6 +20,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
     
+    /// Should the presented controller use animation when dismiss on background tap.
+    let dismissAnimated: Bool
+    
     private var shouldRoundCorners: Bool{
         if presentationType == .BottomHalf || presentationType == .TopHalf {
             return false
@@ -40,11 +43,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
-         blurStyle: UIBlurEffectStyle) {
+         blurStyle: UIBlurEffectStyle,
+         dismissAnimated: Bool) {
         
         self.presentationType = presentationType
         self.roundCorners = roundCorners
         self.dismissOnTap = dismissOnTap
+        self.dismissAnimated = dismissAnimated
         
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
         
@@ -86,7 +91,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
         if gesture.state == .Ended && dismissOnTap {
-            presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            presentingViewController.dismissViewControllerAnimated(dismissAnimated, completion: nil)
         }
     }
 

@@ -40,6 +40,9 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
     
+    /// Should the presented controller use animation when dismiss on background tap. Default is true.
+    public var dismissAnimated = true
+    
     /// Color of the background. Default is Black.
     public var backgroundColor = UIColor.blackColor()
     
@@ -98,13 +101,15 @@ public class Presentr: NSObject {
      */
     private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?){
         
+        self.dismissAnimated = animated
+        
         if let systemPresentTransition = transitionForPresent.systemTransition(){
             presentedVC.modalTransitionStyle = systemPresentTransition
         }
         
         presentedVC.transitioningDelegate = self
         presentedVC.modalPresentationStyle = .Custom
-        presentingVC.presentViewController(presentedVC, animated: animated, completion: nil)
+        presentingVC.presentViewController(presentedVC, animated: animated, completion: completion)
         
         if let systemDismissTransition = transitionForDismiss.systemTransition(){
             presentedVC.modalTransitionStyle = systemDismissTransition
@@ -141,7 +146,8 @@ extension Presentr: UIViewControllerTransitioningDelegate{
                                                         backgroundColor: backgroundColor,
                                                         backgroundOpacity: backgroundOpacity,
                                                         blurBackground: blurBackground,
-                                                        blurStyle: blurStyle)
+                                                        blurStyle: blurStyle,
+                                                        dismissAnimated: dismissAnimated)
         return presentationController
     }
     
