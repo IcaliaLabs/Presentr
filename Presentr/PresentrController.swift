@@ -24,9 +24,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     let dismissAnimated: Bool
 
     private var shouldRoundCorners: Bool {
-        if presentationType == .BottomHalf || presentationType == .TopHalf {
+        switch presentationType {
+        case .BottomHalf, .TopHalf, .FullScreen:
             return false
-        } else {
+        default:
             return roundCorners
         }
     }
