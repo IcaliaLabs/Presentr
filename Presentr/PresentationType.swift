@@ -15,6 +15,7 @@ import Foundation
  - Popup:      This is a average/default size 'popup' modal.
  - TopHalf:    This takes up half of the screen, on the top side.
  - BottomHalf: This takes up half of the screen, on the bottom side.
+ - FullScreen: This takes up the entire screen.
  - Custom: Provide a custom width, height and center position.
  */
 public enum PresentationType {
@@ -23,6 +24,7 @@ public enum PresentationType {
     case Popup
     case TopHalf
     case BottomHalf
+    case FullScreen
     case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 
     /**
@@ -38,6 +40,8 @@ public enum PresentationType {
             return (.Default, .Default)
         case .TopHalf, .BottomHalf:
             return (.Full, .Half)
+        case .FullScreen:
+            return (.Full, .Full)
         case .Custom(let width, let height, _):
             return (width, height)
         }
@@ -56,6 +60,8 @@ public enum PresentationType {
             return .TopCenter
         case .BottomHalf:
             return .BottomCenter
+        case .FullScreen:
+            return .Center
         case .Custom(_, _, let center):
             return center
         }

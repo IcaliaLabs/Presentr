@@ -87,6 +87,13 @@
                                     <action selector="alertDefaultWithoutAnimation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9xD-if-hZ8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnd-hT-VMt">
+                                <rect key="frame" x="262" y="443" width="76" height="30"/>
+                                <state key="normal" title="Full Screen"/>
+                                <connections>
+                                    <action selector="fullScreenPresentation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WFq-MJ-Lmj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -101,10 +108,12 @@
                             <constraint firstItem="FjA-6G-Q19" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ujw-1v-qsh"/>
                             <constraint firstItem="iX4-Fi-Ymy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="Vig-iF-3tf"/>
                             <constraint firstItem="cq4-IE-pX3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WBh-wj-4Fz"/>
+                            <constraint firstItem="rnd-hT-VMt" firstAttribute="top" secondItem="FjA-6G-Q19" secondAttribute="bottom" constant="8" symbolic="YES" id="Xbp-y6-1J8"/>
                             <constraint firstItem="Ilc-C6-x1v" firstAttribute="top" secondItem="gon-oh-70F" secondAttribute="bottom" constant="65" id="YNv-dV-VKC"/>
                             <constraint firstItem="MwV-nj-alV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iQO-jc-y2n"/>
                             <constraint firstItem="FjA-6G-Q19" firstAttribute="top" secondItem="Fbt-hT-F8E" secondAttribute="bottom" constant="20" id="kAT-Za-kbT"/>
                             <constraint firstItem="gon-oh-70F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oMk-eM-bJK"/>
+                            <constraint firstItem="rnd-hT-VMt" firstAttribute="centerX" secondItem="FjA-6G-Q19" secondAttribute="centerX" id="rBd-8y-Krn"/>
                             <constraint firstItem="1ic-aL-jyr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sgw-wx-9M7"/>
                             <constraint firstItem="1ic-aL-jyr" firstAttribute="top" secondItem="Ilc-C6-x1v" secondAttribute="bottom" id="so6-r2-xJ0"/>
                             <constraint firstItem="VbM-kV-4Lu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="swb-Ki-0IY"/>
