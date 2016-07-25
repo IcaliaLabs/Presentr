@@ -9,8 +9,8 @@
 import Foundation
 
 extension PresentationType: Equatable { }
-public func ==(lhs: PresentationType, rhs: PresentationType) -> Bool{
-    switch (lhs, rhs){
+public func == (lhs: PresentationType, rhs: PresentationType) -> Bool {
+    switch (lhs, rhs) {
     case (let .Custom(lhsWidth, lhsHeight, lhsCenter), let .Custom(rhsWidth, rhsHeight, rhsCenter)):
         return lhsWidth == rhsWidth && lhsHeight == rhsHeight && lhsCenter == rhsCenter
     case (.Alert, .Alert):
@@ -27,8 +27,8 @@ public func ==(lhs: PresentationType, rhs: PresentationType) -> Bool{
 }
 
 extension ModalSize: Equatable { }
-public func ==(lhs: ModalSize, rhs: ModalSize) -> Bool{
-    switch (lhs, rhs){
+public func == (lhs: ModalSize, rhs: ModalSize) -> Bool {
+    switch (lhs, rhs) {
     case (let .Custom(lhsSize), let .Custom(rhsSize)):
         return lhsSize == rhsSize
     case (.Default, .Default):
@@ -43,8 +43,8 @@ public func ==(lhs: ModalSize, rhs: ModalSize) -> Bool{
 }
 
 extension ModalCenterPosition: Equatable { }
-public func ==(lhs: ModalCenterPosition, rhs: ModalCenterPosition) -> Bool{
-    switch (lhs, rhs){
+public func == (lhs: ModalCenterPosition, rhs: ModalCenterPosition) -> Bool {
+    switch (lhs, rhs) {
     case (let .Custom(lhsCenterPoint), let .Custom(rhsCenterPoint)):
         return lhsCenterPoint.x == rhsCenterPoint.x && lhsCenterPoint.y == rhsCenterPoint.y
     case (.Center, .Center):
