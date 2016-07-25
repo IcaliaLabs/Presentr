@@ -19,10 +19,10 @@ import UIKit
  */
 public enum PresentationType {
 
-    case Alert
-    case Popup
-    case TopHalf
-    case BottomHalf
+    case alert
+    case popup
+    case topHalf
+    case bottomHalf
     
     /**
      Describes the sizing for each Presentr type. It is meant to be non device/width specific. Except with the .Custom type which should be for cases when the modal size is very small, i.e. smaller than any device.
@@ -31,12 +31,12 @@ public enum PresentationType {
      */
     func size() -> (width: ModalSize, height: ModalSize) {
         switch self {
-        case .Alert:
-            return (.Custom(size: 270), .Custom(size: 180))
-        case .Popup:
-            return (.Default, .Default)
-        case .TopHalf, .BottomHalf:
-            return (.Full, .Half)
+        case .alert:
+            return (.custom(size: 270), .custom(size: 180))
+        case .popup:
+            return (.default, .default)
+        case .topHalf, .bottomHalf:
+            return (.full, .half)
         }
     }
     
@@ -47,12 +47,12 @@ public enum PresentationType {
      */
     func position() -> ModalCenterPosition {
         switch self {
-        case .Alert, .Popup:
-            return .Center
-        case .TopHalf:
-            return .TopCenter
-        case .BottomHalf:
-            return .BottomCenter
+        case .alert, .popup:
+            return .center
+        case .topHalf:
+            return .topCenter
+        case .bottomHalf:
+            return .bottomCenter
         }
     }
     
@@ -63,10 +63,10 @@ public enum PresentationType {
      */
     func defaultTransitionType() -> TransitionType{
         switch self {
-        case .Alert, .Popup, .BottomHalf:
-            return .CoverVertical
-        case .TopHalf:
-            return .CoverVerticalFromTop
+        case .alert, .popup, .bottomHalf:
+            return .coverVertical
+        case .topHalf:
+            return .coverVerticalFromTop
         }
     }
     
@@ -85,13 +85,13 @@ public enum PresentationType {
 public enum TransitionType{
     
     // System provided
-    case CoverVertical
-    case CrossDissolve
-    case FlipHorizontal
+    case coverVertical
+    case crossDissolve
+    case flipHorizontal
     // Custom
-    case CoverVerticalFromTop
-    case CoverHorizontalFromRight
-    case CoverHorizontalFromLeft
+    case coverVerticalFromTop
+    case coverHorizontalFromRight
+    case coverHorizontalFromLeft
     
     /**
      Matches the 'TransitionType' to the system provided transition. If this returns nil it should be taken to mean that it's a custom transition, and should call the animation() method.
@@ -100,12 +100,12 @@ public enum TransitionType{
      */
     func systemTransition() -> UIModalTransitionStyle?{
         switch self {
-        case .CoverVertical:
-            return UIModalTransitionStyle.CoverVertical
-        case .CrossDissolve:
-            return UIModalTransitionStyle.CrossDissolve
-        case .FlipHorizontal:
-            return UIModalTransitionStyle.FlipHorizontal
+        case .coverVertical:
+            return UIModalTransitionStyle.coverVertical
+        case .crossDissolve:
+            return UIModalTransitionStyle.crossDissolve
+        case .flipHorizontal:
+            return UIModalTransitionStyle.flipHorizontal
         default:
             return nil
         }
@@ -118,11 +118,11 @@ public enum TransitionType{
      */
     func animation() -> PresentrAnimation?{
         switch self {
-        case .CoverVerticalFromTop:
+        case .coverVerticalFromTop:
             return CoverVerticalFromTopAnimation()
-        case .CoverHorizontalFromRight:
+        case .coverHorizontalFromRight:
             return CoverHorizontalAnimation(fromRight: true)
-        case .CoverHorizontalFromLeft:
+        case .coverHorizontalFromLeft:
             return CoverHorizontalAnimation(fromRight: false)
         default:
             return nil
@@ -141,10 +141,10 @@ public enum TransitionType{
  */
 public enum ModalSize {
     
-    case Default
-    case Half
-    case Full
-    case Custom(size: Float)
+    case`default`
+    case half
+    case full
+    case custom(size: Float)
 
     /**
      Calculates the exact width value for the presented view controller.
@@ -153,15 +153,15 @@ public enum ModalSize {
      
      - returns: Exact float width value.
      */
-    func calculateWidth(parentSize: CGSize) -> Float{
+    func calculateWidth(_ parentSize: CGSize) -> Float{
         switch self {
-        case .Default:
+        case .default:
             return floorf(Float(parentSize.width) - (PresentrConstants.Values.defaultSideMargin * 2.0))
-        case .Half:
+        case .half:
             return floorf(Float(parentSize.width) / 2.0)
-        case .Full:
+        case .full:
             return Float(parentSize.width)
-        case .Custom(let size):
+        case .custom(let size):
             return size
         }
     }
@@ -173,15 +173,15 @@ public enum ModalSize {
      
      - returns: Exact float height value.
      */
-    func calculateHeight(parentSize: CGSize) -> Float{
+    func calculateHeight(_ parentSize: CGSize) -> Float{
         switch self {
-        case .Default:
+        case .default:
             return floorf(Float(parentSize.height) * PresentrConstants.Values.defaultHeightPercentage)
-        case .Half:
+        case .half:
             return floorf(Float(parentSize.height) / 2.0)
-        case .Full:
+        case .full:
             return Float(parentSize.height)
-        case .Custom(let size):
+        case .custom(let size):
             return size
         }
     }
@@ -197,9 +197,9 @@ public enum ModalSize {
  */
 public enum ModalCenterPosition {
     
-    case Center
-    case TopCenter
-    case BottomCenter
+    case center
+    case topCenter
+    case bottomCenter
     
     /**
      Calculates the exact position for the presented view controller center.
@@ -208,14 +208,14 @@ public enum ModalCenterPosition {
      
      - returns: CGPoint representing the presented view controller's center point.
      */
-    func calculatePoint(containerBounds: CGRect) -> CGPoint{
+    func calculatePoint(_ containerBounds: CGRect) -> CGPoint{
         switch self {
-        case .Center:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height / 2)
-        case .TopCenter:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height * (1 / 4) - 1)
-        case .BottomCenter:
-            return CGPointMake(containerBounds.width / 2, containerBounds.height * (3 / 4))
+        case .center:
+            return CGPoint(x: containerBounds.width / 2, y: containerBounds.height / 2)
+        case .topCenter:
+            return CGPoint(x: containerBounds.width / 2, y: containerBounds.height * (1 / 4) - 1)
+        case .bottomCenter:
+            return CGPoint(x: containerBounds.width / 2, y: containerBounds.height * (3 / 4))
         }
     }
     
@@ -257,8 +257,8 @@ public class Presentr: NSObject {
      
      - returns: Returns a configured instance of 'AlertViewController'
      */
-    public static func alertViewController(title title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
-        let bundle = NSBundle(forClass: self)
+    public static func alertViewController(title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
+        let bundle = Bundle(for: self)
         let alertController = AlertViewController(nibName: "Alert", bundle: bundle)
         alertController.titleText = title
         alertController.bodyText = body
@@ -281,8 +281,8 @@ public class Presentr: NSObject {
             presentedVC.modalTransitionStyle = systemTransition
         }
         presentedVC.transitioningDelegate = self
-        presentedVC.modalPresentationStyle = .Custom
-        presentingVC.presentViewController(presentedVC, animated: animated, completion: nil)
+        presentedVC.modalPresentationStyle = .custom
+        presentingVC.present(presentedVC, animated: animated, completion: nil)
     }
 
 }
@@ -290,7 +290,7 @@ public class Presentr: NSObject {
 // MARK: - UIViewController extension to provide customPresentViewController(_:viewController:animated:completion:) method
 
 public extension UIViewController {
-    func customPresentViewController(presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+    func customPresentViewController(_ presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
         presentr.presentViewController(presentingViewController: self,
                                        presentedViewController: viewController,
                                        animated: animated,
@@ -302,22 +302,26 @@ public extension UIViewController {
 
 extension Presentr: UIViewControllerTransitioningDelegate{
     
-    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        return presentationController(presented, presenting: presenting)
+    public func presentationController(forPresentedViewController presented: UIViewController, presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
+        if presenting != nil {
+            return presentationController(presented, presenting: presenting!)
+        } else {
+            return presentationController(presented, presenting: UIViewController())
+        }
     }
     
-    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
+    public func animationController(forPresentedController presented: UIViewController, presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?{
         return animation()
     }
     
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
+    public func animationController(forDismissedController dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
         return animation()
     }
     
     // MARK: - Private Helper's
     
-    private func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
-        let presentationController = PresentrController(presentedViewController: presented, presentingViewController: presenting)
+    private func presentationController(_ presented: UIViewController, presenting: UIViewController) -> PresentrController {
+        let presentationController = PresentrController(presentedViewController: presented, presenting: presenting)
         presentationController.presentationType = presentationType
         return presentationController
     }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="15G12a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11103.10"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,67 +15,60 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-Fi-Ymy">
-                                <rect key="frame" x="212" y="40" width="175" height="30"/>
                                 <state key="normal" title="Alert w/Default Animation"/>
                                 <connections>
-                                    <action selector="alertDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eby-Y6-dMP"/>
+                                    <action selector="alertDefaultWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RoQ-vN-4Xi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gon-oh-70F">
-                                <rect key="frame" x="210" y="70" width="179" height="30"/>
                                 <state key="normal" title="Alert w/Custom Animation"/>
                                 <connections>
-                                    <action selector="alertCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j83-jb-Aya"/>
+                                    <action selector="alertCustomWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fKh-NL-XCs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilc-C6-x1v">
-                                <rect key="frame" x="207" y="120" width="186" height="30"/>
                                 <state key="normal" title="Popup w/Default Animation"/>
                                 <connections>
                                     <action selector="popupDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T09-Xh-vML"/>
+                                    <action selector="popupDefaultWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9yI-Gp-HbN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ic-aL-jyr">
-                                <rect key="frame" x="205" y="150" width="190" height="30"/>
                                 <state key="normal" title="Popup w/Custom Animation"/>
                                 <connections>
-                                    <action selector="popupCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eR3-Jo-pJR"/>
+                                    <action selector="popupCustomWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F4V-LQ-bv5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwV-nj-alV">
-                                <rect key="frame" x="202" y="200" width="196" height="30"/>
                                 <state key="normal" title="TopHalf w/Default Animation"/>
                                 <connections>
-                                    <action selector="topHalfDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="40t-qQ-Wr4"/>
+                                    <action selector="topHalfDefaultWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CC4-wi-g7Q"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-IE-pX3">
-                                <rect key="frame" x="200" y="230" width="199" height="30"/>
                                 <state key="normal" title="TopHalf w/Custom Animation"/>
                                 <connections>
-                                    <action selector="topHalfCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bba-V0-nBu"/>
+                                    <action selector="topHalfCustomWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zwb-pW-uQ5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbt-hT-F8E">
-                                <rect key="frame" x="188" y="310" width="224" height="30"/>
                                 <state key="normal" title="BottomHalf w/Custom Animation"/>
                                 <connections>
-                                    <action selector="bottomHalfCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KmZ-zV-m7U"/>
+                                    <action selector="bottomHalfCustomWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tyd-Kf-N4q"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbM-kV-4Lu">
-                                <rect key="frame" x="190" y="280" width="220" height="30"/>
                                 <state key="normal" title="BottomHalf w/Default Animation"/>
                                 <connections>
-                                    <action selector="bottomHalfDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbD-vc-lQQ"/>
+                                    <action selector="bottomHalfDefaultWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="43C-w7-n3b"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Fbt-hT-F8E" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="308-nI-Q34"/>
                             <constraint firstItem="VbM-kV-4Lu" firstAttribute="top" secondItem="cq4-IE-pX3" secondAttribute="bottom" constant="20" id="4iJ-g5-Kqy"/>

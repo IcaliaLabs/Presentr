@@ -14,7 +14,7 @@ import Foundation
 protocol PresentrAnimation: UIViewControllerAnimatedTransitioning{
 
     /// The duration for the animation. Must be set by the class that implements protocol.
-    var animationDuration: NSTimeInterval { get set }
+    var animationDuration: TimeInterval { get set }
 
     /**
      This method has a default implementation by the 'PresentrAnimation' extension. It handles animating the view controller.
@@ -23,7 +23,7 @@ protocol PresentrAnimation: UIViewControllerAnimatedTransitioning{
      - parameter transform:         Transform block used to obtain the initial frame for the animation, given the finalFrame and the container's frame.
      
      */
-    func animate(transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer)
+    func animate(_ transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer)
     
 }
 
@@ -32,23 +32,21 @@ typealias FrameTransformer = (finalFrame: CGRect, containerFrame: CGRect) -> CGR
 
 extension PresentrAnimation{
     
-    func animate(transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer){
+    func animate(_ transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer){
         
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
+        let containerView = transitionContext.containerView()
         
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextFromViewControllerKey)
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextToViewControllerKey)
+        let fromView = transitionContext.view(forKey: UITransitionContextFromViewKey)
+        let toView = transitionContext.view(forKey: UITransitionContextToViewKey)
         
         let isPresenting: Bool = (toViewController?.presentingViewController == fromViewController)
         
         let animatingVC = isPresenting ? toViewController : fromViewController
         let animatingView = isPresenting ? toView : fromView
         
-        let finalFrameForVC = transitionContext.finalFrameForViewController(animatingVC!)
+        let finalFrameForVC = transitionContext.finalFrame(for: animatingVC!)
         let initialFrameForVC = transform(finalFrame: finalFrameForVC, containerFrame: containerView.frame)
         
         let initialFrame = isPresenting ? initialFrameForVC : finalFrameForVC
@@ -62,7 +60,7 @@ extension PresentrAnimation{
         
         animatingView?.frame = initialFrame
         
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: .AllowUserInteraction, animations: {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: .allowUserInteraction, animations: {
             
             animatingView?.frame = finalFrame
             
