@@ -101,8 +101,6 @@ public class Presentr: NSObject {
      */
     private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
 
-        self.dismissAnimated = animated
-
         if let systemPresentTransition = transitionForPresent.systemTransition() {
             presentedVC.modalTransitionStyle = systemPresentTransition
         }
@@ -167,7 +165,7 @@ public extension UIViewController {
     /**
      Public method for presenting a view controller, using the custom presentation. Called from the UIViewController extension.
 
-     - parameter presentr:       The view controller which is doing the presenting.
+     - parameter presentr:       Presentr object used for custom presentation.
      - parameter viewController: The view controller to be presented.
      - parameter animated:       Animation boolean.
      - parameter completion:     Completion block.
