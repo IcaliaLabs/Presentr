@@ -17,8 +17,8 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 
 **Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
 
-### What's New
-#### See CHANGELOG.md
+## What's New
+### See CHANGELOG.md
 
 ## Contributing
 ### See CONTRIBUTING.md
@@ -47,6 +47,7 @@ public enum PresentationType {
   case Popup
   case TopHalf
   case BottomHalf
+  case FullScreen
   case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 }
 ```
@@ -126,10 +127,11 @@ You can choose to disable rounded corners on the view controller that will be pr
 presenter.roundCorners = false
 ```
 
-You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true.
+You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true. Or you can disable the animation for the dismissOnTap.
 
 ```swift
 presenter.dismissOnTap = false
+presenter.dismissAnimated = false
 ```
 
 ### Present the view controller.
