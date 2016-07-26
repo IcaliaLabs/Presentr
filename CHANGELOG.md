@@ -2,7 +2,7 @@
 
 #### 0.1.8
 - .FullScreen PresentationType
-- Ability to set animation on/off for dismiss when
+- Ability to set animation on/off for dismissOnTap
 
 #### 0.1.7
 - Ability to set dismiss transition type
