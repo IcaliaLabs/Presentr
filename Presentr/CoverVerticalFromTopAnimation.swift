@@ -9,24 +9,24 @@
 import Foundation
 
 /// Custom 'CoverVerticalFromTopAnimation' animation. Conforms to 'PresentrAnimation' protocol
-class CoverVerticalFromTopAnimation: NSObject, PresentrAnimation{
-    
+class CoverVerticalFromTopAnimation: NSObject, PresentrAnimation {
+
     var animationDuration: NSTimeInterval
-    
-    init(animationDuration: NSTimeInterval = 0.5){
+
+    init(animationDuration: NSTimeInterval = 0.5) {
         self.animationDuration = animationDuration
     }
-    
+
 }
 
 // MARK: UIViewControllerAnimatedTransitioning
 
-extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning{
-    
+extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning {
+
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return animationDuration
     }
-    
+
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         animate(transitionContext) { finalFrame, _ in
             var initialFrame = finalFrame
@@ -34,5 +34,5 @@ extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning{
             return initialFrame
         }
     }
-    
+
 }

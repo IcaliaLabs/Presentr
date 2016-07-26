@@ -13,17 +13,21 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     /// Presentation type must be passed in to make all the sizing and position decisions.
     let presentationType: PresentationType
-    
+
     /// Should the presented controller's view have rounded corners.
     let roundCorners: Bool
-    
+
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
-    
-    private var shouldRoundCorners: Bool{
-        if presentationType == .BottomHalf || presentationType == .TopHalf {
+
+    /// Should the presented controller use animation when dismiss on background tap.
+    let dismissAnimated: Bool
+
+    private var shouldRoundCorners: Bool {
+        switch presentationType {
+        case .BottomHalf, .TopHalf, .FullScreen:
             return false
-        }else{
+        default:
             return roundCorners
         }
     }
@@ -31,7 +35,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private var chromeView = UIView()
 
     // MARK: Init
-    
+
     init(presentedViewController: UIViewController,
          presentingViewController: UIViewController,
          presentationType: PresentationType,
@@ -40,19 +44,21 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
-         blurStyle: UIBlurEffectStyle) {
-        
+         blurStyle: UIBlurEffectStyle,
+         dismissAnimated: Bool) {
+
         self.presentationType = presentationType
         self.roundCorners = roundCorners
         self.dismissOnTap = dismissOnTap
-        
+        self.dismissAnimated = dismissAnimated
+
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
-        
+
         setupChromeView(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
-        
-        if shouldRoundCorners{
+
+        if shouldRoundCorners {
             addCornerRadiusToPresentedView()
-        }else{
+        } else {
             removeCornerRadiusFromPresentedView()
         }
     }
@@ -62,7 +68,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private func setupChromeView(backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
-        
+
         if blurBackground {
             let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
             blurEffectView.frame = chromeView.bounds
@@ -72,7 +78,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
             chromeView.backgroundColor = backgroundColor.colorWithAlphaComponent(CGFloat(backgroundOpacity))
         }
     }
-    
+
     private func addCornerRadiusToPresentedView() {
         presentedViewController.view.layer.cornerRadius = 4
         presentedViewController.view.layer.masksToBounds = true
@@ -81,17 +87,17 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private func removeCornerRadiusFromPresentedView() {
         presentedViewController.view.layer.cornerRadius = 0
     }
-    
+
     // MARK: Actions
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
         if gesture.state == .Ended && dismissOnTap {
-            presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            presentingViewController.dismissViewControllerAnimated(dismissAnimated, completion: nil)
         }
     }
 
     // MARK: Sizing Helper's
-    
+
     private func getWidthFromType(parentSize: CGSize) -> Float {
         let width = presentationType.size().width
         return width.calculateWidth(parentSize)
@@ -107,7 +113,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         let position = presentationType.position()
         return position.calculatePoint(containerBounds)
     }
-    
+
     private func getOriginFromType() -> CGPoint? {
         let position = presentationType.position()
         return position.calculateOrigin()
@@ -116,7 +122,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private func calculateOrigin(center: CGPoint, size: CGSize) -> CGPoint {
         let x: CGFloat = center.x - size.width / 2
         let y: CGFloat = center.y - size.height / 2
-        return CGPointMake(x, y)
+        return CGPoint(x: x, y: y)
     }
 
 }
@@ -135,10 +141,10 @@ extension PresentrController {
 
         let origin: CGPoint
         // If the Presentation Type's calculate center point returns nil, this means that the user provided the origin, not a center point.
-        if let center = getCenterPointFromType(){
+        if let center = getCenterPointFromType() {
             origin = calculateOrigin(center, size: size)
-        }else{
-            origin = getOriginFromType() ?? CGPointMake(0, 0)
+        } else {
+            origin = getOriginFromType() ?? CGPoint(x: 0, y: 0)
         }
 
         presentedViewFrame.size = size
@@ -150,7 +156,7 @@ extension PresentrController {
     override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         let width = getWidthFromType(parentSize)
         let height = getHeightFromType(parentSize)
-        return CGSizeMake(CGFloat(width), CGFloat(height))
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 
     override func containerViewWillLayoutSubviews() {

@@ -17,23 +17,17 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 
 **Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
 
-### What's New
-#### 0.1.7
-- Ability to set dismiss transition type
-- Modify background color & opacity
-- Add blur to background
-
-#### 0.1.6
-- Custom PresentationType's
-- Round corners option
+## What's New
+### See CHANGELOG.md
 
 ## Contributing
 
 1. Fork project
 2. Checkout **Develop** branch
-3. Create awesome feature/enhancement/bug-fix
-4. Optionally create *Issue* to discuss feature
-5. Submit pull request to **Develop** branch
+3. Create **Feature** branch off of the **Develop** branch
+4. Create awesome feature/enhancement/bug-fix
+5. Optionally create *Issue* to discuss feature
+6. Submit pull request from your **Feature** branch to Presentr’s **Develop** branch
 
 ## Installation
 
@@ -47,7 +41,7 @@ pod 'Presentr'
 
 ### Manually
 1. Download and drop ```/Presentr``` folder in your project.  
-2. Congratulations! 
+2. You're done! 
 
 ## Main Types
 
@@ -59,6 +53,7 @@ public enum PresentationType {
   case Popup
   case TopHalf
   case BottomHalf
+  case FullScreen
   case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 }
 ```
@@ -138,10 +133,11 @@ You can choose to disable rounded corners on the view controller that will be pr
 presenter.roundCorners = false
 ```
 
-You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true.
+You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true. Or you can disable the animation for the dismissOnTap.
 
 ```swift
 presenter.dismissOnTap = false
+presenter.dismissAnimated = false
 ```
 
 ### Present the view controller.
