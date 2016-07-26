@@ -104,7 +104,7 @@ public class Presentr: NSObject {
         
         presentedVC.transitioningDelegate = self
         presentedVC.modalPresentationStyle = .Custom
-        presentingVC.presentViewController(presentedVC, animated: animated, completion: nil)
+        presentingVC.presentViewController(presentedVC, animated: animated, completion: completion)
         
         if let systemDismissTransition = transitionForDismiss.systemTransition(){
             presentedVC.modalTransitionStyle = systemDismissTransition
