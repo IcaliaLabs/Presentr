@@ -41,7 +41,7 @@ pod 'Presentr'
 
 ### Manually
 1. Download and drop ```/Presentr``` folder in your project.  
-2. Congratulations! 
+2. You're done! 
 
 ## Main Types
 
