@@ -12,9 +12,9 @@ import UIKit
 class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
 
     /// Presentation type must be passed in to make all the sizing and position decisions.
-    var presentationType: PresentationType = .Popup {
+    var presentationType: PresentationType = .popup {
         didSet {
-            if presentationType == .BottomHalf || presentationType == .TopHalf {
+            if presentationType == .bottomHalf || presentationType == .topHalf {
                 removeCornerRadiusFromPresentedView()
             }
         }
@@ -24,8 +24,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Init
     
-    override init(presentedViewController: UIViewController, presentingViewController: UIViewController) {
-        super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         setupChromeView()
         addCornerRadiusToPresentedView()
     }
@@ -40,7 +40,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     private func addCornerRadiusToPresentedView() {
-        guard presentationType != .BottomHalf || presentationType != .TopHalf else {
+        guard presentationType != .bottomHalf || presentationType != .topHalf else {
             return
         }
         presentedViewController.view.layer.cornerRadius = 4
@@ -53,20 +53,20 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Actions
 
-    func chromeViewTapped(gesture: UIGestureRecognizer) {
-        if gesture.state == .Ended {
-            presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+    func chromeViewTapped(_ gesture: UIGestureRecognizer) {
+        if gesture.state == .ended {
+            presentingViewController.dismiss(animated: true, completion: nil)
         }
     }
 
     // MARK: - Sizing Helper's
     
-    private func calculateWidth(parentSize: CGSize) -> Float {
+    private func calculateWidth(_ parentSize: CGSize) -> Float {
         let width = presentationType.size().width
         return width.calculateWidth(parentSize)
     }
 
-    private func calculateHeight(parentSize: CGSize) -> Float {
+    private func calculateHeight(_ parentSize: CGSize) -> Float {
         let height = presentationType.size().height
         return height.calculateHeight(parentSize)
     }
@@ -77,10 +77,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         return position.calculatePoint(containerBounds)
     }
 
-    private func calculateOrigin(center: CGPoint, size: CGSize) -> CGPoint {
+    private func calculateOrigin(_ center: CGPoint, size: CGSize) -> CGPoint {
         let x: CGFloat = center.x - size.width / 2
         let y: CGFloat = center.y - size.height / 2
-        return CGPointMake(x, y)
+        return CGPoint(x: x, y: y)
     }
 
 }
@@ -91,11 +91,11 @@ extension PresentrController {
 
     // MARK: Presentation
 
-    override func frameOfPresentedViewInContainerView() -> CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         var presentedViewFrame = CGRect.zero
         let containerBounds = containerView!.bounds
 
-        let size = sizeForChildContentContainer(presentedViewController, withParentContainerSize: containerBounds.size)
+        let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
         let center = calculateCenterPoint()
         let origin = calculateOrigin(center, size: size)
 
@@ -105,15 +105,15 @@ extension PresentrController {
         return presentedViewFrame
     }
 
-    override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
+    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         let width = calculateWidth(parentSize)
         let height = calculateHeight(parentSize)
-        return CGSizeMake(CGFloat(width), CGFloat(height))
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 
     override func containerViewWillLayoutSubviews() {
         chromeView.frame = containerView!.bounds
-        presentedView()!.frame = frameOfPresentedViewInContainerView()
+        presentedView!.frame = frameOfPresentedViewInContainerView
     }
 
     // MARK: Animation
@@ -121,11 +121,11 @@ extension PresentrController {
     override func presentationTransitionWillBegin() {
         chromeView.frame = containerView!.bounds
         chromeView.alpha = 0.0
-        containerView?.insertSubview(chromeView, atIndex: 0)
+        containerView?.insertSubview(chromeView, at: 0)
 
-        if let coordinator = presentedViewController.transitionCoordinator() {
+        if let coordinator = presentedViewController.transitionCoordinator {
 
-            coordinator.animateAlongsideTransition({ context in
+            coordinator.animate(alongsideTransition: { context in
                 self.chromeView.alpha = 1.0
                 }, completion: nil)
 
@@ -135,9 +135,9 @@ extension PresentrController {
     }
 
     override func dismissalTransitionWillBegin() {
-        if let coordinator = presentedViewController.transitionCoordinator() {
+        if let coordinator = presentedViewController.transitionCoordinator {
 
-            coordinator.animateAlongsideTransition({ context in
+            coordinator.animate(alongsideTransition: { context in
                 self.chromeView.alpha = 0.0
                 }, completion: nil)
 

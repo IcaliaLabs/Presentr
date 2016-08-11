@@ -43,9 +43,9 @@ public class AlertAction{
  */
 public enum AlertActionStyle{
     
-    case Default
-    case Cancel
-    case Destructive
+    case `default`
+    case cancel
+    case destructive
     
     /**
      Decides which color to use for each style
@@ -54,11 +54,11 @@ public enum AlertActionStyle{
      */
     func color() -> UIColor{
         switch self {
-        case .Default:
+        case .default:
             return ColorPalette.greenColor
-        case .Cancel:
+        case .cancel:
             return ColorPalette.grayColor
-        case .Destructive:
+        case .destructive:
             return ColorPalette.redColor
         }
     }
@@ -70,7 +70,7 @@ private enum Font: String {
     case Montserrat = "Montserrat-Regular"
     case SourceSansPro = "SourceSansPro-Regular"
     
-    func font(size: CGFloat = 15.0) -> UIFont{
+    func font(_ size: CGFloat = 15.0) -> UIFont{
         return UIFont(name: self.rawValue, size: size)!
     }
     
@@ -109,7 +109,7 @@ public class AlertViewController: UIViewController {
         super.viewDidLoad()
         
         if actions.isEmpty{
-            let okAction = AlertAction(title: "ok 🕶", style: .Default, handler: nil)
+            let okAction = AlertAction(title: "ok 🕶", style: .default, handler: nil)
             addAction(okAction)
         }
         
@@ -119,7 +119,7 @@ public class AlertViewController: UIViewController {
         setupLabels()
         setupButtons()
     }
-
+    
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -131,11 +131,11 @@ public class AlertViewController: UIViewController {
             if let constraint = firstButtonWidthConstraint {
                 view.removeConstraint(constraint)
             }
-            let views = ["button" : firstButton]
-            let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[button]-0-|",
-                                                                             options: NSLayoutFormatOptions(rawValue: 0),
-                                                                             metrics: nil,
-                                                                             views: views)
+            let views: [String:AnyObject] = ["button" : firstButton]
+            let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[button]-0-|",
+                                                             options: NSLayoutFormatOptions(rawValue: 0),
+                                                             metrics: nil,
+                                                             views: views)
             view.addConstraints(constraints)
         }
         super.updateViewConstraints()
@@ -148,7 +148,7 @@ public class AlertViewController: UIViewController {
      
      - parameter action: The 'AlertAction' to be added
      */
-    public func addAction(action: AlertAction){
+    public func addAction(_ action: AlertAction){
         guard actions.count < 2 else { return }
         actions += [action]
     }
@@ -178,16 +178,16 @@ public class AlertViewController: UIViewController {
         }
     }
     
-    private func apply(action: AlertAction, toButton: UIButton){
-        let title = action.title.uppercaseString
+    private func apply(_ action: AlertAction, toButton: UIButton){
+        let title = action.title.uppercased()
         let style = action.style
-        toButton.setTitle(title, forState: .Normal)
-        toButton.setTitleColor(style.color(), forState: .Normal)
+        toButton.setTitle(title, for: UIControlState())
+        toButton.setTitleColor(style.color(), for: UIControlState())
     }
     
     // MARK: IBAction's
-
-    @IBAction func didSelectFirstAction(sender: AnyObject) {
+    
+    @IBAction func didSelectFirstAction(_ sender: AnyObject) {
         guard let firstAction = actions.first else { return }
         if let handler = firstAction.handler {
             handler()
@@ -195,8 +195,8 @@ public class AlertViewController: UIViewController {
         dismiss()
     }
     
-    @IBAction func didSelectSecondAction(sender: AnyObject) {
-        guard let secondAction = actions.last where actions.count == 2 else { return }
+    @IBAction func didSelectSecondAction(_ sender: AnyObject) {
+        guard let secondAction = actions.last, actions.count == 2 else { return }
         if let handler = secondAction.handler {
             handler()
         }
@@ -207,7 +207,7 @@ public class AlertViewController: UIViewController {
     
     func dismiss(){
         guard autoDismiss else { return }
-        dismissViewControllerAnimated(dismissAnimated, completion: nil)
+        self.dismiss(animated: dismissAnimated, completion: nil)
     }
     
 }
@@ -216,34 +216,27 @@ public class AlertViewController: UIViewController {
 
 extension AlertViewController {
     
-    struct PresentrStatic{
-        static var onceToken: dispatch_once_t = 0
-    }
-    
     private func loadFonts(){
-        dispatch_once(&PresentrStatic.onceToken) {
-            self.loadFont(Font.Montserrat.rawValue)
-            self.loadFont(Font.SourceSansPro.rawValue)
-        }
+        self.loadFont(Font.Montserrat.rawValue)
+        self.loadFont(Font.SourceSansPro.rawValue)
     }
     
-    private func loadFont(name: String) -> Bool{
-        let bundle = NSBundle(forClass: self.dynamicType)
-        guard let fontPath = bundle.pathForResource(name, ofType: "ttf") else {
+    @discardableResult
+    private func loadFont(_ name: String) -> Bool{
+        let bundle = Bundle(for: self.dynamicType)
+        guard let fontPath = bundle.path(forResource: name, ofType: "ttf") else {
             return false
         }
-        let data = NSData(contentsOfFile: fontPath)
+        let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath))
         var error: Unmanaged<CFError>?
-        let provider = CGDataProviderCreateWithCFData(data)
-        if let font = CGFontCreateWithDataProvider(provider) {
-            let success = CTFontManagerRegisterGraphicsFont(font, &error)
-            if !success {
-                print("Error loading font. Font is possibly already registered.")
-                return false
-            }
-        }else{
+        let provider = CGDataProvider(data: data!)
+        let font = CGFont(provider!)
+        let success = CTFontManagerRegisterGraphicsFont(font, &error)
+        if !success {
+            print("Error loading font. Font is possibly already registered.")
             return false
         }
+        
         return true
     }
     
