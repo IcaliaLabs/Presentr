@@ -11,10 +11,10 @@ import Foundation
 /// Custom 'CoverHorizontalAnimation' animation. Conforms to 'PresentrAnimation' protocol
 class CoverHorizontalAnimation: NSObject, PresentrAnimation{
     
-    var animationDuration: NSTimeInterval
+    var animationDuration: TimeInterval
     var fromRight: Bool
     
-    init(animationDuration: NSTimeInterval = 0.5, fromRight: Bool = true){
+    init(animationDuration: TimeInterval = 0.5, fromRight: Bool = true){
         self.animationDuration = animationDuration
         self.fromRight = fromRight
     }
@@ -25,11 +25,11 @@ class CoverHorizontalAnimation: NSObject, PresentrAnimation{
 
 extension CoverHorizontalAnimation: UIViewControllerAnimatedTransitioning{
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animationDuration
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         animate(transitionContext) { finalFrame, containerFrame in
             var initialFrame = finalFrame
             if self.fromRight{
