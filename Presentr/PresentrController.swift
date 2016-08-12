@@ -37,7 +37,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     
     
     /// Determines if the presenting conroller conforms to `PresentrDelegate`
-    private var conformingPresentedController : PresentrDelegate? {
+    private var conformingPresentedController: PresentrDelegate? {
         return presentedViewController as? PresentrDelegate
     }
 
@@ -62,7 +62,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundOpacity: Float,
          blurBackground: Bool,
          blurStyle: UIBlurEffectStyle,
-         keyboardTranslationType : KeyboardTranslationType,
+         keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool) {
 
         self.presentationType = presentationType
@@ -139,7 +139,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     
     // MARK: Keyboard Observation
     
-    func keyboardWasShown (notification : NSNotification) {
+    func keyboardWasShown (notification: NSNotification) {
         // gets the keyboard frame and compares it to the presented view so the view gets moved up with the keyboard.
         if let keyboardFrame = notification.keyboardEndFrame() {
             let presentedFrame = frameOfPresentedViewInContainerView()
@@ -153,7 +153,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
     
-    func keyboardWillHide (notification : NSNotification) {
+    func keyboardWillHide (notification: NSNotification) {
         if keyboardIsShowing {
             let presentedFrame = frameOfPresentedViewInContainerView()
             if self.presentedView()!.frame !=  presentedFrame {

@@ -26,7 +26,7 @@ public enum KeyboardTranslationType {
         switch self {
         case .MoveUp:
             if offset > 0.0 {
-                let frame = CGRectMake(presentedFrame.origin.x, presentedFrame.origin.y-offset, presentedFrame.size.width, presentedFrame.size.height)
+                let frame = CGRect(x: presentedFrame.origin.x, y: presentedFrame.origin.y-offset, width: presentedFrame.size.width, height: presentedFrame.size.height)
                 return frame
             }
             return presentedFrame
@@ -34,14 +34,14 @@ public enum KeyboardTranslationType {
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
                 let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40.0
-                let frame = CGRectMake(presentedFrame.origin.x, y, presentedFrame.size.width, newHeight)
+                let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: newHeight)
                 return frame
             }
             return presentedFrame
         case .StickToTop:
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
-                let frame = CGRectMake(presentedFrame.origin.x, y, presentedFrame.size.width, presentedFrame.size.height)
+                let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: presentedFrame.size.height)
                 return frame
             }
             return presentedFrame
