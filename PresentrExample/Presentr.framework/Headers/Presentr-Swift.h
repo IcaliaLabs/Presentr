@@ -93,6 +93,7 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
+@import Foundation;
 @import ObjectiveC;
 #endif
 
@@ -128,6 +129,10 @@ SWIFT_CLASS("_TtC8Presentr19AlertViewController")
 @interface AlertViewController (SWIFT_EXTENSION(Presentr))
 @end
 
+
+@interface NSNotification (SWIFT_EXTENSION(Presentr))
+@end
+
 @class UIColor;
 
 
@@ -140,6 +145,9 @@ SWIFT_CLASS("_TtC8Presentr8Presentr")
 
 /// Should the presented controller dismiss on background tap. Default is true.
 @property (nonatomic) BOOL dismissOnTap;
+
+/// Should the presented controller use animation when dismiss on background tap. Default is true.
+@property (nonatomic) BOOL dismissAnimated;
 
 /// Color of the background. Default is Black.
 @property (nonatomic, strong) UIColor * _Nonnull backgroundColor;
@@ -173,7 +181,36 @@ SWIFT_CLASS("_TtC8Presentr8Presentr")
 @end
 
 
+
+/// The 'PresentrDelegate' protocol defines methods that you use to respond to changes from the 'PresentrController'. All of the methods of this protocol are optional.
+SWIFT_PROTOCOL("_TtP8Presentr16PresentrDelegate_")
+@protocol PresentrDelegate
+@optional
+
+/// Asks the delegate if it should dismiss the presented controller on the tap of the outer chrome view.
+///
+/// Use this method to validate requirments or finish tasks before the dismissal of the presented controller.
+///
+/// After things are wrapped up and verified it may be good to dismiss the presented controller automatically so the user does't have to close it again.
+///
+/// \param keyboardShowing Whether or not the keyboard is currently being shown by the presented view.
+///
+/// \returns  False if the dismissal should be prevented, otherwise, true if the dimissal should occur.
+- (BOOL)presentrShouldDismiss:(BOOL)keyboardShowing;
+@end
+
+
 @interface UIViewController (SWIFT_EXTENSION(Presentr))
+
+/// Public method for presenting a view controller, using the custom presentation. Called from the UIViewController extension.
+///
+/// \param presentr Presentr object used for custom presentation.
+///
+/// \param viewController The view controller to be presented.
+///
+/// \param animated Animation boolean.
+///
+/// \param completion Completion block.
 - (void)customPresentViewController:(Presentr * _Nonnull)presentr viewController:(UIViewController * _Nonnull)viewController animated:(BOOL)animated completion:(void (^ _Nullable)(void))completion;
 @end
 
