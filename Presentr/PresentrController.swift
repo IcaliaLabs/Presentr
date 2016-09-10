@@ -19,6 +19,15 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
+    
+    /// Should the presented controller dismiss on background Swipe.
+    let dismissOnSwipe: Bool
+    
+    /// The factor to be used on Swipeging animations
+    let swipeElasticityFactor: CGFloat = 0.5
+    
+    /// Where in the Swipe should the view dismiss
+    let swipeLimitPoint: CGFloat = 200
 
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
@@ -50,6 +59,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private var keyboardIsShowing: Bool = false
 
     private var chromeView = UIView()
+    
+    private var translationStart: CGPoint = CGPointZero
+    
+    private var presentedViewIsBeingDissmissed: Bool = false
 
     // MARK: Init
 
@@ -58,6 +71,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          presentationType: PresentationType,
          roundCorners: Bool,
          dismissOnTap: Bool,
+         dismissOnSwipe: Bool,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
@@ -68,6 +82,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.presentationType = presentationType
         self.roundCorners = roundCorners
         self.dismissOnTap = dismissOnTap
+        self.dismissOnSwipe = dismissOnSwipe
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
 
@@ -91,6 +106,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     private func setupChromeView(backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
+        
+        let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentingViewSwipe))
+        presentedViewController.view.addGestureRecognizer(swipe)
 
         if blurBackground {
             let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
@@ -134,6 +152,51 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
                 removeObservers()
             }
             presentingViewController.dismissViewControllerAnimated(dismissAnimated, completion: nil)
+        }
+    }
+    
+    func presentingViewSwipe(gesture: UIPanGestureRecognizer){
+        let gestureState: (UIGestureRecognizerState) -> Bool = {
+            return gesture.state == $0 && self.dismissOnSwipe
+        }
+        guard (conformingPresentedController?.presentrShouldDismiss?(keyboardIsShowing) ?? true) else {
+            return
+        }
+        if gestureState(.Began) {
+            translationStart = gesture.locationInView(presentedViewController.view)
+        }else if gestureState(.Changed) {
+            let amount = gesture.translationInView(presentedViewController.view)
+            if amount.y < 0 {return}
+            
+            let translation = swipeElasticityFactor * 2
+            let center = presentedViewController.view.center
+            presentedViewController.view.center = CGPointMake(center.x, center.y + translation)
+            
+            if amount.y > swipeLimitPoint{
+                presentedViewIsBeingDissmissed = true
+                presentedViewController.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+        }else if gestureState(.Ended) || gestureState(.Cancelled){
+            if presentedViewIsBeingDissmissed {return}
+            var point: CGPoint
+            switch presentationType.position()
+            {
+            case .Center:
+                point = CGPointMake((UIScreen.mainScreen().bounds.width / 2), (UIScreen.mainScreen().bounds.height / 2))
+            case .TopCenter:
+                point = CGPointMake((UIScreen.mainScreen().bounds.width / 2), (presentedViewController.view.bounds.height / 2))
+            case .BottomCenter:
+                point = CGPointMake((UIScreen.mainScreen().bounds.width / 2), (UIScreen.mainScreen().bounds.height) - (presentedViewController.view.bounds.height / 2))
+            case .Custom:
+                point = CGPointZero
+            default:
+                point = CGPointZero
+            }
+            
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
+                self.presentedViewController.view.center = point
+                }, completion: nil)
         }
     }
     

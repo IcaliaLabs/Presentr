@@ -59,6 +59,9 @@ public class Presentr: NSObject {
 
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
+    
+    /// Should the presented controller dismiss on Swipe. Default is true.
+    public var dismissOnSwipe = true
 
     /// Should the presented controller use animation when dismiss on background tap. Default is true.
     public var dismissAnimated = true
@@ -164,6 +167,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
                                                         dismissOnTap: dismissOnTap,
+                                                        dismissOnSwipe: dismissOnSwipe,
                                                         backgroundColor: backgroundColor,
                                                         backgroundOpacity: backgroundOpacity,
                                                         blurBackground: blurBackground,
