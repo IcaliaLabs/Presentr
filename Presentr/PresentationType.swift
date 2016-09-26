@@ -20,12 +20,12 @@ import Foundation
  */
 public enum PresentationType {
 
-    case Alert
-    case Popup
-    case TopHalf
-    case BottomHalf
-    case FullScreen
-    case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
+    case alert
+    case popup
+    case topHalf
+    case bottomHalf
+    case fullScreen
+    case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 
     /**
      Describes the sizing for each Presentr type. It is meant to be non device/width specific, except for the .Custom case.
@@ -34,15 +34,15 @@ public enum PresentationType {
      */
     func size() -> (width: ModalSize, height: ModalSize) {
         switch self {
-        case .Alert:
-            return (.Custom(size: 270), .Custom(size: 180))
-        case .Popup:
-            return (.Default, .Default)
-        case .TopHalf, .BottomHalf:
-            return (.Full, .Half)
-        case .FullScreen:
-            return (.Full, .Full)
-        case .Custom(let width, let height, _):
+        case .alert:
+            return (.custom(size: 270), .custom(size: 180))
+        case .popup:
+            return (.default, .default)
+        case .topHalf, .bottomHalf:
+            return (.full, .half)
+        case .fullScreen:
+            return (.full, .full)
+        case .custom(let width, let height, _):
             return (width, height)
         }
     }
@@ -54,15 +54,15 @@ public enum PresentationType {
      */
     func position() -> ModalCenterPosition {
         switch self {
-        case .Alert, .Popup:
-            return .Center
-        case .TopHalf:
-            return .TopCenter
-        case .BottomHalf:
-            return .BottomCenter
-        case .FullScreen:
-            return .Center
-        case .Custom(_, _, let center):
+        case .alert, .popup:
+            return .center
+        case .topHalf:
+            return .topCenter
+        case .bottomHalf:
+            return .bottomCenter
+        case .fullScreen:
+            return .center
+        case .custom(_, _, let center):
             return center
         }
     }
@@ -74,10 +74,10 @@ public enum PresentationType {
      */
     func defaultTransitionType() -> TransitionType {
         switch self {
-        case .TopHalf:
-            return .CoverVerticalFromTop
+        case .topHalf:
+            return .coverVerticalFromTop
         default:
-            return .CoverVertical
+            return .coverVertical
         }
     }
 
