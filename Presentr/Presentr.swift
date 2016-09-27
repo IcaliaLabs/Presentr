@@ -122,7 +122,8 @@ open class Presentr: NSObject {
 extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return presentationController(presented, presenting: presenting)
+        print("PRESENTING VC = \(presenting)")
+        return presentationController(presented, presenting: presenting) // this is sometimes nil... will it cause probs?
     }
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
