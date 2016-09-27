@@ -123,7 +123,10 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         print("PRESENTING VC = \(presenting)")
-        return presentationController(presented, presenting: presenting) // this is sometimes nil... will it cause probs?
+        // presenting VC is always nil in our testing, this did not happen previos iOS 10.
+        // does not seem to cause an issue, since the presentation controller does get a presenting VC later on, somehow (from system).
+        // had to make some changes to method signatures to accept an optional.
+        return presentationController(presented, presenting: presenting)
     }
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
