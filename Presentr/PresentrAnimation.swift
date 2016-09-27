@@ -33,10 +33,7 @@ typealias FrameTransformer = (finalFrame: CGRect, containerFrame: CGRect) -> CGR
 extension PresentrAnimation {
 
     func animate(transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer) {
-
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
+        let containerView = transitionContext.containerView()
 
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)

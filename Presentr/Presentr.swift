@@ -121,7 +121,7 @@ public class Presentr: NSObject {
 
 extension Presentr: UIViewControllerTransitioningDelegate {
 
-    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
         return presentationController(presented, presenting: presenting)
     }
 
@@ -135,7 +135,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
     // MARK: - Private Helper's
 
-    private func presentationController(presented: UIViewController, presenting: UIViewController) -> PresentrController {
+    private func presentationController(presented: UIViewController, presenting: UIViewController?) -> PresentrController {
         let presentationController = PresentrController(presentedViewController: presented,
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,

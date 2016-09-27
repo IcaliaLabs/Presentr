@@ -113,7 +113,7 @@ public class AlertViewController: UIViewController {
             addAction(okAction)
         }
 
-        loadFonts()
+        loadFonts
 
         setupFonts()
         setupLabels()
@@ -214,36 +214,34 @@ public class AlertViewController: UIViewController {
 
 // MARK: - Font Loading
 
+let loadFonts: () = {
+    let loadedFontMontserrat = AlertViewController.loadFont(Font.Montserrat.rawValue)
+    let loadedFontSourceSansPro = AlertViewController.loadFont(Font.SourceSansPro.rawValue)
+    if loadedFontMontserrat && loadedFontSourceSansPro {
+        print("LOADED FONTS")
+    }
+}()
+
 extension AlertViewController {
 
-    struct PresentrStatic {
-        static var onceToken: dispatch_once_t = 0
-    }
-
-    private func loadFonts() {
-        dispatch_once(&PresentrStatic.onceToken) {
-            self.loadFont(Font.Montserrat.rawValue)
-            self.loadFont(Font.SourceSansPro.rawValue)
-        }
-    }
-
-    private func loadFont(name: String) -> Bool {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        guard let fontPath = bundle.pathForResource(name, ofType: "ttf") else {
+    static func loadFont(name: String) -> Bool {
+        let bundle = NSBundle(forClass: self)
+        guard let fontPath = bundle.pathForResource(name, ofType: "ttf"),
+            let data = NSData(contentsOfFile: fontPath),
+            let provider = CGDataProviderCreateWithCFData(data)
+        else {
             return false
         }
-        let data = NSData(contentsOfFile: fontPath)
+
+        let font = CGFontCreateWithDataProvider(provider)
         var error: Unmanaged<CFError>?
-        let provider = CGDataProviderCreateWithCFData(data)
-        if let font = CGFontCreateWithDataProvider(provider) {
-            let success = CTFontManagerRegisterGraphicsFont(font, &error)
-            if !success {
-                print("Error loading font. Font is possibly already registered.")
-                return false
-            }
-        } else {
+
+        let success = CTFontManagerRegisterGraphicsFont(font, &error)
+        if !success {
+            print("Error loading font. Font is possibly already registered.")
             return false
         }
+
         return true
     }
 
