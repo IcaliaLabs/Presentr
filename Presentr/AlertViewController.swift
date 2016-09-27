@@ -113,7 +113,7 @@ open class AlertViewController: UIViewController {
             addAction(okAction)
         }
 
-        loadFonts()
+        loadFonts
 
         setupFonts()
         setupLabels()
@@ -214,37 +214,34 @@ open class AlertViewController: UIViewController {
 
 // MARK: - Font Loading
 
+let loadFonts: () = {
+    let loadedFontMontserrat = AlertViewController.loadFont(Font.Montserrat.rawValue)
+    let loadedFontSourceSansPro = AlertViewController.loadFont(Font.SourceSansPro.rawValue)
+    if loadedFontMontserrat && loadedFontSourceSansPro {
+        print("LOADED FONTS")
+    }
+}()
+
 extension AlertViewController {
 
-    struct PresentrStatic {
-        static var onceToken: Int = 0
-    }
-
-    fileprivate func loadFonts() {
-        //dispatch_once(&PresentrStatic.onceToken) {
-            self.loadFont(Font.Montserrat.rawValue)
-            self.loadFont(Font.SourceSansPro.rawValue)
-        //}
-    }
-
-    fileprivate func loadFont(_ name: String) -> Bool {
-        let bundle = Bundle(for: type(of: self))
-        guard let fontPath = bundle.path(forResource: name, ofType: "ttf") else {
+    static func loadFont(_ name: String) -> Bool {
+        let bundle = Bundle(for: self)
+        guard let fontPath = bundle.path(forResource: name, ofType: "ttf"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath)),
+            let provider = CGDataProvider(data: data as CFData)
+        else {
             return false
         }
-        let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath))
+
+        let font = CGFont(provider)
         var error: Unmanaged<CFError>?
-        let provider = CGDataProvider(data: data as! CFData)
-        let font = CGFont(provider!)
-        if font != nil {
-            let success = CTFontManagerRegisterGraphicsFont(font, &error)
-            if !success {
-                print("Error loading font. Font is possibly already registered.")
-                return false
-            }
-        } else {
+
+        let success = CTFontManagerRegisterGraphicsFont(font, &error)
+        if !success {
+            print("Error loading font. Font is possibly already registered.")
             return false
         }
+
         return true
     }
 

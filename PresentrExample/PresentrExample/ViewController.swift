@@ -60,6 +60,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(alertController)
     }
 
     override func viewDidAppear(_ animated: Bool) {
