@@ -122,10 +122,7 @@ public class Presentr: NSObject {
 extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        print("PRESENTING VC = \(presenting)")
-        // presenting VC is always nil in our testing, this did not happen previos iOS 10.
-        // does not seem to cause an issue, since the presentation controller does get a presenting VC later on, somehow (from system).
-        // had to make some changes to method signatures to accept an optional.
+        // Apparently in iOS 10 presenting VC is now sometimes nil. Does not seem to cause an issue.
         return presentationController(presented, presenting: presenting)
     }
 
