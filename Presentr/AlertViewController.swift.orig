@@ -132,7 +132,11 @@ open class AlertViewController: UIViewController {
                 view.removeConstraint(constraint)
             }
             let views: [String: UIView] = ["button" : firstButton]
+<<<<<<< HEAD
+            let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[button]-0-|",
+=======
             let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[button]-0-|",
+>>>>>>> swift3_gm
                                                                              options: NSLayoutFormatOptions(rawValue: 0),
                                                                              metrics: nil,
                                                                              views: views)
@@ -224,16 +228,28 @@ let loadFonts: () = {
 
 extension AlertViewController {
 
+<<<<<<< HEAD
+    static func loadFont(name: String) -> Bool {
+        let bundle = NSBundle(forClass: self)
+        guard let fontPath = bundle.pathForResource(name, ofType: "ttf"),
+            let data = NSData(contentsOfFile: fontPath),
+            let provider = CGDataProviderCreateWithCFData(data)
+=======
     static func loadFont(_ name: String) -> Bool {
         let bundle = Bundle(for: self)
         guard let fontPath = bundle.path(forResource: name, ofType: "ttf"),
             let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath)),
             let provider = CGDataProvider(data: data as CFData)
+>>>>>>> swift3_gm
         else {
             return false
         }
 
+<<<<<<< HEAD
+        let font = CGFontCreateWithDataProvider(provider)
+=======
         let font = CGFont(provider)
+>>>>>>> swift3_gm
         var error: Unmanaged<CFError>?
 
         let success = CTFontManagerRegisterGraphicsFont(font, &error)

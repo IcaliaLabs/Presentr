@@ -19,11 +19,11 @@ import Foundation
  */
 public enum ModalCenterPosition {
 
-    case Center
-    case TopCenter
-    case BottomCenter
-    case Custom(centerPoint: CGPoint)
-    case CustomOrigin(origin: CGPoint)
+    case center
+    case topCenter
+    case bottomCenter
+    case custom(centerPoint: CGPoint)
+    case customOrigin(origin: CGPoint)
 
     /**
      Calculates the exact position for the presented view controller center.
@@ -32,24 +32,24 @@ public enum ModalCenterPosition {
 
      - returns: CGPoint representing the presented view controller's center point.
      */
-    func calculatePoint(containerBounds: CGRect) -> CGPoint? {
+    func calculatePoint(_ containerBounds: CGRect) -> CGPoint? {
         switch self {
-        case .Center:
+        case .center:
             return CGPoint(x: containerBounds.width / 2, y: containerBounds.height / 2)
-        case .TopCenter:
+        case .topCenter:
             return CGPoint(x: containerBounds.width / 2, y: containerBounds.height * (1 / 4) - 1)
-        case .BottomCenter:
+        case .bottomCenter:
             return CGPoint(x: containerBounds.width / 2, y: containerBounds.height * (3 / 4))
-        case .Custom(let point):
+        case .custom(let point):
             return point
-        case .CustomOrigin(_):
+        case .customOrigin(_):
             return nil
         }
     }
 
     func calculateOrigin() -> CGPoint? {
         switch self {
-        case .CustomOrigin(let origin):
+        case .customOrigin(let origin):
             return origin
         default:
             return nil

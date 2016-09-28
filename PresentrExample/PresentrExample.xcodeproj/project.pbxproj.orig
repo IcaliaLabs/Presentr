@@ -13,6 +13,10 @@
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
+<<<<<<< HEAD
+		06D508381D9ADDC8007B30FF /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06D508371D9ADDC8007B30FF /* Presentr.framework */; };
+=======
+>>>>>>> swift3_gm
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +41,10 @@
 		06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A1F0BD1CF3D17E0057C79B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+<<<<<<< HEAD
+		06D508371D9ADDC8007B30FF /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
+=======
+>>>>>>> swift3_gm
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +52,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+				06D508381D9ADDC8007B30FF /* Presentr.framework in Frameworks */,
+=======
 				062DF1601D99F50A000649D2 /* Presentr.framework in Frameworks */,
+>>>>>>> swift3_gm
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,7 +66,11 @@
 		06A1F0A71CF3D17E0057C79B = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				06D508371D9ADDC8007B30FF /* Presentr.framework */,
+=======
 				062DF15F1D99F50A000649D2 /* Presentr.framework */,
+>>>>>>> swift3_gm
 				06A1F0B21CF3D17E0057C79B /* PresentrExample */,
 				06A1F0B11CF3D17E0057C79B /* Products */,
 			);
@@ -282,7 +298,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = danielozano.PresentrExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
+				SWIFT_VERSION = 2.3;
+=======
 				SWIFT_VERSION = 3.0;
+>>>>>>> swift3_gm
 			};
 			name = Debug;
 		};
@@ -299,7 +319,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = danielozano.PresentrExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
+				SWIFT_VERSION = 2.3;
+=======
 				SWIFT_VERSION = 3.0;
+>>>>>>> swift3_gm
 			};
 			name = Release;
 		};

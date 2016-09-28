@@ -21,13 +21,13 @@ import Foundation
 public enum TransitionType {
 
     // System provided
-    case CoverVertical
-    case CrossDissolve
-    case FlipHorizontal
+    case coverVertical
+    case crossDissolve
+    case flipHorizontal
     // Custom
-    case CoverVerticalFromTop
-    case CoverHorizontalFromRight
-    case CoverHorizontalFromLeft
+    case coverVerticalFromTop
+    case coverHorizontalFromRight
+    case coverHorizontalFromLeft
 
     /**
      Maps the 'TransitionType' to the system provided transition.
@@ -37,12 +37,12 @@ public enum TransitionType {
      */
     func systemTransition() -> UIModalTransitionStyle? {
         switch self {
-        case .CoverVertical:
-            return UIModalTransitionStyle.CoverVertical
-        case .CrossDissolve:
-            return UIModalTransitionStyle.CrossDissolve
-        case .FlipHorizontal:
-            return UIModalTransitionStyle.FlipHorizontal
+        case .coverVertical:
+            return UIModalTransitionStyle.coverVertical
+        case .crossDissolve:
+            return UIModalTransitionStyle.crossDissolve
+        case .flipHorizontal:
+            return UIModalTransitionStyle.flipHorizontal
         default:
             return nil
         }
@@ -55,11 +55,11 @@ public enum TransitionType {
      */
     func animation() -> PresentrAnimation? {
         switch self {
-        case .CoverVerticalFromTop:
+        case .coverVerticalFromTop:
             return CoverVerticalFromTopAnimation()
-        case .CoverHorizontalFromRight:
+        case .coverHorizontalFromRight:
             return CoverHorizontalAnimation(fromRight: true)
-        case .CoverHorizontalFromLeft:
+        case .coverHorizontalFromLeft:
             return CoverHorizontalAnimation(fromRight: false)
         default:
             return nil

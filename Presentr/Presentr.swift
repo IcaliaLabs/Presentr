@@ -44,7 +44,7 @@ public class Presentr: NSObject {
     public var dismissAnimated = true
 
     /// Color of the background. Default is Black.
-    public var backgroundColor = UIColor.blackColor()
+    public var backgroundColor = UIColor.black
 
     /// Opacity of the background. Default is 0.7.
     public var backgroundOpacity: Float = 0.7
@@ -53,15 +53,15 @@ public class Presentr: NSObject {
     public var blurBackground = false
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
-    public var blurStyle: UIBlurEffectStyle = .Dark
+    public var blurStyle: UIBlurEffectStyle = .dark
 
     // MARK: Private Helper Properties
 
-    private var transitionForPresent: TransitionType {
+    fileprivate var transitionForPresent: TransitionType {
         return transitionType ?? presentationType.defaultTransitionType()
     }
 
-    private var transitionForDismiss: TransitionType {
+    fileprivate var transitionForDismiss: TransitionType {
         return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
     }
 
@@ -81,8 +81,8 @@ public class Presentr: NSObject {
 
      - returns: Returns a configured instance of 'AlertViewController'
      */
-    public static func alertViewController(title title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
-        let bundle = NSBundle(forClass: self)
+    public static func alertViewController(title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
+        let bundle = Bundle(for: self)
         let alertController = AlertViewController(nibName: "Alert", bundle: bundle)
         alertController.titleText = title
         alertController.bodyText = body
@@ -99,15 +99,15 @@ public class Presentr: NSObject {
      - parameter animated:     Animation boolean.
      - parameter completion:   Completion block.
      */
-    private func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
+    fileprivate func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
 
         if let systemPresentTransition = transitionForPresent.systemTransition() {
             presentedVC.modalTransitionStyle = systemPresentTransition
         }
 
         presentedVC.transitioningDelegate = self
-        presentedVC.modalPresentationStyle = .Custom
-        presentingVC.presentViewController(presentedVC, animated: animated, completion: completion)
+        presentedVC.modalPresentationStyle = .custom
+        presentingVC.present(presentedVC, animated: animated, completion: completion)
 
         if let systemDismissTransition = transitionForDismiss.systemTransition() {
             presentedVC.modalTransitionStyle = systemDismissTransition
@@ -121,21 +121,22 @@ public class Presentr: NSObject {
 
 extension Presentr: UIViewControllerTransitioningDelegate {
 
-    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        // Apparently in iOS 10 presenting VC is now sometimes nil. Does not seem to cause an issue.
         return presentationController(presented, presenting: presenting)
     }
 
-    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animation(for: transitionForPresent)
     }
 
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animation(for: transitionForDismiss)
     }
 
     // MARK: - Private Helper's
 
-    private func presentationController(presented: UIViewController, presenting: UIViewController?) -> PresentrController {
+    fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
         let presentationController = PresentrController(presentedViewController: presented,
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
@@ -149,7 +150,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
         return presentationController
     }
 
-    private func animation(for transition: TransitionType?) -> PresentrAnimation? {
+    fileprivate func animation(for transition: TransitionType?) -> PresentrAnimation? {
         if let _ = transition?.systemTransition() {
             return nil // If transition is handled by OS then no custom animation. Must return nil.
         }
@@ -170,10 +171,11 @@ public extension UIViewController {
      - parameter animated:       Animation boolean.
      - parameter completion:     Completion block.
      */
-    func customPresentViewController(presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+    func customPresentViewController(_ presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
         presentr.presentViewController(presentingViewController: self,
                                        presentedViewController: viewController,
                                        animated: animated,
                                        completion: completion)
     }
+
 }
