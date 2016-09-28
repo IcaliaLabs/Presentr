@@ -196,7 +196,7 @@ open class AlertViewController: UIViewController {
     }
 
     @IBAction func didSelectSecondAction(_ sender: AnyObject) {
-        guard let secondAction = actions.last , actions.count == 2 else { return }
+        guard let secondAction = actions.last, actions.count == 2 else { return }
         if let handler = secondAction.handler {
             handler()
         }

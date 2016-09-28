@@ -133,7 +133,7 @@ extension PresentrController {
 
     // MARK: Presentation
 
-    override var frameOfPresentedViewInContainerView : CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         var presentedViewFrame = CGRect.zero
         let containerBounds = containerView!.bounds
 
