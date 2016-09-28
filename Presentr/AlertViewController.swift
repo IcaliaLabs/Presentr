@@ -131,7 +131,7 @@ public class AlertViewController: UIViewController {
             if let constraint = firstButtonWidthConstraint {
                 view.removeConstraint(constraint)
             }
-            let views = ["button" : firstButton]
+            let views: [String: UIView] = ["button" : firstButton]
             let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[button]-0-|",
                                                                              options: NSLayoutFormatOptions(rawValue: 0),
                                                                              metrics: nil,
