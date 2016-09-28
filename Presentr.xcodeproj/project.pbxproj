@@ -24,6 +24,7 @@
 		06B5855F1D2D6FE20045C8DA /* ModalCenterPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B5855E1D2D6FE20045C8DA /* ModalCenterPosition.swift */; };
 		06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */; };
 		06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */; };
+		28E70FD41D5E8AD600B0B885 /* KeyboardTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		06B5855E1D2D6FE20045C8DA /* ModalCenterPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCenterPosition.swift; sourceTree = "<group>"; };
 		06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTranslation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				0680CC321CE3EFA900CBAE4F /* Presentr.h */,
 				0680CC491CE3EFC500CBAE4F /* Presentr.swift */,
+				28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */,
 				0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */,
 				06B585571D2D6F4B0045C8DA /* PresentationType.swift */,
 				06B5855A1D2D6F8B0045C8DA /* TransitionType.swift */,
@@ -277,6 +280,7 @@
 				06B5855B1D2D6F8B0045C8DA /* TransitionType.swift in Sources */,
 				06B5855F1D2D6FE20045C8DA /* ModalCenterPosition.swift in Sources */,
 				06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */,
+				28E70FD41D5E8AD600B0B885 /* KeyboardTranslation.swift in Sources */,
 				0680CC4D1CE3EFC500CBAE4F /* Presentr.swift in Sources */,
 				0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */,
 				0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */,
