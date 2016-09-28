@@ -260,6 +260,12 @@ class ViewController: UIViewController{
 
 <img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
 
+## Requirements
+
+* iOS 9.0+ 
+* Xcode 8.0+
+* Swift 3.0+
+
 ## Documentation
 
 Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](https://github.com/realm/jazzy).
