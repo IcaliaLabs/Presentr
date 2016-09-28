@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		062DF1601D99F50A000649D2 /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DF15F1D99F50A000649D2 /* Presentr.framework */; };
+		068C78F81D9C46D800A5905A /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068C78F71D9C46D800A5905A /* Presentr.framework */; };
 		06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */; };
 		06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B51CF3D17E0057C79B /* ViewController.swift */; };
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
@@ -29,7 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		062DF15F1D99F50A000649D2 /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
+		068C78F71D9C46D800A5905A /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 		06A1F0B01CF3D17E0057C79B /* PresentrExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentrExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06A1F0B51CF3D17E0057C79B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				062DF1601D99F50A000649D2 /* Presentr.framework in Frameworks */,
+				068C78F81D9C46D800A5905A /* Presentr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,7 +54,7 @@
 		06A1F0A71CF3D17E0057C79B = {
 			isa = PBXGroup;
 			children = (
-				062DF15F1D99F50A000649D2 /* Presentr.framework */,
+				068C78F71D9C46D800A5905A /* Presentr.framework */,
 				06A1F0B21CF3D17E0057C79B /* PresentrExample */,
 				06A1F0B11CF3D17E0057C79B /* Products */,
 			);

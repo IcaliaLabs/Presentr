@@ -6,11 +6,11 @@
 	<dict>
 		<key>Alert.nib</key>
 		<data>
-		scO/BardVbGe1yJfOLiMX7J2j5k=
+		GIk95notLI/Xc9jeYJF12RTBzs8=
 		</data>
 		<key>Headers/Presentr-Swift.h</key>
 		<data>
-		8XNiQVUTRlL9Mxld8D35YjgrkIk=
+		IRVsXE6uj61HHBBruippUCYyO6Q=
 		</data>
 		<key>Headers/Presentr.h</key>
 		<data>
@@ -18,15 +18,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		h3bLENLSHN3Xtpr4Ek/MEAQLAmw=
+		+5CT+220Pk7aYvRopAHXHhlAB7Y=
 		</data>
 		<key>Modules/Presentr.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		UOBGI76kSbAc588yoLSWZv8PnQg=
+		dn58Yzj8Pf8ui1nqBIwYyo1pB5g=
 		</data>
 		<key>Modules/Presentr.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		c8x1gaXggJ49fp7155LuaCu8H/4=
+		20OVA3Cpzj6OXSwuQOfQHLx19dg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -47,22 +47,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			scO/BardVbGe1yJfOLiMX7J2j5k=
+			GIk95notLI/Xc9jeYJF12RTBzs8=
 			</data>
 			<key>hash2</key>
 			<data>
-			8hza1hYC7mGoSeJ7WN6Bc3+Jv0brAX0ORPQYfe0OGTs=
+			Q5SOhB+QjDmvVQ0qbmlExdoiRvPd/ftUXzrbuHrImFs=
 			</data>
 		</dict>
 		<key>Headers/Presentr-Swift.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8XNiQVUTRlL9Mxld8D35YjgrkIk=
+			IRVsXE6uj61HHBBruippUCYyO6Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			DaSgiTMXraWn1FaKumAb+6wpZhWN8ZHucaR4cNvTd7k=
+			Qzznl0but7LoatbINzALpOppdKBChsaSSrE/ypnf7n0=
 			</data>
 		</dict>
 		<key>Headers/Presentr.h</key>
@@ -80,22 +80,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UOBGI76kSbAc588yoLSWZv8PnQg=
+			dn58Yzj8Pf8ui1nqBIwYyo1pB5g=
 			</data>
 			<key>hash2</key>
 			<data>
-			zhjgmBImYN9O/nw8pZVGt7LLIVOGRLUcO1dyCQAXQSs=
+			KYY+wRJRD0GcayvfKvef0lLg5yfnqavV5QjGaRvmzv8=
 			</data>
 		</dict>
 		<key>Modules/Presentr.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			c8x1gaXggJ49fp7155LuaCu8H/4=
+			20OVA3Cpzj6OXSwuQOfQHLx19dg=
 			</data>
 			<key>hash2</key>
 			<data>
-			4+rKSD611N4c4dZb2wjQT9MqV48XIkwA7jwA8uN38ZM=
+			20GmCi92Gw40sMiJiOVo0dGx6JVhyZZiXLqmcdd9y2c=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
