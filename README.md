@@ -1,6 +1,7 @@
 <img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png" width="700">
 
 [![Version](https://img.shields.io/cocoapods/v/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
+[![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![Platform](https://img.shields.io/cocoapods/p/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![License](https://img.shields.io/cocoapods/l/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![codebeat badge](https://codebeat.co/badges/f89d5cdf-b0c3-441d-b4e1-d56dcea48544)](https://codebeat.co/projects/github-com-icalialabs-presentr)
@@ -28,6 +29,14 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 4. Create awesome feature/enhancement/bug-fix
 5. Optionally create *Issue* to discuss feature
 6. Submit pull request from your **Feature** branch to Presentr’s **Develop** branch
+
+## Supported Swift Versions
+
+| Presentr Version   |      Swift Version      | 
+|----------|:-------------:|
+| <= 0.1.8 |  Swift 2.2  |
+| == 0.1.9 |    Swift 2.3   |
+| >= 1.0.0 | Swift 3.0 |
 
 ## Installation
 
@@ -251,24 +260,13 @@ class ViewController: UIViewController{
 
 <img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
 
-## Requirements
-* Xcode 7.3+
-* iOS 8.0+
-* Swift 2.2+
-
 ## Documentation
 
 Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](https://github.com/realm/jazzy).
 
-## To Do
-- Add more presentation types
-- Add more transition types (animations)
-- Add other baked in View Controller's for common uses (like the AlertViewController)
-- Add Testing
-
-## Author
+##  Main Contributors
 [Daniel Lozano](http://danielozano.com) <br>
-iOS Developer @ [Icalia Labs](http://www.icalialabs.com)
+[Gabriel Peart](http://swiftification.org/)
 <br><br>
 Logo design by [Eduardo Higareda](http://eldelentes.mx)<br>
 Alert design by [Noe Araujo](http://www.noearaujo.com)
