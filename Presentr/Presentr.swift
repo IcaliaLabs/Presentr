@@ -21,39 +21,39 @@ struct PresentrConstants {
 }
 
 /// Main Presentr class. This is the point of entry for using the framework.
-open class Presentr: NSObject {
+public class Presentr: NSObject {
 
     // MARK: Public Properties
 
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
-    open var presentationType: PresentationType
+    public var presentationType: PresentationType
 
     /// The type of transition animation to be used to present the view controller. This is optional, if not provided the default for each presentation type will be used.
-    open var transitionType: TransitionType?
+    public var transitionType: TransitionType?
 
     /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType or default value will be used.
-    open var dismissTransitionType: TransitionType?
+    public var dismissTransitionType: TransitionType?
 
     /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
-    open var roundCorners = true
+    public var roundCorners = true
 
     /// Should the presented controller dismiss on background tap. Default is true.
-    open var dismissOnTap = true
+    public var dismissOnTap = true
 
     /// Should the presented controller use animation when dismiss on background tap. Default is true.
-    open var dismissAnimated = true
+    public var dismissAnimated = true
 
     /// Color of the background. Default is Black.
-    open var backgroundColor = UIColor.black
+    public var backgroundColor = UIColor.black
 
     /// Opacity of the background. Default is 0.7.
-    open var backgroundOpacity: Float = 0.7
+    public var backgroundOpacity: Float = 0.7
 
     /// Should the presented controller blur the background. Default is false.
-    open var blurBackground = false
+    public var blurBackground = false
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
-    open var blurStyle: UIBlurEffectStyle = .dark
+    public var blurStyle: UIBlurEffectStyle = .dark
 
     // MARK: Private Helper Properties
 
@@ -81,7 +81,7 @@ open class Presentr: NSObject {
 
      - returns: Returns a configured instance of 'AlertViewController'
      */
-    open static func alertViewController(title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
+    public static func alertViewController(title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
         let bundle = Bundle(for: self)
         let alertController = AlertViewController(nibName: "Alert", bundle: bundle)
         alertController.titleText = title
@@ -122,7 +122,8 @@ open class Presentr: NSObject {
 extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return presentationController(presented, presenting: presenting!)
+        // Apparently in iOS 10 presenting VC is now sometimes nil. Does not seem to cause an issue.
+        return presentationController(presented, presenting: presenting)
     }
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -135,7 +136,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
     // MARK: - Private Helper's
 
-    fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController) -> PresentrController {
+    fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
         let presentationController = PresentrController(presentedViewController: presented,
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
@@ -176,4 +177,5 @@ public extension UIViewController {
                                        animated: animated,
                                        completion: completion)
     }
+
 }

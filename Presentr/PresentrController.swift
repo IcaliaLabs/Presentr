@@ -37,7 +37,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Init
 
     init(presentedViewController: UIViewController,
-         presentingViewController: UIViewController,
+         presentingViewController: UIViewController?,
          presentationType: PresentationType,
          roundCorners: Bool,
          dismissOnTap: Bool,
