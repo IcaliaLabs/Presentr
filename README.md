@@ -32,11 +32,11 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 
 ## Supported Swift Versions
 
-| Presentr Version   |      Swift Version      | 
-|----------|:-------------:|
-| <= 0.1.8 |  Swift 2.2  |
-| == 0.2.0 |    Swift 2.3   |
-| >= 1.0.0 | Swift 3.0 |
+| Presentr Version   |      Swift Version      |    Min. iOS Version      | 
+|----------|:-------------:|:-------------:|
+| <= 0.1.8 |  Swift 2.2  | >= iOS 8.0  |
+| == 0.2.1 |    Swift 2.3 | >= iOS 8.0 |
+| >= 1.0.0 | Swift 3.0 | >= iOS 9.0 |
 
 ## Installation
 
