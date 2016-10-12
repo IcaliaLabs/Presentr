@@ -20,7 +20,12 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 **Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
 
 ## What's New
-### See CHANGELOG.md
+
+#### 1.0.1
+- Added keyboard observation options for .popup (thanks @aasatt)
+- Swipe to dismiss gesture (thanks @josejuanqm)
+
+#### See CHANGELOG.md for previous
 
 ## Contributing
 
