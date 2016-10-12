@@ -25,7 +25,7 @@ class PopupViewController: UIViewController {
     }
     
     @IBAction func didSelectDone(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
 }
@@ -44,7 +44,7 @@ extension PopupViewController: PresentrDelegate {
 
 extension PopupViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }

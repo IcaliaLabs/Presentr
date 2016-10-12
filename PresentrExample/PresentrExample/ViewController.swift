@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     }()
     
     lazy var popupViewController: PopupViewController = {
-        let popupViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PopupViewController")
+        let popupViewController = self.storyboard?.instantiateViewController(withIdentifier: "PopupViewController")
         return popupViewController as! PopupViewController
     }()
 

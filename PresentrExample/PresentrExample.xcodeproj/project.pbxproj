@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0644CEC01DADCD02002E586F /* PopupViewController.swift */; };
 		068C78F81D9C46D800A5905A /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068C78F71D9C46D800A5905A /* Presentr.framework */; };
 		06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */; };
 		06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B51CF3D17E0057C79B /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0644CEC01DADCD02002E586F /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		068C78F71D9C46D800A5905A /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 		06A1F0B01CF3D17E0057C79B /* PresentrExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentrExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			children = (
 				06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */,
 				06A1F0B51CF3D17E0057C79B /* ViewController.swift */,
+				0644CEC01DADCD02002E586F /* PopupViewController.swift */,
 				06A1F0B71CF3D17E0057C79B /* Main.storyboard */,
 				06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */,
 				06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */,
@@ -156,6 +159,7 @@
 			files = (
 				06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */,
 				06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */,
+				0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
