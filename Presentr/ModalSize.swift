@@ -18,10 +18,10 @@ import Foundation
  */
 public enum ModalSize {
 
-    case Default
-    case Half
-    case Full
-    case Custom(size: Float)
+    case `default`
+    case half
+    case full
+    case custom(size: Float)
 
     /**
      Calculates the exact width value for the presented view controller.
@@ -30,15 +30,15 @@ public enum ModalSize {
 
      - returns: Exact float width value.
      */
-    func calculateWidth(parentSize: CGSize) -> Float {
+    func calculateWidth(_ parentSize: CGSize) -> Float {
         switch self {
-        case .Default:
+        case .default:
             return floorf(Float(parentSize.width) - (PresentrConstants.Values.defaultSideMargin * 2.0))
-        case .Half:
+        case .half:
             return floorf(Float(parentSize.width) / 2.0)
-        case .Full:
+        case .full:
             return Float(parentSize.width)
-        case .Custom(let size):
+        case .custom(let size):
             return size
         }
     }
@@ -50,15 +50,15 @@ public enum ModalSize {
 
      - returns: Exact float height value.
      */
-    func calculateHeight(parentSize: CGSize) -> Float {
+    func calculateHeight(_ parentSize: CGSize) -> Float {
         switch self {
-        case .Default:
+        case .default:
             return floorf(Float(parentSize.height) * PresentrConstants.Values.defaultHeightPercentage)
-        case .Half:
+        case .half:
             return floorf(Float(parentSize.height) / 2.0)
-        case .Full:
+        case .full:
             return Float(parentSize.height)
-        case .Custom(let size):
+        case .custom(let size):
             return size
         }
     }

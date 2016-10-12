@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		060072DE1D74A6D8006C25AD /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060072DD1D74A6D8006C25AD /* Presentr.framework */; };
-		060072E01D74A6DE006C25AD /* Presentr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 060072DD1D74A6D8006C25AD /* Presentr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		067CA0631D74A7D800D72410 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067CA0621D74A7D800D72410 /* PopupViewController.swift */; };
+		068C78F81D9C46D800A5905A /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068C78F71D9C46D800A5905A /* Presentr.framework */; };
 		06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */; };
 		06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1F0B51CF3D17E0057C79B /* ViewController.swift */; };
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
@@ -24,7 +22,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				060072E01D74A6DE006C25AD /* Presentr.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,8 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		060072DD1D74A6D8006C25AD /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
-		067CA0621D74A7D800D72410 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		068C78F71D9C46D800A5905A /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Presentr.framework; sourceTree = "<group>"; };
 		06A1F0B01CF3D17E0057C79B /* PresentrExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentrExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06A1F0B51CF3D17E0057C79B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				060072DE1D74A6D8006C25AD /* Presentr.framework in Frameworks */,
+				068C78F81D9C46D800A5905A /* Presentr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +54,7 @@
 		06A1F0A71CF3D17E0057C79B = {
 			isa = PBXGroup;
 			children = (
-				060072DD1D74A6D8006C25AD /* Presentr.framework */,
+				068C78F71D9C46D800A5905A /* Presentr.framework */,
 				06A1F0B21CF3D17E0057C79B /* PresentrExample */,
 				06A1F0B11CF3D17E0057C79B /* Products */,
 			);
@@ -77,7 +73,6 @@
 			children = (
 				06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */,
 				06A1F0B51CF3D17E0057C79B /* ViewController.swift */,
-				067CA0621D74A7D800D72410 /* PopupViewController.swift */,
 				06A1F0B71CF3D17E0057C79B /* Main.storyboard */,
 				06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */,
 				06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */,
@@ -114,11 +109,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = danielozano;
 				TargetAttributes = {
 					06A1F0AF1CF3D17E0057C79B = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -160,7 +156,6 @@
 			files = (
 				06A1F0B61CF3D17E0057C79B /* ViewController.swift in Sources */,
 				06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */,
-				067CA0631D74A7D800D72410 /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,8 +195,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -245,8 +242,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -265,6 +264,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -282,6 +282,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = danielozano.PresentrExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -298,6 +299,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = danielozano.PresentrExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

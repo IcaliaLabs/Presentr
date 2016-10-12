@@ -11,7 +11,7 @@ import UIKit
 public typealias AlertActionHandler = (() -> Void)
 
 /// Describes each action that is going to be shown in the 'AlertViewController'
-public class AlertAction {
+open class AlertAction {
 
     let title: String
     let style: AlertActionStyle
@@ -43,9 +43,9 @@ public class AlertAction {
  */
 public enum AlertActionStyle {
 
-    case Default
-    case Cancel
-    case Destructive
+    case `default`
+    case cancel
+    case destructive
 
     /**
      Decides which color to use for each style
@@ -54,11 +54,11 @@ public enum AlertActionStyle {
      */
     func color() -> UIColor {
         switch self {
-        case .Default:
+        case .default:
             return ColorPalette.greenColor
-        case .Cancel:
+        case .cancel:
             return ColorPalette.grayColor
-        case .Destructive:
+        case .destructive:
             return ColorPalette.redColor
         }
     }
@@ -70,7 +70,7 @@ private enum Font: String {
     case Montserrat = "Montserrat-Regular"
     case SourceSansPro = "SourceSansPro-Regular"
 
-    func font(size: CGFloat = 15.0) -> UIFont {
+    func font(_ size: CGFloat = 15.0) -> UIFont {
         return UIFont(name: self.rawValue, size: size)!
     }
 
@@ -85,19 +85,19 @@ private struct ColorPalette {
 }
 
 /// UIViewController subclass that displays the alert
-public class AlertViewController: UIViewController {
+open class AlertViewController: UIViewController {
 
     /// Text that will be used as the title for the alert
-    public var titleText: String?
+    open var titleText: String?
     /// Text that will be used as the body for the alert
-    public var bodyText: String?
+    open var bodyText: String?
 
     /// If set to false, alert wont auto-dismiss the controller when an action is clicked. Dismissal will be up to the action's handler. Default is true.
-    public var autoDismiss: Bool = true
+    open var autoDismiss: Bool = true
     /// If autoDismiss is set to true, then set this property if you want the dismissal to be animated. Default is true.
-    public var dismissAnimated: Bool = true
+    open var dismissAnimated: Bool = true
 
-    private var actions = [AlertAction]()
+    fileprivate var actions = [AlertAction]()
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
@@ -105,34 +105,34 @@ public class AlertViewController: UIViewController {
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var firstButtonWidthConstraint: NSLayoutConstraint!
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         if actions.isEmpty {
-            let okAction = AlertAction(title: "ok 🕶", style: .Default, handler: nil)
+            let okAction = AlertAction(title: "ok 🕶", style: .default, handler: nil)
             addAction(okAction)
         }
 
-        loadFonts()
+        loadFonts
 
         setupFonts()
         setupLabels()
         setupButtons()
     }
 
-    override public func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override public func updateViewConstraints() {
+    override open func updateViewConstraints() {
         if actions.count == 1 {
             // If only one action, second button will have been removed from superview
             // So, need to add constraint for first button trailing to superview
             if let constraint = firstButtonWidthConstraint {
                 view.removeConstraint(constraint)
             }
-            let views = ["button" : firstButton]
-            let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[button]-0-|",
+            let views: [String: UIView] = ["button" : firstButton]
+            let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[button]-0-|",
                                                                              options: NSLayoutFormatOptions(rawValue: 0),
                                                                              metrics: nil,
                                                                              views: views)
@@ -148,26 +148,26 @@ public class AlertViewController: UIViewController {
 
      - parameter action: The 'AlertAction' to be added
      */
-    public func addAction(action: AlertAction) {
+    open func addAction(_ action: AlertAction) {
         guard actions.count < 2 else { return }
         actions += [action]
     }
 
     // MARK: Setup
 
-    private func setupFonts() {
+    fileprivate func setupFonts() {
         titleLabel.font = Font.Montserrat.font()
         bodyLabel.font = Font.SourceSansPro.font()
         firstButton.titleLabel?.font = Font.Montserrat.font(11.0)
         secondButton.titleLabel?.font = Font.Montserrat.font(11.0)
     }
 
-    private func setupLabels() {
+    fileprivate func setupLabels() {
         titleLabel.text = titleText ?? "Alert"
         bodyLabel.text = bodyText ?? "This is an alert."
     }
 
-    private func setupButtons() {
+    fileprivate func setupButtons() {
         guard let firstAction = actions.first else { return }
         apply(firstAction, toButton: firstButton)
         if actions.count == 2 {
@@ -178,16 +178,16 @@ public class AlertViewController: UIViewController {
         }
     }
 
-    private func apply(action: AlertAction, toButton: UIButton) {
-        let title = action.title.uppercaseString
+    fileprivate func apply(_ action: AlertAction, toButton: UIButton) {
+        let title = action.title.uppercased()
         let style = action.style
-        toButton.setTitle(title, forState: .Normal)
-        toButton.setTitleColor(style.color(), forState: .Normal)
+        toButton.setTitle(title, for: UIControlState())
+        toButton.setTitleColor(style.color(), for: UIControlState())
     }
 
     // MARK: IBAction's
 
-    @IBAction func didSelectFirstAction(sender: AnyObject) {
+    @IBAction func didSelectFirstAction(_ sender: AnyObject) {
         guard let firstAction = actions.first else { return }
         if let handler = firstAction.handler {
             handler()
@@ -195,8 +195,8 @@ public class AlertViewController: UIViewController {
         dismiss()
     }
 
-    @IBAction func didSelectSecondAction(sender: AnyObject) {
-        guard let secondAction = actions.last where actions.count == 2 else { return }
+    @IBAction func didSelectSecondAction(_ sender: AnyObject) {
+        guard let secondAction = actions.last, actions.count == 2 else { return }
         if let handler = secondAction.handler {
             handler()
         }
@@ -207,43 +207,41 @@ public class AlertViewController: UIViewController {
 
     func dismiss() {
         guard autoDismiss else { return }
-        dismissViewControllerAnimated(dismissAnimated, completion: nil)
+        self.dismiss(animated: dismissAnimated, completion: nil)
     }
 
 }
 
 // MARK: - Font Loading
 
+let loadFonts: () = {
+    let loadedFontMontserrat = AlertViewController.loadFont(Font.Montserrat.rawValue)
+    let loadedFontSourceSansPro = AlertViewController.loadFont(Font.SourceSansPro.rawValue)
+    if loadedFontMontserrat && loadedFontSourceSansPro {
+        print("LOADED FONTS")
+    }
+}()
+
 extension AlertViewController {
 
-    struct PresentrStatic {
-        static var onceToken: dispatch_once_t = 0
-    }
-
-    private func loadFonts() {
-        dispatch_once(&PresentrStatic.onceToken) {
-            self.loadFont(Font.Montserrat.rawValue)
-            self.loadFont(Font.SourceSansPro.rawValue)
-        }
-    }
-
-    private func loadFont(name: String) -> Bool {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        guard let fontPath = bundle.pathForResource(name, ofType: "ttf") else {
+    static func loadFont(_ name: String) -> Bool {
+        let bundle = Bundle(for: self)
+        guard let fontPath = bundle.path(forResource: name, ofType: "ttf"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath)),
+            let provider = CGDataProvider(data: data as CFData)
+        else {
             return false
         }
-        let data = NSData(contentsOfFile: fontPath)
+
+        let font = CGFont(provider)
         var error: Unmanaged<CFError>?
-        let provider = CGDataProviderCreateWithCFData(data)
-        if let font = CGFontCreateWithDataProvider(provider) {
-            let success = CTFontManagerRegisterGraphicsFont(font, &error)
-            if !success {
-                print("Error loading font. Font is possibly already registered.")
-                return false
-            }
-        } else {
+
+        let success = CTFontManagerRegisterGraphicsFont(font, &error)
+        if !success {
+            print("Error loading font. Font is possibly already registered.")
             return false
         }
+
         return true
     }
 
