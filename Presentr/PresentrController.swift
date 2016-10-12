@@ -44,7 +44,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Checks to see if the keyboard should be observed
     private var shouldObserveKeyboard: Bool {
         return conformingPresentedController != nil ||
-            ((keyboardTranslationType != .None) && presentationType == .popup)
+            ((keyboardTranslationType != .none) && presentationType == .popup)
     }
     
     fileprivate var keyboardIsShowing: Bool = false

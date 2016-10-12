@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 public enum KeyboardTranslationType {
-    case None, MoveUp, Compress, StickToTop
+    case none, moveUp, compress, stickToTop
     
     /**
      Calculates the correct frame for the keyboard translation type.
@@ -24,13 +24,13 @@ public enum KeyboardTranslationType {
         let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20.0 // add a 20 pt buffer
         let offset = presentedViewBottom - keyboardTop
         switch self {
-        case .MoveUp:
+        case .moveUp:
             if offset > 0.0 {
                 let frame = CGRect(x: presentedFrame.origin.x, y: presentedFrame.origin.y-offset, width: presentedFrame.size.width, height: presentedFrame.size.height)
                 return frame
             }
             return presentedFrame
-        case .Compress:
+        case .compress:
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
                 let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40.0
@@ -38,14 +38,14 @@ public enum KeyboardTranslationType {
                 return frame
             }
             return presentedFrame
-        case .StickToTop:
+        case .stickToTop:
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
                 let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: presentedFrame.size.height)
                 return frame
             }
             return presentedFrame
-        case .None:
+        case .none:
             return presentedFrame
         }
     }

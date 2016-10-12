@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,95 +16,83 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-Fi-Ymy">
-                                <rect key="frame" x="212" y="40" width="175" height="30"/>
                                 <state key="normal" title="Alert w/Default Animation"/>
                                 <connections>
                                     <action selector="alertDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eby-Y6-dMP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gon-oh-70F">
-                                <rect key="frame" x="210" y="70" width="179" height="30"/>
                                 <state key="normal" title="Alert w/Custom Animation"/>
                                 <connections>
                                     <action selector="alertCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j83-jb-Aya"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilc-C6-x1v">
-                                <rect key="frame" x="207" y="165" width="186" height="30"/>
                                 <state key="normal" title="Popup w/Default Animation"/>
                                 <connections>
                                     <action selector="popupDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T09-Xh-vML"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ic-aL-jyr">
-                                <rect key="frame" x="205" y="195" width="190" height="30"/>
                                 <state key="normal" title="Popup w/Custom Animation"/>
                                 <connections>
                                     <action selector="popupCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eR3-Jo-pJR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwV-nj-alV">
-                                <rect key="frame" x="202" y="245" width="196" height="30"/>
                                 <state key="normal" title="TopHalf w/Default Animation"/>
                                 <connections>
                                     <action selector="topHalfDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="40t-qQ-Wr4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-IE-pX3">
-                                <rect key="frame" x="200" y="275" width="199" height="30"/>
                                 <state key="normal" title="TopHalf w/Custom Animation"/>
                                 <connections>
                                     <action selector="topHalfCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bba-V0-nBu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbt-hT-F8E">
-                                <rect key="frame" x="188" y="355" width="224" height="30"/>
                                 <state key="normal" title="BottomHalf w/Custom Animation"/>
                                 <connections>
                                     <action selector="bottomHalfCustom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KmZ-zV-m7U"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbM-kV-4Lu">
-                                <rect key="frame" x="190" y="325" width="220" height="30"/>
                                 <state key="normal" title="BottomHalf w/Default Animation"/>
                                 <connections>
                                     <action selector="bottomHalfDefault:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbD-vc-lQQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FjA-6G-Q19">
-                                <rect key="frame" x="228" y="405" width="144" height="30"/>
                                 <state key="normal" title="Custom Presentation"/>
                                 <connections>
                                     <action selector="customPresentation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LUJ-dM-4Ew"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVw-T8-fE4">
-                                <rect key="frame" x="220" y="100" width="161" height="30"/>
                                 <state key="normal" title="Alert without Animation"/>
                                 <connections>
                                     <action selector="alertDefaultWithoutAnimation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9xD-if-hZ8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnd-hT-VMt">
-                                <rect key="frame" x="262" y="443" width="76" height="30"/>
                                 <state key="normal" title="Full Screen"/>
                                 <connections>
                                     <action selector="fullScreenPresentation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WFq-MJ-Lmj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsl-Uj-3iV">
-                                <rect key="frame" x="171" y="481" width="258" height="30"/>
                                 <state key="normal" title="Test Keyboard Translation &amp; Delegate"/>
                                 <connections>
-                                    <action selector="keyboardTranslationDelegate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wt4-9d-Cf6"/>
+                                    <action selector="keyboardTranslation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w0q-iD-yQy"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tVw-T8-fE4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0hW-HP-Bjk"/>
                             <constraint firstItem="Fbt-hT-F8E" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="308-nI-Q34"/>
@@ -145,27 +134,24 @@
                         <viewControllerLayoutGuide type="bottom" id="oqd-n4-qvt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kKw-4R-TjK">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter some text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7Q-6C-D1S">
-                                <rect key="frame" x="40" y="40" width="520" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWC-Yv-Dts">
-                                <rect key="frame" x="460" y="107" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="cJT-hR-g10"/>
                                 </constraints>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <action selector="didSelectDone:" destination="gp1-7O-6LO" eventType="touchUpInside" id="Ysd-2O-qD9"/>
+                                    <action selector="didSelectDone:" destination="gp1-7O-6LO" eventType="touchUpInside" id="SQ0-Wg-zRh"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-SB-9Dg">
-                                <rect key="frame" x="40" y="69" width="520" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -173,7 +159,7 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="o7Q-6C-D1S" firstAttribute="leading" secondItem="kKw-4R-TjK" secondAttribute="leadingMargin" constant="20" id="DuL-yT-mxh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="o7Q-6C-D1S" secondAttribute="trailing" constant="20" id="Hyu-pL-tjg"/>

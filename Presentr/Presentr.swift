@@ -76,7 +76,7 @@ public class Presentr: NSObject {
     public var blurStyle: UIBlurEffectStyle = .dark
     
     /// How the presented view controller should respond in response to keyboard presentation.
-    public var keyboardTranslationType: KeyboardTranslationType = .None
+    public var keyboardTranslationType: KeyboardTranslationType = .none
 
     // MARK: Private Helper Properties
 

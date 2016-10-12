@@ -23,10 +23,10 @@ class PopupViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func didSelectDone(sender: AnyObject) {
+    @IBAction func didSelectDone(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
     }
+
 
 }
 
