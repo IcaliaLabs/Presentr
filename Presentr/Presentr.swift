@@ -37,7 +37,7 @@ struct PresentrConstants {
      - parameter keyboardShowing: Whether or not the keyboard is currently being shown by the presented view.
      - returns: False if the dismissal should be prevented, otherwise, true if the dimissal should occur.
      */
-    optional func presentrShouldDismiss(keyboardShowing: Bool) -> Bool
+    @objc optional func presentrShouldDismiss(keyboardShowing: Bool) -> Bool
 }
 
 /// Main Presentr class. This is the point of entry for using the framework.
@@ -73,7 +73,7 @@ public class Presentr: NSObject {
     public var blurBackground = false
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
-    public var blurStyle: UIBlurEffectStyle = .Dark
+    public var blurStyle: UIBlurEffectStyle = .dark
     
     /// How the presented view controller should respond in response to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .None

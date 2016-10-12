@@ -20,7 +20,7 @@ public enum KeyboardTranslationType {
      - returns: CGRect representing the new frame of the presented view.
      */
     public func getTranslationFrame(keyboardFrame : CGRect, presentedFrame : CGRect) -> CGRect {
-        let keyboardTop = UIScreen.mainScreen().bounds.height - keyboardFrame.size.height
+        let keyboardTop = UIScreen.main.bounds.height - keyboardFrame.size.height
         let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20.0 // add a 20 pt buffer
         let offset = presentedViewBottom - keyboardTop
         switch self {
@@ -52,16 +52,16 @@ public enum KeyboardTranslationType {
     
 }
 
-// MARK: NSNotifiction+UIKeyboardInfo
-extension NSNotification {
+// MARK: Notification + UIKeyboardInfo
+extension Notification {
     
     /// Gets the optional CGRect value of the UIKeyboardFrameEndUserInfoKey from a UIKeyboard notification
     func keyboardEndFrame () -> CGRect? {
-        return self.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
+        return (self.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
     }
     
     /// Gets the optional AnimationDuration value of the UIKeyboardAnimationDurationUserInfoKey from a UIKeyboard notification
     func keyboardAnimationDuration () -> Double? {
-        return self.userInfo?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
+        return (self.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
     }
 }
