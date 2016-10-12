@@ -32,7 +32,7 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 
 ## Supported Swift Versions
 
-| Presentr Version   |      Swift Version      |    Min. iOS Version      | 
+| Presentr Version   |      Swift Version      |    Min. iOS Version      |
 |----------|:-------------:|:-------------:|
 | <= 0.1.8 |  Swift 2.2  | >= iOS 8.0  |
 | == 0.2.1 |    Swift 2.3 | >= iOS 8.0 |
@@ -48,9 +48,20 @@ use_frameworks!
 pod 'Presentr'
 ```
 
+### [Carthage](https://github.com/Carthage/Carthage)
+Add Presentr to you `Cartfile`
+```sh
+github "IcaliaLabs/Presentr"
+```
+Install using
+```sh
+carthage update --platform ios
+```
+
+
 ### Manually
 1. Download and drop ```/Presentr``` folder in your project.  
-2. You're done! 
+2. You're done!
 
 ## Main Types
 
@@ -102,7 +113,7 @@ class ViewController: UIViewController{
       presenter.transitionType = .CoverHorizontalFromRight // Optional
       return presenter
   }()
-  
+
 }
 ```
 
@@ -115,7 +126,7 @@ presenter.presentationType = .Popup
 ### Properties
 #### Properties are optional, as they all have Default values.
 
-You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller. 
+You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller.
 
 ```swift
 presenter.transitionType = .CoverVerticalFromTop
@@ -158,12 +169,12 @@ let controller = SomeViewController()
 customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
 ```
 
-This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition. 
+This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition.
 
 ### Creating a custom PresentationType
 
 If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
-```swift 
+```swift
 let customType = PresentationType.Custom(width: width, height: height, center: center)
 ```
 
@@ -214,7 +225,7 @@ So we can mix and match, and have the benefit of a custom **PresentationType** b
 class ViewController: UIViewController{
 
   let customPresenter: Presentr = {
-  
+
     let width = ModalSize.Full
     let height = ModalSize.Custom(size: 150)
     let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
@@ -225,7 +236,7 @@ class ViewController: UIViewController{
     customPresenter.transitionType = .CoverVerticalFromTop
     customPresenter.roundCorners = false
     return customPresenter
-    
+
   }()
 
 }
@@ -239,20 +250,20 @@ class ViewController: UIViewController{
 
   let title = "Are you sure?"
   let body = "There is no way to go back after you do this!"
-  
+
   let controller = Presentr.alertViewController(title: title, body: body)
-  
+
   let deleteAction = AlertAction(title: "Sure 🕶", style: .Destructive) {
     print("Deleted!")
   }
-  
+
   let okAction = AlertAction(title: "NO, sorry 🙄", style: .Cancel){
     print("Ok!")
   }
-  
+
   controller.addAction(deleteAction)
   controller.addAction(okAction)
-  
+
   presenter.presentationType = .Alert
   customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
 
@@ -262,7 +273,7 @@ class ViewController: UIViewController{
 
 ## Requirements
 
-* iOS 9.0+ 
+* iOS 9.0+
 * Xcode 8.0+
 * Swift 3.0+
 
