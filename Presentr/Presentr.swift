@@ -20,9 +20,29 @@ struct PresentrConstants {
     }
 }
 
+// MARK: - PresentrDelegate
+
+/**
+ The 'PresentrDelegate' protocol defines methods that you use to respond to changes from the 'PresentrController'. All of the methods of this protocol are optional.
+
+ */
+@objc public protocol PresentrDelegate {
+    /**
+     Asks the delegate if it should dismiss the presented controller on the tap of the outer chrome view.
+     
+     Use this method to validate requirments or finish tasks before the dismissal of the presented controller. 
+     
+     After things are wrapped up and verified it may be good to dismiss the presented controller automatically so the user does't have to close it again.
+     
+     - parameter keyboardShowing: Whether or not the keyboard is currently being shown by the presented view.
+     - returns: False if the dismissal should be prevented, otherwise, true if the dimissal should occur.
+     */
+    @objc optional func presentrShouldDismiss(keyboardShowing: Bool) -> Bool
+}
+
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
-
+    
     // MARK: Public Properties
 
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
@@ -39,6 +59,9 @@ public class Presentr: NSObject {
 
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
+    
+    /// Should the presented controller dismiss on Swipe. Default is true.
+    public var dismissOnSwipe = true
 
     /// Should the presented controller use animation when dismiss on background tap. Default is true.
     public var dismissAnimated = true
@@ -54,6 +77,9 @@ public class Presentr: NSObject {
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
+    
+    /// How the presented view controller should respond in response to keyboard presentation.
+    public var keyboardTranslationType: KeyboardTranslationType = .none
 
     // MARK: Private Helper Properties
 
@@ -142,10 +168,12 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
                                                         dismissOnTap: dismissOnTap,
+                                                        dismissOnSwipe: dismissOnSwipe,
                                                         backgroundColor: backgroundColor,
                                                         backgroundOpacity: backgroundOpacity,
                                                         blurBackground: blurBackground,
                                                         blurStyle: blurStyle,
+                                                        keyboardTranslationType:  keyboardTranslationType,
                                                         dismissAnimated: dismissAnimated)
         return presentationController
     }

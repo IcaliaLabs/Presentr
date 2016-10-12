@@ -19,9 +19,21 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
+    
+    /// Should the presented controller dismiss on background Swipe.
+    let dismissOnSwipe: Bool
+    
+    /// The factor to be used on Swipeging animations
+    let swipeElasticityFactor: CGFloat = 0.5
+    
+    /// Where in the Swipe should the view dismiss
+    let swipeLimitPoint: CGFloat = 200
 
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
+    
+    // How the presented view controller should respond in response to keyboard presentation.
+    let keyboardTranslationType: KeyboardTranslationType
 
     fileprivate var shouldRoundCorners: Bool {
         switch presentationType {
@@ -32,7 +44,23 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
 
+    /// Determines if the presenting conroller conforms to `PresentrDelegate`
+    private var conformingPresentedController: PresentrDelegate? {
+        return presentedViewController as? PresentrDelegate
+    }
+
+    /// Checks to see if the keyboard should be observed
+    private var shouldObserveKeyboard: Bool {
+        return conformingPresentedController != nil ||
+            ((keyboardTranslationType != .none) && presentationType == .popup)
+    }
+
     fileprivate var chromeView = UIView()
+
+    fileprivate var keyboardIsShowing: Bool = false
+
+    private var translationStart: CGPoint = CGPoint.zero
+    private var presentedViewIsBeingDissmissed: Bool = false
 
     // MARK: Init
 
@@ -41,15 +69,19 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          presentationType: PresentationType,
          roundCorners: Bool,
          dismissOnTap: Bool,
+         dismissOnSwipe: Bool,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
          blurStyle: UIBlurEffectStyle,
+         keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool) {
 
         self.presentationType = presentationType
         self.roundCorners = roundCorners
         self.dismissOnTap = dismissOnTap
+        self.dismissOnSwipe = dismissOnSwipe
+        self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
 
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
@@ -61,6 +93,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         } else {
             removeCornerRadiusFromPresentedView()
         }
+        
+        if shouldObserveKeyboard {
+            registerKeyboardObserver()
+        }
     }
 
     // MARK: Setup
@@ -68,6 +104,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
+        
+        let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentingViewSwipe))
+        presentedViewController.view.addGestureRecognizer(swipe)
 
         if blurBackground {
             let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
@@ -87,12 +126,103 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate func removeCornerRadiusFromPresentedView() {
         presentedViewController.view.layer.cornerRadius = 0
     }
+    
+    private func registerKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+
+    }
 
     // MARK: Actions
 
-    func chromeViewTapped(_ gesture: UIGestureRecognizer) {
+    func chromeViewTapped(gesture: UIGestureRecognizer) {
+        // get the presented controller conforming to the protocol and if it exists, ask presented if we should dismiss the controller.
+        guard (conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true) else {
+            return
+        }
         if gesture.state == .ended && dismissOnTap {
+            if shouldObserveKeyboard {
+                removeObservers()
+            }
             presentingViewController.dismiss(animated: dismissAnimated, completion: nil)
+        }
+    }
+    
+    func presentingViewSwipe(gesture: UIPanGestureRecognizer) {
+        let gestureState: (UIGestureRecognizerState) -> Bool = {
+            return gesture.state == $0 && self.dismissOnSwipe
+        }
+        guard (conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true) else {
+            return
+        }
+        if gestureState(.began) {
+            translationStart = gesture.location(in: presentedViewController.view)
+        }else if gestureState(.changed) {
+            let amount = gesture.translation(in: presentedViewController.view)
+            if amount.y < 0 {return}
+            
+            let translation = swipeElasticityFactor * 2
+            let center = presentedViewController.view.center
+            presentedViewController.view.center = CGPoint(x: center.x, y: center.y + translation)
+
+            if amount.y > swipeLimitPoint{
+                presentedViewIsBeingDissmissed = true
+                presentedViewController.dismiss(animated: true, completion: nil)
+            }
+            
+        }else if gestureState(.ended) || gestureState(.cancelled){
+            if presentedViewIsBeingDissmissed {return}
+            var point: CGPoint
+            switch presentationType.position()
+            {
+            case .center:
+                point = CGPoint(x: (UIScreen.main.bounds.width / 2), y: (UIScreen.main.bounds.height / 2))
+            case .topCenter:
+                point = CGPoint(x: (UIScreen.main.bounds.width / 2), y: (presentedViewController.view.bounds.height / 2))
+            case .bottomCenter:
+                point = CGPoint(x: (UIScreen.main.bounds.width / 2), y: (UIScreen.main.bounds.height) - (presentedViewController.view.bounds.height / 2))
+            case .custom:
+                point = CGPoint.zero
+            default:
+                point = CGPoint.zero
+            }
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
+                self.presentedViewController.view.center = point
+                }, completion: nil)
+        }
+    }
+    
+    // MARK: Keyboard Observation
+    
+    func keyboardWasShown(notification: Notification) {
+        // gets the keyboard frame and compares it to the presented view so the view gets moved up with the keyboard.
+        if let keyboardFrame = notification.keyboardEndFrame() {
+            let presentedFrame = frameOfPresentedViewInContainerView
+            let translatedFrame = keyboardTranslationType.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
+            if translatedFrame != presentedFrame {
+                UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
+                    self.presentedView?.frame = translatedFrame
+                })
+            }
+            keyboardIsShowing = true
+        }
+    }
+    
+    func keyboardWillHide (notification: Notification) {
+        if keyboardIsShowing {
+            let presentedFrame = frameOfPresentedViewInContainerView
+            if self.presentedView?.frame !=  presentedFrame {
+                UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
+                    self.presentedView?.frame = presentedFrame
+                })
+            }
+            keyboardIsShowing = false
         }
     }
 
@@ -160,6 +290,7 @@ extension PresentrController {
     }
 
     override func containerViewWillLayoutSubviews() {
+        guard !keyboardIsShowing else { return } // prevent resetting of presented frame when the frame is being translated
         chromeView.frame = containerView!.bounds
         presentedView!.frame = frameOfPresentedViewInContainerView
     }

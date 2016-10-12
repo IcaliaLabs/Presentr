@@ -44,6 +44,11 @@ class ViewController: UIViewController {
         alertController.addAction(okAction)
         return alertController
     }()
+    
+    lazy var popupViewController: PopupViewController = {
+        let popupViewController = self.storyboard?.instantiateViewController(withIdentifier: "PopupViewController")
+        return popupViewController as! PopupViewController
+    }()
 
 
     override func viewDidLoad() {
@@ -129,4 +134,11 @@ class ViewController: UIViewController {
         presenter.transitionType = .coverVertical
         customPresentViewController(presenter, viewController: alertController, animated: animated, completion: nil)
     }
+    
+    @IBAction func keyboardTranslation(_ sender: AnyObject) {
+        presenter.presentationType = .popup
+        presenter.keyboardTranslationType = .moveUp
+        customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
+    }
+    
 }
