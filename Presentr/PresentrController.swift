@@ -43,8 +43,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
             return roundCorners
         }
     }
-    
-    
+
     /// Determines if the presenting conroller conforms to `PresentrDelegate`
     private var conformingPresentedController: PresentrDelegate? {
         return presentedViewController as? PresentrDelegate
@@ -55,13 +54,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         return conformingPresentedController != nil ||
             ((keyboardTranslationType != .none) && presentationType == .popup)
     }
-    
+
+    fileprivate var chromeView = UIView()
+
     fileprivate var keyboardIsShowing: Bool = false
 
-    private var chromeView = UIView()
-    
-    private var translationStart: CGPoint = CGPointZero
-    
+    private var translationStart: CGPoint = CGPoint.zero
     private var presentedViewIsBeingDissmissed: Bool = false
 
     // MARK: Init
@@ -155,46 +153,46 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
     
-    func presentingViewSwipe(gesture: UIPanGestureRecognizer){
+    func presentingViewSwipe(gesture: UIPanGestureRecognizer) {
         let gestureState: (UIGestureRecognizerState) -> Bool = {
             return gesture.state == $0 && self.dismissOnSwipe
         }
-        guard (conformingPresentedController?.presentrShouldDismiss?(keyboardIsShowing) ?? true) else {
+        guard (conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true) else {
             return
         }
-        if gestureState(.Began) {
-            translationStart = gesture.locationInView(presentedViewController.view)
-        }else if gestureState(.Changed) {
-            let amount = gesture.translationInView(presentedViewController.view)
+        if gestureState(.began) {
+            translationStart = gesture.location(in: presentedViewController.view)
+        }else if gestureState(.changed) {
+            let amount = gesture.translation(in: presentedViewController.view)
             if amount.y < 0 {return}
             
             let translation = swipeElasticityFactor * 2
             let center = presentedViewController.view.center
-            presentedViewController.view.center = CGPointMake(center.x, center.y + translation)
-            
+            presentedViewController.view.center = CGPoint(x: center.x, y: center.y + translation)
+
             if amount.y > swipeLimitPoint{
                 presentedViewIsBeingDissmissed = true
-                presentedViewController.dismissViewControllerAnimated(true, completion: nil)
+                presentedViewController.dismiss(animated: true, completion: nil)
             }
             
-        }else if gestureState(.Ended) || gestureState(.Cancelled){
+        }else if gestureState(.ended) || gestureState(.cancelled){
             if presentedViewIsBeingDissmissed {return}
             var point: CGPoint
             switch presentationType.position()
             {
-            case .Center:
-                point = CGPointMake((UIScreen.mainScreen().bounds.width / 2), (UIScreen.mainScreen().bounds.height / 2))
-            case .TopCenter:
-                point = CGPointMake((UIScreen.mainScreen().bounds.width / 2), (presentedViewController.view.bounds.height / 2))
-            case .BottomCenter:
-                point = CGPointMake((UIScreen.mainScreen().bounds.width / 2), (UIScreen.mainScreen().bounds.height) - (presentedViewController.view.bounds.height / 2))
-            case .Custom:
-                point = CGPointZero
+            case .center:
+                point = CGPoint(x: (UIScreen.main.bounds.width / 2), y: (UIScreen.main.bounds.height / 2))
+            case .topCenter:
+                point = CGPoint(x: (UIScreen.main.bounds.width / 2), y: (presentedViewController.view.bounds.height / 2))
+            case .bottomCenter:
+                point = CGPoint(x: (UIScreen.main.bounds.width / 2), y: (UIScreen.main.bounds.height) - (presentedViewController.view.bounds.height / 2))
+            case .custom:
+                point = CGPoint.zero
             default:
-                point = CGPointZero
+                point = CGPoint.zero
             }
             
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
                 self.presentedViewController.view.center = point
                 }, completion: nil)
         }
