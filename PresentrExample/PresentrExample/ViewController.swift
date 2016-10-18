@@ -137,7 +137,7 @@ class ViewController: UIViewController {
     
     @IBAction func keyboardTranslation(_ sender: AnyObject) {
         presenter.presentationType = .popup
-        presenter.keyboardTranslationType = .moveUp
+        presenter.keyboardTranslationType = .compress
         customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
     }
     

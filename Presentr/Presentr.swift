@@ -60,8 +60,8 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
     
-    /// Should the presented controller dismiss on Swipe. Default is true.
-    public var dismissOnSwipe = true
+    /// Should the presented controller dismiss on Swipe inside the presented view controller. Default is false.
+    public var dismissOnSwipe = false
 
     /// Should the presented controller use animation when dismiss on background tap. Default is true.
     public var dismissAnimated = true
@@ -78,7 +78,7 @@ public class Presentr: NSObject {
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
     
-    /// How the presented view controller should respond in response to keyboard presentation.
+    /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
     // MARK: Private Helper Properties
