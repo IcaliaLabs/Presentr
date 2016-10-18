@@ -93,20 +93,27 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         } else {
             removeCornerRadiusFromPresentedView()
         }
-        
+
+        if dismissOnSwipe {
+            setupDismissOnSwipe()
+        }
+
         if shouldObserveKeyboard {
             registerKeyboardObserver()
         }
+
     }
 
     // MARK: Setup
 
-    fileprivate func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-        chromeView.addGestureRecognizer(tap)
-        
+    private func setupDismissOnSwipe() {
         let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentingViewSwipe))
         presentedViewController.view.addGestureRecognizer(swipe)
+    }
+
+    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+        chromeView.addGestureRecognizer(tap)
 
         if blurBackground {
             let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
@@ -118,12 +125,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
 
-    fileprivate func addCornerRadiusToPresentedView() {
+    private func addCornerRadiusToPresentedView() {
         presentedViewController.view.layer.cornerRadius = 4
         presentedViewController.view.layer.masksToBounds = true
     }
 
-    fileprivate func removeCornerRadiusFromPresentedView() {
+    private func removeCornerRadiusFromPresentedView() {
         presentedViewController.view.layer.cornerRadius = 0
     }
     
@@ -157,14 +164,17 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         let gestureState: (UIGestureRecognizerState) -> Bool = {
             return gesture.state == $0 && self.dismissOnSwipe
         }
+
         guard (conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true) else {
             return
         }
+
         if gestureState(.began) {
             translationStart = gesture.location(in: presentedViewController.view)
+
         }else if gestureState(.changed) {
             let amount = gesture.translation(in: presentedViewController.view)
-            if amount.y < 0 {return}
+            if amount.y < 0 { return }
             
             let translation = swipeElasticityFactor * 2
             let center = presentedViewController.view.center
