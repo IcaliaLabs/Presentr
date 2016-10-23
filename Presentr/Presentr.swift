@@ -20,6 +20,21 @@ struct PresentrConstants {
     }
 }
 
+/// Helper class holding shadow properties
+public struct PresentrShadow {
+    public let shadowColor: UIColor?
+    public let shadowOpacity: Float?
+    public let shadowOffset: CGSize?
+    public let shadowRadius: CGFloat?
+    
+    public init(shadowColor: UIColor?, shadowOpacity: Float?, shadowOffset: CGSize?, shadowRadius: CGFloat?) {
+        self.shadowColor = shadowColor
+        self.shadowOpacity = shadowOpacity
+        self.shadowOffset = shadowOffset
+        self.shadowRadius = shadowRadius
+    }
+}
+
 // MARK: - PresentrDelegate
 
 /**
@@ -56,6 +71,12 @@ public class Presentr: NSObject {
 
     /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
     public var roundCorners = true
+
+    /// Radius of rounded corners if roundCorners is true. Default is 4.
+    public var cornerRadius: CGFloat = 4
+
+    /// Radius of rounded corners if roundCorners is true. Default is 4.
+    public var dropShadow: PresentrShadow? = nil
 
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
@@ -167,6 +188,8 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
                                                         roundCorners: roundCorners,
+                                                        cornerRadius: cornerRadius,
+                                                        dropShadow: dropShadow,
                                                         dismissOnTap: dismissOnTap,
                                                         dismissOnSwipe: dismissOnSwipe,
                                                         backgroundColor: backgroundColor,
