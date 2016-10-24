@@ -20,19 +20,21 @@ struct PresentrConstants {
     }
 }
 
-/// Helper class holding shadow properties
+/// Helper struct that represents the shadow properties
 public struct PresentrShadow {
+
     public let shadowColor: UIColor?
     public let shadowOpacity: Float?
     public let shadowOffset: CGSize?
     public let shadowRadius: CGFloat?
-    
+
     public init(shadowColor: UIColor?, shadowOpacity: Float?, shadowOffset: CGSize?, shadowRadius: CGFloat?) {
         self.shadowColor = shadowColor
         self.shadowOpacity = shadowOpacity
         self.shadowOffset = shadowOffset
         self.shadowRadius = shadowRadius
     }
+
 }
 
 // MARK: - PresentrDelegate
@@ -76,7 +78,7 @@ public class Presentr: NSObject {
     public var cornerRadius: CGFloat = 4
 
     /// Radius of rounded corners if roundCorners is true. Default is 4.
-    public var dropShadow: PresentrShadow? = nil
+    public var dropShadow: PresentrShadow?
 
     /// Should the presented controller dismiss on background tap. Default is true.
     public var dismissOnTap = true
@@ -101,16 +103,6 @@ public class Presentr: NSObject {
     
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
-
-    // MARK: Private Helper Properties
-
-    fileprivate var transitionForPresent: TransitionType {
-        return transitionType ?? presentationType.defaultTransitionType()
-    }
-
-    fileprivate var transitionForDismiss: TransitionType {
-        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
-    }
 
     // MARK: Init
 
@@ -160,6 +152,14 @@ public class Presentr: NSObject {
             presentedVC.modalTransitionStyle = systemDismissTransition
         }
 
+    }
+
+    fileprivate var transitionForPresent: TransitionType {
+        return transitionType ?? presentationType.defaultTransitionType()
+    }
+
+    fileprivate var transitionForDismiss: TransitionType {
+        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
     }
 
 }

@@ -19,7 +19,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     
     /// Radius of rounded corners if roundCorners is true.
     let cornerRadius: CGFloat
-    
+
+    /// Shadow settings
     let dropShadow: PresentrShadow?
 
     /// Should the presented controller dismiss on background tap.
@@ -65,6 +66,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate var keyboardIsShowing: Bool = false
 
     private var translationStart: CGPoint = CGPoint.zero
+    
     private var presentedViewIsBeingDissmissed: Bool = false
 
     // MARK: Init
