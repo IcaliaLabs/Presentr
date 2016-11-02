@@ -2,6 +2,7 @@ disabled_rules:
   - line_length
   - missing_docs
   - function_parameter_count
+  - cyclomatic_complexity
 opt_in_rules:
   - empty_count
   - missing_docs
