@@ -1,5 +1,9 @@
 ### What's New
 
+#### 1.0.1
+- Added keyboard observation options for .popup (thanks @aasatt)
+- Swipe to dismiss gesture (thanks @josejuanqm)
+
 #### 1.0.0
 - Adds support for Swift 3.0, XCode 8 & iOS 10.
 - This will be the only maintained version from here on out.

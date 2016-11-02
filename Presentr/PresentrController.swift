@@ -15,6 +15,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     /// Should the presented controller's view have rounded corners.
     let roundCorners: Bool
+    
+    /// Radius of rounded corners if roundCorners is true.
+    let cornerRadius: CGFloat
+
+    /// Shadow settings
+    let dropShadow: PresentrShadow?
 
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
@@ -57,6 +63,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate var chromeView = UIView()
     fileprivate var keyboardIsShowing: Bool = false
     private var translationStart: CGPoint = CGPoint.zero
+    
     private var presentedViewIsBeingDissmissed: Bool = false
 
     // MARK: Init
@@ -64,6 +71,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          presentingViewController: UIViewController?,
          presentationType: PresentationType,
          roundCorners: Bool,
+         cornerRadius: CGFloat,
+         dropShadow: PresentrShadow?,
          dismissOnTap: Bool,
          dismissOnSwipe: Bool,
          backgroundColor: UIColor,
@@ -75,6 +84,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
         self.presentationType = presentationType
         self.roundCorners = roundCorners
+        self.cornerRadius = cornerRadius
+        self.dropShadow = dropShadow
         self.dismissOnTap = dismissOnTap
         self.dismissOnSwipe = dismissOnSwipe
         self.keyboardTranslationType = keyboardTranslationType
@@ -89,7 +100,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         } else {
             removeCornerRadiusFromPresentedView()
         }
-
+        
+        if dropShadow != nil {
+            addDropShadowToPresentedView()
+        } else {
+            removeDropShadowFromPresentedView()
+        }
+        
         if dismissOnSwipe {
             setupDismissOnSwipe()
         }
@@ -120,14 +137,36 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     private func addCornerRadiusToPresentedView() {
-        presentedViewController.view.layer.cornerRadius = 4
+        presentedViewController.view.layer.cornerRadius = cornerRadius
         presentedViewController.view.layer.masksToBounds = true
     }
 
     private func removeCornerRadiusFromPresentedView() {
         presentedViewController.view.layer.cornerRadius = 0
     }
-
+    
+    private func addDropShadowToPresentedView() {
+        guard let shadow = self.dropShadow else { return }
+        presentedViewController.view.layer.masksToBounds = false
+        if let shadowColor = shadow.shadowColor?.cgColor {
+            presentedViewController.view.layer.shadowColor = shadowColor
+        }
+        if let shadowOpacity = shadow.shadowOpacity {
+            presentedViewController.view.layer.shadowOpacity = shadowOpacity
+        }
+        if let shadowOffset = shadow.shadowOffset {
+            presentedViewController.view.layer.shadowOffset = shadowOffset
+        }
+        if let shadowRadius = shadow.shadowRadius {
+            presentedViewController.view.layer.shadowRadius = shadowRadius
+        }
+    }
+    
+    private func removeDropShadowFromPresentedView() {
+        presentedViewController.view.layer.masksToBounds = true
+        presentedViewController.view.layer.shadowOpacity = 0
+    }
+    
     private func registerKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
@@ -292,7 +331,7 @@ extension PresentrController {
         chromeView.frame = containerView!.bounds
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
-
+    
     // MARK: Animation
 
     override func presentationTransitionWillBegin() {

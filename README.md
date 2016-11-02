@@ -1,6 +1,7 @@
 <img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png" width="700">
 
 [![Version](https://img.shields.io/cocoapods/v/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![Platform](https://img.shields.io/cocoapods/p/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![License](https://img.shields.io/cocoapods/l/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
@@ -19,7 +20,12 @@ iOS 8 fixed all of this by introducing Custom View Controller Presentations, whi
 **Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
 
 ## What's New
-### See CHANGELOG.md
+
+#### 1.0.1
+- Added keyboard observation options for .popup (thanks @aasatt)
+- Swipe to dismiss gesture (thanks @josejuanqm)
+
+#### See CHANGELOG.md for previous
 
 ## Contributing
 
@@ -69,12 +75,12 @@ carthage update --platform ios
 
 ```swift
 public enum PresentationType {
-  case Alert
-  case Popup
-  case TopHalf
-  case BottomHalf
-  case FullScreen
-  case Custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
+  case alert
+  case popup
+  case topHalf
+  case bottomHalf
+  case fullScreen
+  case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 }
 ```
 #### Alert & Popup
@@ -89,13 +95,13 @@ public enum PresentationType {
 ```swift
 public enum TransitionType{
   // System provided
-  case CoverVertical
-  case CrossDissolve
-  case FlipHorizontal
+  case coverVertical
+  case crossDissolve
+  case flipHorizontal
   // Custom
-  case CoverVerticalFromTop
-  case CoverHorizontalFromRight
-  case CoverHorizontalFromLeft
+  case coverVerticalFromTop
+  case coverHorizontalFromRight
+  case coverHorizontalFromLeft
 }
 ```
 
@@ -110,7 +116,7 @@ class ViewController: UIViewController{
 
   let presenter: Presentr = {
       let presenter = Presentr(presentationType: .Alert)
-      presenter.transitionType = .CoverHorizontalFromRight // Optional
+      presenter.transitionType = .coverHorizontalFromRight // Optional
       return presenter
   }()
 
@@ -120,7 +126,7 @@ class ViewController: UIViewController{
 The PresentationType (and all other properties) can be changed later on in order to reuse the Presentr object for other presentations.
 
 ```swift
-presenter.presentationType = .Popup
+presenter.presentationType = .popup
 ```
 
 ### Properties
@@ -129,14 +135,14 @@ presenter.presentationType = .Popup
 You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller.
 
 ```swift
-presenter.transitionType = .CoverVerticalFromTop
-presenter.dismissTransitionType = .CoverVertical
+presenter.transitionType = .coverVerticalFromTop
+presenter.dismissTransitionType = .coverVertical
 ```
 
 You can change the background color & opacity for the background view that will be displayed below the presented view controller. Default is black with 0.7 opacity.
 
 ```swift
-presenter.backgroundColor = UIColor.redColor()
+presenter.backgroundColor = UIColor.red
 presenter.backgroundOpacity = 1.0
 ```
 
@@ -144,7 +150,7 @@ You could also turn on the blur effect for the background, and change it's style
 
 ```swift
 presenter.blurBackground = true
-presenter.blurStyle = UIBlurEffectStyle.Light
+presenter.blurStyle = UIBlurEffectStyle.light
 ```
 
 You can choose to disable rounded corners on the view controller that will be presented. Default is true.
@@ -175,7 +181,7 @@ This is a helper method provided for you as an extension on UIViewController. It
 
 If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
 ```swift
-let customType = PresentationType.Custom(width: width, height: height, center: center)
+let customType = PresentationType.custom(width: width, height: height, center: center)
 ```
 
 It has three associated values for the width, height and center position of the presented controller. For setting them we use two other enums.
@@ -183,40 +189,40 @@ It has three associated values for the width, height and center position of the 
 ```Swift
 // This is used to calculate either a width or height value.
 public enum ModalSize {
-  case Default
-  case Half   
-  case Full      
-  case Custom(size: Float)
+  case default
+  case half   
+  case full      
+  case custom(size: Float)
 }
 
 // This is used to calculate the center point position for the modal.
 public enum ModalCenterPosition {
-  case Center     
-  case TopCenter  
-  case BottomCenter
-  case Custom(centerPoint: CGPoint)  // Custom fixed center point.
-  case CustomOrigin(origin: CGPoint) // Custom fixed origin point.
+  case center     
+  case topCenter  
+  case bottomCenter
+  case custom(centerPoint: CGPoint)  // Custom fixed center point.
+  case customOrigin(origin: CGPoint) // Custom fixed origin point.
 }
 ```
 
 This allows us to use a fixed value when we want
 ```swift
-let width = ModalSize.Custom(size: 300) // Custom 300pt width
+let width = ModalSize.custom(size: 300) // Custom 300pt width
 ```
 
 But also let Presentr handle the calculations when we want something more common.
 ```swift
-let height = ModalSize.Full // Whole screen height
+let height = ModalSize.full // Whole screen height
 ```
 
 We could also set a fixed position
 ```swift
-let position = ModalCenterPosition.Custom(centerPoint: CGPoint(x: 150, y: 150))  // Custom center point
+let position = ModalCenterPosition.custom(centerPoint: CGPoint(x: 150, y: 150))  // Custom center point
 ```
 
 Or let presentr calculate the position
 ```swift
-let position = ModalCenterPosition.Center // Center of the screen
+let position = ModalCenterPosition.center // Center of the screen
 ```
 
 So we can mix and match, and have the benefit of a custom **PresentationType** but still have *Presentr* calculating the values we don't want to do ourselves. The following code creates a *Presentr* object with a custom **PresentationType** which shows the alert in a small top banner.
@@ -226,14 +232,14 @@ class ViewController: UIViewController{
 
   let customPresenter: Presentr = {
 
-    let width = ModalSize.Full
-    let height = ModalSize.Custom(size: 150)
-    let center = ModalCenterPosition.CustomOrigin(origin: CGPoint(x: 0, y: 0))
+    let width = ModalSize.full
+    let height = ModalSize.custom(size: 150)
+    let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
 
-    let customType = PresentationType.Custom(width: width, height: height, center: center)
+    let customType = PresentationType.custom(width: width, height: height, center: center)
 
     let customPresenter = Presentr(presentationType: customType)
-    customPresenter.transitionType = .CoverVerticalFromTop
+    customPresenter.transitionType = .coverVerticalFromTop
     customPresenter.roundCorners = false
     return customPresenter
 
@@ -253,18 +259,18 @@ class ViewController: UIViewController{
 
   let controller = Presentr.alertViewController(title: title, body: body)
 
-  let deleteAction = AlertAction(title: "Sure 🕶", style: .Destructive) {
+  let deleteAction = AlertAction(title: "Sure 🕶", style: .destructive) {
     print("Deleted!")
   }
 
-  let okAction = AlertAction(title: "NO, sorry 🙄", style: .Cancel){
+  let okAction = AlertAction(title: "NO, sorry 🙄", style: .cancel){
     print("Ok!")
   }
 
   controller.addAction(deleteAction)
   controller.addAction(okAction)
 
-  presenter.presentationType = .Alert
+  presenter.presentationType = .alert
   customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
 
 ```
@@ -281,8 +287,10 @@ class ViewController: UIViewController{
 
 Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](https://github.com/realm/jazzy).
 
-##  Main Contributors
+##  Author
 [Daniel Lozano](http://danielozano.com) <br>
+
+## Main Contributors
 [Gabriel Peart](http://swiftification.org/)
 <br><br>
 Logo design by [Eduardo Higareda](http://eldelentes.mx)<br>
