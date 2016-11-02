@@ -4,7 +4,4 @@
    <FileRef
       location = "container:Presentr.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:PresentrExample/PresentrExample.xcodeproj">
-   </FileRef>
 </Workspace>
