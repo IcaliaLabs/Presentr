@@ -7,17 +7,11 @@
 [![License](https://img.shields.io/cocoapods/l/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![codebeat badge](https://codebeat.co/badges/f89d5cdf-b0c3-441d-b4e1-d56dcea48544)](https://codebeat.co/projects/github-com-icalialabs-presentr)
 
-*Presentr is a simple wrapper for the Custom View Controller Presentation API introduced in iOS 8.*
+*Presentr is a simple customizable wrapper for the Custom View Controller Presentation API introduced in iOS 8.*
 
 ## About
 
-It is very common in an app to want to modally present a view on top of the current screen without covering it completely. It can be for presenting an alert, a menu, or any kind of popup with some other functionality.
-
-Before iOS 8 this was done by adding a subiew on top of your content, but that is not the recommended way since a modal should ideally have its own view controller for handling all of the logic. View controller containment was also used, and was a better alternative, but still not ideal for this use case.
-
-iOS 8 fixed all of this by introducing Custom View Controller Presentations, which allowed us to modally present view controllers in new ways. But in order to use this API it is up to us to implement a couple of classes and delegates that could be confusing for some.
-
-**Presentr** is made to simplify this process by hiding all of that and providing a couple of custom presentations and transitions that I think you will find useful. If you want to contribute and add more presentations or transitions please send me a pull request!
+iOS let's you modally present any view controller, but if you want the presented view controller to not cover the whole screen or modify anything about its presentation or transition you have to use the Custom View Controller Presentation API's. This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you. 
 
 ## What's New
 
@@ -72,10 +66,31 @@ Install using
 carthage update --platform ios
 ```
 
-
 ### Manually
 1. Download and drop ```/Presentr``` folder in your project.  
 2. You're done!
+
+### Create a Presentr object
+
+It is **important to hold on to the Presentr object as a property** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation, so you must hold a strong reference to it.
+
+```swift
+class ViewController: UIViewController{
+
+  let presenter: Presentr = {
+      let presenter = Presentr(presentationType: .Alert)
+      presenter.transitionType = .coverHorizontalFromRight // Optional
+      return presenter
+  }()
+
+}
+```
+
+The PresentationType (and all other properties) can be changed later on in order to reuse the Presentr object for other presentations.
+
+```swift
+presenter.presentationType = .popup
+```
 
 ## Main Types
 
@@ -113,30 +128,6 @@ public enum TransitionType{
 }
 ```
 
-## Getting Started
-
-### Create a Presentr object
-
-It is **important to hold on to the Presentr object as a property** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation, so you must hold a strong reference to it.
-
-```swift
-class ViewController: UIViewController{
-
-  let presenter: Presentr = {
-      let presenter = Presentr(presentationType: .Alert)
-      presenter.transitionType = .coverHorizontalFromRight // Optional
-      return presenter
-  }()
-
-}
-```
-
-The PresentationType (and all other properties) can be changed later on in order to reuse the Presentr object for other presentations.
-
-```swift
-presenter.presentationType = .popup
-```
-
 ### Properties
 #### Properties are optional, as they all have Default values.
 
@@ -167,11 +158,44 @@ You can choose to disable rounded corners on the view controller that will be pr
 presenter.roundCorners = false
 ```
 
+You can also set the cornerRadius if you set roundCorners to true.
+
+```swift
+presenter.cornerRadius = 10
+```
+
+Using the PresentrShadow struct can set a custom shadow on the presented view controller.
+
+```swift
+let shadow = PresentrShadow()
+
+shadow.shadowColor = .black
+shadow.shadowOpacity = 0.5
+shadow.shadowOffset = CGSize(5,5)
+shadow.shadowRadius = 4.0
+
+presenter.dropShadow = shadow
+```
+
 You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true. Or you can disable the animation for the dismissOnTap.
 
 ```swift
 presenter.dismissOnTap = false
 presenter.dismissAnimated = false
+```
+
+You can activate dismissOnSwipe so that swiping up inside the presented view controller dismisses it. Default is false. If your view controller uses any kind of scroll view this is not recommended as it will mess with the scrolling.
+
+```swift
+presenter.dismissOnSwipe = true
+```
+
+If you have text fields inside your modal, you can use a KeyboardTranslationType to tell Presentr how to handle your modal when the keyboard shows up.
+
+```swift
+public enum KeyboardTranslationType {
+    case none, moveUp, compress, stickToTop
+}
 ```
 
 ### Present the view controller.
@@ -184,6 +208,14 @@ customPresentViewController(presenter, viewController: controller, animated: tru
 ```
 
 This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition.
+
+### Delegate
+
+You can conform to the PresentrDelegate protocol in your presented view controller if you want to get a callback. Using this method you can prevent the view controller from being dismissed when the background is tapped and/or perform something before it's dismissed.
+
+```swift
+func presentrShouldDismiss(keyboardShowing: Bool) -> Bool { }
+```
 
 ### Creating a custom PresentationType
 
@@ -201,6 +233,7 @@ public enum ModalSize {
   case half   
   case full      
   case custom(size: Float)
+  case fluid(percentage: Float)
 }
 
 // This is used to calculate the center point position for the modal.
