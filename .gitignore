@@ -29,5 +29,9 @@ xcuserdata
 # Swift Package Manager
 .build/
 
+## Cocoapods
+Pods/
+Podfile.lock
+
 # Carthage
 Carthage/Build
