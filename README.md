@@ -11,7 +11,9 @@
 
 ## About
 
-iOS let's you modally present any view controller, but if you want the presented view controller to not cover the whole screen or modify anything about its presentation or transition you have to use the Custom View Controller Presentation API's. This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you. 
+iOS let's you modally present any view controller, but if you want the presented view controller to not cover the whole screen or modify anything about its presentation or transition you have to use the Custom View Controller Presentation API's. 
+
+This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you. 
 
 ## What's New
 
@@ -70,6 +72,8 @@ carthage update --platform ios
 1. Download and drop ```/Presentr``` folder in your project.  
 2. You're done!
 
+## Getting started
+
 ### Create a Presentr object
 
 It is **important to hold on to the Presentr object as a property** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation, so you must hold a strong reference to it.
@@ -85,6 +89,17 @@ class ViewController: UIViewController{
 
 }
 ```
+
+### Present the view controller.
+
+Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
+
+```swift
+let controller = SomeViewController()
+customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
+```
+
+This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition.
 
 The PresentationType (and all other properties) can be changed later on in order to reuse the Presentr object for other presentations.
 
@@ -168,7 +183,6 @@ Using the PresentrShadow struct can set a custom shadow on the presented view co
 
 ```swift
 let shadow = PresentrShadow()
-
 shadow.shadowColor = .black
 shadow.shadowOpacity = 0.5
 shadow.shadowOffset = CGSize(5,5)
@@ -193,21 +207,11 @@ presenter.dismissOnSwipe = true
 If you have text fields inside your modal, you can use a KeyboardTranslationType to tell Presentr how to handle your modal when the keyboard shows up.
 
 ```swift
-public enum KeyboardTranslationType {
-    case none, moveUp, compress, stickToTop
-}
+presenter.keyboardTranslationType = .none
+presenter.keyboardTranslationType = .moveUp
+presenter.keyboardTranslationType = .compress
+presenter.keyboardTranslationType = .stickToTop
 ```
-
-### Present the view controller.
-
-Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
-
-```swift
-let controller = SomeViewController()
-customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
-```
-
-This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition.
 
 ### Delegate
 
