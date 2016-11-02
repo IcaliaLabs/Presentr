@@ -19,7 +19,8 @@ class ViewController: UIViewController {
 
     let customPresenter: Presentr = {
         let width = ModalSize.full
-        let height = ModalSize.custom(size: 150)
+        //let height = ModalSize.custom(size: 150)
+        let height = ModalSize.fluid(percentage: 0.33)
         let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
         let customType = PresentationType.custom(width: width, height: height, center: center)
 
