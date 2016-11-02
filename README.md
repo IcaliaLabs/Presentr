@@ -143,7 +143,7 @@ public enum TransitionType{
 }
 ```
 
-### Properties
+## Properties
 #### Properties are optional, as they all have Default values.
 
 You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller.
@@ -213,7 +213,7 @@ presenter.keyboardTranslationType = .compress
 presenter.keyboardTranslationType = .stickToTop
 ```
 
-### Delegate
+## Delegate
 
 You can conform to the PresentrDelegate protocol in your presented view controller if you want to get a callback. Using this method you can prevent the view controller from being dismissed when the background is tapped and/or perform something before it's dismissed.
 
@@ -221,7 +221,7 @@ You can conform to the PresentrDelegate protocol in your presented view controll
 func presentrShouldDismiss(keyboardShowing: Bool) -> Bool { }
 ```
 
-### Creating a custom PresentationType
+## Creating a custom PresentationType
 
 If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
 ```swift
@@ -295,7 +295,7 @@ class ViewController: UIViewController{
 
 <img src="http://danielozano.com/PresentrScreenshots/CustomPresentationType.png" width="250">
 
-### Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
+## Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
 
 ```swift
 
