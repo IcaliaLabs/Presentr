@@ -15,6 +15,7 @@ import Foundation
  - Half:    Half of the screen.
  - Full:    Full screen.
  - Custom:  Custom fixed size.
+ - Fluid:   Custom percentage-based fluid size.
  */
 public enum ModalSize {
 
@@ -22,6 +23,7 @@ public enum ModalSize {
     case half
     case full
     case custom(size: Float)
+    case fluid(percentage: Float)
 
     /**
      Calculates the exact width value for the presented view controller.
@@ -40,6 +42,8 @@ public enum ModalSize {
             return Float(parentSize.width)
         case .custom(let size):
             return size
+        case .fluid(let percentage):
+            return floorf(Float(parentSize.width) * percentage)
         }
     }
 
@@ -60,6 +64,8 @@ public enum ModalSize {
             return Float(parentSize.height)
         case .custom(let size):
             return size
+        case .fluid(let percentage):
+            return floorf(Float(parentSize.height) * percentage)
         }
     }
 
