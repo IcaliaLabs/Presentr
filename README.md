@@ -295,7 +295,9 @@ class ViewController: UIViewController{
 
 <img src="http://danielozano.com/PresentrScreenshots/CustomPresentationType.png" width="250">
 
-## Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
+## AlertViewController
+
+Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
 
 ```swift
 
