@@ -11,11 +11,12 @@ import Foundation
 /**
  Descibes a presented modal's size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the 'calculate' methods, passing in the 'parentSize' which only the Presentation Controller should be aware of.
 
- - Default: Default size. Will use Presentr's default margins to calculate size of presented controller. This is the size the .Popup presentation type uses.
- - Half:    Half of the screen.
- - Full:    Full screen.
- - Custom:  Custom fixed size.
- - Fluid:   Custom percentage-based fluid size.
+ - Default:     Default size. Will use Presentr's default margins to calculate size of presented controller. This is the size the .Popup presentation type uses.
+ - Half:        Half of the screen.
+ - Full:        Full screen.
+ - Custom:      Custom fixed size.
+ - Fluid:       Custom percentage-based fluid size.
+ - SideMargin:  Custom value for margins
  */
 public enum ModalSize {
 
@@ -24,6 +25,7 @@ public enum ModalSize {
     case full
     case custom(size: Float)
     case fluid(percentage: Float)
+    case sideMargin(value: Float)
 
     /**
      Calculates the exact width value for the presented view controller.
@@ -44,6 +46,8 @@ public enum ModalSize {
             return size
         case .fluid(let percentage):
             return floorf(Float(parentSize.width) * percentage)
+        case .sideMargin(let value):
+            return floorf(Float(parentSize.width) - value * 2)
         }
     }
 
@@ -66,6 +70,8 @@ public enum ModalSize {
             return size
         case .fluid(let percentage):
             return floorf(Float(parentSize.height) * percentage)
+        case .sideMargin(let value):
+            return floorf(Float(parentSize.height) - value * 2)
         }
     }
 
