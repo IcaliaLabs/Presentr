@@ -15,6 +15,11 @@ iOS let's you modally present any view controller, but if you want the presented
 
 This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you. 
 
+<img src="http://danielozano.com/Presentr/Gifs/Alert.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/Popup.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/TopHalf.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/Other.gif" width="192">
+
 ## What's New
 
 #### 1.0.3
@@ -122,11 +127,11 @@ public enum PresentationType {
 }
 ```
 #### Alert & Popup
-<img src="http://danielozano.com/PresentrScreenshots/Alert1.png" width="250">
-<img src="http://danielozano.com/PresentrScreenshots/Popup1.png" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/Alert.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/Popup.gif" width="250">
 #### BottomHalf & TopHalf
-<img src="http://danielozano.com/PresentrScreenshots/BottomHalf1.png" width="250">
-<img src="http://danielozano.com/PresentrScreenshots/TopHalf2.png" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/BottomHalf.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/TopHalf.gif" width="250">
 
 ### Transition Type
 
@@ -332,7 +337,7 @@ Presentr also comes with a cool AlertViewController baked in if you want somethi
 
 ## Documentation
 
-Read the [docs](http://danielozano.com/PresentrDocs/). Generated with [jazzy](https://github.com/realm/jazzy).
+Read the [docs](http://danielozano.com/Presentr/Docs/). Generated with [jazzy](https://github.com/realm/jazzy).
 
 ##  Author
 [Daniel Lozano](http://danielozano.com) <br>
