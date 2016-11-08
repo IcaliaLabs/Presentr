@@ -127,11 +127,11 @@ public enum PresentationType {
 }
 ```
 #### Alert & Popup
-<img src="http://danielozano.com/Presentr/Gifs/Alert.gif" width="250">
-<img src="http://danielozano.com/Presentr/Gifs/Popup.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="250">
 #### BottomHalf & TopHalf
-<img src="http://danielozano.com/Presentr/Gifs/BottomHalf.gif" width="250">
-<img src="http://danielozano.com/Presentr/Gifs/TopHalf.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/BottomHalfSlow.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="250">
 
 ### Transition Type
 
