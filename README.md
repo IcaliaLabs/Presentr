@@ -1,4 +1,4 @@
-<img src="http://danielozano.com/PresentrScreenshots/PresentrLogo.png" width="700">
+<img src="http://danielozano.com/Presentr/Screenshots/PresentrLogo.png" width="700">
 
 [![Version](https://img.shields.io/cocoapods/v/Presentr.svg?style=flat)](http://cocoapods.org/pods/Presentr)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
