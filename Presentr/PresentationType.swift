@@ -16,7 +16,7 @@ import Foundation
  - TopHalf:    This takes up half of the screen, on the top side.
  - BottomHalf: This takes up half of the screen, on the bottom side.
  - FullScreen: This takes up the entire screen.
- - Custom: Provide a custom width, height and center position.
+ - Custom:     Provide a custom width, height and center position.
  */
 public enum PresentationType {
 
