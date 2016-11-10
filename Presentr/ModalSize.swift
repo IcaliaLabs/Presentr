@@ -16,7 +16,7 @@ import Foundation
  - Full:        Full screen.
  - Custom:      Custom fixed size.
  - Fluid:       Custom percentage-based fluid size.
- - SideMargin:  Custom value for margins
+ - SideMargin:  Uses side margins to calculate size.
  */
 public enum ModalSize {
 
@@ -47,7 +47,7 @@ public enum ModalSize {
         case .fluid(let percentage):
             return floorf(Float(parentSize.width) * percentage)
         case .sideMargin(let value):
-            return floorf(Float(parentSize.width) - value * 2)
+            return floorf(Float(parentSize.width) - value * 2.0)
         }
     }
 
