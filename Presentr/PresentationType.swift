@@ -17,7 +17,6 @@ import Foundation
  - BottomHalf: This takes up half of the screen, on the bottom side.
  - FullScreen: This takes up the entire screen.
  - Custom:     Provide a custom width, height and center position.
- - Margin:     Provide a custom horizontal margins (left and right) and vertical margins (top and bottom)
  */
 public enum PresentationType {
 
@@ -27,7 +26,6 @@ public enum PresentationType {
     case bottomHalf
     case fullScreen
     case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
-    case margin(horizontal: Float, vertical: Float)
 
     /**
      Describes the sizing for each Presentr type. It is meant to be non device/width specific, except for the .Custom case.
@@ -46,8 +44,6 @@ public enum PresentationType {
             return (.full, .full)
         case .custom(let width, let height, _):
             return (width, height)
-        case .margin(let horizontal, let vertical):
-            return (.sideMargin(value: horizontal), .sideMargin(value: vertical))
         }
     }
 
@@ -68,8 +64,6 @@ public enum PresentationType {
             return .center
         case .custom(_, _, let center):
             return center
-        case .margin(_: _):
-            return .center
         }
     }
 
