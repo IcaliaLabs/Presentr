@@ -300,7 +300,7 @@ class ViewController: UIViewController{
 }
 ```
 
-<img src="http://danielozano.com/PresentrScreenshots/CustomPresentationType.png" width="250">
+<img src="http://danielozano.com/Presentr/Screenshots/CustomPresentationType.png" width="250">
 
 ## AlertViewController
 
@@ -329,7 +329,7 @@ Presentr also comes with a cool AlertViewController baked in if you want somethi
 
 ```
 
-<img src="http://danielozano.com/PresentrScreenshots/Alert2.png" width="250">
+<img src="http://danielozano.com/Presentr/Screenshots/Alert2.png" width="250">
 
 ## Requirements
 
