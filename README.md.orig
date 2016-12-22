@@ -24,11 +24,16 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 
 ## What's New
 
+<<<<<<< HEAD
 #### 1.0.5
 - Support for animated blurred background (thanks to @fpg1503)
 
 #### 1.0.4
 - New ModalSize option with sideMargin value (thanks to @alediaz84)
+=======
+#### 1.0.4
+- New ModalSize option with sideMargin value
+>>>>>>> d2dfc441f5c90bee280e8b4dd8db188cc9969405
 - Example project fixes
 
 #### 1.0.3
