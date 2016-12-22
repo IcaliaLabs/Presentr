@@ -1,5 +1,9 @@
 ### What's New
 
+#### 1.0.4
+- New ModalSize option with sideMargin value
+- Example project fixes
+
 #### 1.0.3
 - Support for custom radius & drop shadow (thanks @falkobuttler)
 - New fluid percentage option for ModalSize enum (thanks @mseijas)
