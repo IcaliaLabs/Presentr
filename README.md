@@ -24,17 +24,14 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 
 ## What's New
 
+#### 1.0.4
+- New ModalSize option with sideMargin value
+- Example project fixes
+
 #### 1.0.3
 - Support for custom radius & drop shadow (thanks @falkobuttler)
 - New fluid percentage option for ModalSize enum (thanks @mseijas)
 - Example project and other general improvements (thanks @gabrielPeart)
-
-#### 1.0.2
-- Bug Fixes
-
-#### 1.0.1
-- Added keyboard observation options for .popup (thanks @aasatt)
-- Swipe to dismiss gesture (thanks @josejuanqm)
 
 #### See CHANGELOG.md for previous
 
