@@ -24,6 +24,9 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 
 ## What's New
 
+#### 1.0.4 
+- Support for animated blurred background (thanks to @fpg1503)
+
 #### 1.0.3
 - Support for custom radius & drop shadow (thanks @falkobuttler)
 - New fluid percentage option for ModalSize enum (thanks @mseijas)
