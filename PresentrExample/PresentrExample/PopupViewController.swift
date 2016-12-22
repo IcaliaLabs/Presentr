@@ -35,6 +35,7 @@ class PopupViewController: UIViewController {
 extension PopupViewController: PresentrDelegate {
     
     func presentrShouldDismiss(keyboardShowing: Bool) -> Bool {
+        print("Dismissing View Controller")
         return !keyboardShowing
     }
     

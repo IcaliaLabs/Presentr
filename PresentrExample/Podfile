@@ -2,6 +2,5 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'PresentrExample' do
-	pod 'Presentr', '~> 1.0'
+	pod 'Presentr'
 end
-

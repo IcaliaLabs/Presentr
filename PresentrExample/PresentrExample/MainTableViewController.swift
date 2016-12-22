@@ -32,7 +32,7 @@ enum ExampleSection {
         case .bottomHalf:
             return [.bottomHalfDefault, .bottomHalfCustom]
         case .other:
-            return [.fullScreen, .custom, .keyboardTest]
+            return [.backgroundBlur, .fullScreen, .custom, .keyboardTest]
         }
     }
 
@@ -52,6 +52,7 @@ enum ExampleItem: String {
     case fullScreen = "Full Screen"
     case custom = "Custom"
     case keyboardTest = "Test keyboard translation & delegate"
+    case backgroundBlur = "Test the background blur animation"
 
     var action: Selector {
         switch self {
@@ -79,6 +80,8 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.customPresentation)
         case .keyboardTest:
             return #selector(MainTableViewController.keyboardTranslationTest)
+        case .backgroundBlur:
+            return #selector(MainTableViewController.backgroundBlurTest)
         }
     }
 
@@ -95,7 +98,7 @@ class MainTableViewController: UITableViewController {
     let customPresenter: Presentr = {
         let width = ModalSize.full
         //let height = ModalSize.custom(size: 150)
-        let height = ModalSize.fluid(percentage: 0.33)
+        let height = ModalSize.fluid(percentage: 0.20)
         let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
         let customType = PresentationType.custom(width: width, height: height, center: center)
 
@@ -126,12 +129,16 @@ class MainTableViewController: UITableViewController {
         return popupViewController as! PopupViewController
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var logoView: UIImageView {
         let logoView = UIImageView(image: #imageLiteral(resourceName: "Logo"))
         logoView.contentMode = .scaleAspectFit
         logoView.frame.size.width = 30
         logoView.frame.size.height = 30
+        return logoView
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         navigationItem.titleView = logoView
     }
 
@@ -284,6 +291,11 @@ extension MainTableViewController {
         presenter.presentationType = .popup
         presenter.keyboardTranslationType = .compress
         customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
+    }
+
+    func backgroundBlurTest() {
+        presenter.blurBackground = true
+        alertDefault()
     }
 
 }
