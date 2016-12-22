@@ -95,7 +95,7 @@ class MainTableViewController: UITableViewController {
     let customPresenter: Presentr = {
         let width = ModalSize.full
         //let height = ModalSize.custom(size: 150)
-        let height = ModalSize.fluid(percentage: 0.33)
+        let height = ModalSize.fluid(percentage: 0.20)
         let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
         let customType = PresentationType.custom(width: width, height: height, center: center)
 
@@ -126,12 +126,16 @@ class MainTableViewController: UITableViewController {
         return popupViewController as! PopupViewController
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var logoView: UIImageView {
         let logoView = UIImageView(image: #imageLiteral(resourceName: "Logo"))
         logoView.contentMode = .scaleAspectFit
         logoView.frame.size.width = 30
         logoView.frame.size.height = 30
+        return logoView
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         navigationItem.titleView = logoView
     }
 
