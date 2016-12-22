@@ -11,9 +11,9 @@
 
 ## About
 
-iOS let's you modally present any view controller, but if you want the presented view controller to not cover the whole screen or modify anything about its presentation or transition you have to use the Custom View Controller Presentation API's. 
+iOS let's you modally present any view controller, but if you want the presented view controller to not cover the whole screen or modify anything about its presentation or transition you have to use the Custom View Controller Presentation API's.
 
-This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you. 
+This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you.
 
 <img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="192">
 <img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="192">
@@ -23,6 +23,13 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 *These are just examples of an Alert UI presented in multiple ways. But, with Presentr you can present any custom View Controller you create in any of the Presentation types, or create your own custom one!*
 
 ## What's New
+
+#### 1.0.5
+- Support for animated blurred background (thanks to @fpg1503)
+
+#### 1.0.4
+- New ModalSize option with sideMargin value (thanks to @alediaz84)
+- Example project fixes
 
 #### 1.0.3
 - Support for custom radius & drop shadow (thanks @falkobuttler)

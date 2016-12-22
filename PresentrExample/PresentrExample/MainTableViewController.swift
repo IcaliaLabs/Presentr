@@ -32,7 +32,7 @@ enum ExampleSection {
         case .bottomHalf:
             return [.bottomHalfDefault, .bottomHalfCustom]
         case .other:
-            return [.fullScreen, .custom, .keyboardTest]
+            return [.backgroundBlur, .fullScreen, .custom, .keyboardTest]
         }
     }
 
@@ -52,6 +52,7 @@ enum ExampleItem: String {
     case fullScreen = "Full Screen"
     case custom = "Custom"
     case keyboardTest = "Test keyboard translation & delegate"
+    case backgroundBlur = "Test the background blur animation"
 
     var action: Selector {
         switch self {
@@ -79,6 +80,8 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.customPresentation)
         case .keyboardTest:
             return #selector(MainTableViewController.keyboardTranslationTest)
+        case .backgroundBlur:
+            return #selector(MainTableViewController.backgroundBlurTest)
         }
     }
 
@@ -288,6 +291,11 @@ extension MainTableViewController {
         presenter.presentationType = .popup
         presenter.keyboardTranslationType = .compress
         customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
+    }
+
+    func backgroundBlurTest() {
+        presenter.blurBackground = true
+        alertDefault()
     }
 
 }

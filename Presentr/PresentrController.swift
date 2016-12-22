@@ -61,6 +61,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     fileprivate var chromeView = UIView()
+    fileprivate var visualEffect: UIVisualEffect?
     fileprivate var keyboardIsShowing: Bool = false
     private var translationStart: CGPoint = CGPoint.zero
     
@@ -127,10 +128,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         chromeView.addGestureRecognizer(tap)
 
         if blurBackground {
-            let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
-            blurEffectView.frame = chromeView.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            chromeView.addSubview(blurEffectView)
+            visualEffect = UIBlurEffect(style: blurStyle)
         } else {
             chromeView.backgroundColor = backgroundColor.withAlphaComponent(CGFloat(backgroundOpacity))
         }
@@ -336,14 +334,28 @@ extension PresentrController {
 
     override func presentationTransitionWillBegin() {
         chromeView.frame = containerView!.bounds
-        chromeView.alpha = 0.0
         containerView?.insertSubview(chromeView, at: 0)
+        
+        var blurEffectView: UIVisualEffectView?
+        
+        if visualEffect != nil {
+            let view = UIVisualEffectView()
+            view.frame = chromeView.bounds
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            chromeView.addSubview(view)
+            
+            blurEffectView = view
+        } else {
+            chromeView.alpha = 0.0
+        }
 
         if let coordinator = presentedViewController.transitionCoordinator {
 
             coordinator.animate(alongsideTransition: { context in
+                blurEffectView?.effect = self.visualEffect
                 self.chromeView.alpha = 1.0
-                }, completion: nil)
+
+            }, completion: nil)
 
         } else {
             chromeView.alpha = 1.0

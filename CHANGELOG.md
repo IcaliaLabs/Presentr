@@ -1,5 +1,12 @@
 ### What's New
 
+#### 1.0.5
+- Support for animated blurred background (thanks to @fpg1503)
+
+#### 1.0.4
+- New ModalSize option with sideMargin value (thanks to @alediaz84)
+- Example project fixes
+
 #### 1.0.3
 - Support for custom radius & drop shadow (thanks @falkobuttler)
 - New fluid percentage option for ModalSize enum (thanks @mseijas)
