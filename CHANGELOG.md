@@ -1,7 +1,7 @@
 ### What's New
 
 #### 1.0.4
-- Support animated blurred background (thanks to @fpg1503)
+- Support for animated blurred background (thanks to @fpg1503)
 
 #### 1.0.3
 - Support for custom radius & drop shadow (thanks @falkobuttler)
