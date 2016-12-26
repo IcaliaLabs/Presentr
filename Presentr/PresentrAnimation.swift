@@ -28,9 +28,9 @@ public protocol PresentrAnimation: UIViewControllerAnimatedTransitioning {
 }
 
 /// Transform block used to obtain the initial frame for the animation, given the finalFrame and the container's frame.
-typealias FrameTransformer = (_ finalFrame: CGRect, _ containerFrame: CGRect) -> CGRect
+public typealias FrameTransformer = (_ finalFrame: CGRect, _ containerFrame: CGRect) -> CGRect
 
-extension PresentrAnimation {
+public extension PresentrAnimation {
 
     func animate(_ transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer) {
         let containerView = transitionContext.containerView
