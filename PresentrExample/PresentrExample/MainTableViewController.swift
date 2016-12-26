@@ -92,13 +92,13 @@ enum ExampleItem: String {
 
 class MainTableViewController: UITableViewController {
 
-    let presenter: Presentr = {
+    func alertPresenter() -> Presentr {
         let presenter = Presentr(presentationType: .alert)
         presenter.transitionType = TransitionType.coverHorizontalFromRight
         return presenter
-    }()
+    }
 
-    let customPresenter: Presentr = {
+    func customPresenter() -> Presentr {
         let width = ModalSize.full
         //let height = ModalSize.custom(size: 150)
         let height = ModalSize.fluid(percentage: 0.20)
@@ -112,7 +112,7 @@ class MainTableViewController: UITableViewController {
         customPresenter.backgroundColor = UIColor.green
         customPresenter.backgroundOpacity = 0.5
         return customPresenter
-    }()
+    }
 
     lazy var alertController: AlertViewController = {
         let alertController = Presentr.alertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
@@ -192,6 +192,8 @@ class MainTableViewController: UITableViewController {
 extension MainTableViewController {
 
     func alertDefault() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .alert
 
         presenter.transitionType = nil
@@ -202,6 +204,7 @@ extension MainTableViewController {
     }
 
     func alertCustom() {
+        let presenter = alertPresenter()
         presenter.presentationType = .alert
 
         presenter.transitionType = .coverHorizontalFromLeft
@@ -212,12 +215,16 @@ extension MainTableViewController {
     }
 
     func alertDefaultWithoutAnimation() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .alert
         presenter.dismissAnimated = false
         customPresentViewController(presenter, viewController: alertController, animated: false, completion: nil)
     }
 
     func popupDefault() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .popup
 
         presenter.transitionType = nil
@@ -228,6 +235,8 @@ extension MainTableViewController {
     }
 
     func popupCustom() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .popup
 
         presenter.transitionType = .coverHorizontalFromRight
@@ -238,6 +247,8 @@ extension MainTableViewController {
     }
 
     func topHalfDefault() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .topHalf
 
         presenter.transitionType = nil
@@ -248,6 +259,8 @@ extension MainTableViewController {
     }
 
     func topHalfCustom() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .topHalf
 
         presenter.transitionType = .coverHorizontalFromLeft
@@ -258,6 +271,8 @@ extension MainTableViewController {
     }
 
     func bottomHalfDefault() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .bottomHalf
 
         presenter.transitionType = nil
@@ -268,6 +283,8 @@ extension MainTableViewController {
     }
 
     func bottomHalfCustom() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .bottomHalf
 
         presenter.transitionType = .coverHorizontalFromLeft
@@ -278,10 +295,14 @@ extension MainTableViewController {
     }
 
     func customPresentation() {
-        customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
+        let presenter = customPresenter()
+        
+        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
     func fullScreenPresentation() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .fullScreen
 
         presenter.transitionType = .coverVertical
@@ -291,18 +312,24 @@ extension MainTableViewController {
     }
 
     func keyboardTranslationTest() {
+        let presenter = alertPresenter()
+        
         presenter.presentationType = .popup
         presenter.keyboardTranslationType = .compress
         customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
     }
 
     func backgroundBlurTest() {
+        let presenter = alertPresenter()
+        
         presenter.blurBackground = true
         alertDefault()
     }
     
     func customAnimation() {
+        let presenter = alertPresenter()
         let springBottom = SpringFromBottomAnimation()
+        
         presenter.transitionType = .custom(springBottom)
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
