@@ -17,6 +17,7 @@ import Foundation
  - CoverVerticalFromTop:     Custom transition animation. Slides in vertically from top.
  - CoverHorizontalFromLeft:  Custom transition animation. Slides in horizontally from left.
  - CoverHorizontalFromRight: Custom transition animation. Slides in horizontally from  right.
+ - Custom:                   Custom transition animation provided by the user.
  */
 public enum TransitionType {
 
