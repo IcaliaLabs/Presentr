@@ -11,7 +11,7 @@ import Foundation
 /**
  *  Protocol that represents a custom PresentrAnimation. Conforms to 'UIViewControllerAnimatedTransitioning'
  */
-protocol PresentrAnimation: UIViewControllerAnimatedTransitioning {
+public protocol PresentrAnimation: UIViewControllerAnimatedTransitioning {
 
     /// The duration for the animation. Must be set by the class that implements protocol.
     var animationDuration: TimeInterval { get set }
