@@ -15,6 +15,7 @@
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
 		25591534D92612E66093237C /* Pods_PresentrExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9985464B38C3FFC83D568727 /* Pods_PresentrExample.framework */; };
+		A3BE60BE1E112CF700CA59D3 /* SpringFromBottomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BE60BD1E112CF700CA59D3 /* SpringFromBottomAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,7 @@
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D9A1F9F4161E3588659C3CF /* Pods-PresentrExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PresentrExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-PresentrExample/Pods-PresentrExample.release.xcconfig"; sourceTree = "<group>"; };
 		9985464B38C3FFC83D568727 /* Pods_PresentrExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PresentrExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3BE60BD1E112CF700CA59D3 /* SpringFromBottomAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringFromBottomAnimation.swift; sourceTree = "<group>"; };
 		B37B2AC285D84D58CC7D5CA3 /* Pods-PresentrExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PresentrExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PresentrExample/Pods-PresentrExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 				069265821DD0F9AD00B67915 /* MainTableViewController.swift */,
 				069265841DD12CF400B67915 /* ExampleTableViewCell.swift */,
 				0644CEC01DADCD02002E586F /* PopupViewController.swift */,
+				A3BE60BD1E112CF700CA59D3 /* SpringFromBottomAnimation.swift */,
 				06A1F0B71CF3D17E0057C79B /* Main.storyboard */,
 				06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */,
 				06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */,
@@ -234,6 +237,7 @@
 			files = (
 				069265831DD0F9AD00B67915 /* MainTableViewController.swift in Sources */,
 				069265851DD12CF400B67915 /* ExampleTableViewCell.swift in Sources */,
+				A3BE60BE1E112CF700CA59D3 /* SpringFromBottomAnimation.swift in Sources */,
 				06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */,
 				0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */,
 			);
