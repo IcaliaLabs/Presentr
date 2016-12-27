@@ -32,7 +32,7 @@ enum ExampleSection {
         case .bottomHalf:
             return [.bottomHalfDefault, .bottomHalfCustom]
         case .other:
-            return [.backgroundBlur, .fullScreen, .custom, .keyboardTest, .customAnimation]
+            return [.backgroundBlur, .fullScreen, .custom, .keyboardTest, .newAnimation]
         }
     }
 
@@ -53,7 +53,7 @@ enum ExampleItem: String {
     case custom = "Custom"
     case keyboardTest = "Test keyboard translation & delegate"
     case backgroundBlur = "Test the background blur animation"
-    case customAnimation = "Custom transition animation"
+    case newAnimation = "New spring from bottom animation"
 
     var action: Selector {
         switch self {
@@ -83,8 +83,8 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.keyboardTranslationTest)
         case .backgroundBlur:
             return #selector(MainTableViewController.backgroundBlurTest)
-        case .customAnimation:
-            return #selector(MainTableViewController.customAnimation)
+        case .newAnimation:
+            return #selector(MainTableViewController.springFromBottom)
         }
     }
 
@@ -300,11 +300,9 @@ extension MainTableViewController {
         presenter.blurBackground = true
         alertDefault()
     }
-    
-    func customAnimation() {
-        let springBottom = SpringFromBottomAnimation()
-        
-        presenter.transitionType = .custom(springBottom)
+
+    func springFromBottom() {
+        presenter.transitionType = .coverVerticalWithSpring
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
