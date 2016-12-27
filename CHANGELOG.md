@@ -2,7 +2,7 @@
 
 #### 1.1.0
 - You are now able to create your own custom transition animations. See how in readme. (thanks to @fpg1503 & @danlozano)
-- New animation available, coverVerticalWithSpring) (thanks to @fpg1503)
+- New animation available, coverVerticalWithSpring (thanks to @fpg1503)
 
 #### 1.0.5
 - Support for animated blurred background (thanks to @fpg1503)
