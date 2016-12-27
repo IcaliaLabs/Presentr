@@ -23,7 +23,10 @@ public protocol PresentrAnimation: UIViewControllerAnimatedTransitioning {
      - parameter transform:         Transform block used to obtain the initial frame for the animation, given the finalFrame and the container's frame.
 
      */
-    func animate(_ transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer)
+    func animate(_ transitionContext: UIViewControllerContextTransitioning,
+                 springDamping: CGFloat,
+                 initialSpringVelocity: CGFloat,
+                 transform: FrameTransformer)
 
 }
 
@@ -32,7 +35,11 @@ public typealias FrameTransformer = (_ finalFrame: CGRect, _ containerFrame: CGR
 
 public extension PresentrAnimation {
 
-    func animate(_ transitionContext: UIViewControllerContextTransitioning, transform: FrameTransformer) {
+    func animate(_ transitionContext: UIViewControllerContextTransitioning,
+                 springDamping: CGFloat = 300.0,
+                 initialSpringVelocity: CGFloat = 5.0,
+                 transform: FrameTransformer) {
+
         let containerView = transitionContext.containerView
 
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
@@ -59,16 +66,20 @@ public extension PresentrAnimation {
 
         animatingView?.frame = initialFrame
 
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 300.0, initialSpringVelocity: 5.0, options: .allowUserInteraction, animations: {
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: springDamping,
+                       initialSpringVelocity: initialSpringVelocity,
+                       options: .allowUserInteraction,
+                       animations: {
 
-            animatingView?.frame = finalFrame
+                animatingView?.frame = finalFrame
 
             }, completion: { (value: Bool) in
 
                 if !isPresenting {
                     fromView?.removeFromSuperview()
                 }
-
                 let wasCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!wasCancelled)
 

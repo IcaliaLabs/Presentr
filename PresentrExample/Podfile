@@ -2,5 +2,5 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'PresentrExample' do
-	pod 'Presentr'
+	pod 'Presentr', :path => '../'
 end
