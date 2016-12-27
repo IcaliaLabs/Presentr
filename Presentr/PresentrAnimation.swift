@@ -33,7 +33,9 @@ open class PresentrAnimation: NSObject {
     ///   - finalFrame: The final frame for the view controller.
     /// - Returns: The initial frame for the animation.
     open func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
-        return CGRect(x: 0, y: 0, width: 0, height: 0)
+        var initialFrame = finalFrame
+        initialFrame.origin.y = containerFrame.height + initialFrame.height
+        return initialFrame
     }
 
 
