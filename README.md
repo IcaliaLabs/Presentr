@@ -89,7 +89,7 @@ It is **important to hold on to the Presentr object as a property** on the prese
 class ViewController: UIViewController{
 
   let presenter: Presentr = {
-      let presenter = Presentr(presentationType: .Alert)
+      let presenter = Presentr(presentationType: .alert)
       presenter.transitionType = .coverHorizontalFromRight // Optional
       return presenter
   }()
