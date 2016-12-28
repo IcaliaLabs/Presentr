@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpringFromBottomAnimation: PresentrAnimation {
+class CoverVerticalWithSpring: PresentrAnimation {
 
     override var springDamping: CGFloat {
         return 0.5

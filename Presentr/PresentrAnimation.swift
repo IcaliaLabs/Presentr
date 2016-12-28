@@ -44,6 +44,7 @@ open class PresentrAnimation: NSObject {
     /// - Parameter transitionContext: The transition context for the transition animation.
     /// - Returns: A boolean indicating if you want to use this custom animation instead of the included version.
     open func customAnimation(using transitionContext: UIViewControllerContextTransitioning) -> Bool {
+        // This is done to hide the 'UIViewControllerAnimatedTransitioning' implementation details, and not have to direcly override the animateTransition(using:) delegate method.
         return false
     }
 

@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 public enum KeyboardTranslationType {
-    case none, moveUp, compress, stickToTop
+
+    case none
+    case moveUp
+    case compress
+    case stickToTop
 
     /**
      Calculates the correct frame for the keyboard translation type.
@@ -52,6 +56,7 @@ public enum KeyboardTranslationType {
 }
 
 // MARK: Notification + UIKeyboardInfo
+
 extension Notification {
 
     /// Gets the optional CGRect value of the UIKeyboardFrameEndUserInfoKey from a UIKeyboard notification

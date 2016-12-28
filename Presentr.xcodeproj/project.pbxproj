@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		061412091E1316990049FF99 /* SpringFromBottomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061412081E1316990049FF99 /* SpringFromBottomAnimation.swift */; };
+		061412091E1316990049FF99 /* CoverVerticalWithSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061412081E1316990049FF99 /* CoverVerticalWithSpring.swift */; };
 		06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C731CE8248D00F88216 /* PresentrAnimation.swift */; };
 		06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */; };
 		06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */; };
@@ -39,7 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		061412081E1316990049FF99 /* SpringFromBottomAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringFromBottomAnimation.swift; sourceTree = "<group>"; };
+		061412081E1316990049FF99 /* CoverVerticalWithSpring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalWithSpring.swift; sourceTree = "<group>"; };
 		06686C731CE8248D00F88216 /* PresentrAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrAnimation.swift; sourceTree = "<group>"; };
 		06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalFromTopAnimation.swift; sourceTree = "<group>"; };
 		06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverHorizontalAnimation.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				06686C731CE8248D00F88216 /* PresentrAnimation.swift */,
 				06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */,
 				06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */,
-				061412081E1316990049FF99 /* SpringFromBottomAnimation.swift */,
+				061412081E1316990049FF99 /* CoverVerticalWithSpring.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -297,7 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */,
-				061412091E1316990049FF99 /* SpringFromBottomAnimation.swift in Sources */,
+				061412091E1316990049FF99 /* CoverVerticalWithSpring.swift in Sources */,
 				06B5855B1D2D6F8B0045C8DA /* TransitionType.swift in Sources */,
 				06B5855F1D2D6FE20045C8DA /* ModalCenterPosition.swift in Sources */,
 				06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */,

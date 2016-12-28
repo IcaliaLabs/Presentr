@@ -10,6 +10,7 @@ import UIKit
 
 /// Presentr's custom presentation controller. Handles the position and sizing for the view controller's.
 class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
+    
     /// Presentation type must be passed in to make all the sizing and position decisions.
     let presentationType: PresentationType
 
