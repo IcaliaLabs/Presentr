@@ -295,6 +295,10 @@ extension MainTableViewController {
 
     func keyboardTranslationTest() {
         presenter.presentationType = .popup
+
+        presenter.transitionType = nil
+        presenter.dismissTransitionType = nil
+
         presenter.keyboardTranslationType = .compress
         customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
     }
@@ -302,10 +306,15 @@ extension MainTableViewController {
     func backgroundBlurTest() {
         presenter.blurBackground = true
         alertDefault()
+        presenter.blurBackground = false
     }
 
     func springFromBottom() {
+        presenter.presentationType = .popup
+
         presenter.transitionType = .coverVerticalWithSpring
+        presenter.dismissTransitionType = .coverVerticalWithSpring
+
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
