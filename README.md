@@ -270,6 +270,11 @@ override func customAnimation(using transitionContext: UIViewControllerContextTr
 ```
 Remember to return true otherwise your custom animation will be ignored. If you implement this method and return true, other properties will be obviously ignored.
 
+Finally, create a custom TransitionType with your custom animation.
+```swift
+presenter.transitionType = .custom(CustomAnimation())
+```
+
 ## Creating a custom PresentationType
 
 If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
