@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Montserrat-Regular.ttf">
+        <array key="Montserrat-Regular.ttf">
             <string>Montserrat-Regular</string>
-            <string>Montserrat-Regular</string>
-            <string>Montserrat-Regular</string>
-        </mutableArray>
-        <mutableArray key="SourceSansPro-Regular.ttf">
+        </array>
+        <array key="SourceSansPro-Regular.ttf">
             <string>SourceSansPro-Regular</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlertViewController" customModule="Presentr" customModuleProvider="target">
@@ -37,7 +38,7 @@
                         <constraint firstAttribute="height" constant="18.5" id="ysL-Sm-nMw"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -47,13 +48,13 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOz-4j-5ct">
                     <rect key="frame" x="0.0" y="120" width="135" height="60"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="1Vc-b1-d9B"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="11"/>
                     <state key="normal" title="NO, SORRY 🕶">
-                        <color key="titleColor" red="0.2274509804" green="0.83529411760000005" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.2274509804" green="0.83529411760000005" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="didSelectFirstAction:" destination="-1" eventType="touchUpInside" id="tuc-Av-N1p"/>
@@ -61,14 +62,14 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ujc-0e-DaI">
                     <rect key="frame" x="138" y="120" width="132" height="60"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="9Uy-Cv-PkK"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="EkW-ze-5dw"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="11"/>
                     <state key="normal" title="YES, PLEASE ☹️">
-                        <color key="titleColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <variation key="default">
                         <mask key="constraints">
@@ -82,11 +83,11 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This action can't be undone." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01e-QM-I1y">
                     <rect key="frame" x="20" y="48.5" width="230" height="71.5"/>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
-                    <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="hc8-UP-xE5" firstAttribute="top" secondItem="6sv-dW-Ydh" secondAttribute="top" constant="30" id="Fl7-kc-TJx"/>
                 <constraint firstAttribute="bottom" secondItem="XOz-4j-5ct" secondAttribute="bottom" id="IG6-zS-nxa"/>

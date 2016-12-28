@@ -120,8 +120,7 @@ public class Presentr: NSObject {
      - returns: Returns a configured instance of 'AlertViewController'
      */
     public static func alertViewController(title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
-        let bundle = Bundle(for: self)
-        let alertController = AlertViewController(nibName: "Alert", bundle: bundle)
+        let alertController = AlertViewController()
         alertController.titleText = title
         alertController.bodyText = body
         return alertController

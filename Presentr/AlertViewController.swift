@@ -11,11 +11,11 @@ import UIKit
 public typealias AlertActionHandler = (() -> Void)
 
 /// Describes each action that is going to be shown in the 'AlertViewController'
-open class AlertAction {
+public class AlertAction {
 
-    let title: String
-    let style: AlertActionStyle
-    let handler: AlertActionHandler?
+    public let title: String
+    public let style: AlertActionStyle
+    public let handler: AlertActionHandler?
 
     /**
      Initialized an 'AlertAction'
@@ -85,17 +85,19 @@ private struct ColorPalette {
 }
 
 /// UIViewController subclass that displays the alert
-open class AlertViewController: UIViewController {
+public class AlertViewController: UIViewController {
 
     /// Text that will be used as the title for the alert
-    open var titleText: String?
+    public var titleText: String?
+
     /// Text that will be used as the body for the alert
-    open var bodyText: String?
+    public var bodyText: String?
 
     /// If set to false, alert wont auto-dismiss the controller when an action is clicked. Dismissal will be up to the action's handler. Default is true.
-    open var autoDismiss: Bool = true
+    public var autoDismiss: Bool = true
+
     /// If autoDismiss is set to true, then set this property if you want the dismissal to be animated. Default is true.
-    open var dismissAnimated: Bool = true
+    public var dismissAnimated: Bool = true
 
     fileprivate var actions = [AlertAction]()
 
@@ -105,7 +107,16 @@ open class AlertViewController: UIViewController {
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var firstButtonWidthConstraint: NSLayoutConstraint!
 
-    override open func viewDidLoad() {
+    override public func loadView() {
+        let name = "AlertViewController"
+        let bundle = Bundle(for: type(of: self))
+        guard let view = bundle.loadNibNamed(name, owner: self, options: nil)?.first as? UIView else {
+            fatalError("Nib not found.")
+        }
+        self.view = view
+    }
+
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         if actions.isEmpty {
@@ -120,11 +131,11 @@ open class AlertViewController: UIViewController {
         setupButtons()
     }
 
-    override open func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override open func updateViewConstraints() {
+    override public func updateViewConstraints() {
         if actions.count == 1 {
             // If only one action, second button will have been removed from superview
             // So, need to add constraint for first button trailing to superview
@@ -148,7 +159,7 @@ open class AlertViewController: UIViewController {
 
      - parameter action: The 'AlertAction' to be added
      */
-    open func addAction(_ action: AlertAction) {
+    public func addAction(_ action: AlertAction) {
         guard actions.count < 2 else { return }
         actions += [action]
     }
