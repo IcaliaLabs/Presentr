@@ -32,7 +32,7 @@ enum ExampleSection {
         case .bottomHalf:
             return [.bottomHalfDefault, .bottomHalfCustom]
         case .other:
-            return [.backgroundBlur, .fullScreen, .custom, .keyboardTest, .newAnimation, .customAnimation]
+            return [.backgroundBlur, .fullScreen, .custom, .customBackground, .keyboardTest, .newAnimation, .customAnimation]
         }
     }
 
@@ -51,6 +51,7 @@ enum ExampleItem: String {
     case bottomHalfCustom = "BottomHalf with custom animation"
     case fullScreen = "Full Screen"
     case custom = "Custom"
+    case customBackground = "Custom background"
     case keyboardTest = "Test keyboard translation & delegate"
     case backgroundBlur = "Test the background blur animation"
     case newAnimation = "New spring from bottom animation"
@@ -80,6 +81,8 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.fullScreenPresentation)
         case .custom:
             return #selector(MainTableViewController.customPresentation)
+        case .customBackground:
+            return #selector(MainTableViewController.customBackgroundPresentation)
         case .keyboardTest:
             return #selector(MainTableViewController.keyboardTranslationTest)
         case .backgroundBlur:
@@ -112,11 +115,35 @@ class MainTableViewController: UITableViewController {
         customPresenter.transitionType = .coverVerticalFromTop
         customPresenter.dismissTransitionType = .coverVerticalFromTop
         customPresenter.roundCorners = false
+        
         customPresenter.backgroundColor = UIColor.green
         customPresenter.backgroundOpacity = 0.5
+
         return customPresenter
     }()
 
+    let customBackgroundPresenter: Presentr = {
+        let width = ModalSize.full
+        //let height = ModalSize.custom(size: 150)
+        let height = ModalSize.fluid(percentage: 0.20)
+        let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
+        let customType = PresentationType.custom(width: width, height: height, center: center)
+        
+        let customPresenter = Presentr(presentationType: customType)
+        customPresenter.transitionType = .coverVerticalFromTop
+        customPresenter.dismissTransitionType = .coverVerticalFromTop
+        
+        customPresenter.backgroundColor = UIColor.green
+        customPresenter.backgroundOpacity = 0.5
+        
+        let view = UIImageView(image: UIImage(named: "Logo"))
+        view.frame = CGRect(x: UIScreen.main.bounds.width / 2 - 100, y: UIScreen.main.bounds.height / 2 - 100, width: 200, height: 200)
+        view.clipsToBounds = true
+        
+    
+        customPresenter.backgroundView = view
+        return customPresenter
+    }()
     lazy var alertController: AlertViewController = {
         let alertController = Presentr.alertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
         let cancelAction = AlertAction(title: "NO, SORRY! 😱", style: .cancel) { alert in
@@ -282,6 +309,10 @@ extension MainTableViewController {
 
     func customPresentation() {
         customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
+    }
+    
+    func customBackgroundPresentation() {
+        customPresentViewController(customBackgroundPresenter, viewController: alertController, animated: true, completion: nil)
     }
 
     func fullScreenPresentation() {

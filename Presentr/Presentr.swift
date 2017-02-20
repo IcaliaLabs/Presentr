@@ -102,6 +102,7 @@ public class Presentr: NSObject {
 
     /// the custom background view.
     public var backgroundView: UIView?
+    public var backgroundViewPosition: CGPoint?
 
     
     /// How the presented view controller should respond to keyboard presentation.
@@ -187,38 +188,22 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
     fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
         
-        if backgroundView == nil {
-            let presentationController = PresentrController(presentedViewController: presented,
-                                                            presentingViewController: presenting,
-                                                            presentationType: presentationType,
-                                                            roundCorners: roundCorners,
-                                                            cornerRadius: cornerRadius,
-                                                            dropShadow: dropShadow,
-                                                            dismissOnTap: dismissOnTap,
-                                                            dismissOnSwipe: dismissOnSwipe,
-                                                            backgroundColor: backgroundColor,
-                                                            backgroundOpacity: backgroundOpacity,
-                                                            blurBackground: blurBackground,
-                                                            blurStyle: blurStyle,
-                                                            keyboardTranslationType:  keyboardTranslationType,
-                                                            dismissAnimated: dismissAnimated)
-            return presentationController
-        }
-        
-        else {
-            let presentationController = PresentrController(presentedViewController: presented,
-                                                            presentingViewController: presenting,
-                                                            presentationType: presentationType,
-                                                            roundCorners: roundCorners,
-                                                            cornerRadius: cornerRadius,
-                                                            dropShadow: dropShadow,
-                                                            dismissOnTap: dismissOnTap,
-                                                            dismissOnSwipe: dismissOnSwipe,
-                                                            backgroundView: backgroundView!,
-                                                            keyboardTranslationType:  keyboardTranslationType,
-                                                            dismissAnimated: dismissAnimated)
-            return presentationController
-        }
+        let presentationController = PresentrController(presentedViewController: presented,
+                                                        presentingViewController: presenting,
+                                                        presentationType: presentationType,
+                                                        roundCorners: roundCorners,
+                                                        cornerRadius: cornerRadius,
+                                                        dropShadow: dropShadow,
+                                                        dismissOnTap: dismissOnTap,
+                                                        dismissOnSwipe: dismissOnSwipe,
+                                                        backgroundColor: backgroundColor,
+                                                        backgroundOpacity: backgroundOpacity,
+                                                        blurBackground: blurBackground,
+                                                        blurStyle: blurStyle,
+                                                        backgroundView: backgroundView,
+                                                        keyboardTranslationType:  keyboardTranslationType,
+                                                        dismissAnimated: dismissAnimated)
+        return presentationController
 
     }
 

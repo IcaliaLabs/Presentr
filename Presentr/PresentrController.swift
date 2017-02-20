@@ -81,6 +81,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundOpacity: Float,
          blurBackground: Bool,
          blurStyle: UIBlurEffectStyle,
+         backgroundView: UIView?,
          keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool) {
         
@@ -95,53 +96,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
-        setupChromeView(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
-        
-        if shouldRoundCorners {
-            addCornerRadiusToPresentedView()
-        } else {
-            removeCornerRadiusFromPresentedView()
-        }
-        
-        if dropShadow != nil {
-            addDropShadowToPresentedView()
-        } else {
-            removeDropShadowFromPresentedView()
-        }
-        
-        if dismissOnSwipe {
-            setupDismissOnSwipe()
-        }
-        
-        if shouldObserveKeyboard {
-            registerKeyboardObserver()
-        }
-    }
-    
-    init(presentedViewController: UIViewController,
-         presentingViewController: UIViewController?,
-         presentationType: PresentationType,
-         roundCorners: Bool,
-         cornerRadius: CGFloat,
-         dropShadow: PresentrShadow?,
-         dismissOnTap: Bool,
-         dismissOnSwipe: Bool,
-         backgroundView: UIView,
-         keyboardTranslationType: KeyboardTranslationType,
-         dismissAnimated: Bool) {
-        
-        self.presentationType = presentationType
-        self.roundCorners = roundCorners
-        self.cornerRadius = cornerRadius
-        self.dropShadow = dropShadow
-        self.dismissOnTap = dismissOnTap
-        self.dismissOnSwipe = dismissOnSwipe
-        self.keyboardTranslationType = keyboardTranslationType
-        self.dismissAnimated = dismissAnimated
-        
-        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
-        
-        setupChromeView(backgroundView)
+        setupChromeView(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle, backgroundView: backgroundView)
         
         if shouldRoundCorners {
             addCornerRadiusToPresentedView()
@@ -171,7 +126,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.addGestureRecognizer(swipe)
     }
     
-    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle, backgroundView: UIView?) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
         
@@ -180,13 +135,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         } else {
             chromeView.backgroundColor = backgroundColor.withAlphaComponent(CGFloat(backgroundOpacity))
         }
-    }
-    
-    private func setupChromeView(_ view: UIView) {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-        chromeView.addGestureRecognizer(tap)
         
-        chromeView.addSubview(view)
+        if let backgroundView = backgroundView {
+            chromeView.addSubview(backgroundView)
+        }
     }
     
     private func addCornerRadiusToPresentedView() {
