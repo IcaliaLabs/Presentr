@@ -100,6 +100,10 @@ public class Presentr: NSObject {
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
 
+    /// the custom background view.
+    public var backgroundView: UIView?
+
+    
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
@@ -182,21 +186,40 @@ extension Presentr: UIViewControllerTransitioningDelegate {
     // MARK: - Private Helper's
 
     fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
-        let presentationController = PresentrController(presentedViewController: presented,
-                                                        presentingViewController: presenting,
-                                                        presentationType: presentationType,
-                                                        roundCorners: roundCorners,
-                                                        cornerRadius: cornerRadius,
-                                                        dropShadow: dropShadow,
-                                                        dismissOnTap: dismissOnTap,
-                                                        dismissOnSwipe: dismissOnSwipe,
-                                                        backgroundColor: backgroundColor,
-                                                        backgroundOpacity: backgroundOpacity,
-                                                        blurBackground: blurBackground,
-                                                        blurStyle: blurStyle,
-                                                        keyboardTranslationType:  keyboardTranslationType,
-                                                        dismissAnimated: dismissAnimated)
-        return presentationController
+        
+        if backgroundView == nil {
+            let presentationController = PresentrController(presentedViewController: presented,
+                                                            presentingViewController: presenting,
+                                                            presentationType: presentationType,
+                                                            roundCorners: roundCorners,
+                                                            cornerRadius: cornerRadius,
+                                                            dropShadow: dropShadow,
+                                                            dismissOnTap: dismissOnTap,
+                                                            dismissOnSwipe: dismissOnSwipe,
+                                                            backgroundColor: backgroundColor,
+                                                            backgroundOpacity: backgroundOpacity,
+                                                            blurBackground: blurBackground,
+                                                            blurStyle: blurStyle,
+                                                            keyboardTranslationType:  keyboardTranslationType,
+                                                            dismissAnimated: dismissAnimated)
+            return presentationController
+        }
+        
+        else {
+            let presentationController = PresentrController(presentedViewController: presented,
+                                                            presentingViewController: presenting,
+                                                            presentationType: presentationType,
+                                                            roundCorners: roundCorners,
+                                                            cornerRadius: cornerRadius,
+                                                            dropShadow: dropShadow,
+                                                            dismissOnTap: dismissOnTap,
+                                                            dismissOnSwipe: dismissOnSwipe,
+                                                            backgroundView: backgroundView!,
+                                                            keyboardTranslationType:  keyboardTranslationType,
+                                                            dismissAnimated: dismissAnimated)
+            return presentationController
+        }
+
     }
 
     fileprivate func animation(for transition: TransitionType?) -> PresentrAnimation? {
