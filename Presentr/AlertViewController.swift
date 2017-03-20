@@ -46,6 +46,7 @@ public enum AlertActionStyle {
     case `default`
     case cancel
     case destructive
+    case custom(textColor: UIColor)
 
     /**
      Decides which color to use for each style
@@ -60,6 +61,8 @@ public enum AlertActionStyle {
             return ColorPalette.grayColor
         case .destructive:
             return ColorPalette.redColor
+        case let .custom(color):
+            return color
         }
     }
 
