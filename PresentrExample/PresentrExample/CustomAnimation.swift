@@ -11,14 +11,6 @@ import Presentr
 
 class CustomAnimation: PresentrAnimation {
 
-    override var springDamping: CGFloat {
-        return 500
-    }
-
-    override var initialSpringVelocity: CGFloat {
-        return 1
-    }
-
     override var animationDuration: TimeInterval {
         return 1
     }

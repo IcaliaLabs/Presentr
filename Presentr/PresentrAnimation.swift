@@ -11,16 +11,6 @@ import Foundation
 /// Class that handles animating the transition. Override this class if you want to create your own transition animation.
 open class PresentrAnimation: NSObject {
 
-    /// Spring damping for the UIView animation. Default is 300. Override to customize.
-    open var springDamping: CGFloat {
-        return 300
-    }
-
-    /// Initial spring velocity for the UIView animation. Default is 5. Override to customize.
-    open var initialSpringVelocity: CGFloat {
-        return 5
-    }
-
     /// Animation duration. Default is 0.5, override to customize.
     open var animationDuration: TimeInterval {
         return 0.5
@@ -90,16 +80,11 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
 
         animatingView?.frame = initialFrame
 
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       usingSpringWithDamping: springDamping,
-                       initialSpringVelocity: initialSpringVelocity,
-                       options: .allowUserInteraction,
-                       animations: {
+        UIView.animate(withDuration: duration, animations: {
 
-                        animatingView?.frame = finalFrame
+            animatingView?.frame = finalFrame
 
-        }, completion: { (value: Bool) in
+        }) { (completed) in
 
             if !isPresenting {
                 fromView?.removeFromSuperview()
@@ -107,7 +92,8 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
             let wasCancelled = transitionContext.transitionWasCancelled
             transitionContext.completeTransition(!wasCancelled)
             
-        })
+        }
+
     }
 
 }

@@ -65,8 +65,6 @@ public enum TransitionType {
             return CoverHorizontalAnimation(fromRight: true)
         case .coverHorizontalFromLeft:
             return CoverHorizontalAnimation(fromRight: false)
-        case .coverVerticalWithSpring:
-            return CoverVerticalWithSpring()
         case .custom(let animation):
             return animation
         default:
