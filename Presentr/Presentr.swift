@@ -103,24 +103,22 @@ public class Presentr: NSObject {
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
-    // Current Context Stuff
-
+    /// When a ViewController for context is set this handles what happens to a tap when it is outside the context.
     public var shouldIgnoreTapOutsideContext = false
 
+    /// Uses the ViewController's frame as context for the presentation. Imitates UIModalPresentation.currentContext
     public weak var viewControllerForContext: UIViewController? {
         didSet {
             guard let viewController = viewControllerForContext, let view = viewController.view else {
                 contextFrameForPresentation = nil
                 return
             }
-            let correctedOrigin = view.convert(view.frame.origin, to: nil)
+            let correctedOrigin = view.convert(view.frame.origin, to: nil) // Correct origin in relation to UIWindow
             contextFrameForPresentation = CGRect(x: correctedOrigin.x, y: correctedOrigin.y, width: view.bounds.width, height: view.bounds.height)
         }
     }
 
     fileprivate var contextFrameForPresentation: CGRect?
-
-    //
 
     // MARK: Init
 
@@ -186,7 +184,6 @@ public class Presentr: NSObject {
 extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        // Apparently in iOS 10 presenting VC is now sometimes nil. Does not seem to cause an issue.
         return presentationController(presented, presenting: presenting)
     }
 

@@ -39,16 +39,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdN-CK-7VP">
-                                <rect key="frame" x="0.0" y="333" width="375" height="333.5"/>
-                                <connections>
-                                    <segue destination="jzk-J2-9I7" kind="embed" id="M1s-mA-9nw"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fdb-mr-DYZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
                                 <connections>
-                                    <segue destination="LSA-YM-IDR" kind="embed" id="y14-dy-qOL"/>
+                                    <segue destination="jzk-J2-9I7" kind="embed" id="fcK-er-Ktt"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdN-CK-7VP">
+                                <rect key="frame" x="0.0" y="333" width="375" height="333.5"/>
+                                <connections>
+                                    <segue destination="LSA-YM-IDR" kind="embed" id="9YF-T6-lYz"/>
                                 </connections>
                             </containerView>
                         </subviews>

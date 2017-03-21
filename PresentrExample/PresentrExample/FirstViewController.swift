@@ -13,7 +13,7 @@ class FirstViewController: UIViewController {
 
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .alert)
-        presenter.transitionType = TransitionType.coverHorizontalFromRight
+        presenter.transitionType = TransitionType.coverVertical
         return presenter
     }()
 
@@ -40,7 +40,7 @@ class FirstViewController: UIViewController {
 
     @IBAction func didSelectShowAlert(_ sender: Any) {
         presenter.viewControllerForContext = self
-        presenter.shouldIgnoreTapOutsideContext = false
+        presenter.shouldIgnoreTapOutsideContext = true
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
