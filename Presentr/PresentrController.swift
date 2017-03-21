@@ -392,8 +392,6 @@ extension PresentrController {
             chromeView.alpha = 0.0
         }
 
-        print("PRESENTATION: CHROME VIEW FRAME = \(self.chromeView.frame)")
-
         if let coordinator = presentedViewController.transitionCoordinator {
             coordinator.animate(alongsideTransition: { context in
                 blurEffectView?.effect = self.visualEffect
@@ -402,8 +400,6 @@ extension PresentrController {
         } else {
             chromeView.alpha = 1.0
         }
-
-        print("PRESENTATION 2: CHROME VIEW FRAME = \(self.chromeView.frame)")
     }
 
     override func dismissalTransitionWillBegin() {
@@ -413,7 +409,6 @@ extension PresentrController {
         }
 
         coordinator.animate(alongsideTransition: { context in
-            print("DISMISSAL: CHROME VIEW FRAME = \(self.chromeView.frame)")
             self.chromeView.alpha = 0.0
         }, completion: nil)
     }

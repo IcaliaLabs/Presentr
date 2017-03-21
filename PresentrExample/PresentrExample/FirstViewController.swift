@@ -13,7 +13,8 @@ class FirstViewController: UIViewController {
 
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .alert)
-        presenter.transitionType = TransitionType.coverVertical
+        presenter.transitionType = .coverHorizontalFromLeft
+        presenter.dismissTransitionType = .crossDissolve
         return presenter
     }()
 

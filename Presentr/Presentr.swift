@@ -154,19 +154,9 @@ public class Presentr: NSObject {
      - parameter completion:   Completion block.
      */
     fileprivate func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
-
-        if let systemPresentTransition = transitionForPresent.systemTransition() {
-            presentedVC.modalTransitionStyle = systemPresentTransition
-        }
-
         presentedVC.transitioningDelegate = self
         presentedVC.modalPresentationStyle = .custom
         presentingVC.present(presentedVC, animated: animated, completion: completion)
-
-        if let systemDismissTransition = transitionForDismiss.systemTransition() {
-            presentedVC.modalTransitionStyle = systemDismissTransition
-        }
-
     }
 
     fileprivate var transitionForPresent: TransitionType {
@@ -218,9 +208,6 @@ extension Presentr: UIViewControllerTransitioningDelegate {
     }
 
     fileprivate func animation(for transition: TransitionType?) -> PresentrAnimation? {
-        if let _ = transition?.systemTransition() {
-            return nil // If transition is handled by OS then no custom animation. Must return nil.
-        }
         return transition?.animation()
     }
 
