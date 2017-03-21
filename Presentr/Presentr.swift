@@ -103,6 +103,25 @@ public class Presentr: NSObject {
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
+    // Current Context Stuff
+
+    public var shouldIgnoreTapOutsideContext = false
+
+    public weak var viewControllerForContext: UIViewController? {
+        didSet {
+            guard let viewController = viewControllerForContext, let view = viewController.view else {
+                contextFrameForPresentation = nil
+                return
+            }
+            let correctedOrigin = view.convert(view.frame.origin, to: nil)
+            contextFrameForPresentation = CGRect(x: correctedOrigin.x, y: correctedOrigin.y, width: view.bounds.width, height: view.bounds.height)
+        }
+    }
+
+    fileprivate var contextFrameForPresentation: CGRect?
+
+    //
+
     // MARK: Init
 
     public init(presentationType: PresentationType) {
@@ -195,7 +214,9 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         blurBackground: blurBackground,
                                                         blurStyle: blurStyle,
                                                         keyboardTranslationType:  keyboardTranslationType,
-                                                        dismissAnimated: dismissAnimated)
+                                                        dismissAnimated: dismissAnimated,
+                                                        contextFrameForPresentation: contextFrameForPresentation,
+                                                        shouldIgnoreTapOutsideContext: shouldIgnoreTapOutsideContext)
         return presentationController
     }
 

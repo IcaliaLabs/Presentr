@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0625015B1E80624400574FF2 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0625015A1E80624400574FF2 /* SplitViewController.swift */; };
+		0625015E1E80626A00574FF2 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0625015D1E80626A00574FF2 /* FirstViewController.swift */; };
+		062501601E80627300574FF2 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0625015F1E80627300574FF2 /* SecondViewController.swift */; };
 		0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0644CEC01DADCD02002E586F /* PopupViewController.swift */; };
 		068A1D081E13212000883454 /* CustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068A1D071E13212000883454 /* CustomAnimation.swift */; };
 		069265831DD0F9AD00B67915 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069265821DD0F9AD00B67915 /* MainTableViewController.swift */; };
@@ -32,6 +35,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0625015A1E80624400574FF2 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		0625015D1E80626A00574FF2 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		0625015F1E80627300574FF2 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		0644CEC01DADCD02002E586F /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		068A1D071E13212000883454 /* CustomAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimation.swift; sourceTree = "<group>"; };
 		069265821DD0F9AD00B67915 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +65,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0625015C1E80625D00574FF2 /* Split Example */ = {
+			isa = PBXGroup;
+			children = (
+				0625015A1E80624400574FF2 /* SplitViewController.swift */,
+				0625015D1E80626A00574FF2 /* FirstViewController.swift */,
+				0625015F1E80627300574FF2 /* SecondViewController.swift */,
+			);
+			name = "Split Example";
+			sourceTree = "<group>";
+		};
 		06A1F0A71CF3D17E0057C79B = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +98,7 @@
 			children = (
 				06A1F0B31CF3D17E0057C79B /* AppDelegate.swift */,
 				069265821DD0F9AD00B67915 /* MainTableViewController.swift */,
+				0625015C1E80625D00574FF2 /* Split Example */,
 				069265841DD12CF400B67915 /* ExampleTableViewCell.swift */,
 				0644CEC01DADCD02002E586F /* PopupViewController.swift */,
 				068A1D071E13212000883454 /* CustomAnimation.swift */,
@@ -235,11 +252,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				062501601E80627300574FF2 /* SecondViewController.swift in Sources */,
 				069265831DD0F9AD00B67915 /* MainTableViewController.swift in Sources */,
 				069265851DD12CF400B67915 /* ExampleTableViewCell.swift in Sources */,
 				06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */,
 				0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */,
 				068A1D081E13212000883454 /* CustomAnimation.swift in Sources */,
+				0625015B1E80624400574FF2 /* SplitViewController.swift in Sources */,
+				0625015E1E80626A00574FF2 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

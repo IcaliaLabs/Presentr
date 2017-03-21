@@ -41,6 +41,18 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // How the presented view controller should respond in response to keyboard presentation.
     let keyboardTranslationType: KeyboardTranslationType
 
+    // Current context stuff
+
+    let contextFrameForPresentation: CGRect?
+
+    let shouldIgnoreTapOutsideContext: Bool
+
+    var containerFrame: CGRect {
+        return contextFrameForPresentation ?? containerView?.bounds ?? CGRect()
+    }
+
+    //
+
     fileprivate var shouldRoundCorners: Bool {
         switch presentationType {
         case .bottomHalf, .topHalf, .fullScreen:
@@ -62,8 +74,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     fileprivate var chromeView = UIView()
+
+    fileprivate var backgroundView = PassthroughBackgroundView()
+
     fileprivate var visualEffect: UIVisualEffect?
+
     fileprivate var keyboardIsShowing: Bool = false
+
     private var translationStart: CGPoint = CGPoint.zero
     
     private var presentedViewIsBeingDissmissed: Bool = false
@@ -82,7 +99,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          blurBackground: Bool,
          blurStyle: UIBlurEffectStyle,
          keyboardTranslationType: KeyboardTranslationType,
-         dismissAnimated: Bool) {
+         dismissAnimated: Bool,
+         contextFrameForPresentation: CGRect?,
+         shouldIgnoreTapOutsideContext: Bool) {
 
         self.presentationType = presentationType
         self.roundCorners = roundCorners
@@ -92,10 +111,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.dismissOnSwipe = dismissOnSwipe
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
+        self.contextFrameForPresentation = contextFrameForPresentation
+        self.shouldIgnoreTapOutsideContext = shouldIgnoreTapOutsideContext
 
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
 
-        setupChromeView(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
+        configureBackground(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
 
         if shouldRoundCorners {
             addCornerRadiusToPresentedView()
@@ -116,6 +137,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         if shouldObserveKeyboard {
             registerKeyboardObserver()
         }
+
     }
 
     // MARK: Setup
@@ -124,9 +146,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.addGestureRecognizer(swipe)
     }
 
-    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+    private func configureBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
+
+        if !shouldIgnoreTapOutsideContext {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+            backgroundView.addGestureRecognizer(tap)
+        }
 
         if blurBackground {
             visualEffect = UIBlurEffect(style: blurStyle)
@@ -275,7 +302,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     fileprivate func getCenterPointFromType() -> CGPoint? {
-        let containerBounds = containerView!.bounds
+        // let containerBounds = containerView!.bounds
+        let containerBounds = containerFrame
         let position = presentationType.position()
         return position.calculatePoint(containerBounds)
     }
@@ -301,7 +329,8 @@ extension PresentrController {
 
     override var frameOfPresentedViewInContainerView: CGRect {
         var presentedViewFrame = CGRect.zero
-        let containerBounds = containerView!.bounds
+        // let containerBounds = containerView!.bounds
+        let containerBounds = containerFrame
 
         let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
 
@@ -327,16 +356,32 @@ extension PresentrController {
 
     override func containerViewWillLayoutSubviews() {
         guard !keyboardIsShowing else { return } // prevent resetting of presented frame when the frame is being translated
-        chromeView.frame = containerView!.bounds
+        // chromeView.frame = containerView!.bounds
+        chromeView.frame = containerFrame
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
     
     // MARK: Animation
 
     override func presentationTransitionWillBegin() {
-        chromeView.frame = containerView!.bounds
-        containerView?.insertSubview(chromeView, at: 0)
-        
+        guard let containerView = containerView else {
+            return
+        }
+
+        if shouldIgnoreTapOutsideContext {
+            backgroundView.shouldPassthrough = true
+            backgroundView.passthroughViews = presentingViewController.view.subviews
+        } else {
+            backgroundView.shouldPassthrough = false
+            backgroundView.passthroughViews = []
+        }
+
+        backgroundView.frame = containerView.bounds
+        chromeView.frame = containerFrame
+
+        containerView.insertSubview(backgroundView, at: 0)
+        containerView.insertSubview(chromeView, at: 1)
+
         var blurEffectView: UIVisualEffectView?
         
         if visualEffect != nil {
@@ -344,20 +389,16 @@ extension PresentrController {
             view.frame = chromeView.bounds
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             chromeView.addSubview(view)
-            
             blurEffectView = view
         } else {
             chromeView.alpha = 0.0
         }
 
         if let coordinator = presentedViewController.transitionCoordinator {
-
             coordinator.animate(alongsideTransition: { context in
                 blurEffectView?.effect = self.visualEffect
                 self.chromeView.alpha = 1.0
-
             }, completion: nil)
-
         } else {
             chromeView.alpha = 1.0
         }
@@ -365,11 +406,9 @@ extension PresentrController {
 
     override func dismissalTransitionWillBegin() {
         if let coordinator = presentedViewController.transitionCoordinator {
-
             coordinator.animate(alongsideTransition: { context in
                 self.chromeView.alpha = 0.0
-                }, completion: nil)
-
+            }, completion: nil)
         } else {
             chromeView.alpha = 0.0
         }
