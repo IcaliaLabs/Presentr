@@ -100,6 +100,11 @@ public class Presentr: NSObject {
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
 
+    /// the custom background view.
+    public var backgroundView: UIView?
+    public var backgroundViewPosition: CGPoint?
+
+    
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
@@ -188,6 +193,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
     // MARK: - Private Helper's
 
     fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
+        
         let presentationController = PresentrController(presentedViewController: presented,
                                                         presentingViewController: presenting,
                                                         presentationType: presentationType,
@@ -200,11 +206,13 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         backgroundOpacity: backgroundOpacity,
                                                         blurBackground: blurBackground,
                                                         blurStyle: blurStyle,
+                                                        backgroundView: backgroundView,
                                                         keyboardTranslationType:  keyboardTranslationType,
                                                         dismissAnimated: dismissAnimated,
                                                         contextFrameForPresentation: contextFrameForPresentation,
                                                         shouldIgnoreTapOutsideContext: shouldIgnoreTapOutsideContext)
         return presentationController
+
     }
 
     fileprivate func animation(for transition: TransitionType?) -> PresentrAnimation? {
