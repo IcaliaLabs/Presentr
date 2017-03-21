@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a2e-uD-yiu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DxE-41-drv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -30,7 +30,7 @@
         <!--Split View Controller-->
         <scene sceneID="9Zr-0K-YFz">
             <objects>
-                <viewController id="a2e-uD-yiu" customClass="SplitViewController" customModule="PresentrExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SplitViewController" id="a2e-uD-yiu" customClass="SplitViewController" customModule="PresentrExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="367-KZ-x7q"/>
                         <viewControllerLayoutGuide type="bottom" id="HEc-3m-R66"/>
@@ -39,16 +39,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fdb-mr-DYZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
-                                <connections>
-                                    <segue destination="jzk-J2-9I7" kind="embed" id="fcK-er-Ktt"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdN-CK-7VP">
                                 <rect key="frame" x="0.0" y="333" width="375" height="333.5"/>
                                 <connections>
-                                    <segue destination="LSA-YM-IDR" kind="embed" id="9YF-T6-lYz"/>
+                                    <segue destination="jzk-J2-9I7" kind="embed" id="UL4-Hi-aGy"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fdb-mr-DYZ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
+                                <connections>
+                                    <segue destination="LSA-YM-IDR" kind="embed" id="sjb-15-gQG"/>
                                 </connections>
                             </containerView>
                         </subviews>

@@ -14,7 +14,7 @@ class FirstViewController: UIViewController {
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .alert)
         presenter.transitionType = .coverHorizontalFromLeft
-        presenter.dismissTransitionType = .crossDissolve
+        presenter.dismissTransitionType = .coverHorizontalFromRight
         return presenter
     }()
 
