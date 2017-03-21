@@ -47,6 +47,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// If contextFrameForPresentation is set, this handles what happens when tap outside context frame.
     let shouldIgnoreTapOutsideContext: Bool
 
+    /// A custom background view to be added on top of the regular background view.
+    let customBackgroundView: UIView?
+
     /// Determines if the presenting conroller conforms to `PresentrDelegate`
     private var conformingPresentedController: PresentrDelegate? {
         return presentedViewController as? PresentrDelegate
@@ -99,7 +102,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundOpacity: Float,
          blurBackground: Bool,
          blurStyle: UIBlurEffectStyle,
-         backgroundView: UIView?,
+         customBackgroundView: UIView?,
          keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool,
          contextFrameForPresentation: CGRect?,
@@ -115,10 +118,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
         self.shouldIgnoreTapOutsideContext = shouldIgnoreTapOutsideContext
+        self.customBackgroundView = customBackgroundView
 
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
-        setupChromeView(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle, backgroundView: backgroundView)
+        setupChromeView(backgroundColor,
+                        backgroundOpacity: backgroundOpacity,
+                        blurBackground: blurBackground,
+                        blurStyle: blurStyle)
         
         if shouldRoundCorners {
             addCornerRadiusToPresentedView()
@@ -149,7 +156,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.addGestureRecognizer(swipe)
     }
     
-    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle, backgroundView: UIView?) {
+    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
@@ -162,10 +169,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
             visualEffect = UIBlurEffect(style: blurStyle)
         } else {
             chromeView.backgroundColor = backgroundColor.withAlphaComponent(CGFloat(backgroundOpacity))
-        }
-        
-        if let backgroundView = backgroundView {
-            chromeView.addSubview(backgroundView)
         }
     }
     
@@ -312,7 +315,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
     
     fileprivate func getCenterPointFromType() -> CGPoint? {
-        // let containerBounds = containerView!.bounds
         let containerBounds = containerFrame
         let position = presentationType.position()
         return position.calculatePoint(containerBounds)
@@ -339,9 +341,7 @@ extension PresentrController {
     
     override var frameOfPresentedViewInContainerView: CGRect {
         var presentedViewFrame = CGRect.zero
-        // let containerBounds = containerView!.bounds
         let containerBounds = containerFrame
-
         let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
         
         let origin: CGPoint
@@ -366,7 +366,6 @@ extension PresentrController {
     
     override func containerViewWillLayoutSubviews() {
         guard !keyboardIsShowing else { return } // prevent resetting of presented frame when the frame is being translated
-        // chromeView.frame = containerView!.bounds
         chromeView.frame = containerFrame
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
@@ -386,12 +385,16 @@ extension PresentrController {
         containerView.insertSubview(backgroundView, at: 0)
         containerView.insertSubview(chromeView, at: 1)
 
+        if let customBackgroundView = customBackgroundView {
+            chromeView.addSubview(customBackgroundView)
+        }
+
         var blurEffectView: UIVisualEffectView?
         if visualEffect != nil {
             let view = UIVisualEffectView()
             view.frame = chromeView.bounds
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            chromeView.addSubview(view)
+            chromeView.insertSubview(view, at: 0)
             blurEffectView = view
         } else {
             chromeView.alpha = 0.0

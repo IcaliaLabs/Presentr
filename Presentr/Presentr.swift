@@ -100,10 +100,8 @@ public class Presentr: NSObject {
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
 
-    /// the custom background view.
-    public var backgroundView: UIView?
-    public var backgroundViewPosition: CGPoint?
-
+    /// A custom background view to be added on top of the regular background view.
+    public var customBackgroundView: UIView?
     
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
@@ -206,7 +204,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         backgroundOpacity: backgroundOpacity,
                                                         blurBackground: blurBackground,
                                                         blurStyle: blurStyle,
-                                                        backgroundView: backgroundView,
+                                                        customBackgroundView: customBackgroundView,
                                                         keyboardTranslationType:  keyboardTranslationType,
                                                         dismissAnimated: dismissAnimated,
                                                         contextFrameForPresentation: contextFrameForPresentation,
