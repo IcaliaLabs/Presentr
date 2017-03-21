@@ -15,8 +15,6 @@ class FirstViewController: UIViewController {
         let presenter = Presentr(presentationType: .alert)
         presenter.transitionType = .coverHorizontalFromLeft
         presenter.dismissTransitionType = .coverHorizontalFromRight
-        presenter.blurStyle = .light
-        presenter.blurBackground = true
         return presenter
     }()
 

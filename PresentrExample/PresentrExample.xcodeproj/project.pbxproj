@@ -10,6 +10,7 @@
 		0625015B1E80624400574FF2 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0625015A1E80624400574FF2 /* SplitViewController.swift */; };
 		0625015E1E80626A00574FF2 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0625015D1E80626A00574FF2 /* FirstViewController.swift */; };
 		062501601E80627300574FF2 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0625015F1E80627300574FF2 /* SecondViewController.swift */; };
+		063675201E81D8A9005D5B9C /* DynamicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0636751F1E81D8A9005D5B9C /* DynamicViewController.swift */; };
 		0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0644CEC01DADCD02002E586F /* PopupViewController.swift */; };
 		068A1D081E13212000883454 /* CustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068A1D071E13212000883454 /* CustomAnimation.swift */; };
 		069265831DD0F9AD00B67915 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069265821DD0F9AD00B67915 /* MainTableViewController.swift */; };
@@ -38,6 +39,7 @@
 		0625015A1E80624400574FF2 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		0625015D1E80626A00574FF2 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		0625015F1E80627300574FF2 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		0636751F1E81D8A9005D5B9C /* DynamicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicViewController.swift; sourceTree = "<group>"; };
 		0644CEC01DADCD02002E586F /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		068A1D071E13212000883454 /* CustomAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimation.swift; sourceTree = "<group>"; };
 		069265821DD0F9AD00B67915 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				069265821DD0F9AD00B67915 /* MainTableViewController.swift */,
 				0625015C1E80625D00574FF2 /* Split Example */,
 				069265841DD12CF400B67915 /* ExampleTableViewCell.swift */,
+				0636751F1E81D8A9005D5B9C /* DynamicViewController.swift */,
 				0644CEC01DADCD02002E586F /* PopupViewController.swift */,
 				068A1D071E13212000883454 /* CustomAnimation.swift */,
 				06A1F0B71CF3D17E0057C79B /* Main.storyboard */,
@@ -258,6 +261,7 @@
 				06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */,
 				0644CEC11DADCD02002E586F /* PopupViewController.swift in Sources */,
 				068A1D081E13212000883454 /* CustomAnimation.swift in Sources */,
+				063675201E81D8A9005D5B9C /* DynamicViewController.swift in Sources */,
 				0625015B1E80624400574FF2 /* SplitViewController.swift in Sources */,
 				0625015E1E80626A00574FF2 /* FirstViewController.swift in Sources */,
 			);

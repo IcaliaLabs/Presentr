@@ -15,7 +15,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     let presentationType: PresentationType
     
     /// Should the presented controller's view have rounded corners.
-    let roundCorners: Bool
+    let roundCorners: Bool?
     
     /// Radius of rounded corners if roundCorners is true.
     let cornerRadius: CGFloat
@@ -63,11 +63,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     /// Determines if corners should be rounded, depending on presentationType.
     fileprivate var shouldRoundCorners: Bool {
-        switch presentationType {
-        case .bottomHalf, .topHalf, .fullScreen:
-            return false
-        default:
+        if let roundCorners = roundCorners {
             return roundCorners
+        }
+        switch presentationType {
+        case .alert, .popup:
+            return true
+        default:
+            return false
         }
     }
 
@@ -93,7 +96,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     init(presentedViewController: UIViewController,
          presentingViewController: UIViewController?,
          presentationType: PresentationType,
-         roundCorners: Bool,
+         roundCorners: Bool?,
          cornerRadius: CGFloat,
          dropShadow: PresentrShadow?,
          dismissOnTap: Bool,
@@ -305,13 +308,25 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: - Sizing Helper's
 
     fileprivate func getWidthFromType(_ parentSize: CGSize) -> Float {
-        let width = presentationType.size().width
-        return width.calculateWidth(parentSize)
+        guard let size = presentationType.size() else {
+            if case .dynamic = presentationType {
+                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
+            }
+            return 0
+        }
+
+        return size.width.calculateWidth(parentSize)
     }
     
     fileprivate func getHeightFromType(_ parentSize: CGSize) -> Float {
-        let height = presentationType.size().height
-        return height.calculateHeight(parentSize)
+        guard let size = presentationType.size() else {
+            if case .dynamic = presentationType {
+                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
+            }
+            return 0
+        }
+
+        return size.height.calculateHeight(parentSize)
     }
     
     fileprivate func getCenterPointFromType() -> CGPoint? {

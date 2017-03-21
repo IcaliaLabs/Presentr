@@ -32,7 +32,7 @@ enum ExampleSection {
         case .bottomHalf:
             return [.bottomHalfDefault, .bottomHalfCustom]
         case .other:
-            return [.backgroundBlur, .fullScreen, .currentContext, .custom, .customBackground, .keyboardTest, .customAnimation]
+            return [.dynamicSize, .backgroundBlur, .fullScreen, .currentContext, .custom, .customBackground, .keyboardTest, .customAnimation]
         }
     }
 
@@ -56,6 +56,7 @@ enum ExampleItem: String {
     case backgroundBlur = "Test the background blur animation"
     case customAnimation = "Custom user created animation"
     case currentContext = "Using a custom context"
+    case dynamicSize = "Using dynamic sizing"
 
     var action: Selector {
         switch self {
@@ -91,6 +92,8 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.customAnimation)
         case .currentContext:
             return #selector(MainTableViewController.currentContext)
+        case .dynamicSize:
+            return #selector(MainTableViewController.dynamicSize)
         }
     }
 
@@ -101,6 +104,12 @@ class MainTableViewController: UITableViewController {
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .alert)
         presenter.transitionType = TransitionType.coverHorizontalFromRight
+        return presenter
+    }()
+
+    let dynamicSizePresenter: Presentr = {
+        let presentationType = PresentationType.dynamic(center: .center)
+        let presenter = Presentr(presentationType: presentationType)
         return presenter
     }()
 
@@ -342,6 +351,11 @@ extension MainTableViewController {
         presenter.transitionType = TransitionType.custom(CustomAnimation())
         presenter.dismissTransitionType = TransitionType.custom(CustomAnimation())
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+    }
+
+    func dynamicSize() {
+        let dynamicVC = storyboard!.instantiateViewController(withIdentifier: "DynamicViewController")
+        customPresentViewController(dynamicSizePresenter, viewController: dynamicVC, animated: true, completion: nil)
     }
 
     func currentContext() {
