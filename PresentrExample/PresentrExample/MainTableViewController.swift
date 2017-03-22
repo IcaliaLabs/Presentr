@@ -348,8 +348,9 @@ extension MainTableViewController {
     }
 
     func customAnimation() {
-        presenter.transitionType = TransitionType.custom(CustomAnimation())
-        presenter.dismissTransitionType = TransitionType.custom(CustomAnimation())
+        presenter.transitionType = TransitionType.custom(CrossDissolveAnimation(animationDuration: 2.0))
+        // presenter.transitionType = TransitionType.custom(CustomAnimation())
+        // presenter.dismissTransitionType = TransitionType.custom(CustomAnimation())
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 

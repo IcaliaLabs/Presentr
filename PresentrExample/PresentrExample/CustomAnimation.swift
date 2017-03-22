@@ -11,8 +11,8 @@ import Presentr
 
 class CustomAnimation: PresentrAnimation {
 
-    override var animationDuration: TimeInterval {
-        return 1
+    convenience init() {
+        self.init(animationDuration: 2.0)
     }
 
     override func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {

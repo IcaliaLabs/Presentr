@@ -36,18 +36,18 @@ public struct PresentrTransitionContext {
 /// Class that handles animating the transition. Override this class if you want to create your own transition animation.
 open class PresentrAnimation: NSObject {
 
-    /// Animation duration. Default is 0.5, override to customize.
-    open var animationDuration: TimeInterval {
-        return 0.5
+    public var animationDuration: TimeInterval
+
+    public init(animationDuration: TimeInterval = 0.3) {
+        self.animationDuration = animationDuration
     }
 
-
-    /// <#Description#>
+    /// For simple transitions, override this method to calculate an initial frame for the animation. For more complex animations override beforeAnimation & performAnimation.
     ///
     /// - Parameters:
-    ///   - containerFrame: <#containerFrame description#>
-    ///   - finalFrame: <#finalFrame description#>
-    /// - Returns: <#return value description#>
+    ///   - containerFrame: The container frame for the animation.
+    ///   - finalFrame: The final frame for the animation.
+    /// - Returns: The initial frame.
     open func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
         var initialFrame = finalFrame
         initialFrame.origin.y = containerFrame.height + initialFrame.height
@@ -55,32 +55,26 @@ open class PresentrAnimation: NSObject {
     }
 
 
-    /// <#Description#>
+    /// Actions to be performed in preparation, before an animation.
     ///
-    /// - Parameter transitionContext: <#transitionContext description#>
+    /// - Parameter transitionContext: The context with everything needed for the animiation.
     open func beforeAnimation(using transitionContext: PresentrTransitionContext) {
         let finalFrameForVC = transitionContext.finalFrame
         let initialFrameForVC = transform(containerFrame: transitionContext.containerView.frame, finalFrame: finalFrameForVC)
 
         let initialFrame = transitionContext.isPresenting ? initialFrameForVC : finalFrameForVC
-        let finalFrame = transitionContext.isPresenting ? finalFrameForVC : initialFrameForVC
-
-        if transitionContext.isPresenting {
-            transitionContext.containerView.addSubview(transitionContext.toView!)
-        }
-
         transitionContext.animatingView?.frame = initialFrame
     }
 
 
-    /// <#Description#>
+    /// Actions to be performed for the animation.
     ///
-    /// - Parameter transitionContext: <#transitionContext description#>
+    /// - Parameter transitionContext: The context with everything needed for the animiation.
     open func performAnimation(using transitionContext: PresentrTransitionContext) {
         let finalFrameForVC = transitionContext.finalFrame
         let initialFrameForVC = transform(containerFrame: transitionContext.containerView.frame, finalFrame: finalFrameForVC)
-        let finalFrame = transitionContext.isPresenting ? finalFrameForVC : initialFrameForVC
 
+        let finalFrame = transitionContext.isPresenting ? finalFrameForVC : initialFrameForVC
         transitionContext.animatingView?.frame = finalFrame
     }
 
@@ -120,52 +114,16 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
                                                         toView: toView,
                                                         animatingViewController: animatingVC,
                                                         animatingView: animatingView)
+        if isPresenting {
+            containerView.addSubview(toView!)
+        }
 
         beforeAnimation(using: presentrContext)
-
         UIView.animate(withDuration: animationDuration, animations: {
             self.performAnimation(using: presentrContext)
         }) { (completed) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
-
-//    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-//        let containerView = transitionContext.containerView
-//
-//        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
-//        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
-//        let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
-//        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)
-//
-//        let isPresenting: Bool = (toViewController?.presentingViewController == fromViewController)
-//
-//        let animatingVC = isPresenting ? toViewController : fromViewController
-//        let animatingView = isPresenting ? toView : fromView
-//
-//        let finalFrameForVC = transitionContext.finalFrame(for: animatingVC!)
-//        let initialFrameForVC = transform(containerFrame: containerView.frame, finalFrame: finalFrameForVC)
-//
-//        let initialFrame = isPresenting ? initialFrameForVC : finalFrameForVC
-//        let finalFrame = isPresenting ? finalFrameForVC : initialFrameForVC
-//
-//        let duration = transitionDuration(using: transitionContext)
-//
-//        if isPresenting {
-//            containerView.addSubview(toView!)
-//        }
-//
-//        animatingView?.frame = initialFrame
-//
-//        UIView.animate(withDuration: duration, animations: {
-//            animatingView?.frame = finalFrame
-//        }) { (completed) in
-//            if !isPresenting {
-//                fromView?.removeFromSuperview()
-//            }
-//            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-//        }
-//        
-//    }
 
 }
