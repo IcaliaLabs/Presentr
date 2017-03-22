@@ -20,23 +20,6 @@ struct PresentrConstants {
     }
 }
 
-/// Helper struct that represents the shadow properties
-public struct PresentrShadow {
-
-    public let shadowColor: UIColor?
-    public let shadowOpacity: Float?
-    public let shadowOffset: CGSize?
-    public let shadowRadius: CGFloat?
-
-    public init(shadowColor: UIColor?, shadowOpacity: Float?, shadowOffset: CGSize?, shadowRadius: CGFloat?) {
-        self.shadowColor = shadowColor
-        self.shadowOpacity = shadowOpacity
-        self.shadowOffset = shadowOffset
-        self.shadowRadius = shadowRadius
-    }
-
-}
-
 // MARK: - PresentrDelegate
 
 /**
@@ -70,13 +53,13 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType or default value will be used.
     public var dismissTransitionType: TransitionType?
 
-    /// Should the presented controller have rounded corners. Each presentation type has its own default.
+    /// Should the presented controller have rounded corners. Each presentation type has its own default if nil.
     public var roundCorners: Bool?
 
-    /// Radius of rounded corners if roundCorners is true. Default is 4.
+    /// Radius of rounded corners for presented controller if roundCorners is true. Default is 4.
     public var cornerRadius: CGFloat = 4
 
-    /// Radius of rounded corners if roundCorners is true. Default is 4.
+    /// Shadow settings for presented controller.
     public var dropShadow: PresentrShadow?
 
     /// Should the presented controller dismiss on background tap. Default is true.
@@ -106,7 +89,7 @@ public class Presentr: NSObject {
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
-    /// When a ViewController for context is set this handles what happens to a tap when it is outside the context.
+    /// When a ViewController for context is set this handles what happens to a tap when it is outside the context. True will ignore tap and pass the tap to the background controller, false will handle the tap and dismiss the presented controller. Default is false.
     public var shouldIgnoreTapOutsideContext = false
 
     /// Uses the ViewController's frame as context for the presentation. Imitates UIModalPresentation.currentContext
@@ -181,40 +164,33 @@ extension Presentr: UIViewControllerTransitioningDelegate {
     }
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animation(for: transitionForPresent)
+        return transitionForPresent.animation()
     }
 
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animation(for: transitionForDismiss)
+        return transitionForDismiss.animation()
     }
 
     // MARK: - Private Helper's
 
     fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
-        
-        let presentationController = PresentrController(presentedViewController: presented,
-                                                        presentingViewController: presenting,
-                                                        presentationType: presentationType,
-                                                        roundCorners: roundCorners,
-                                                        cornerRadius: cornerRadius,
-                                                        dropShadow: dropShadow,
-                                                        dismissOnTap: dismissOnTap,
-                                                        dismissOnSwipe: dismissOnSwipe,
-                                                        backgroundColor: backgroundColor,
-                                                        backgroundOpacity: backgroundOpacity,
-                                                        blurBackground: blurBackground,
-                                                        blurStyle: blurStyle,
-                                                        customBackgroundView: customBackgroundView,
-                                                        keyboardTranslationType:  keyboardTranslationType,
-                                                        dismissAnimated: dismissAnimated,
-                                                        contextFrameForPresentation: contextFrameForPresentation,
-                                                        shouldIgnoreTapOutsideContext: shouldIgnoreTapOutsideContext)
-        return presentationController
-
-    }
-
-    fileprivate func animation(for transition: TransitionType?) -> PresentrAnimation? {
-        return transition?.animation()
+        return PresentrController(presentedViewController: presented,
+                                    presentingViewController: presenting,
+                                    presentationType: presentationType,
+                                    roundCorners: roundCorners,
+                                    cornerRadius: cornerRadius,
+                                    dropShadow: dropShadow,
+                                    dismissOnTap: dismissOnTap,
+                                    dismissOnSwipe: dismissOnSwipe,
+                                    backgroundColor: backgroundColor,
+                                    backgroundOpacity: backgroundOpacity,
+                                    blurBackground: blurBackground,
+                                    blurStyle: blurStyle,
+                                    customBackgroundView: customBackgroundView,
+                                    keyboardTranslationType:  keyboardTranslationType,
+                                    dismissAnimated: dismissAnimated,
+                                    contextFrameForPresentation: contextFrameForPresentation,
+                                    shouldIgnoreTapOutsideContext: shouldIgnoreTapOutsideContext)
     }
 
 }
@@ -223,14 +199,13 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
 public extension UIViewController {
 
-    /**
-     Public method for presenting a view controller, using the custom presentation. Called from the UIViewController extension.
-
-     - parameter presentr:       Presentr object used for custom presentation.
-     - parameter viewController: The view controller to be presented.
-     - parameter animated:       Animation boolean.
-     - parameter completion:     Completion block.
-     */
+    /// Present a view controller with a custom presentation provided by the Presentr object.
+    ///
+    /// - Parameters:
+    ///   - presentr: Presentr object used for custom presentation.
+    ///   - viewController: The view controller to be presented.
+    ///   - animated: Animation setting for the presentation.
+    ///   - completion: Completion handler.
     func customPresentViewController(_ presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
         presentr.presentViewController(presentingViewController: self,
                                        presentedViewController: viewController,

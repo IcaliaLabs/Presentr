@@ -79,4 +79,13 @@ public enum PresentationType {
         }
     }
 
+    var shouldRoundCorners: Bool {
+        switch self {
+        case .alert, .popup:
+            return true
+        default:
+            return false
+        }
+    }
+
 }

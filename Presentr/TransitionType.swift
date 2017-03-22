@@ -28,7 +28,7 @@ public enum TransitionType {
     /// Associates a custom transition type to the class responsible for its animation.
     ///
     /// - Returns: PresentrAnimation subclass which conforms to 'UIViewControllerAnimatedTransitioning' to be used for the animation transition.
-    func animation() -> PresentrAnimation? {
+    func animation() -> PresentrAnimation {
         switch self {
         case .crossDissolve:
             return CrossDissolveAnimation()

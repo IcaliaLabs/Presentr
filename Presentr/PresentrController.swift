@@ -13,16 +13,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     
     /// Presentation type must be passed in to make all the sizing and position decisions.
     let presentationType: PresentationType
-    
-    /// Should the presented controller's view have rounded corners.
-    let roundCorners: Bool?
-    
-    /// Radius of rounded corners if roundCorners is true.
-    let cornerRadius: CGFloat
-    
-    /// Shadow settings
-    let dropShadow: PresentrShadow?
-    
+
     /// Should the presented controller dismiss on background tap.
     let dismissOnTap: Bool
     
@@ -51,30 +42,16 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     let customBackgroundView: UIView?
 
     /// Determines if the presenting conroller conforms to `PresentrDelegate`
-    private var conformingPresentedController: PresentrDelegate? {
+    fileprivate var conformingPresentedController: PresentrDelegate? {
         return presentedViewController as? PresentrDelegate
     }
-    
+
     /// Checks to see if the keyboard should be observed
-    private var shouldObserveKeyboard: Bool {
+    fileprivate var shouldObserveKeyboard: Bool {
         return conformingPresentedController != nil ||
-            ((keyboardTranslationType != .none) && presentationType == .popup)
+            (keyboardTranslationType != .none && presentationType == .popup) // TODO: Work w/other types?
     }
 
-    /// Determines if corners should be rounded, depending on presentationType.
-    fileprivate var shouldRoundCorners: Bool {
-        if let roundCorners = roundCorners {
-            return roundCorners
-        }
-        switch presentationType {
-        case .alert, .popup:
-            return true
-        default:
-            return false
-        }
-    }
-
-    /// Container frame to be used for presentation. If contextFrameForPresentation not set, will use whole containerView's bounds.
     fileprivate var containerFrame: CGRect {
         return contextFrameForPresentation ?? containerView?.bounds ?? CGRect()
     }
@@ -87,9 +64,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var keyboardIsShowing: Bool = false
 
-    private var translationStart: CGPoint = CGPoint.zero
+    fileprivate var translationStart: CGPoint = CGPoint.zero
     
-    private var presentedViewIsBeingDissmissed: Bool = false
+    fileprivate var presentedViewIsBeingDissmissed: Bool = false
 
     // MARK: - Init
 
@@ -112,9 +89,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          shouldIgnoreTapOutsideContext: Bool) {
 
         self.presentationType = presentationType
-        self.roundCorners = roundCorners
-        self.cornerRadius = cornerRadius
-        self.dropShadow = dropShadow
         self.dismissOnTap = dismissOnTap
         self.dismissOnSwipe = dismissOnSwipe
         self.keyboardTranslationType = keyboardTranslationType
@@ -125,31 +99,17 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
-        setupChromeView(backgroundColor,
-                        backgroundOpacity: backgroundOpacity,
-                        blurBackground: blurBackground,
-                        blurStyle: blurStyle)
-        
-        if shouldRoundCorners {
-            addCornerRadiusToPresentedView()
-        } else {
-            removeCornerRadiusFromPresentedView()
-        }
-        
-        if dropShadow != nil {
-            addDropShadowToPresentedView()
-        } else {
-            removeDropShadowFromPresentedView()
-        }
+        setupBackground(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
+        setupCornerRadius(roundCorners: roundCorners, cornerRadius: cornerRadius)
+        addDropShadow(shadow: dropShadow)
         
         if dismissOnSwipe {
             setupDismissOnSwipe()
         }
-        
+
         if shouldObserveKeyboard {
             registerKeyboardObserver()
         }
-
     }
 
     // MARK: - Setup
@@ -159,7 +119,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.addGestureRecognizer(swipe)
     }
     
-    private func setupChromeView(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+    private func setupBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
@@ -174,18 +134,24 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
             chromeView.backgroundColor = backgroundColor.withAlphaComponent(CGFloat(backgroundOpacity))
         }
     }
-    
-    private func addCornerRadiusToPresentedView() {
-        presentedViewController.view.layer.cornerRadius = cornerRadius
-        presentedViewController.view.layer.masksToBounds = true
+
+    private func setupCornerRadius(roundCorners: Bool?, cornerRadius: CGFloat) {
+        let shouldRoundCorners = roundCorners ?? presentationType.shouldRoundCorners
+        if shouldRoundCorners {
+            presentedViewController.view.layer.cornerRadius = cornerRadius
+            presentedViewController.view.layer.masksToBounds = true
+        } else {
+            presentedViewController.view.layer.cornerRadius = 0
+        }
     }
     
-    private func removeCornerRadiusFromPresentedView() {
-        presentedViewController.view.layer.cornerRadius = 0
-    }
-    
-    private func addDropShadowToPresentedView() {
-        guard let shadow = self.dropShadow else { return }
+    private func addDropShadow(shadow: PresentrShadow?) {
+        guard let shadow = shadow else {
+            presentedViewController.view.layer.masksToBounds = true
+            presentedViewController.view.layer.shadowOpacity = 0
+            return
+        }
+
         presentedViewController.view.layer.masksToBounds = false
         if let shadowColor = shadow.shadowColor?.cgColor {
             presentedViewController.view.layer.shadowColor = shadowColor
@@ -201,151 +167,16 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
     
-    private func removeDropShadowFromPresentedView() {
-        presentedViewController.view.layer.masksToBounds = true
-        presentedViewController.view.layer.shadowOpacity = 0
-    }
-    
-    private func registerKeyboardObserver() {
+    fileprivate func registerKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
     
-    private func removeObservers() {
+    fileprivate func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
 
-    // MARK: - Actions
-
-    func chromeViewTapped(gesture: UIGestureRecognizer) {
-        // get the presented controller conforming to the protocol and if it exists, ask presented if we should dismiss the controller.
-        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
-            return
-        }
-
-        if gesture.state == .ended && dismissOnTap {
-            if shouldObserveKeyboard {
-                removeObservers()
-            }
-            presentingViewController.dismiss(animated: dismissAnimated, completion: nil)
-        }
-    }
-    
-    func presentingViewSwipe(gesture: UIPanGestureRecognizer) {
-        let gestureState: (UIGestureRecognizerState) -> Bool = {
-            return gesture.state == $0 && self.dismissOnSwipe
-        }
-        
-        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
-            return
-        }
-        
-        if gestureState(.began) {
-            translationStart = gesture.location(in: presentedViewController.view)
-        } else if gestureState(.changed) {
-            let amount = gesture.translation(in: presentedViewController.view)
-            if amount.y < 0 { return }
-            
-            let translation = swipeElasticityFactor * 2
-            let center = presentedViewController.view.center
-            presentedViewController.view.center = CGPoint(x: center.x, y: center.y + translation)
-            
-            if amount.y > swipeLimitPoint {
-                presentedViewIsBeingDissmissed = true
-                presentedViewController.dismiss(animated: true, completion: nil)
-            }
-        } else if gestureState(.ended) || gestureState(.cancelled) {
-            if presentedViewIsBeingDissmissed {return}
-            var point: CGPoint
-            let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
-            switch presentationType.position() {
-            case .center:
-                point = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
-            case .topCenter:
-                point = CGPoint(x: screenWidth / 2, y: presentedViewController.view.bounds.height / 2)
-            case .bottomCenter:
-                point = CGPoint(x: screenWidth / 2, y: screenHeight - presentedViewController.view.bounds.height / 2)
-            default:
-                point = CGPoint.zero
-            }
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
-                self.presentedViewController.view.center = point
-            }, completion: nil)
-        }
-    }
-
-    // MARK: - Keyboard Observation
-
-    func keyboardWasShown(notification: Notification) {
-        // gets the keyboard frame and compares it to the presented view so the view gets moved up with the keyboard.
-        if let keyboardFrame = notification.keyboardEndFrame() {
-            let presentedFrame = frameOfPresentedViewInContainerView
-            let translatedFrame = keyboardTranslationType.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
-            if translatedFrame != presentedFrame {
-                UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
-                    self.presentedView?.frame = translatedFrame
-                })
-            }
-            keyboardIsShowing = true
-        }
-    }
-    
-    func keyboardWillHide (notification: Notification) {
-        if keyboardIsShowing {
-            let presentedFrame = frameOfPresentedViewInContainerView
-            if self.presentedView?.frame !=  presentedFrame {
-                UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
-                    self.presentedView?.frame = presentedFrame
-                })
-            }
-            keyboardIsShowing = false
-        }
-    }
-
-    // MARK: - Sizing Helper's
-
-    fileprivate func getWidthFromType(_ parentSize: CGSize) -> Float {
-        guard let size = presentationType.size() else {
-            if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
-            }
-            return 0
-        }
-
-        return size.width.calculateWidth(parentSize)
-    }
-    
-    fileprivate func getHeightFromType(_ parentSize: CGSize) -> Float {
-        guard let size = presentationType.size() else {
-            if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
-            }
-            return 0
-        }
-
-        return size.height.calculateHeight(parentSize)
-    }
-    
-    fileprivate func getCenterPointFromType() -> CGPoint? {
-        let containerBounds = containerFrame
-        let position = presentationType.position()
-        return position.calculatePoint(containerBounds)
-    }
-    
-    fileprivate func getOriginFromType() -> CGPoint? {
-        let position = presentationType.position()
-        return position.calculateOrigin()
-    }
-    
-    fileprivate func calculateOrigin(_ center: CGPoint, size: CGSize) -> CGPoint {
-        let x: CGFloat = center.x - size.width / 2
-        let y: CGFloat = center.y - size.height / 2
-        return CGPoint(x: x, y: y)
-    }
-    
 }
 
 // MARK: - UIPresentationController
@@ -414,15 +245,16 @@ extension PresentrController {
         } else {
             chromeView.alpha = 0.0
         }
-        
-        if let coordinator = presentedViewController.transitionCoordinator {
-            coordinator.animate(alongsideTransition: { context in
-                blurEffectView?.effect = self.visualEffect
-                self.chromeView.alpha = 1.0
-            }, completion: nil)
-        } else {
+
+        guard let coordinator = presentedViewController.transitionCoordinator else {
             chromeView.alpha = 1.0
+            return
         }
+
+        coordinator.animate(alongsideTransition: { context in
+            blurEffectView?.effect = self.visualEffect
+            self.chromeView.alpha = 1.0
+        }, completion: nil)
     }
     
     override func dismissalTransitionWillBegin() {
@@ -445,6 +277,146 @@ extension PresentrController {
         } else {
             backgroundView.shouldPassthrough = false
             backgroundView.passthroughViews = []
+        }
+    }
+
+}
+
+// MARK: - Sizing, Position
+
+fileprivate extension PresentrController {
+
+    func getWidthFromType(_ parentSize: CGSize) -> Float {
+        guard let size = presentationType.size() else {
+            if case .dynamic = presentationType {
+                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
+            }
+            return 0
+        }
+
+        return size.width.calculateWidth(parentSize)
+    }
+
+    func getHeightFromType(_ parentSize: CGSize) -> Float {
+        guard let size = presentationType.size() else {
+            if case .dynamic = presentationType {
+                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
+            }
+            return 0
+        }
+
+        return size.height.calculateHeight(parentSize)
+    }
+
+    func getCenterPointFromType() -> CGPoint? {
+        let containerBounds = containerFrame
+        let position = presentationType.position()
+        return position.calculatePoint(containerBounds)
+    }
+
+    func getOriginFromType() -> CGPoint? {
+        let position = presentationType.position()
+        return position.calculateOrigin()
+    }
+
+    func calculateOrigin(_ center: CGPoint, size: CGSize) -> CGPoint {
+        let x: CGFloat = center.x - size.width / 2
+        let y: CGFloat = center.y - size.height / 2
+        return CGPoint(x: x, y: y)
+    }
+    
+}
+
+// MARK: - Gesture Handling
+
+extension PresentrController {
+
+    func chromeViewTapped(gesture: UIGestureRecognizer) {
+        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
+            return
+        }
+
+        if gesture.state == .ended && dismissOnTap {
+            if shouldObserveKeyboard {
+                removeObservers()
+            }
+            presentingViewController.dismiss(animated: dismissAnimated, completion: nil)
+        }
+    }
+
+    func presentingViewSwipe(gesture: UIPanGestureRecognizer) {
+        let gestureState: (UIGestureRecognizerState) -> Bool = {
+            return gesture.state == $0 && self.dismissOnSwipe
+        }
+
+        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
+            return
+        }
+
+        if gestureState(.began) {
+            translationStart = gesture.location(in: presentedViewController.view)
+        } else if gestureState(.changed) {
+            let amount = gesture.translation(in: presentedViewController.view)
+            if amount.y < 0 { return }
+
+            let translation = swipeElasticityFactor * 2
+            let center = presentedViewController.view.center
+            presentedViewController.view.center = CGPoint(x: center.x, y: center.y + translation)
+
+            if amount.y > swipeLimitPoint {
+                presentedViewIsBeingDissmissed = true
+                presentedViewController.dismiss(animated: true, completion: nil)
+            }
+        } else if gestureState(.ended) || gestureState(.cancelled) {
+            if presentedViewIsBeingDissmissed {return}
+            var point: CGPoint
+            let screenWidth = UIScreen.main.bounds.width
+            let screenHeight = UIScreen.main.bounds.height
+            switch presentationType.position() {
+            case .center:
+                point = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+            case .topCenter:
+                point = CGPoint(x: screenWidth / 2, y: presentedViewController.view.bounds.height / 2)
+            case .bottomCenter:
+                point = CGPoint(x: screenWidth / 2, y: screenHeight - presentedViewController.view.bounds.height / 2)
+            default:
+                point = CGPoint.zero
+            }
+
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
+                self.presentedViewController.view.center = point
+            }, completion: nil)
+        }
+    }
+
+}
+
+// MARK: - Keyboard Handling
+
+extension PresentrController {
+
+    func keyboardWasShown(notification: Notification) {
+        if let keyboardFrame = notification.keyboardEndFrame() {
+            let presentedFrame = frameOfPresentedViewInContainerView
+            let translatedFrame = keyboardTranslationType.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
+            if translatedFrame != presentedFrame {
+                UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
+                    self.presentedView?.frame = translatedFrame
+                })
+            }
+            keyboardIsShowing = true
+        }
+    }
+
+    func keyboardWillHide (notification: Notification) {
+        if keyboardIsShowing {
+            let presentedFrame = frameOfPresentedViewInContainerView
+            if self.presentedView?.frame !=  presentedFrame {
+                UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
+                    self.presentedView?.frame = presentedFrame
+                })
+            }
+            keyboardIsShowing = false
         }
     }
 
