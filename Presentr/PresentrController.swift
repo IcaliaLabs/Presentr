@@ -60,8 +60,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Swipe gesture
 
-    fileprivate let swipeLimitPoint: CGFloat = 200
-
     fileprivate var presentedViewIsBeingDissmissed: Bool = false
 
     fileprivate var presentedViewFrame: CGRect = CGRect.zero
@@ -374,12 +372,25 @@ extension PresentrController {
 
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
-        guard amount.y >= 0 else {
+        let swipeBottom = presentationType != .topHalf
+        let swipeTop = presentationType == .topHalf
+
+        if swipeTop && amount.y > 0 {
+            return
+        } else if swipeBottom && amount.y < 0 {
             return
         }
+
+        var swipeLimit: CGFloat = 150
+        if swipeTop {
+            swipeLimit = -swipeLimit
+        }
+
         presentedViewController.view.center = CGPoint(x: presentedViewCenter.x,
                                                       y: presentedViewCenter.y + amount.y)
-        if amount.y > swipeLimitPoint {
+
+        let shouldDismiss = swipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
+        if shouldDismiss {
             presentedViewIsBeingDissmissed = true
             presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
         }
