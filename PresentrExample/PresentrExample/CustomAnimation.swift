@@ -11,10 +11,6 @@ import Presentr
 
 class CustomAnimation: PresentrAnimation {
 
-    convenience init() {
-        self.init(animationDuration: 2.0)
-    }
-
     override func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
         return CGRect(x: 0, y: 0, width: 10, height: 10)
     }

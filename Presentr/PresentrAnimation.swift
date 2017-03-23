@@ -33,13 +33,22 @@ public struct PresentrTransitionContext {
     
 }
 
+/// Options for the UIView animation.
+public enum AnimationOptions {
+
+    case normal(duration: TimeInterval)
+
+    case spring(duration: TimeInterval, delay: TimeInterval, damping: CGFloat, velocity: CGFloat)
+
+}
+
 /// Class that handles animating the transition. Override this class if you want to create your own transition animation.
 open class PresentrAnimation: NSObject {
 
-    public var animationDuration: TimeInterval
+    public var options: AnimationOptions
 
-    public init(animationDuration: TimeInterval = 0.3) {
-        self.animationDuration = animationDuration
+    public init(options: AnimationOptions = .normal(duration: 0.5)) {
+        self.options = options
     }
 
     /// For simple transitions, override this method to calculate an initial frame for the animation. For more complex animations override beforeAnimation & performAnimation. Only override this method OR beforeAnimation & performAnimation. This method won't even be called if you override beforeAnimation.
@@ -85,7 +94,12 @@ open class PresentrAnimation: NSObject {
 extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
 
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return animationDuration
+        switch options {
+        case let .normal(duration):
+            return duration
+        case let .spring(duration, _, _, _):
+            return duration
+        }
     }
 
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -118,8 +132,27 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(toView!)
         }
 
+        switch options {
+        case let .normal(duration):
+            animate(presentrContext: presentrContext, transitionContext: transitionContext, duration: duration)
+        case let .spring(duration, delay, damping, velocity):
+            animateWithSpring(presentrContext: presentrContext, transitionContext: transitionContext, duration: duration, delay: delay, damping: damping, velocity: velocity)
+        }
+
+    }
+
+    private func animate(presentrContext: PresentrTransitionContext, transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval) {
         beforeAnimation(using: presentrContext)
-        UIView.animate(withDuration: animationDuration, animations: {
+        UIView.animate(withDuration: duration, animations: {
+            self.performAnimation(using: presentrContext)
+        }) { (completed) in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+
+    private func animateWithSpring(presentrContext: PresentrTransitionContext, transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval, delay: TimeInterval, damping: CGFloat, velocity: CGFloat) {
+        beforeAnimation(using: presentrContext)
+        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [], animations: { 
             self.performAnimation(using: presentrContext)
         }) { (completed) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
