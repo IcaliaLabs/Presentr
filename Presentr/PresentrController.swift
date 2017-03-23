@@ -19,6 +19,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     
     /// Should the presented controller dismiss on background Swipe.
     let dismissOnSwipe: Bool
+
+    /// DismissSwipe direction
+    let dismissOnSwipeDirection: DismissSwipeDirection
     
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
@@ -76,6 +79,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          dropShadow: PresentrShadow?,
          dismissOnTap: Bool,
          dismissOnSwipe: Bool,
+         dismissOnSwipeDirection: DismissSwipeDirection,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
@@ -89,6 +93,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.presentationType = presentationType
         self.dismissOnTap = dismissOnTap
         self.dismissOnSwipe = dismissOnSwipe
+        self.dismissOnSwipeDirection = dismissOnSwipeDirection
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
@@ -372,8 +377,9 @@ extension PresentrController {
 
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
-        let swipeBottom = presentationType != .topHalf
-        let swipeTop = presentationType == .topHalf
+
+        let swipeBottom: Bool = (dismissOnSwipeDirection == .default) ? presentationType != .topHalf : dismissOnSwipeDirection == .bottom
+        let swipeTop: Bool = (dismissOnSwipeDirection == .default) ? presentationType == .topHalf : dismissOnSwipeDirection == .top
 
         if swipeTop && amount.y > 0 {
             return

@@ -20,6 +20,14 @@ struct PresentrConstants {
     }
 }
 
+public enum DismissSwipeDirection {
+
+    case `default`
+    case bottom
+    case top
+
+}
+
 // MARK: - PresentrDelegate
 
 /**
@@ -68,7 +76,10 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on Swipe inside the presented view controller. Default is false.
     public var dismissOnSwipe = false
 
-    /// Should the presented controller use animation when dismiss on background tap. Default is true.
+    /// If dismissOnSwipe is true, the direction for the swipe. Default depends on presentation type.
+    public var dismissOnSwipeDirection: DismissSwipeDirection = .default
+
+    /// Should the presented controller use animation when dismiss on background tap or swipe. Default is true.
     public var dismissAnimated = true
 
     /// Color of the background. Default is Black.
@@ -182,6 +193,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                     dropShadow: dropShadow,
                                     dismissOnTap: dismissOnTap,
                                     dismissOnSwipe: dismissOnSwipe,
+                                    dismissOnSwipeDirection: dismissOnSwipeDirection,
                                     backgroundColor: backgroundColor,
                                     backgroundOpacity: backgroundOpacity,
                                     blurBackground: blurBackground,
