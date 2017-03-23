@@ -351,8 +351,8 @@ extension MainTableViewController {
     func customAnimation() {
         let animation = CoverVerticalAnimation(options: .spring(duration: 2.0,
                                                                 delay: 0,
-                                                                damping: <#T##CGFloat#>,
-                                                                velocity: <#T##CGFloat#>))
+                                                                damping: 0.5,
+                                                                velocity: 0))
         presenter.transitionType = TransitionType.custom(animation)
         // presenter.transitionType = TransitionType.custom(CustomAnimation())
         // presenter.dismissTransitionType = TransitionType.custom(CustomAnimation())

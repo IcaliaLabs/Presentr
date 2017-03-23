@@ -134,9 +134,16 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
 
         switch options {
         case let .normal(duration):
-            animate(presentrContext: presentrContext, transitionContext: transitionContext, duration: duration)
+            animate(presentrContext: presentrContext,
+                    transitionContext: transitionContext,
+                    duration: duration)
         case let .spring(duration, delay, damping, velocity):
-            animateWithSpring(presentrContext: presentrContext, transitionContext: transitionContext, duration: duration, delay: delay, damping: damping, velocity: velocity)
+            animateWithSpring(presentrContext: presentrContext,
+                              transitionContext: transitionContext,
+                              duration: duration,
+                              delay: delay,
+                              damping: damping,
+                              velocity: velocity)
         }
 
     }
@@ -152,7 +159,12 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
 
     private func animateWithSpring(presentrContext: PresentrTransitionContext, transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval, delay: TimeInterval, damping: CGFloat, velocity: CGFloat) {
         beforeAnimation(using: presentrContext)
-        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [], animations: { 
+        UIView.animate(withDuration: duration,
+                       delay: delay,
+                       usingSpringWithDamping: damping,
+                       initialSpringVelocity: velocity,
+                       options: [],
+                       animations: {
             self.performAnimation(using: presentrContext)
         }) { (completed) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
