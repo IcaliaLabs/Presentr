@@ -32,7 +32,7 @@ public enum ModalCenterPosition {
 
      - returns: CGPoint representing the presented view controller's center point.
      */
-    func calculatePoint(_ containerFrame: CGRect) -> CGPoint? {
+    func calculateCenterPoint(_ containerFrame: CGRect) -> CGPoint? {
         switch self {
         case .center:
             return CGPoint(x: containerFrame.origin.x + (containerFrame.width / 2),

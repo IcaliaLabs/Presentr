@@ -42,7 +42,7 @@ open class PresentrAnimation: NSObject {
         self.animationDuration = animationDuration
     }
 
-    /// For simple transitions, override this method to calculate an initial frame for the animation. For more complex animations override beforeAnimation & performAnimation.
+    /// For simple transitions, override this method to calculate an initial frame for the animation. For more complex animations override beforeAnimation & performAnimation. Only override this method OR beforeAnimation & performAnimation. This method won't even be called if you override beforeAnimation.
     ///
     /// - Parameters:
     ///   - containerFrame: The container frame for the animation.
@@ -90,7 +90,7 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
 
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
-
+        
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
         let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)

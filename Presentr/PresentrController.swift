@@ -20,12 +20,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Should the presented controller dismiss on background Swipe.
     let dismissOnSwipe: Bool
     
-    /// The factor to be used on Swipeging animations
-    let swipeElasticityFactor: CGFloat = 0.5
-    
-    /// Where in the Swipe should the view dismiss
-    let swipeLimitPoint: CGFloat = 200
-    
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
 
@@ -41,12 +35,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// A custom background view to be added on top of the regular background view.
     let customBackgroundView: UIView?
 
-    /// Determines if the presenting conroller conforms to `PresentrDelegate`
     fileprivate var conformingPresentedController: PresentrDelegate? {
         return presentedViewController as? PresentrDelegate
     }
 
-    /// Checks to see if the keyboard should be observed
     fileprivate var shouldObserveKeyboard: Bool {
         return conformingPresentedController != nil ||
             (keyboardTranslationType != .none && presentationType == .popup) // TODO: Work w/other types?
@@ -56,17 +48,25 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         return contextFrameForPresentation ?? containerView?.bounds ?? CGRect()
     }
 
+    fileprivate var keyboardIsShowing: Bool = false
+
+    // MARK: Background Views
+
     fileprivate var chromeView = UIView()
 
     fileprivate var backgroundView = PassthroughBackgroundView()
 
     fileprivate var visualEffect: UIVisualEffect?
 
-    fileprivate var keyboardIsShowing: Bool = false
+    // MARK: Swipe gesture
 
-    fileprivate var translationStart: CGPoint = CGPoint.zero
-    
+    fileprivate let swipeLimitPoint: CGFloat = 200
+
     fileprivate var presentedViewIsBeingDissmissed: Bool = false
+
+    fileprivate var presentedViewFrame: CGRect = CGRect.zero
+
+    fileprivate var presentedViewCenter: CGPoint = CGPoint.zero
 
     // MARK: - Init
 
@@ -115,7 +115,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: - Setup
 
     private func setupDismissOnSwipe() {
-        let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentingViewSwipe))
+        let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
         presentedViewController.view.addGestureRecognizer(swipe)
     }
     
@@ -191,7 +191,8 @@ extension PresentrController {
         let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
         
         let origin: CGPoint
-        // If the Presentation Type's calculate center point returns nil, this means that the user provided the origin, not a center point.
+        // If the Presentation Type's calculate center point returns nil
+        // this means that the user provided the origin, not a center point.
         if let center = getCenterPointFromType() {
             origin = calculateOrigin(center, size: size)
         } else {
@@ -200,7 +201,7 @@ extension PresentrController {
         
         presentedViewFrame.size = size
         presentedViewFrame.origin = origin
-        
+
         return presentedViewFrame
     }
     
@@ -211,7 +212,9 @@ extension PresentrController {
     }
     
     override func containerViewWillLayoutSubviews() {
-        guard !keyboardIsShowing else { return } // prevent resetting of presented frame when the frame is being translated
+        guard !keyboardIsShowing else {
+            return // prevent resetting of presented frame when the frame is being translated
+        }
         chromeView.frame = containerFrame
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
@@ -311,7 +314,7 @@ fileprivate extension PresentrController {
     func getCenterPointFromType() -> CGPoint? {
         let containerBounds = containerFrame
         let position = presentationType.position()
-        return position.calculatePoint(containerBounds)
+        return position.calculateCenterPoint(containerBounds)
     }
 
     func getOriginFromType() -> CGPoint? {
@@ -332,11 +335,15 @@ fileprivate extension PresentrController {
 extension PresentrController {
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
+        guard dismissOnTap else {
+            return
+        }
+
         guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
             return
         }
 
-        if gesture.state == .ended && dismissOnTap {
+        if gesture.state == .ended {
             if shouldObserveKeyboard {
                 removeObservers()
             }
@@ -344,49 +351,53 @@ extension PresentrController {
         }
     }
 
-    func presentingViewSwipe(gesture: UIPanGestureRecognizer) {
-        let gestureState: (UIGestureRecognizerState) -> Bool = {
-            return gesture.state == $0 && self.dismissOnSwipe
+    func presentedViewSwipe(gesture: UIPanGestureRecognizer) {
+        guard dismissOnSwipe else {
+            return
         }
 
         guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
             return
         }
 
-        if gestureState(.began) {
-            translationStart = gesture.location(in: presentedViewController.view)
-        } else if gestureState(.changed) {
-            let amount = gesture.translation(in: presentedViewController.view)
-            if amount.y < 0 { return }
-
-            let translation = swipeElasticityFactor * 2
-            let center = presentedViewController.view.center
-            presentedViewController.view.center = CGPoint(x: center.x, y: center.y + translation)
-
-            if amount.y > swipeLimitPoint {
-                presentedViewIsBeingDissmissed = true
-                presentedViewController.dismiss(animated: true, completion: nil)
-            }
-        } else if gestureState(.ended) || gestureState(.cancelled) {
-            if presentedViewIsBeingDissmissed {return}
-            var point: CGPoint
-            let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
-            switch presentationType.position() {
-            case .center:
-                point = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
-            case .topCenter:
-                point = CGPoint(x: screenWidth / 2, y: presentedViewController.view.bounds.height / 2)
-            case .bottomCenter:
-                point = CGPoint(x: screenWidth / 2, y: screenHeight - presentedViewController.view.bounds.height / 2)
-            default:
-                point = CGPoint.zero
-            }
-
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: swipeElasticityFactor, initialSpringVelocity: 1, options: [], animations: {
-                self.presentedViewController.view.center = point
-            }, completion: nil)
+        if gesture.state == .began {
+            presentedViewFrame = presentedViewController.view.frame
+            presentedViewCenter = presentedViewController.view.center
+        } else if gesture.state == .changed {
+            swipeGestureChanged(gesture: gesture)
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+            swipeGestureEnded()
         }
+    }
+
+    // MARK: Helper's
+
+    func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
+        let amount = gesture.translation(in: presentedViewController.view)
+        guard amount.y >= 0 else {
+            return
+        }
+        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x,
+                                                      y: presentedViewCenter.y + amount.y)
+        if amount.y > swipeLimitPoint {
+            presentedViewIsBeingDissmissed = true
+            presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+        }
+    }
+
+    func swipeGestureEnded() {
+        guard !presentedViewIsBeingDissmissed else {
+            return
+        }
+
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 1,
+                       options: [],
+                       animations: {
+            self.presentedViewController.view.frame = self.presentedViewFrame
+        }, completion: nil)
     }
 
 }

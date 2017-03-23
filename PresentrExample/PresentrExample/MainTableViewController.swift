@@ -104,6 +104,7 @@ class MainTableViewController: UITableViewController {
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .alert)
         presenter.transitionType = TransitionType.coverHorizontalFromRight
+        presenter.dismissOnSwipe = true
         return presenter
     }()
 
