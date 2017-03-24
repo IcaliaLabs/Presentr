@@ -16,6 +16,10 @@ Presentr also comes with a cool AlertViewController baked in if you want somethi
   let okAction = AlertAction(title: "NO, sorry 🙄", style: .cancel){
     print("Ok!")
   }
+  
+  let okAction = AlertAction(title: "Ok", style: .custom(textColor: .green)) {
+    print("Ok!)
+  }
 
   controller.addAction(deleteAction)
   controller.addAction(okAction)
