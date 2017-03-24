@@ -262,6 +262,13 @@ presenter.keyboardTranslationType = .compress
 presenter.keyboardTranslationType = .stickToTop
 ```
 
+## Other / Advanced
+
+- [Built in AlertViewController](https://github.com/IcaliaLabs/Presentr/blob/master/ALERT.md)
+- [PresentrDelegate](https://github.com/IcaliaLabs/Presentr/blob/master/DELEGATE.md)
+- [PresentationType customization & more](https://github.com/IcaliaLabs/Presentr/blob/master/PRESENTATIONTYPE.md)
+- [TransitionType customization & more](https://github.com/IcaliaLabs/Presentr/blob/master/TRANSITIONTYPE.md)
+
 ## Requirements
 
 * iOS 9.0+
