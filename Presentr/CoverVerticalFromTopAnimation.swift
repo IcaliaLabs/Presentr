@@ -8,9 +8,9 @@
 
 import Foundation
 
-class CoverVerticalFromTopAnimation: PresentrAnimation {
+public class CoverVerticalFromTopAnimation: PresentrAnimation {
 
-    override func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
+    override public func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
         var initialFrame = finalFrame
         initialFrame.origin.y = 0 - initialFrame.size.height
         return initialFrame

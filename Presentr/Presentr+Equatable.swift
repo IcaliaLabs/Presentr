@@ -21,6 +21,8 @@ public func == (lhs: PresentationType, rhs: PresentationType) -> Bool {
         return true
     case (.bottomHalf, .bottomHalf):
         return true
+    case (.dynamic, .dynamic):
+        return true
     default:
         return false
     }

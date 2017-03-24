@@ -20,20 +20,11 @@ struct PresentrConstants {
     }
 }
 
-/// Helper struct that represents the shadow properties
-public struct PresentrShadow {
+public enum DismissSwipeDirection {
 
-    public let shadowColor: UIColor?
-    public let shadowOpacity: Float?
-    public let shadowOffset: CGSize?
-    public let shadowRadius: CGFloat?
-
-    public init(shadowColor: UIColor?, shadowOpacity: Float?, shadowOffset: CGSize?, shadowRadius: CGFloat?) {
-        self.shadowColor = shadowColor
-        self.shadowOpacity = shadowOpacity
-        self.shadowOffset = shadowOffset
-        self.shadowRadius = shadowRadius
-    }
+    case `default`
+    case bottom
+    case top
 
 }
 
@@ -59,8 +50,6 @@ public struct PresentrShadow {
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
 
-    // MARK: Public Properties
-
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentationType
 
@@ -70,13 +59,13 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType or default value will be used.
     public var dismissTransitionType: TransitionType?
 
-    /// Should the presented controller have rounded corners. Default is true, except for .BottomHalf and .TopHalf presentation types.
-    public var roundCorners = true
+    /// Should the presented controller have rounded corners. Each presentation type has its own default if nil.
+    public var roundCorners: Bool?
 
-    /// Radius of rounded corners if roundCorners is true. Default is 4.
+    /// Radius of rounded corners for presented controller if roundCorners is true. Default is 4.
     public var cornerRadius: CGFloat = 4
 
-    /// Radius of rounded corners if roundCorners is true. Default is 4.
+    /// Shadow settings for presented controller.
     public var dropShadow: PresentrShadow?
 
     /// Should the presented controller dismiss on background tap. Default is true.
@@ -85,7 +74,10 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on Swipe inside the presented view controller. Default is false.
     public var dismissOnSwipe = false
 
-    /// Should the presented controller use animation when dismiss on background tap. Default is true.
+    /// If dismissOnSwipe is true, the direction for the swipe. Default depends on presentation type.
+    public var dismissOnSwipeDirection: DismissSwipeDirection = .default
+
+    /// Should the presented controller use animation when dismiss on background tap or swipe. Default is true.
     public var dismissAnimated = true
 
     /// Color of the background. Default is Black.
@@ -100,8 +92,28 @@ public class Presentr: NSObject {
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
 
+    /// A custom background view to be added on top of the regular background view.
+    public var customBackgroundView: UIView?
+    
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
+
+    /// When a ViewController for context is set this handles what happens to a tap when it is outside the context. True will ignore tap and pass the tap to the background controller, false will handle the tap and dismiss the presented controller. Default is false.
+    public var shouldIgnoreTapOutsideContext = false
+
+    /// Uses the ViewController's frame as context for the presentation. Imitates UIModalPresentation.currentContext
+    public weak var viewControllerForContext: UIViewController? {
+        didSet {
+            guard let viewController = viewControllerForContext, let view = viewController.view else {
+                contextFrameForPresentation = nil
+                return
+            }
+            let correctedOrigin = view.convert(view.frame.origin, to: nil) // Correct origin in relation to UIWindow
+            contextFrameForPresentation = CGRect(x: correctedOrigin.x, y: correctedOrigin.y, width: view.bounds.width, height: view.bounds.height)
+        }
+    }
+
+    fileprivate var contextFrameForPresentation: CGRect?
 
     // MARK: Init
 
@@ -137,19 +149,9 @@ public class Presentr: NSObject {
      - parameter completion:   Completion block.
      */
     fileprivate func presentViewController(presentingViewController presentingVC: UIViewController, presentedViewController presentedVC: UIViewController, animated: Bool, completion: (() -> Void)?) {
-
-        if let systemPresentTransition = transitionForPresent.systemTransition() {
-            presentedVC.modalTransitionStyle = systemPresentTransition
-        }
-
         presentedVC.transitioningDelegate = self
         presentedVC.modalPresentationStyle = .custom
         presentingVC.present(presentedVC, animated: animated, completion: completion)
-
-        if let systemDismissTransition = transitionForDismiss.systemTransition() {
-            presentedVC.modalTransitionStyle = systemDismissTransition
-        }
-
     }
 
     fileprivate var transitionForPresent: TransitionType {
@@ -167,43 +169,38 @@ public class Presentr: NSObject {
 extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        // Apparently in iOS 10 presenting VC is now sometimes nil. Does not seem to cause an issue.
         return presentationController(presented, presenting: presenting)
     }
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animation(for: transitionForPresent)
+        return transitionForPresent.animation()
     }
 
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return animation(for: transitionForDismiss)
+        return transitionForDismiss.animation()
     }
 
     // MARK: - Private Helper's
 
     fileprivate func presentationController(_ presented: UIViewController, presenting: UIViewController?) -> PresentrController {
-        let presentationController = PresentrController(presentedViewController: presented,
-                                                        presentingViewController: presenting,
-                                                        presentationType: presentationType,
-                                                        roundCorners: roundCorners,
-                                                        cornerRadius: cornerRadius,
-                                                        dropShadow: dropShadow,
-                                                        dismissOnTap: dismissOnTap,
-                                                        dismissOnSwipe: dismissOnSwipe,
-                                                        backgroundColor: backgroundColor,
-                                                        backgroundOpacity: backgroundOpacity,
-                                                        blurBackground: blurBackground,
-                                                        blurStyle: blurStyle,
-                                                        keyboardTranslationType:  keyboardTranslationType,
-                                                        dismissAnimated: dismissAnimated)
-        return presentationController
-    }
-
-    fileprivate func animation(for transition: TransitionType?) -> PresentrAnimation? {
-        if let _ = transition?.systemTransition() {
-            return nil // If transition is handled by OS then no custom animation. Must return nil.
-        }
-        return transition?.animation()
+        return PresentrController(presentedViewController: presented,
+                                    presentingViewController: presenting,
+                                    presentationType: presentationType,
+                                    roundCorners: roundCorners,
+                                    cornerRadius: cornerRadius,
+                                    dropShadow: dropShadow,
+                                    dismissOnTap: dismissOnTap,
+                                    dismissOnSwipe: dismissOnSwipe,
+                                    dismissOnSwipeDirection: dismissOnSwipeDirection,
+                                    backgroundColor: backgroundColor,
+                                    backgroundOpacity: backgroundOpacity,
+                                    blurBackground: blurBackground,
+                                    blurStyle: blurStyle,
+                                    customBackgroundView: customBackgroundView,
+                                    keyboardTranslationType:  keyboardTranslationType,
+                                    dismissAnimated: dismissAnimated,
+                                    contextFrameForPresentation: contextFrameForPresentation,
+                                    shouldIgnoreTapOutsideContext: shouldIgnoreTapOutsideContext)
     }
 
 }
@@ -212,14 +209,13 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
 public extension UIViewController {
 
-    /**
-     Public method for presenting a view controller, using the custom presentation. Called from the UIViewController extension.
-
-     - parameter presentr:       Presentr object used for custom presentation.
-     - parameter viewController: The view controller to be presented.
-     - parameter animated:       Animation boolean.
-     - parameter completion:     Completion block.
-     */
+    /// Present a view controller with a custom presentation provided by the Presentr object.
+    ///
+    /// - Parameters:
+    ///   - presentr: Presentr object used for custom presentation.
+    ///   - viewController: The view controller to be presented.
+    ///   - animated: Animation setting for the presentation.
+    ///   - completion: Completion handler.
     func customPresentViewController(_ presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
         presentr.presentViewController(presentingViewController: self,
                                        presentedViewController: viewController,

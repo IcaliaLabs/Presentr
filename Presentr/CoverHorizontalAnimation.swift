@@ -8,15 +8,15 @@
 
 import Foundation
 
-class CoverHorizontalAnimation: PresentrAnimation {
+public class CoverHorizontalAnimation: PresentrAnimation {
 
     private var fromRight: Bool
 
-    init(fromRight: Bool = true) {
+    public init(fromRight: Bool = true) {
         self.fromRight = fromRight
     }
 
-    override func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
+    override public func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
         var initialFrame = finalFrame
         if fromRight {
             initialFrame.origin.x = containerFrame.size.width + initialFrame.size.width
