@@ -1,5 +1,17 @@
 ### What's New
 
+#### 1.2.0
+- You can add custom BackgroundView. (thanks to @clebta)
+- Add custom text color for AlertViewController
+- New PresentationType called .dynamic that allows dynamic sizing of ViewController using AutoLayout to calculate size.
+- You can set the context so the presentation is done properly on a child view controller and not the whole screen.
+- You can also set the behavior for a tap outside the context.
+- Simpler PresentrAnimation architecture. Simpler to modify existing transition animations or create your own.
+- Two new animations to replace system ones, CoverVertical & CrossDissolve.
+- All animations are now Presentr's, no more Apple animations. This allows greater control & less bugs.
+- Swipe to dismiss feature greatly improved.
+- Bug fixes and other small improvements.
+
 #### 1.1.0
 - You are now able to create your own custom transition animations. See how in readme. (thanks to @fpg1503 & @danlozano)
 - New animation available, coverVerticalWithSpring (thanks to @fpg1503)
