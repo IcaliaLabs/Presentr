@@ -287,7 +287,7 @@ Be sure to set the viewControllerForContext property before presenting, not on i
 - [Built in AlertViewController](https://github.com/IcaliaLabs/Presentr/blob/master/ALERT.md)
 - [PresentrDelegate](https://github.com/IcaliaLabs/Presentr/blob/master/DELEGATE.md)
 - [PresentationType customization & more](https://github.com/IcaliaLabs/Presentr/blob/master/PRESENTATIONTYPE.md)
-- [TransitionType, PresentrAnimation & more](https://github.com/IcaliaLabs/Presentr/blob/master/TRANSITIONTYPE.md)
+- [TransitionType customization, PresentrAnimation & more](https://github.com/IcaliaLabs/Presentr/blob/master/TRANSITIONTYPE.md)
 
 ## Requirements
 
