@@ -47,7 +47,7 @@ open class PresentrAnimation: NSObject {
 
     public var options: AnimationOptions
 
-    public init(options: AnimationOptions = .normal(duration: 0.5)) {
+    public init(options: AnimationOptions = .normal(duration: 0.4)) {
         self.options = options
     }
 
@@ -85,6 +85,13 @@ open class PresentrAnimation: NSObject {
 
         let finalFrame = transitionContext.isPresenting ? finalFrameForVC : initialFrameForVC
         transitionContext.animatingView?.frame = finalFrame
+    }
+
+    /// Actions to be performed after the animation.
+    ///
+    /// - Parameter transitionContext: The context with everything needed for the animiation.
+    open func afterAnimation(using transitionContext: PresentrTransitionContext) {
+        // Any cleanup to be done after the animation is over.
     }
 
 }
@@ -153,6 +160,7 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
         UIView.animate(withDuration: duration, animations: {
             self.performAnimation(using: presentrContext)
         }) { (completed) in
+            self.afterAnimation(using: presentrContext)
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
@@ -167,6 +175,7 @@ extension PresentrAnimation: UIViewControllerAnimatedTransitioning {
                        animations: {
             self.performAnimation(using: presentrContext)
         }) { (completed) in
+            self.afterAnimation(using: presentrContext)
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }

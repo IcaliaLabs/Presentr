@@ -18,4 +18,8 @@ public class CrossDissolveAnimation: PresentrAnimation {
         transitionContext.animatingView?.alpha = transitionContext.isPresenting ? 1.0 : 0.0
     }
 
+    override public func afterAnimation(using transitionContext: PresentrTransitionContext) {
+        transitionContext.animatingView?.alpha = 1.0
+    }
+
 }

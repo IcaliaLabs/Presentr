@@ -58,12 +58,12 @@ enum ExampleItem: String {
 
     case fullScreen = "Full Screen"
     case customBackground = "Custom background"
-    case keyboardTest = "Test keyboard translation & delegate"
-    case backgroundBlur = "Test the background blur animation"
+    case keyboardTest = "Keyboard translation"
+    case backgroundBlur = "Background blur"
 
     case custom = "Custom presentation"
     case customAnimation = "Custom user created animation"
-    case modifiedAnimation = "Customized built in animation"
+    case modifiedAnimation = "Modified built in animation"
     case coverVerticalWithSpring = "Cover vertical with spring"
     case currentContext = "Using a custom context"
     case dynamicSize = "Using dynamic sizing (Auto Layout)"
@@ -332,7 +332,7 @@ extension MainTableViewController {
     func fullScreenPresentation() {
         presenter.presentationType = .fullScreen
         presenter.transitionType = .coverVertical
-        presenter.dismissTransitionType = nil
+        presenter.dismissTransitionType = .crossDissolve
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
@@ -349,6 +349,7 @@ extension MainTableViewController {
     }
 
     func backgroundBlurTest() {
+        presenter.presentationType = .alert
         presenter.blurBackground = true
         alertDefault()
         presenter.blurBackground = false
@@ -361,19 +362,22 @@ extension MainTableViewController {
     }
 
     func customAnimation() {
+        presenter.presentationType = .alert
         presenter.transitionType = TransitionType.custom(CustomAnimation())
         presenter.dismissTransitionType = TransitionType.custom(CustomAnimation())
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
     func modifiedAnimation() {
-        let modifiedAnimation = CrossDissolveAnimation(options: .normal(duration: 3.0))
+        presenter.presentationType = .alert
+        let modifiedAnimation = CrossDissolveAnimation(options: .normal(duration: 1.0))
         presenter.transitionType = TransitionType.custom(modifiedAnimation)
         presenter.dismissTransitionType = TransitionType.custom(modifiedAnimation)
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
     func coverVerticalWithSpring() {
+        presenter.presentationType = .alert
         let animation = CoverVerticalAnimation(options: .spring(duration: 2.0,
                                                                 delay: 0,
                                                                 damping: 0.5,

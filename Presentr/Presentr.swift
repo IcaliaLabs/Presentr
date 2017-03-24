@@ -50,8 +50,6 @@ public enum DismissSwipeDirection {
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
 
-    // MARK: Public Properties
-
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentationType
 
