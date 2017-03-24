@@ -13,32 +13,32 @@
 
 iOS let's you modally present any view controller, but if you want the presented view controller to not cover the whole screen or modify anything about its presentation or transition you have to use the Custom View Controller Presentation API's.
 
-This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure **Presentr** depending on how you want you view controller to be presented, and the framework handles everything for you.
+This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure your **Presentr** object depending on how you want you view controller to be presented, and the framework handles everything for you.
 
-<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="192">
-<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="192">
-<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="192">
-<img src="http://danielozano.com/Presentr/Gifs/OtherSlow.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="150">
+<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="150">
+<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="150">
+<img src="http://danielozano.com/Presentr/Gifs/OtherSlow.gif" width="150">
 
 *These are just examples of an Alert UI presented in multiple ways. But, with Presentr you can present any custom View Controller you create in any of the Presentation types, or create your own custom one!*
 
 ## What's New
 
+#### 1.2.0
+- You can add custom BackgroundView. (thanks to @clebta)
+- Add custom text color for AlertViewController
+- New PresentationType called .dynamic that allows dynamic sizing of ViewController using AutoLayout to calculate size.
+- You can set the context so the presentation is done properly on a child view controller and not the whole screen.
+- You can also set the behavior for a tap outside the context.
+- Simpler PresentrAnimation architecture. Simpler to modify existing transition animations or create your own.
+- Two new animations to replace system ones, CoverVertical & CrossDissolve.
+- All animations are now Presentr's, no more Apple animations. This allows greater control & less bugs.
+- Swipe to dismiss feature greatly improved.
+- Bug fixes and other small improvements.
+
 #### 1.1.0
 - You are now able to create your own custom transition animations. See how in readme. (thanks to @fpg1503 & @danlozano)
 - New animation available, coverVerticalWithSpring (thanks to @fpg1503)
-
-#### 1.0.5
-- Support for animated blurred background (thanks to @fpg1503)
-
-#### 1.0.4
-- New ModalSize option with sideMargin value (thanks to @alediaz84)
-- Example project fixes
-
-#### 1.0.3
-- Support for custom radius & drop shadow (thanks @falkobuttler)
-- New fluid percentage option for ModalSize enum (thanks @mseijas)
-- Example project and other general improvements (thanks @gabrielPeart)
 
 #### See CHANGELOG.md for previous
 
@@ -89,21 +89,44 @@ carthage update --platform ios
 
 It is **important to hold on to the Presentr object as a property** on the presenting/current View Controller since internally it will be used as a delegate for the custom presentation, so you must hold a strong reference to it.
 
+Your **Presentr** can be as simple as this:
+
 ```swift
-class ViewController: UIViewController{
+class ViewController: UIViewController {
+
+  let presenter = Presentr(presentationType: .alert)
+
+}
+```
+
+Or as complex as this:
+
+```swift
+class ViewController: UIViewController {
 
   let presenter: Presentr = {
-      let presenter = Presentr(presentationType: .alert)
-      presenter.transitionType = .coverHorizontalFromRight // Optional
-      return presenter
-  }()
+        let width = ModalSize.full
+        let height = ModalSize.fluid(percentage: 0.20)
+        let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
+        let customType = PresentationType.custom(width: width, height: height, center: center)
 
+        let customPresenter = Presentr(presentationType: customType)
+        customPresenter.transitionType = .coverVerticalFromTop
+        customPresenter.dismissTransitionType = .crossDissolve
+        customPresenter.roundCorners = false
+        customPresenter.backgroundColor = .green
+        customPresenter.backgroundOpacity = 0.5
+        customPresenter.dismissOnSwipe = true
+        customPresenter.dismissOnSwipeDirection = .top
+        return customPresenter
+    }()
+	
 }
 ```
 
 ### Present the view controller.
 
-Instantiate the View Controller you want to present. Remember to setup autolayout on it so it can be displayed well on any size.
+Instantiate the View Controller you want to present and use the customPresentViewController method along with your **Presentr** object to do the custom presentation.
 
 ```swift
 let controller = SomeViewController()
@@ -112,7 +135,9 @@ customPresentViewController(presenter, viewController: controller, animated: tru
 
 This is a helper method provided for you as an extension on UIViewController. It handles setting the Presentr object as the delegate for the presentation & transition.
 
-The PresentationType (and all other properties) can be changed later on in order to reuse the Presentr object for other presentations.
+Remember to setup Auto Layout on the ViewController so it can be displayed well on any size.
+
+The PresentationType (and all other properties) can be changed later on in order to reuse the **Presentr** object for other presentations.
 
 ```swift
 presenter.presentationType = .popup
@@ -129,6 +154,7 @@ public enum PresentationType {
   case topHalf
   case bottomHalf
   case fullScreen
+  case dynamic(center: ModalCenterPosition)
   case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
 }
 ```
@@ -143,16 +169,11 @@ public enum PresentationType {
 
 ```swift
 public enum TransitionType{
-  // System provided
   case coverVertical
   case crossDissolve
-  case flipHorizontal
-  // Custom
   case coverVerticalFromTop
   case coverHorizontalFromRight
   case coverHorizontalFromLeft
-  case coverVerticalWithSpring
-  // User Provided
   case custom(PresentrAnimation)
 }
 ```
@@ -167,33 +188,33 @@ presenter.transitionType = .coverVerticalFromTop
 presenter.dismissTransitionType = .coverVertical
 ```
 
-You can change the background color & opacity for the background view that will be displayed below the presented view controller. Default is black with 0.7 opacity.
+You can change the background color & opacity for the background view that will be displayed below the presented view controller. 
 
 ```swift
 presenter.backgroundColor = UIColor.red
 presenter.backgroundOpacity = 1.0
 ```
 
-You could also turn on the blur effect for the background, and change it's style. Default is false for the blur effect, and .Dark for the style. If you turn on the blur effect the background color and opacity will be ignored.
+You could also turn on the blur effect for the background, and change it's style. If you turn on the blur effect the background color and opacity will be ignored.
 
 ```swift
 presenter.blurBackground = true
 presenter.blurStyle = UIBlurEffectStyle.light
 ```
 
-You can choose to disable rounded corners on the view controller that will be presented. Default is true.
+You can choose to disable rounded corners on the view controller that will be presented.
 
 ```swift
 presenter.roundCorners = false
 ```
 
-You can also set the cornerRadius if you set roundCorners to true.
+If set to true you can modify the cornerRadius.
 
 ```swift
 presenter.cornerRadius = 10
 ```
 
-Using the PresentrShadow struct can set a custom shadow on the presented view controller.
+Using the **PresentrShadow** struct can set a custom shadow on the presented view controller.
 
 ```swift
 let shadow = PresentrShadow()
@@ -205,20 +226,23 @@ shadow.shadowRadius = 4.0
 presenter.dropShadow = shadow
 ```
 
-You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true. Or you can disable the animation for the dismissOnTap.
+You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true. Or you can disable the animation for the dismissOnTap and dismissOnSwipe.
 
 ```swift
 presenter.dismissOnTap = false
 presenter.dismissAnimated = false
 ```
 
-You can activate dismissOnSwipe so that swiping up inside the presented view controller dismisses it. Default is false. If your view controller uses any kind of scroll view this is not recommended as it will mess with the scrolling.
+You can activate dismissOnSwipe so that swiping inside the presented view controller dismisses it. Default is false because if your view controller uses any kind of scroll view this is not recommended as it will mess with the scrolling.
+
+You can also se the direction, for example in case your ViewController is an Alert at the top, you would want to dismiss it by swiping up.
 
 ```swift
 presenter.dismissOnSwipe = true
+presenter.dismissOnSwipeDirection = .top
 ```
 
-If you have text fields inside your modal, you can use a KeyboardTranslationType to tell Presentr how to handle your modal when the keyboard shows up.
+If you have text fields inside your modal, you can use a **KeyboardTranslationType** to tell **Presentr** how to handle your modal when the keyboard shows up.
 
 ```swift
 presenter.keyboardTranslationType = .none
@@ -226,157 +250,6 @@ presenter.keyboardTranslationType = .moveUp
 presenter.keyboardTranslationType = .compress
 presenter.keyboardTranslationType = .stickToTop
 ```
-
-## Delegate
-
-You can conform to the PresentrDelegate protocol in your presented view controller if you want to get a callback. Using this method you can prevent the view controller from being dismissed when the background is tapped and/or perform something before it's dismissed.
-
-```swift
-func presentrShouldDismiss(keyboardShowing: Bool) -> Bool { }
-```
-
-## Creating a custom TransitionType
-
-- Create a class that inherits from **PresentrAnimation**, and override the properties you want to modify.
-- Note the **transform** method. It receives the Container Frame and Final Frame of the presented view controller. You need to return the Initial frame you want for the view controller, that way you can create your animation.
-```swift
-class CustomAnimation: PresentrAnimation {
-
-    override var springDamping: CGFloat {
-        return 500
-    }
-
-    override var initialSpringVelocity: CGFloat {
-        return 1
-    }
-
-    override var animationDuration: TimeInterval {
-        return 1
-    }
-
-    override func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
-        return CGRect(x: 0, y: 0, width: 10, height: 10)
-    }
-
-}
-```
-
-If modifying those properties is not enough, you can handle the animation completely by yourself overriding this method.
-```swift
-override func customAnimation(using transitionContext: UIViewControllerContextTransitioning) -> Bool {
-  // Do your custom animation here, using the transition context.
-  return true
-}
-```
-Remember to return true otherwise your custom animation will be ignored. If you implement this method and return true, other properties will be obviously ignored.
-
-Finally, create a custom TransitionType with your custom animation.
-```swift
-presenter.transitionType = .custom(CustomAnimation())
-```
-
-## Creating a custom PresentationType
-
-If you need to present a controller in a way that is not handled by the 4 included presentation types you can create your own. You create a custom **PresentationType** using the **.Custom** case on the **PresentationType** enum.
-```swift
-let customType = PresentationType.custom(width: width, height: height, center: center)
-```
-
-It has three associated values for the width, height and center position of the presented controller. For setting them we use two other enums.
-
-```Swift
-// This is used to calculate either a width or height value.
-public enum ModalSize {
-  case default
-  case half   
-  case full      
-  case custom(size: Float)
-  case fluid(percentage: Float)
-}
-
-// This is used to calculate the center point position for the modal.
-public enum ModalCenterPosition {
-  case center     
-  case topCenter  
-  case bottomCenter
-  case custom(centerPoint: CGPoint)  // Custom fixed center point.
-  case customOrigin(origin: CGPoint) // Custom fixed origin point.
-}
-```
-
-This allows us to use a fixed value when we want
-```swift
-let width = ModalSize.custom(size: 300) // Custom 300pt width
-```
-
-But also let Presentr handle the calculations when we want something more common.
-```swift
-let height = ModalSize.full // Whole screen height
-```
-
-We could also set a fixed position
-```swift
-let position = ModalCenterPosition.custom(centerPoint: CGPoint(x: 150, y: 150))  // Custom center point
-```
-
-Or let presentr calculate the position
-```swift
-let position = ModalCenterPosition.center // Center of the screen
-```
-
-So we can mix and match, and have the benefit of a custom **PresentationType** but still have *Presentr* calculating the values we don't want to do ourselves. The following code creates a *Presentr* object with a custom **PresentationType** which shows the alert in a small top banner.
-
-```swift
-class ViewController: UIViewController{
-
-  let customPresenter: Presentr = {
-
-    let width = ModalSize.full
-    let height = ModalSize.custom(size: 150)
-    let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
-
-    let customType = PresentationType.custom(width: width, height: height, center: center)
-
-    let customPresenter = Presentr(presentationType: customType)
-    customPresenter.transitionType = .coverVerticalFromTop
-    customPresenter.roundCorners = false
-    return customPresenter
-
-  }()
-
-}
-```
-
-<img src="http://danielozano.com/Presentr/Screenshots/CustomPresentationType.png" width="250">
-
-## AlertViewController
-
-Presentr also comes with a cool AlertViewController baked in if you want something different from Apple's. The API is very similar to Apple's alert controller.
-
-```swift
-
-  let title = "Are you sure?"
-  let body = "There is no way to go back after you do this!"
-
-  let controller = Presentr.alertViewController(title: title, body: body)
-
-  let deleteAction = AlertAction(title: "Sure 🕶", style: .destructive) {
-    print("Deleted!")
-  }
-
-  let okAction = AlertAction(title: "NO, sorry 🙄", style: .cancel){
-    print("Ok!")
-  }
-
-  controller.addAction(deleteAction)
-  controller.addAction(okAction)
-
-  presenter.presentationType = .alert
-  customPresentViewController(presenter, viewController: controller, animated: true, completion: nil)
-
-```
-
-<img src="http://danielozano.com/Presentr/Screenshots/Alert2.png" width="250">
 
 ## Requirements
 
@@ -386,7 +259,7 @@ Presentr also comes with a cool AlertViewController baked in if you want somethi
 
 ## Documentation
 
-Read the [docs](http://danielozano.com/Presentr/Docs/). Generated with [jazzy](https://github.com/realm/jazzy).
+Read the [docs](http://danielozano.com/Presentr/Docs/). 
 
 ##  Author
 [Daniel Lozano](http://danielozano.com) <br>
