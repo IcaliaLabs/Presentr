@@ -15,10 +15,10 @@ iOS let's you modally present any view controller, but if you want the presented
 
 This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure your **Presentr** object depending on how you want you view controller to be presented, and the framework handles everything for you.
 
-<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="150">
-<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="150">
-<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="150">
-<img src="http://danielozano.com/Presentr/Gifs/OtherSlow.gif" width="150">
+<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/OtherSlow.gif" width="192">
 
 *These are just examples of an Alert UI presented in multiple ways. But, with Presentr you can present any custom View Controller you create in any of the Presentation types, or create your own custom one!*
 
@@ -149,6 +149,7 @@ presenter.presentationType = .popup
 
 ```swift
 public enum PresentationType {
+
   case alert
   case popup
   case topHalf
@@ -156,6 +157,7 @@ public enum PresentationType {
   case fullScreen
   case dynamic(center: ModalCenterPosition)
   case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
+  
 }
 ```
 #### Alert & Popup
@@ -168,24 +170,33 @@ public enum PresentationType {
 ### Transition Type
 
 ```swift
-public enum TransitionType{
+public enum TransitionType {
+
   case coverVertical
   case crossDissolve
   case coverVerticalFromTop
   case coverHorizontalFromRight
   case coverHorizontalFromLeft
   case custom(PresentrAnimation)
+  
 }
 ```
 
 ## Properties
+
 #### Properties are optional, as they all have Default values.
+
+The only required property for **Presentr** is the **PresentationType**. You initialize the object with one, but it can be changed later on.
+
+```swift
+presenter.presentationType = .popup
+```
 
 You can choose a TransitionType, which is the animation that will be used to present or dismiss the view controller.
 
 ```swift
 presenter.transitionType = .coverVerticalFromTop
-presenter.dismissTransitionType = .coverVertical
+presenter.dismissTransitionType = .crossDissolve
 ```
 
 You can change the background color & opacity for the background view that will be displayed below the presented view controller. 
