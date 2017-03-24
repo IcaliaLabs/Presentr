@@ -1,6 +1,6 @@
 ## Creating a custom TransitionType
 
-To create a custom TransitionType you have to modify an existing **PresentrAnimation** or create your own. Then use the .custom **TransitionType** with your custom animation.
+To create a custom TransitionType you have to modify an existing **PresentrAnimation** or create your own. Then initialize a **.custom** TransitionType with your animation.
 
 ### Modify an existing one
 
@@ -11,7 +11,9 @@ let animation = CoverVerticalAnimation(options: .spring(duration: 2.0,
                                                         delay: 0,
                                                         damping: 0.5,
                                                         velocity: 0))
+                                                        
 let coverVerticalWithSpring = TransitionType.custom(animation)
+
 presenter.transitionType = coverVerticalWithSpring
 presenter.dismissTransitionType = coverVerticalWithSpring
 ```
@@ -62,7 +64,7 @@ Then, either:
 - Override the **transform** method. It receives the Container Frame and Final Frame of the presented view controller. You need to return the Initial frame you want for the view controller, that way you can create a simple movement animation.
 
 ```swift
-class CustomAnimation: PresentrAnimation {
+class ExpandFromCornerAnimation: PresentrAnimation {
 
     override func transform(containerFrame: CGRect, finalFrame: CGRect) -> CGRect {
         return CGRect(x: 0, y: 0, width: 10, height: 10)
@@ -124,5 +126,5 @@ public struct PresentrTransitionContext {
 Finally, create a custom TransitionType with your custom animation.
 
 ```swift
-presenter.transitionType = .custom(CustomAnimation())
+presenter.transitionType = .custom(ExpandFromCornerAnimation())
 ```
