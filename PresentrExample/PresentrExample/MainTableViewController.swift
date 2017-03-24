@@ -142,12 +142,11 @@ class MainTableViewController: UITableViewController {
 
         let customPresenter = Presentr(presentationType: customType)
         customPresenter.transitionType = .coverVerticalFromTop
-        customPresenter.dismissTransitionType = .coverVerticalFromTop
+        customPresenter.dismissTransitionType = .crossDissolve
         customPresenter.roundCorners = false
-        
         customPresenter.backgroundColor = .green
         customPresenter.backgroundOpacity = 0.5
-
+        customPresenter.dismissOnSwipe = true
         return customPresenter
     }()
 
@@ -382,8 +381,9 @@ extension MainTableViewController {
                                                                 delay: 0,
                                                                 damping: 0.5,
                                                                 velocity: 0))
-        presenter.transitionType = TransitionType.custom(animation)
-        presenter.dismissTransitionType = TransitionType.custom(animation)
+        let coverVerticalWithSpring = TransitionType.custom(animation)
+        presenter.transitionType = coverVerticalWithSpring
+        presenter.dismissTransitionType = coverVerticalWithSpring
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
