@@ -204,11 +204,12 @@ presenter.transitionType = .coverVerticalFromTop
 presenter.dismissTransitionType = .crossDissolve
 ```
 
-You can change the background color & opacity for the background view that will be displayed below the presented view controller. 
+You can change the background color & opacity for the background view that will be displayed below the presented view controller. You can also set a customBackgroundView that will be displayed on top of the built-in background view.
 
 ```swift
 presenter.backgroundColor = UIColor.red
 presenter.backgroundOpacity = 1.0
+presenter.customBackgroundView = UIView()
 ```
 
 You could also turn on the blur effect for the background, and change it's style. If you turn on the blur effect the background color and opacity will be ignored.
@@ -267,12 +268,26 @@ presenter.keyboardTranslationType = .compress
 presenter.keyboardTranslationType = .stickToTop
 ```
 
+If you are doing a presentation inside a SplitViewController or any other type of container/child ViewController situation you can use these properties to handle it properly.
+
+Set the viewControllerForContext to the ViewController you want **Presentr** to use for framing the presentation context. shouldIgnoreTapOutsideContext is set to false by default. This handles what happens when they click outside the context (on the other ViewController).
+
+Be sure to set the viewControllerForContext property before presenting, not on initialization, this makes sure that Auto Layout has finished it's work and the frame for the ViewController is correct.
+
+```swift
+@IBAction func didSelectShowAlert(_ sender: Any) {
+	presenter.viewControllerForContext = self
+	presenter.shouldIgnoreTapOutsideContext = true
+	customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+}
+```
+
 ## Other / Advanced
 
 - [Built in AlertViewController](https://github.com/IcaliaLabs/Presentr/blob/master/ALERT.md)
 - [PresentrDelegate](https://github.com/IcaliaLabs/Presentr/blob/master/DELEGATE.md)
 - [PresentationType customization & more](https://github.com/IcaliaLabs/Presentr/blob/master/PRESENTATIONTYPE.md)
-- [TransitionType customization & more](https://github.com/IcaliaLabs/Presentr/blob/master/TRANSITIONTYPE.md)
+- [TransitionType, PresentrAnimation & more](https://github.com/IcaliaLabs/Presentr/blob/master/TRANSITIONTYPE.md)
 
 ## Requirements
 
