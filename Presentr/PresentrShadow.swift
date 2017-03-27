@@ -19,4 +19,11 @@ public struct PresentrShadow {
 
     public let shadowRadius: CGFloat?
 
+    public init(shadowColor: UIColor?, shadowOpacity: Float?, shadowOffset: CGSize?, shadowRadius: CGFloat?) {
+        self.shadowColor = shadowColor
+        self.shadowOpacity = shadowOpacity
+        self.shadowOffset = shadowOffset
+        self.shadowRadius = shadowRadius
+    }
+
 }
