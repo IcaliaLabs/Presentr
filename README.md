@@ -15,10 +15,7 @@ iOS let's you modally present any view controller, but if you want the presented
 
 This can be cumbersome, specially if you do it multiple times in your app. **Presentr** simplifies all of this. You just have to configure your **Presentr** object depending on how you want you view controller to be presented, and the framework handles everything for you.
 
-<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="192">
-<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="192">
-<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="192">
-<img src="http://danielozano.com/Presentr/Gifs/OtherSlow.gif" width="192">
+<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="192"><img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="192"><img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="192"><img src="http://danielozano.com/Presentr/Gifs/OtherSlow.gif" width="192">
 
 *These are just examples of an Alert UI presented in multiple ways. But, with Presentr you can present any custom View Controller you create in any of the Presentation types, or create your own custom one!*
 
@@ -162,15 +159,11 @@ public enum PresentationType {
 ```
 #### Alert & Popup
 
-<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="250">
-
-<img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/AlertSlow.gif" width="250"><img src="http://danielozano.com/Presentr/Gifs/PopupSlow.gif" width="250">
 
 #### BottomHalf & TopHalf
 
-<img src="http://danielozano.com/Presentr/Gifs/BottomHalfSlow.gif" width="250">
-
-<img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="250">
+<img src="http://danielozano.com/Presentr/Gifs/BottomHalfSlow.gif" width="250"><img src="http://danielozano.com/Presentr/Gifs/TopHalfSlow.gif" width="250">
 
 ### Transition Type
 
