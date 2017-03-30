@@ -252,7 +252,7 @@ presenter.dismissOnSwipe = true
 presenter.dismissOnSwipeDirection = .top
 ```
 
-If you have text fields inside your modal, you can use a **KeyboardTranslationType** to tell **Presentr** how to handle your modal when the keyboard shows up.
+If you have text fields inside your modal and the presentationType property is set to popup, you can use a **KeyboardTranslationType** to tell **Presentr** how to handle your modal when the keyboard shows up.
 
 ```swift
 presenter.keyboardTranslationType = .none
