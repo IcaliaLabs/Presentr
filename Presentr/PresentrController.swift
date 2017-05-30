@@ -199,7 +199,7 @@ extension PresentrController {
         if let center = getCenterPointFromType() {
             origin = calculateOrigin(center, size: size)
         } else {
-            origin = getOriginFromType() ?? CGPoint(x: 0, y: 0)
+            origin = getOriginFromType(size) ?? CGPoint(x: 0, y: 0)
         }
         
         presentedViewFrame.size = size
@@ -320,9 +320,10 @@ fileprivate extension PresentrController {
         return position.calculateCenterPoint(containerBounds)
     }
 
-    func getOriginFromType() -> CGPoint? {
+    func getOriginFromType(_ size: CGSize) -> CGPoint? {
+        let containerBounds = containerFrame
         let position = presentationType.position()
-        return position.calculateOrigin()
+        return position.calculateOrigin(containerBounds, size: size)
     }
 
     func calculateOrigin(_ center: CGPoint, size: CGSize) -> CGPoint {
