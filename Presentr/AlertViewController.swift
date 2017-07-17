@@ -247,15 +247,7 @@ extension AlertViewController {
             return false
         }
 
-        #if swift(>=3.2)
-            guard let font = CGFont(provider) else {
-                print("Error loading font. Could not create CGFont from CGDataProvider.")
-                return false
-            }
-        #else
-            let font = CGFont(provider)
-        #endif
-
+        let font = CGFont(provider)
         var error: Unmanaged<CFError>?
 
         let success = CTFontManagerRegisterGraphicsFont(font, &error)
