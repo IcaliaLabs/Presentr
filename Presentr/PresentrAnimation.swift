@@ -11,25 +11,25 @@ import UIKit
 /// Simplified wrapper for the UIViewControllerContextTransitioning protocol.
 public struct PresentrTransitionContext {
 
-    let containerView: UIView
+    public let containerView: UIView
 
-    let initialFrame: CGRect
+    public let initialFrame: CGRect
 
-    let finalFrame: CGRect
+    public let finalFrame: CGRect
 
-    let isPresenting: Bool
+    public let isPresenting: Bool
 
-    let fromViewController: UIViewController?
+    public let fromViewController: UIViewController?
 
-    let toViewController: UIViewController?
+    public let toViewController: UIViewController?
 
-    let fromView: UIView?
+    public let fromView: UIView?
 
-    let toView: UIView?
+    public let toView: UIView?
 
-    let animatingViewController: UIViewController?
+    public let animatingViewController: UIViewController?
     
-    let animatingView: UIView?
+    public let animatingView: UIView?
     
 }
 
