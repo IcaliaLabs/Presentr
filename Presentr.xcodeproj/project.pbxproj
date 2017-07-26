@@ -29,6 +29,7 @@
 		06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */; };
 		06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */; };
 		28E70FD41D5E8AD600B0B885 /* KeyboardTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */; };
+		611B037A1F28CF3500F67ACB /* Interactr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611B03791F28CF3500F67ACB /* Interactr.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTranslation.swift; sourceTree = "<group>"; };
+		611B03791F28CF3500F67ACB /* Interactr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactr.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				0680CC491CE3EFC500CBAE4F /* Presentr.swift */,
 				0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */,
 				06B585571D2D6F4B0045C8DA /* PresentationType.swift */,
+				611B03791F28CF3500F67ACB /* Interactr.swift */,
 				06B5855A1D2D6F8B0045C8DA /* TransitionType.swift */,
 				06B5855C1D2D6FB00045C8DA /* ModalSize.swift */,
 				06B5855E1D2D6FE20045C8DA /* ModalCenterPosition.swift */,
@@ -310,6 +313,7 @@
 				06218DB91E897CAE00D6FE4B /* CrossDissolveAnimation.swift in Sources */,
 				06B5855D1D2D6FB00045C8DA /* ModalSize.swift in Sources */,
 				06B585471D2D5FDB0045C8DA /* Presentr+Equatable.swift in Sources */,
+				611B037A1F28CF3500F67ACB /* Interactr.swift in Sources */,
 				06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */,
 				06B585581D2D6F4B0045C8DA /* PresentationType.swift in Sources */,
 			);
