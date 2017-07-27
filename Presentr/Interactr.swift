@@ -19,7 +19,6 @@ public class Interactr: UIPercentDrivenInteractiveTransition {
     
     var hasStarted = false
     var shouldFinish = false
-    
     public var percentThreshold: CGFloat = 0.3
     
     public func calculateProgress(_ translationInView:CGPoint, viewBounds:CGRect, direction:Direction) -> CGFloat {
