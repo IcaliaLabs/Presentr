@@ -404,7 +404,7 @@ extension MainTableViewController {
     }
     
     func topCenterWithMarginPresentation() {
-        presenter.presentationType = .custom(width: .custom(size: 342), height: .custom(size: 150), center: .topCenterWithMargin(margin: 15.0))
+        presenter.presentationType = .custom(width: .default, height: .custom(size: 150), center: .topCenterWithMargin(margin: 15.0))
         presenter.transitionType = .coverHorizontalFromLeft
         presenter.dismissTransitionType = .coverHorizontalFromRight
         presenter.dismissAnimated = true
