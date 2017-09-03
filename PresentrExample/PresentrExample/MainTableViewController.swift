@@ -344,6 +344,7 @@ extension MainTableViewController {
         presenter.transitionType = nil
         presenter.dismissTransitionType = nil
         presenter.keyboardTranslationType = .compress
+        presenter.dismissOnSwipe = true
         customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
     }
 
