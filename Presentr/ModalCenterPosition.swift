@@ -22,6 +22,8 @@ public enum ModalCenterPosition {
     case center
     case topCenter
     case bottomCenter
+    case topCenterWithMargin(margin: CGFloat)
+    case bottomCenterWithMargin(margin: CGFloat)
     case custom(centerPoint: CGPoint)
     case customOrigin(origin: CGPoint)
 
@@ -43,6 +45,10 @@ public enum ModalCenterPosition {
         case .bottomCenter:
             return CGPoint(x: containerFrame.origin.x + (containerFrame.width / 2),
                            y: containerFrame.origin.y + (containerFrame.height * (3 / 4)))
+        case .topCenterWithMargin:
+            return nil
+        case .bottomCenterWithMargin:
+            return nil
         case .custom(let point):
             return point
         case .customOrigin(_):
@@ -50,10 +56,16 @@ public enum ModalCenterPosition {
         }
     }
 
-    func calculateOrigin() -> CGPoint? {
+    func calculateOrigin(_ containerFrame: CGRect, size: CGSize) -> CGPoint? {
         switch self {
         case .customOrigin(let origin):
             return origin
+        case .topCenterWithMargin(let margin):
+            return CGPoint(x: containerFrame.origin.x + (containerFrame.width / 2) - (size.width / 2),
+                           y: containerFrame.origin.y + margin)
+        case .bottomCenterWithMargin(let margin):
+            return CGPoint(x: containerFrame.origin.x + (containerFrame.width / 2) - (size.width / 2),
+                           y: containerFrame.origin.y + (containerFrame.height - size.height - margin))
         default:
             return nil
         }
