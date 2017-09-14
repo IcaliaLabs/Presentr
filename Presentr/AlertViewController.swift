@@ -242,12 +242,12 @@ extension AlertViewController {
         let bundle = Bundle(for: self)
         guard let fontPath = bundle.path(forResource: name, ofType: "ttf"),
             let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath)),
-            let provider = CGDataProvider(data: data as CFData)
+            let provider = CGDataProvider(data: data as CFData),
+            let font = CGFont(provider)
         else {
             return false
         }
 
-        let font = CGFont(provider)
         var error: Unmanaged<CFError>?
 
         let success = CTFontManagerRegisterGraphicsFont(font, &error)
