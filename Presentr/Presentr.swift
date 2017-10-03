@@ -9,15 +9,18 @@
 import Foundation
 import UIKit
 
-public struct PresentrConstants {
-    public struct Values {
+public enum PresentrConstants {
+
+    public enum Values {
         public static let defaultSideMargin: Float = 30.0
         public static let defaultHeightPercentage: Float = 0.66
     }
-    public struct Strings {
+
+    public enum Strings {
         public static let alertTitle = "Alert"
         public static let alertBody = "This is an alert."
     }
+    
 }
 
 public enum DismissSwipeDirection {
