@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias AlertActionHandler = (() -> Void)
+public typealias AlertActionHandler = ((AlertAction) -> Void)
 
 /// Describes each action that is going to be shown in the 'AlertViewController'
 public class AlertAction {
@@ -204,7 +204,7 @@ public class AlertViewController: UIViewController {
     @IBAction func didSelectFirstAction(_ sender: AnyObject) {
         guard let firstAction = actions.first else { return }
         if let handler = firstAction.handler {
-            handler()
+            handler(firstAction)
         }
         dismiss()
     }
@@ -212,7 +212,7 @@ public class AlertViewController: UIViewController {
     @IBAction func didSelectSecondAction(_ sender: AnyObject) {
         guard let secondAction = actions.last, actions.count == 2 else { return }
         if let handler = secondAction.handler {
-            handler()
+            handler(secondAction)
         }
         dismiss()
     }
