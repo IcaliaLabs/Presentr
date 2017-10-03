@@ -22,6 +22,10 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 
 ## What's New
 
+#### 1.3
+- Swift 4 / Xcode 9 / iOS 11 Support
+- Bug fixes
+
 #### 1.2.0
 - You can add custom BackgroundView. (thanks to @clebta)
 - Add custom text color for AlertViewController
@@ -56,6 +60,7 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 | <= 0.1.8 |  Swift 2.2  | >= iOS 8.0  |
 | == 0.2.1 |    Swift 2.3 | >= iOS 8.0 |
 | >= 1.0.0 | Swift 3.0 | >= iOS 9.0 |
+| >= 1.3 | Swift 4.0 | >= iOS 9.0 |
 
 ## Installation
 
