@@ -337,7 +337,7 @@ fileprivate extension PresentrController {
 
 extension PresentrController {
 
-    func chromeViewTapped(gesture: UIGestureRecognizer) {
+    @objc func chromeViewTapped(gesture: UIGestureRecognizer) {
         guard dismissOnTap else {
             return
         }
@@ -354,7 +354,7 @@ extension PresentrController {
         }
     }
 
-    func presentedViewSwipe(gesture: UIPanGestureRecognizer) {
+    @objc func presentedViewSwipe(gesture: UIPanGestureRecognizer) {
         guard dismissOnSwipe else {
             return
         }
@@ -423,7 +423,7 @@ extension PresentrController {
 
 extension PresentrController {
 
-    func keyboardWasShown(notification: Notification) {
+    @objc func keyboardWasShown(notification: Notification) {
         if let keyboardFrame = notification.keyboardEndFrame() {
             let presentedFrame = frameOfPresentedViewInContainerView
             let translatedFrame = keyboardTranslationType.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
@@ -436,7 +436,7 @@ extension PresentrController {
         }
     }
 
-    func keyboardWillHide (notification: Notification) {
+    @objc func keyboardWillHide (notification: Notification) {
         if keyboardIsShowing {
             let presentedFrame = frameOfPresentedViewInContainerView
             if self.presentedView?.frame !=  presentedFrame {
