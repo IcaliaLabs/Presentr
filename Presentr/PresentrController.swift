@@ -65,9 +65,19 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var presentedViewIsBeingDissmissed: Bool = false
 
-    fileprivate var presentedViewFrame: CGRect = CGRect.zero
+    fileprivate var presentedViewFrame: CGRect = .zero
 
-    fileprivate var presentedViewCenter: CGPoint = CGPoint.zero
+    fileprivate var presentedViewCenter: CGPoint = .zero
+
+    fileprivate var latestShouldDismiss: Bool = true
+
+    fileprivate lazy var shouldSwipeBottom: Bool = {
+        return self.dismissOnSwipeDirection == .default ? self.presentationType != .topHalf : self.dismissOnSwipeDirection == .bottom
+    }()
+
+    fileprivate lazy var shouldSwipeTop: Bool = {
+        return self.dismissOnSwipeDirection == .default ? self.presentationType == .topHalf : self.dismissOnSwipeDirection == .top
+    }()
 
     // MARK: - Init
 
@@ -337,7 +347,7 @@ fileprivate extension PresentrController {
 
 extension PresentrController {
 
-    func chromeViewTapped(gesture: UIGestureRecognizer) {
+    @objc func chromeViewTapped(gesture: UIGestureRecognizer) {
         guard dismissOnTap else {
             return
         }
@@ -354,18 +364,19 @@ extension PresentrController {
         }
     }
 
-    func presentedViewSwipe(gesture: UIPanGestureRecognizer) {
+    @objc func presentedViewSwipe(gesture: UIPanGestureRecognizer) {
         guard dismissOnSwipe else {
-            return
-        }
-
-        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
             return
         }
 
         if gesture.state == .began {
             presentedViewFrame = presentedViewController.view.frame
             presentedViewCenter = presentedViewController.view.center
+
+            let directionDown = gesture.translation(in: presentedViewController.view).y > 0
+            if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
+                latestShouldDismiss = conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true
+            }
         } else if gesture.state == .changed {
             swipeGestureChanged(gesture: gesture)
         } else if gesture.state == .ended || gesture.state == .cancelled {
@@ -373,30 +384,28 @@ extension PresentrController {
         }
     }
 
+
+
     // MARK: Helper's
 
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
 
-        let swipeBottom: Bool = (dismissOnSwipeDirection == .default) ? presentationType != .topHalf : dismissOnSwipeDirection == .bottom
-        let swipeTop: Bool = (dismissOnSwipeDirection == .default) ? presentationType == .topHalf : dismissOnSwipeDirection == .top
-
-        if swipeTop && amount.y > 0 {
+        if shouldSwipeTop && amount.y > 0 {
             return
-        } else if swipeBottom && amount.y < 0 {
+        } else if shouldSwipeBottom && amount.y < 0 {
             return
         }
 
         var swipeLimit: CGFloat = 100
-        if swipeTop {
+        if shouldSwipeTop {
             swipeLimit = -swipeLimit
         }
 
-        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x,
-                                                      y: presentedViewCenter.y + amount.y)
+        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
 
-        let shouldDismiss = swipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
-        if shouldDismiss {
+        let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
+        if dismiss && latestShouldDismiss {
             presentedViewIsBeingDissmissed = true
             presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
         }
@@ -423,7 +432,7 @@ extension PresentrController {
 
 extension PresentrController {
 
-    func keyboardWasShown(notification: Notification) {
+    @objc func keyboardWasShown(notification: Notification) {
         if let keyboardFrame = notification.keyboardEndFrame() {
             let presentedFrame = frameOfPresentedViewInContainerView
             let translatedFrame = keyboardTranslationType.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
@@ -436,7 +445,7 @@ extension PresentrController {
         }
     }
 
-    func keyboardWillHide (notification: Notification) {
+    @objc func keyboardWillHide (notification: Notification) {
         if keyboardIsShowing {
             let presentedFrame = frameOfPresentedViewInContainerView
             if self.presentedView?.frame !=  presentedFrame {
