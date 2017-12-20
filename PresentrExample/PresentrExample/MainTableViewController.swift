@@ -255,7 +255,7 @@ extension MainTableViewController {
         presenter.transitionType = nil
         presenter.dismissTransitionType = nil
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func alertCustom() {
@@ -263,13 +263,13 @@ extension MainTableViewController {
         presenter.transitionType = .coverHorizontalFromLeft
         presenter.dismissTransitionType = .coverHorizontalFromRight
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func alertDefaultWithoutAnimation() {
         presenter.presentationType = .alert
         presenter.dismissAnimated = false
-        customPresentViewController(presenter, viewController: alertController, animated: false, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: false)
     }
 
     // MARK: Popup
@@ -279,7 +279,7 @@ extension MainTableViewController {
         presenter.transitionType = nil
         presenter.dismissTransitionType = nil
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func popupCustom() {
@@ -287,7 +287,7 @@ extension MainTableViewController {
         presenter.transitionType = .coverHorizontalFromRight
         presenter.dismissTransitionType = .coverVerticalFromTop
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     // MARK: Top Half
@@ -297,7 +297,7 @@ extension MainTableViewController {
         presenter.transitionType = nil
         presenter.dismissTransitionType = nil
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func topHalfCustom() {
@@ -305,7 +305,7 @@ extension MainTableViewController {
         presenter.transitionType = .coverHorizontalFromLeft
         presenter.dismissTransitionType = .coverVerticalFromTop
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     // MARK: Bottom Half
@@ -315,7 +315,7 @@ extension MainTableViewController {
         presenter.transitionType = nil
         presenter.dismissTransitionType = nil
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func bottomHalfCustom() {
@@ -323,7 +323,7 @@ extension MainTableViewController {
         presenter.transitionType = .coverHorizontalFromLeft
         presenter.transitionType = .crossDissolve
         presenter.dismissAnimated = true
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     // MARK: Other
@@ -332,11 +332,11 @@ extension MainTableViewController {
         presenter.presentationType = .fullScreen
         presenter.transitionType = .coverVertical
         presenter.dismissTransitionType = .crossDissolve
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func customBackgroundPresentation() {
-        customPresentViewController(customBackgroundPresenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(customBackgroundPresenter, viewController: alertController, animated: true)
     }
 
     @objc func keyboardTranslationTest() {
@@ -345,7 +345,7 @@ extension MainTableViewController {
         presenter.dismissTransitionType = nil
         presenter.keyboardTranslationType = .compress
         presenter.dismissOnSwipe = true
-        customPresentViewController(presenter, viewController: popupViewController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: popupViewController, animated: true)
     }
 
     @objc func backgroundBlurTest() {
@@ -358,14 +358,14 @@ extension MainTableViewController {
     // MARK: Advanced
 
     @objc func customPresentation() {
-        customPresentViewController(customPresenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(customPresenter, viewController: alertController, animated: true)
     }
 
     @objc func customAnimation() {
         presenter.presentationType = .alert
         presenter.transitionType = TransitionType.custom(CustomAnimation())
         presenter.dismissTransitionType = TransitionType.custom(CustomAnimation())
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func modifiedAnimation() {
@@ -373,7 +373,7 @@ extension MainTableViewController {
         let modifiedAnimation = CrossDissolveAnimation(options: .normal(duration: 1.0))
         presenter.transitionType = TransitionType.custom(modifiedAnimation)
         presenter.dismissTransitionType = TransitionType.custom(modifiedAnimation)
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func coverVerticalWithSpring() {
@@ -385,12 +385,12 @@ extension MainTableViewController {
         let coverVerticalWithSpring = TransitionType.custom(animation)
         presenter.transitionType = coverVerticalWithSpring
         presenter.dismissTransitionType = coverVerticalWithSpring
-        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+        customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
     @objc func dynamicSize() {
         let dynamicVC = storyboard!.instantiateViewController(withIdentifier: "DynamicViewController")
-        customPresentViewController(dynamicSizePresenter, viewController: dynamicVC, animated: true, completion: nil)
+        customPresentViewController(dynamicSizePresenter, viewController: dynamicVC, animated: true)
     }
 
     @objc func currentContext() {
