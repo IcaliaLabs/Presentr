@@ -219,7 +219,7 @@ public extension UIViewController {
     ///   - viewController: The view controller to be presented.
     ///   - animated: Animation setting for the presentation.
     ///   - completion: Completion handler.
-    func customPresentViewController(_ presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+    func customPresentViewController(_ presentr: Presentr, viewController: UIViewController, animated: Bool, completion: (() -> Void)? = nil) {
         presentr.presentViewController(presentingViewController: self,
                                        presentedViewController: viewController,
                                        animated: animated,
