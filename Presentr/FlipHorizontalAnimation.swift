@@ -4,13 +4,16 @@
 //
 //  Created by Falko Buttler on 10/2/17.
 //
+// Inspired by https://stackoverflow.com/questions/12565204/smooth-horizontal-flip-using-catransform3dmakerotation
 
 import Foundation
 
 public class FlipHorizontalAnimation: PresentrAnimation {
     
     override public func performAnimation(using transitionContext: PresentrTransitionContext) {
-        // Inspired by https://stackoverflow.com/questions/12565204/smooth-horizontal-flip-using-catransform3dmakerotation
+		transitionContext.toView?.layer.zPosition = 999
+		transitionContext.fromView?.layer.zPosition = 999
+
         var fromViewRotationPerspectiveTrans = CATransform3DIdentity
         fromViewRotationPerspectiveTrans.m34 = -0.003
         fromViewRotationPerspectiveTrans = CATransform3DRotate(fromViewRotationPerspectiveTrans, .pi / 2.0, 0.0, -1.0, 0.0)
