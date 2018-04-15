@@ -11,6 +11,7 @@ import Foundation
 public class FlipHorizontalAnimation: PresentrAnimation {
     
     override public func performAnimation(using transitionContext: PresentrTransitionContext) {
+		// This is to make sure transform/animation does not go behind background "chrome" view.
 		transitionContext.toView?.layer.zPosition = 999
 		transitionContext.fromView?.layer.zPosition = 999
 
