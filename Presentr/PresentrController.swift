@@ -43,8 +43,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     fileprivate var shouldObserveKeyboard: Bool {
-        return conformingPresentedController != nil ||
-            (keyboardTranslationType != .none) // TODO: Work w/other types?
+        return conformingPresentedController != nil || keyboardTranslationType != .none
     }
 
     fileprivate var containerFrame: CGRect {
@@ -72,11 +71,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate var latestShouldDismiss: Bool = true
 
     fileprivate lazy var shouldSwipeBottom: Bool = {
-        return self.dismissOnSwipeDirection == .default ? self.presentationType != .topHalf : self.dismissOnSwipeDirection == .bottom
+		let defaultDirection = dismissOnSwipeDirection == .default
+        return defaultDirection ? presentationType != .topHalf : dismissOnSwipeDirection == .bottom
     }()
 
     fileprivate lazy var shouldSwipeTop: Bool = {
-        return self.dismissOnSwipeDirection == .default ? self.presentationType == .topHalf : self.dismissOnSwipeDirection == .top
+		let defaultDirection = dismissOnSwipeDirection == .default
+        return defaultDirection ? presentationType == .topHalf : dismissOnSwipeDirection == .top
     }()
 
     // MARK: - Init
