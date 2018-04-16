@@ -263,8 +263,13 @@ extension MainTableViewController {
 
     @objc func alertCustom() {
         presenter.presentationType = .alert
-		presenter.transitionType = .flipHorizontal
-		presenter.transitionType = .flipHorizontal
+
+		presenter.transitionType = .coverFromCorner(.topLeft)
+		presenter.dismissTransitionType = .coverFromCorner(.bottomRight)
+
+//		presenter.transitionType = .flipHorizontal
+//		presenter.dismissTransitionType = .flipHorizontal
+
 //        presenter.transitionType = .coverHorizontalFromLeft
 //        presenter.dismissTransitionType = .coverHorizontalFromRight
         presenter.dismissAnimated = true
