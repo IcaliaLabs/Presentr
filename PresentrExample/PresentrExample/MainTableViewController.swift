@@ -153,6 +153,22 @@ class MainTableViewController: UITableViewController {
         return customPresenter
     }()
 
+	let customOrientationPresenter: Presentr = {
+		let width = ModalSize.customOrientation(sizePortrait: 200, sizeLandscape: 300)
+		let height = ModalSize.customOrientation(sizePortrait: 150, sizeLandscape: 150)
+		let center = ModalCenterPosition.center
+		let customType = PresentationType.custom(width: width, height: height, center: center)
+
+		let customPresenter = Presentr(presentationType: customType)
+		customPresenter.transitionType = .coverVerticalFromTop
+		customPresenter.dismissTransitionType = .crossDissolve
+		customPresenter.roundCorners = false
+		customPresenter.backgroundColor = .green
+		customPresenter.backgroundOpacity = 0.5
+		customPresenter.dismissOnSwipe = true
+		return customPresenter
+	}()
+
     let customBackgroundPresenter: Presentr = {
         let width = ModalSize.full
         let height = ModalSize.fluid(percentage: 0.20)
@@ -375,7 +391,7 @@ extension MainTableViewController {
     // MARK: Advanced
 
     @objc func customPresentation() {
-        customPresentViewController(customPresenter, viewController: alertController, animated: true)
+        customPresentViewController(customOrientationPresenter, viewController: alertController, animated: true)
     }
 
     @objc func customAnimation() {
