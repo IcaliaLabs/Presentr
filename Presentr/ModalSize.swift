@@ -24,11 +24,11 @@ public enum ModalSize {
     case `default`
     case half
     case full
+	case fluid(percentage: Float)
+	case sideMargin(value: Float)
     case custom(size: Float)
-    case customPortraitLandscape(sizePortrait: Float, sizeLandscape: Float)
-    case fluid(percentage: Float)
-    case sideMargin(value: Float)
-    
+    case customOrientation(sizePortrait: Float, sizeLandscape: Float)
+
     /**
      Calculates the exact width value for the presented view controller.
      
@@ -46,7 +46,7 @@ public enum ModalSize {
             return Float(parentSize.width)
         case .custom(let size):
             return size
-        case .customPortraitLandscape(let sizePortrait, let sizeLandscape):
+        case .customOrientation(let sizePortrait, let sizeLandscape):
             switch UIDevice.current.orientation {
             case .portrait, .portraitUpsideDown:
                 return min(Float(UIScreen.main.bounds.width), sizePortrait)
@@ -61,7 +61,7 @@ public enum ModalSize {
             return floorf(Float(parentSize.width) - value * 2.0)
         }
     }
-    
+
     /**
      Calculates the exact height value for the presented view controller.
      
@@ -79,7 +79,7 @@ public enum ModalSize {
             return Float(parentSize.height)
         case .custom(let size):
             return size
-        case .customPortraitLandscape(let sizePortrait, let sizeLandscape):
+        case .customOrientation(let sizePortrait, let sizeLandscape):
             switch UIDevice.current.orientation {
             case .portrait, .portraitUpsideDown:
                 return min(Float(UIScreen.main.bounds.height), sizePortrait)
