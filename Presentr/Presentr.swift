@@ -24,11 +24,9 @@ public enum PresentrConstants {
 }
 
 public enum DismissSwipeDirection {
-
     case `default`
     case bottom
     case top
-
 }
 
 // MARK: - PresentrDelegate
@@ -52,6 +50,8 @@ public enum DismissSwipeDirection {
 
 /// Main Presentr class. This is the point of entry for using the framework.
 public class Presentr: NSObject {
+    
+    public let interactr: Interactr = Interactr()
 
     /// This must be set during initialization, but can be changed to reuse a Presentr object.
     public var presentationType: PresentationType
@@ -181,6 +181,14 @@ extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return transitionForDismiss.animation()
+    }
+    
+    public func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactr.hasStarted ? interactr : nil
+    }
+    
+    public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactr.hasStarted ? interactr : nil
     }
 
     // MARK: - Private Helper's
