@@ -22,6 +22,13 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 
 ## What's New
 
+#### 1.3.1 (April 15/ 2018)
+- New `FlipHorizontal` transition type (thanks to @falkobuttler)
+- New `CoverFromCorner` transition type (thanks to @freakdragon)
+- New `customOrientation` ModalSize (thanks to @freakdragon)
+- KeyboardTranslation now works for all Presentation Type's (thanks to @oxozle)
+- Other bug fixes & improvements
+
 #### 1.3
 - Swift 4 / Xcode 9 / iOS 11 Support
 - Bug fixes
