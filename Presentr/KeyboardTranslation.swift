@@ -25,7 +25,8 @@ public enum KeyboardTranslationType {
      */
     public func getTranslationFrame(keyboardFrame: CGRect, presentedFrame: CGRect) -> CGRect {
         let keyboardTop = UIScreen.main.bounds.height - keyboardFrame.size.height
-        let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + 20.0 // add a 20 pt buffer
+        let buffer: CGFloat = (presentedFrame.origin.y + presentedFrame.size.height == UIScreen.main.bounds.height) ? 0 : 20.0 // add a 20 pt buffer except when the presentedFrame is stick to bottom
+        let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + buffer
         let offset = presentedViewBottom - keyboardTop
         switch self {
         case .moveUp:
