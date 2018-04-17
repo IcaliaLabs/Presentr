@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06021444208590E800036E68 /* CoverFromCornerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06021443208590E800036E68 /* CoverFromCornerAnimation.swift */; };
+		06021446208592CA00036E68 /* FlipHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06021445208592CA00036E68 /* FlipHorizontalAnimation.swift */; };
 		06218DB71E897CAE00D6FE4B /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DB41E897CAE00D6FE4B /* BackgroundView.swift */; };
 		06218DB81E897CAE00D6FE4B /* CoverVerticalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DB51E897CAE00D6FE4B /* CoverVerticalAnimation.swift */; };
 		06218DB91E897CAE00D6FE4B /* CrossDissolveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DB61E897CAE00D6FE4B /* CrossDissolveAnimation.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06021443208590E800036E68 /* CoverFromCornerAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverFromCornerAnimation.swift; sourceTree = "<group>"; };
+		06021445208592CA00036E68 /* FlipHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipHorizontalAnimation.swift; sourceTree = "<group>"; };
 		06218DB41E897CAE00D6FE4B /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		06218DB51E897CAE00D6FE4B /* CoverVerticalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalAnimation.swift; sourceTree = "<group>"; };
 		06218DB61E897CAE00D6FE4B /* CrossDissolveAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveAnimation.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				06218DB61E897CAE00D6FE4B /* CrossDissolveAnimation.swift */,
 				06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */,
 				06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */,
+				06021443208590E800036E68 /* CoverFromCornerAnimation.swift */,
+				06021445208592CA00036E68 /* FlipHorizontalAnimation.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -297,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */,
+				06021446208592CA00036E68 /* FlipHorizontalAnimation.swift in Sources */,
 				06B5855B1D2D6F8B0045C8DA /* TransitionType.swift in Sources */,
 				06218DB71E897CAE00D6FE4B /* BackgroundView.swift in Sources */,
 				06B5855F1D2D6FE20045C8DA /* ModalCenterPosition.swift in Sources */,
@@ -306,6 +313,7 @@
 				0680CC4D1CE3EFC500CBAE4F /* Presentr.swift in Sources */,
 				06218DBB1E897CF900D6FE4B /* PresentrShadow.swift in Sources */,
 				0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */,
+				06021444208590E800036E68 /* CoverFromCornerAnimation.swift in Sources */,
 				0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */,
 				06218DB91E897CAE00D6FE4B /* CrossDissolveAnimation.swift in Sources */,
 				06B5855D1D2D6FB00045C8DA /* ModalSize.swift in Sources */,
