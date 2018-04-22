@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias AlertActionHandler = ((AlertAction) -> Void)
+public typealias AlertActionHandler = (() -> Void)
 
 /// Describes each action that is going to be shown in the 'AlertViewController'
 public class AlertAction {
@@ -91,10 +91,18 @@ private struct ColorPalette {
 public class AlertViewController: UIViewController {
 
     /// Text that will be used as the title for the alert
-    public var titleText: String?
+	public var titleText: String = "" {
+		didSet {
+			titleLabel?.text = titleText
+		}
+	}
 
     /// Text that will be used as the body for the alert
-    public var bodyText: String?
+	public var bodyText: String = "" {
+		didSet {
+			bodyLabel?.text = bodyText
+		}
+	}
 
     /// If set to false, alert wont auto-dismiss the controller when an action is clicked. Dismissal will be up to the action's handler. Default is true.
     public var autoDismiss: Bool = true
@@ -104,20 +112,34 @@ public class AlertViewController: UIViewController {
 
     fileprivate var actions = [AlertAction]()
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
-    @IBOutlet weak var firstButton: UIButton!
-    @IBOutlet weak var secondButton: UIButton!
-    @IBOutlet weak var firstButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var bodyLabel: UILabel!
+    @IBOutlet private weak var firstButton: UIButton!
+    @IBOutlet private weak var secondButton: UIButton!
+    @IBOutlet private weak var firstButtonWidthConstraint: NSLayoutConstraint!
 
-    override public func loadView() {
-        let name = "AlertViewController"
-        let bundle = Bundle(for: type(of: self))
-        guard let view = bundle.loadNibNamed(name, owner: self, options: nil)?.first as? UIView else {
-            fatalError("Nib not found.")
-        }
-        self.view = view
-    }
+	public init() {
+		super.init(nibName: "AlertViewController", bundle: Bundle(for: type(of: self)))
+	}
+
+	public convenience init(title: String, body: String) {
+		self.init()
+		titleText = title
+		bodyText = body
+	}
+
+	required public init?(coder aDecoder: NSCoder) {
+		fatalError("Unsupported initializer, please use init()")
+	}
+
+//    override public func loadView() {
+//        let name = "AlertViewController"
+//        let bundle = Bundle(for: type(of: self))
+//        guard let view = bundle.loadNibNamed(name, owner: self, options: nil)?.first as? UIView else {
+//            fatalError("Nib not found.")
+//        }
+//        self.view = view
+//    }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +150,6 @@ public class AlertViewController: UIViewController {
         }
 
         loadFonts
-
         setupFonts()
         setupLabels()
         setupButtons()
@@ -177,8 +198,8 @@ public class AlertViewController: UIViewController {
     }
 
     fileprivate func setupLabels() {
-        titleLabel.text = titleText ?? "Alert"
-        bodyLabel.text = bodyText ?? "This is an alert."
+        titleLabel.text = titleText
+        bodyLabel.text = bodyText
     }
 
     fileprivate func setupButtons() {
@@ -203,17 +224,13 @@ public class AlertViewController: UIViewController {
 
     @IBAction func didSelectFirstAction(_ sender: AnyObject) {
         guard let firstAction = actions.first else { return }
-        if let handler = firstAction.handler {
-            handler(firstAction)
-        }
+		firstAction.handler?()
         dismiss()
     }
 
     @IBAction func didSelectSecondAction(_ sender: AnyObject) {
         guard let secondAction = actions.last, actions.count == 2 else { return }
-        if let handler = secondAction.handler {
-            handler(secondAction)
-        }
+		secondAction.handler?()
         dismiss()
     }
 
