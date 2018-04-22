@@ -192,10 +192,10 @@ class MainTableViewController: UITableViewController {
 
     lazy var alertController: AlertViewController = {
         let alertController = Presentr.alertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
-        let cancelAction = AlertAction(title: "NO, SORRY! 😱", style: .cancel) { alert in
+        let cancelAction = AlertAction(title: "NO, SORRY! 😱", style: .cancel) {
             print("CANCEL!!")
         }
-        let okAction = AlertAction(title: "DO IT! 🤘", style: .destructive) { alert in
+        let okAction = AlertAction(title: "DO IT! 🤘", style: .destructive) {
             print("OK!!")
         }
         alertController.addAction(cancelAction)
