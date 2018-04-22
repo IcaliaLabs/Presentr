@@ -4,20 +4,13 @@ Presentr also comes with a cool AlertViewController baked in if you want somethi
 
 ```swift
 
-  let title = "Are you sure?"
-  let body = "There is no way to go back after you do this!"
+  let alertViewController = AlertViewController(title: title, body: body)
 
-  let controller = Presentr.alertViewController(title: title, body: body)
-
-  let deleteAction = AlertAction(title: "Sure 🕶", style: .destructive) {
+  let deleteAction = AlertAction(title: "Sure 🕶", style: .destructive) { (action) in
     print("Deleted!")
   }
 
-  let okAction = AlertAction(title: "NO, sorry 🙄", style: .cancel) {
-    print("Ok!")
-  }
-  
-  let okAction = AlertAction(title: "Ok", style: .custom(textColor: .green)) {
+  let okAction = AlertAction(title: "Ok", style: .custom(textColor: .green)) { (action) in
     print("Ok!")
   }
   
