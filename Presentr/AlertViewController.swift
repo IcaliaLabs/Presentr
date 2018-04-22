@@ -87,8 +87,14 @@ private struct ColorPalette {
 
 }
 
+protocol CornerRadiusSettable {
+
+	func customContainerViewSetCornerRadius(_ radius: CGFloat)
+
+}
+
 /// UIViewController subclass that displays the alert
-public class AlertViewController: UIViewController {
+public class AlertViewController: UIViewController, CornerRadiusSettable {
 
     /// Text that will be used as the title for the alert
 	public var titleText: String = "" {
@@ -116,7 +122,7 @@ public class AlertViewController: UIViewController {
     @IBOutlet private weak var bodyLabel: UILabel!
     @IBOutlet private weak var firstButton: UIButton!
     @IBOutlet private weak var secondButton: UIButton!
-    @IBOutlet private weak var firstButtonWidthConstraint: NSLayoutConstraint!
+	@IBOutlet private weak var containerView: UIView!
 
 	public init() {
 		super.init(nibName: "AlertViewController", bundle: Bundle(for: type(of: self)))
@@ -132,15 +138,6 @@ public class AlertViewController: UIViewController {
 		fatalError("Unsupported initializer, please use init()")
 	}
 
-//    override public func loadView() {
-//        let name = "AlertViewController"
-//        let bundle = Bundle(for: type(of: self))
-//        guard let view = bundle.loadNibNamed(name, owner: self, options: nil)?.first as? UIView else {
-//            fatalError("Nib not found.")
-//        }
-//        self.view = view
-//    }
-
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -150,6 +147,7 @@ public class AlertViewController: UIViewController {
         }
 
         loadFonts
+		setupContainerView()
         setupFonts()
         setupLabels()
         setupButtons()
@@ -157,23 +155,6 @@ public class AlertViewController: UIViewController {
 
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-
-    override public func updateViewConstraints() {
-        if actions.count == 1 {
-            // If only one action, second button will have been removed from superview
-            // So, need to add constraint for first button trailing to superview
-            if let constraint = firstButtonWidthConstraint {
-                view.removeConstraint(constraint)
-            }
-            let views: [String: UIView] = ["button" : firstButton]
-            let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[button]-0-|",
-                                                                             options: NSLayoutFormatOptions(rawValue: 0),
-                                                                             metrics: nil,
-                                                                             views: views)
-            view.addConstraints(constraints)
-        }
-        super.updateViewConstraints()
     }
 
     // MARK: AlertAction's
@@ -188,21 +169,29 @@ public class AlertViewController: UIViewController {
         actions += [action]
     }
 
-    // MARK: Setup
+    // MARK: Setup, CornerRadiusSettable
 
-    fileprivate func setupFonts() {
+	func customContainerViewSetCornerRadius(_ radius: CGFloat) {
+		containerView.layer.cornerRadius = radius
+	}
+
+	private func setupContainerView() {
+		containerView.clipsToBounds = true
+	}
+
+    private func setupFonts() {
         titleLabel.font = Font.Montserrat.font()
         bodyLabel.font = Font.SourceSansPro.font()
         firstButton.titleLabel?.font = Font.Montserrat.font(11.0)
         secondButton.titleLabel?.font = Font.Montserrat.font(11.0)
     }
 
-    fileprivate func setupLabels() {
+    private func setupLabels() {
         titleLabel.text = titleText
         bodyLabel.text = bodyText
     }
 
-    fileprivate func setupButtons() {
+    private func setupButtons() {
         guard let firstAction = actions.first else { return }
         apply(firstAction, toButton: firstButton)
         if actions.count == 2 {
@@ -213,7 +202,7 @@ public class AlertViewController: UIViewController {
         }
     }
 
-    fileprivate func apply(_ action: AlertAction, toButton: UIButton) {
+    private func apply(_ action: AlertAction, toButton: UIButton) {
         let title = action.title.uppercased()
         let style = action.style
         toButton.setTitle(title, for: UIControlState())

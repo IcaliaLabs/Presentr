@@ -151,31 +151,36 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     private func setupCornerRadius(roundCorners: Bool?, cornerRadius: CGFloat) {
         let shouldRoundCorners = roundCorners ?? presentationType.shouldRoundCorners
+
         if shouldRoundCorners {
             presentedViewController.view.layer.cornerRadius = cornerRadius
-            presentedViewController.view.layer.masksToBounds = true
         } else {
             presentedViewController.view.layer.cornerRadius = 0
         }
+
+		if let settable = presentedViewController as? CornerRadiusSettable {
+			settable.customContainerViewSetCornerRadius(cornerRadius)
+		}
     }
     
     private func addDropShadow(shadow: PresentrShadow?) {
         guard let shadow = shadow else {
-            presentedViewController.view.layer.masksToBounds = true
             presentedViewController.view.layer.shadowOpacity = 0
             return
         }
 
-        presentedViewController.view.layer.masksToBounds = false
         if let shadowColor = shadow.shadowColor?.cgColor {
             presentedViewController.view.layer.shadowColor = shadowColor
         }
+
         if let shadowOpacity = shadow.shadowOpacity {
             presentedViewController.view.layer.shadowOpacity = shadowOpacity
         }
+
         if let shadowOffset = shadow.shadowOffset {
             presentedViewController.view.layer.shadowOffset = shadowOffset
         }
+
         if let shadowRadius = shadow.shadowRadius {
             presentedViewController.view.layer.shadowRadius = shadowRadius
         }

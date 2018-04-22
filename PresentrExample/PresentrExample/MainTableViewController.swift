@@ -280,11 +280,13 @@ extension MainTableViewController {
     @objc func alertCustom() {
         presenter.presentationType = .alert
 
-		presenter.transitionType = .coverFromCorner(.topLeft)
-		presenter.dismissTransitionType = .coverFromCorner(.bottomRight)
+		presenter.transitionType = .flipHorizontal
+		presenter.dismissTransitionType = .flipHorizontal
 
-//		presenter.transitionType = .flipHorizontal
-//		presenter.dismissTransitionType = .flipHorizontal
+//		presenter.dropShadow = PresentrShadow(shadowColor: .yellow,
+//											  shadowOpacity: 0.3,
+//											  shadowOffset: CGSize.init(width: 3.0, height: 3.0),
+//											  shadowRadius: 5)
 
 //        presenter.transitionType = .coverHorizontalFromLeft
 //        presenter.dismissTransitionType = .coverHorizontalFromRight
