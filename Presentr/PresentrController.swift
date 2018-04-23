@@ -39,6 +39,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     let customBackgroundView: UIView?
 
     fileprivate var conformingPresentedController: PresentrDelegate? {
+		if let navigationController = presentedViewController as? UINavigationController,
+			let visibleViewController = navigationController.visibleViewController as? PresentrDelegate {
+			return visibleViewController
+		}
         return presentedViewController as? PresentrDelegate
     }
 

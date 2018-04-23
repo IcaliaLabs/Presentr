@@ -380,7 +380,10 @@ extension MainTableViewController {
         presenter.dismissTransitionType = nil
         presenter.keyboardTranslationType = .compress
         presenter.dismissOnSwipe = true
-        customPresentViewController(presenter, viewController: popupViewController, animated: true)
+
+		let viewController = popupViewController
+		let navigationViewController = UINavigationController(rootViewController: viewController)
+        customPresentViewController(presenter, viewController: navigationViewController, animated: true)
     }
 
     @objc func backgroundBlurTest() {
