@@ -116,6 +116,12 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
     /// If autoDismiss is set to true, then set this property if you want the dismissal to be animated. Default is true.
     public var dismissAnimated: Bool = true
 
+	public let titleFont: UIFont?
+
+	public let bodyFont: UIFont?
+
+	public let buttonFont: UIFont?
+
     fileprivate var actions = [AlertAction]()
 
     @IBOutlet private weak var titleLabel: UILabel!
@@ -124,14 +130,20 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
     @IBOutlet private weak var secondButton: UIButton!
 	@IBOutlet private weak var containerView: UIView!
 
-	public init() {
-		super.init(nibName: "AlertViewController", bundle: Bundle(for: type(of: self)))
-	}
+	public init(title: String? = nil, body: String? = nil, titleFont: UIFont? = nil, bodyFont: UIFont? = nil, buttonFont: UIFont? = nil) {
+		if let title = title {
+			titleText = title
+		}
 
-	public convenience init(title: String, body: String) {
-		self.init()
-		titleText = title
-		bodyText = body
+		if let body = body {
+			bodyText = body
+		}
+
+		self.titleFont = titleFont
+		self.bodyFont = bodyFont
+		self.buttonFont = buttonFont
+
+		super.init(nibName: "AlertViewController", bundle: Bundle(for: type(of: self)))
 	}
 
 	required public init?(coder aDecoder: NSCoder) {
@@ -146,7 +158,6 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
             addAction(okAction)
         }
 
-        loadFonts
 		setupContainerView()
         setupFonts()
         setupLabels()
@@ -180,10 +191,14 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
 	}
 
     private func setupFonts() {
-        titleLabel.font = Font.Montserrat.font()
-        bodyLabel.font = Font.SourceSansPro.font()
-        firstButton.titleLabel?.font = Font.Montserrat.font(11.0)
-        secondButton.titleLabel?.font = Font.Montserrat.font(11.0)
+		if titleFont == nil || bodyFont == nil || buttonFont == nil {
+			loadFonts
+		}
+
+        titleLabel.font = titleFont ?? Font.Montserrat.font()
+        bodyLabel.font = bodyFont ?? Font.SourceSansPro.font()
+        firstButton.titleLabel?.font = buttonFont ?? Font.Montserrat.font(11.0)
+        secondButton.titleLabel?.font = buttonFont ?? Font.Montserrat.font(11.0)
     }
 
     private func setupLabels() {
