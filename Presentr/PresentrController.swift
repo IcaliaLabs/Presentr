@@ -213,14 +213,7 @@ extension PresentrController {
         let containerBounds = containerFrame
         let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
         
-        let origin: CGPoint
-        // If the Presentation Type's calculate center point returns nil
-        // this means that the user provided the origin, not a center point.
-        if let center = getCenterPointFromType() {
-            origin = calculateOrigin(center, size: size)
-        } else {
-            origin = getOriginFromType() ?? CGPoint(x: 0, y: 0)
-        }
+        let origin: CGPoint = calculateOrigin(size: size, presenterSize: containerBounds.size)
         
         presentedViewFrame.size = size
         presentedViewFrame.origin = origin
@@ -312,43 +305,27 @@ extension PresentrController {
 
 fileprivate extension PresentrController {
 
-    func getWidthFromType(_ parentSize: CGSize) -> Float {
-        guard let size = presentationType.size() else {
-            if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
-            }
-            return 0
+    func getWidthFromType(_ parentSize: CGSize) -> CGFloat {
+        if let width = presentationType.layout.widthIn(presenterSize: parentSize) {
+            return width
         }
-
-        return size.width.calculateWidth(parentSize)
+        //No defined width? Return dynamic width
+        return presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width
     }
 
-    func getHeightFromType(_ parentSize: CGSize) -> Float {
-        guard let size = presentationType.size() else {
-            if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
-            }
-            return 0
+    func getHeightFromType(_ parentSize: CGSize) -> CGFloat {
+        if let height = presentationType.layout.heightIn(presenterSize: parentSize) {
+            return height
         }
-
-        return size.height.calculateHeight(parentSize)
+        //No defined height? Return dynamic width
+        return presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
     }
 
-    func getCenterPointFromType() -> CGPoint? {
-        let containerBounds = containerFrame
-        let position = presentationType.position()
-        return position.calculateCenterPoint(containerBounds)
-    }
-
-    func getOriginFromType() -> CGPoint? {
-        let position = presentationType.position()
-        return position.calculateOrigin()
-    }
-
-    func calculateOrigin(_ center: CGPoint, size: CGSize) -> CGPoint {
-        let x: CGFloat = center.x - size.width / 2
-        let y: CGFloat = center.y - size.height / 2
-        return CGPoint(x: x, y: y)
+    func calculateOrigin(size: CGSize, presenterSize: CGSize) -> CGPoint {
+        let point = presentationType.layout.positionIn(presenterSize: presenterSize)
+        let offsetMultiplier = presentationType.layout.positionOffsetMultiplier
+        return CGPoint(x: point.x - size.width * offsetMultiplier.x,
+                       y: point.y - size.height * offsetMultiplier.y)
     }
     
 }

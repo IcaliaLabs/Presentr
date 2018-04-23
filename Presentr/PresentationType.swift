@@ -24,48 +24,41 @@ public enum PresentationType {
     case topHalf
     case bottomHalf
     case fullScreen
-    case dynamic(center: ModalCenterPosition)
-    case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
+    case custom(layout: ModalLayout)
 
-    /// Describes the sizing for each Presentr type. It is meant to be non device/width specific, except for the .custom case.
-    ///
-    /// - Returns: A tuple containing two 'ModalSize' enums, describing its width and height.
-    func size() -> (width: ModalSize, height: ModalSize)? {
+    var layout : ModalLayout {
         switch self {
         case .alert:
-            return (.custom(size: 270), .custom(size: 180))
+            return ModalLayout(width: .fixed(size: 270),
+                               height: .fixed(size: 180),
+                               positionReference: .center,
+                               position: .center)
         case .popup:
-            return (.default, .default)
-        case .topHalf, .bottomHalf:
-            return (.full, .half)
-        case .fullScreen:
-            return (.full, .full)
-        case .custom(let width, let height, _):
-            return (width, height)
-        case .dynamic(_):
-            return nil
-        }
-    }
-
-    /// Describes the position for each Presentr type. It is meant to be non device/width specific, except for the .custom case.
-    ///
-    /// - Returns: Returns a 'ModalCenterPosition' enum describing the center point for the presented modal.
-    func position() -> ModalCenterPosition {
-        switch self {
-        case .alert, .popup:
-            return .center
+            return ModalLayout(width: .inset(by: 20),
+                               height: .inset(by: 20),
+                               positionReference: .center,
+                               position: .center)
         case .topHalf:
-            return .topCenter
+            return ModalLayout(width: .full,
+                               height: .half,
+                               positionReference: .topMiddle,
+                               position: .top)
         case .bottomHalf:
-            return .bottomCenter
+            return ModalLayout(width: .full,
+                               height: .half,
+                               positionReference: .bottomMiddle,
+                               position: .bottom)
         case .fullScreen:
-            return .center
-        case .custom(_, _, let center):
-            return center
-        case .dynamic(let center):
-            return center
+            return ModalLayout(width: .full,
+                               height: .full,
+                               positionReference: .center,
+                               position: .center)
+        case .custom(let layout):
+            return layout
         }
     }
+    
+
 
     /// Associates each Presentr type with a default transition type, in case one is not provided to the Presentr object.
     ///
