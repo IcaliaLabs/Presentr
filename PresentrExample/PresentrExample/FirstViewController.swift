@@ -19,7 +19,7 @@ class FirstViewController: UIViewController {
     }()
 
     var alertController: AlertViewController {
-        let alertController = Presentr.alertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
+		let alertController = AlertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
         let cancelAction = AlertAction(title: "NO, SORRY! 😱", style: .cancel) {
             print("CANCEL!!")
         }

@@ -191,7 +191,8 @@ class MainTableViewController: UITableViewController {
     }()
 
     lazy var alertController: AlertViewController = {
-        let alertController = Presentr.alertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!")
+		let font = UIFont.boldSystemFont(ofSize: 18)
+		let alertController = AlertViewController(title: "Are you sure? ⚠️", body: "This action can't be undone!", titleFont: nil, bodyFont: nil, buttonFont: nil)
         let cancelAction = AlertAction(title: "NO, SORRY! 😱", style: .cancel) {
             print("CANCEL!!")
         }

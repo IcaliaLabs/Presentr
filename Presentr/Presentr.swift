@@ -124,23 +124,6 @@ public class Presentr: NSObject {
         self.presentationType = presentationType
     }
 
-    // MARK: Class Helper Methods
-
-    /**
-     Public helper class method for creating and configuring an instance of the 'AlertViewController'
-
-     - parameter title: Title to be used in the Alert View Controller.
-     - parameter body: Body of the message to be displayed in the Alert View Controller.
-
-     - returns: Returns a configured instance of 'AlertViewController'
-     */
-    public static func alertViewController(title: String = PresentrConstants.Strings.alertTitle, body: String = PresentrConstants.Strings.alertBody) -> AlertViewController {
-        let alertController = AlertViewController()
-        alertController.titleText = title
-        alertController.bodyText = body
-        return alertController
-    }
-
     // MARK: Private Methods
 
     /**
