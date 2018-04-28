@@ -2,7 +2,7 @@
 //  ModalLayout.swift
 //  Presentr
 //
-//  Created by Toby Brennan on 23/4/18.
+//  Created by Apptek Studios on 23/4/18.
 //
 
 import Foundation
@@ -81,10 +81,11 @@ public struct ModalLayout {
         case fixed(size : CGFloat)
         case inset(by : CGFloat)
         //case orientationDependent
+        case autolayout
         
         static let half = Size.fraction(multiplier: 0.5)
         
-        func sizeIn(containerSize: CGFloat) -> CGFloat {
+        func sizeIn(containerSize: CGFloat) -> CGFloat? {
             switch self {
             case .full:
                 return containerSize
@@ -94,6 +95,8 @@ public struct ModalLayout {
                 return size
             case .inset(let inset):
                 return containerSize - inset * 2
+            case .autolayout:
+                return nil
             }
         }
     }
@@ -146,9 +149,9 @@ public struct ModalLayout {
         let verticalOffset : CGFloat
         
         private init(horizontal : Horizontal,
-             vertical : Vertical,
-             horizontalOffset : CGFloat = 0,
-             verticalOffset : CGFloat = 0) {
+                     vertical : Vertical,
+                     horizontalOffset : CGFloat = 0,
+                     verticalOffset : CGFloat = 0) {
             self.horizontal = horizontal
             self.vertical = vertical
             self.horizontalOffset = horizontalOffset
@@ -156,9 +159,9 @@ public struct ModalLayout {
         }
         
         public static func custom(horizontal : Horizontal,
-                           vertical : Vertical,
-                           horizontalOffset : CGFloat = 0,
-                           verticalOffset : CGFloat = 0) -> Position {
+                                  vertical : Vertical,
+                                  horizontalOffset : CGFloat = 0,
+                                  verticalOffset : CGFloat = 0) -> Position {
             
             return Position.init(horizontal : horizontal,
                                  vertical : vertical,
@@ -172,5 +175,5 @@ public struct ModalLayout {
                            y: presenterSize.height * vertical.fraction + verticalOffset)
         }
     }
-
+    
 }
