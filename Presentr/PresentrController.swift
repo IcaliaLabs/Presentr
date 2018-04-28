@@ -75,13 +75,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate var latestShouldDismiss: Bool = true
 
     fileprivate lazy var shouldSwipeBottom: Bool = {
-		let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection ? presentationType != .topHalf : dismissOnSwipeDirection == .bottom
+        let defaultDirection = dismissOnSwipeDirection == .default
+        return defaultDirection
     }()
 
     fileprivate lazy var shouldSwipeTop: Bool = {
-		let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection ? presentationType == .topHalf : dismissOnSwipeDirection == .top
+        let defaultDirection = dismissOnSwipeDirection == .default
+        return defaultDirection
     }()
 
     // MARK: - Init
@@ -310,15 +310,15 @@ fileprivate extension PresentrController {
             return width
         }
         //No defined width? Return dynamic width
-        return presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width
+        return min(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width, parentSize.width)
     }
 
     func getHeightFromType(_ parentSize: CGSize) -> CGFloat {
         if let height = presentationType.layout.heightIn(presenterSize: parentSize) {
             return height
         }
-        //No defined height? Return dynamic width
-        return presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+        //No defined height? Return dynamic height
+        return min(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height, parentSize.height)
     }
 
     func calculateOrigin(size: CGSize, presenterSize: CGSize) -> CGPoint {
