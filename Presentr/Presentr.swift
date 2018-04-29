@@ -10,25 +10,32 @@ import Foundation
 import UIKit
 
 public enum PresentrConstants {
-
     public enum Values {
         public static let defaultSideMargin: Float = 30.0
         public static let defaultHeightPercentage: Float = 0.66
     }
-
     public enum Strings {
         public static let alertTitle = "Alert"
         public static let alertBody = "This is an alert."
     }
-    
+
 }
 
 public enum DismissSwipeDirection {
-
     case `default`
     case bottom
     case top
+}
 
+/// The action that should happen when the background is tapped.
+///
+/// - noAction: Nothing happens.
+/// - dismiss: The presented view controller is dismissed.
+/// - passthrough: The touch passes through to the presenting view controller.
+public enum BackgroundTapAction {
+	case noAction
+	case dismiss
+	case passthrough
 }
 
 // MARK: - PresentrDelegate
@@ -71,8 +78,8 @@ public class Presentr: NSObject {
     /// Shadow settings for presented controller.
     public var dropShadow: PresentrShadow?
 
-    /// Should the presented controller dismiss on background tap. Default is true.
-    public var dismissOnTap = true
+	/// What should happen when background is tapped. Default is dismiss which dismisses the presented ViewController.
+	public var backgroundTap: BackgroundTapAction = .dismiss
 
     /// Should the presented controller dismiss on Swipe inside the presented view controller. Default is false.
     public var dismissOnSwipe = false
@@ -101,8 +108,8 @@ public class Presentr: NSObject {
     /// How the presented view controller should respond to keyboard presentation.
     public var keyboardTranslationType: KeyboardTranslationType = .none
 
-    /// When a ViewController for context is set this handles what happens to a tap when it is outside the context. True will ignore tap and pass the tap to the background controller, false will handle the tap and dismiss the presented controller. Default is false.
-    public var shouldIgnoreTapOutsideContext = false
+	/// When a ViewController for context is set this handles what happens to a tap when it is outside the context. Default is passing it through to the background ViewController's. If this is set to anything but the default (.passthrough), the normal background tap cannot passthrough.
+	public var outsideContextTap: BackgroundTapAction = .passthrough
 
     /// Uses the ViewController's frame as context for the presentation. Imitates UIModalPresentation.currentContext
     public weak var viewControllerForContext: UIViewController? {
@@ -175,7 +182,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                     roundCorners: roundCorners,
                                     cornerRadius: cornerRadius,
                                     dropShadow: dropShadow,
-                                    dismissOnTap: dismissOnTap,
+                                    backgroundTap: backgroundTap,
                                     dismissOnSwipe: dismissOnSwipe,
                                     dismissOnSwipeDirection: dismissOnSwipeDirection,
                                     backgroundColor: backgroundColor,
@@ -186,7 +193,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                     keyboardTranslationType:  keyboardTranslationType,
                                     dismissAnimated: dismissAnimated,
                                     contextFrameForPresentation: contextFrameForPresentation,
-                                    shouldIgnoreTapOutsideContext: shouldIgnoreTapOutsideContext)
+                                    outsideContextTap: outsideContextTap)
     }
 
 }

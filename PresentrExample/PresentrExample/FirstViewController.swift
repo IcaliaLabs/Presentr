@@ -41,7 +41,7 @@ class FirstViewController: UIViewController {
 
     @IBAction func didSelectShowAlert(_ sender: Any) {
         presenter.viewControllerForContext = self
-        presenter.shouldIgnoreTapOutsideContext = true
+        presenter.outsideContextTap = .passthrough
         customPresentViewController(presenter, viewController: alertController, animated: true)
     }
 
