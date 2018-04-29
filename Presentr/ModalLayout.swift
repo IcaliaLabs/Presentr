@@ -10,17 +10,17 @@ import Foundation
 public struct ModalLayout {
     let width : Size
     let height : Size
-    let positionReference : PositioningReference
-    let position : Position
+    let positionAnchor : PositionAnchor
+    let screenPosition : ScreenPosition
     
     public init(width : Size,
                 height : Size,
-                positionReference : PositioningReference,
-                position : Position) {
+                positionAnchor : PositionAnchor,
+                screenPosition : ScreenPosition) {
         self.width = width
         self.height = height
-        self.positionReference = positionReference
-        self.position = position
+        self.positionAnchor = positionAnchor
+        self.screenPosition = screenPosition
     }
     
     func widthIn(presenterSize: CGSize) -> CGFloat? {
@@ -31,14 +31,15 @@ public struct ModalLayout {
     }
     
     func positionIn(presenterSize: CGSize) -> CGPoint {
-        return position.positionIn(presenterSize: presenterSize)
+        return screenPosition.positionIn(presenterSize: presenterSize)
     }
     
     var positionOffsetMultiplier : (x: CGFloat, y: CGFloat) {
-        return positionReference.sizeMultiplier
+        return positionAnchor.sizeMultiplier
     }
 
-    public enum PositioningReference {
+    //The position on the modal view for which we're specifying the position
+    public enum PositionAnchor {
         case center
         case topLeft
         case topMiddle
@@ -75,14 +76,16 @@ public struct ModalLayout {
             }
         }
     }
+    
+    //Sizing of modal
     public enum Size {
         case full
         case fraction(multiplier : CGFloat)
         case fixed(size : CGFloat)
         case inset(by : CGFloat)
-        //case orientationDependent
-        case autolayout
+        case autolayout //Determine required size using autolayout, capped to screen size
         
+        //Extra default cases
         static let half = Size.fraction(multiplier: 0.5)
         
         func sizeIn(containerSize: CGFloat) -> CGFloat? {
@@ -100,10 +103,37 @@ public struct ModalLayout {
             }
         }
     }
-    public struct Position {
-        public static let top = Position(horizontal: .middle, vertical: .top)
-        public static let bottom = Position(horizontal: .middle, vertical: .bottom)
-        public static let center = Position(horizontal: .middle, vertical: .center)
+    
+    /// Position of the modal view on the screen, using the 'PositionAnchor'
+    public struct ScreenPosition {
+        ////Predefined cases
+        public static let topMiddle = ScreenPosition(horizontal: .middle, vertical: .top)
+        public static let bottomMiddle = ScreenPosition(horizontal: .middle, vertical: .bottom)
+        public static let center = ScreenPosition(horizontal: .middle, vertical: .center)
+        
+        /// Custom Case
+        public static func custom(horizontalPosition : Horizontal,
+                                  verticalPosition : Vertical,
+                                  horizontalOffset : CGFloat = 0,
+                                  verticalOffset : CGFloat = 0) -> ScreenPosition {
+            
+            return ScreenPosition.init(horizontal : horizontalPosition,
+                                 vertical : verticalPosition,
+                                 horizontalOffset : horizontalOffset,
+                                 verticalOffset : verticalOffset)
+        }
+        
+        
+        /// Vars
+        let horizontal : Horizontal
+        let horizontalOffset : CGFloat
+        let vertical : Vertical
+        let verticalOffset : CGFloat
+        
+        
+        
+        
+        
         
         public enum Vertical {
             case top
@@ -143,10 +173,7 @@ public struct ModalLayout {
             }
         }
         
-        let horizontal : Horizontal
-        let horizontalOffset : CGFloat
-        let vertical : Vertical
-        let verticalOffset : CGFloat
+        
         
         private init(horizontal : Horizontal,
                      vertical : Vertical,
@@ -158,16 +185,7 @@ public struct ModalLayout {
             self.verticalOffset = verticalOffset
         }
         
-        public static func custom(horizontal : Horizontal,
-                                  vertical : Vertical,
-                                  horizontalOffset : CGFloat = 0,
-                                  verticalOffset : CGFloat = 0) -> Position {
-            
-            return Position.init(horizontal : horizontal,
-                                 vertical : vertical,
-                                 horizontalOffset : horizontalOffset,
-                                 verticalOffset : verticalOffset)
-        }
+        
         
         
         func positionIn(presenterSize: CGSize) -> CGPoint {

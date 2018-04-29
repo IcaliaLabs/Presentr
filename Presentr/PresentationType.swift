@@ -31,28 +31,28 @@ public enum PresentationType {
         case .alert:
             return ModalLayout(width: .fixed(size: 270),
                                height: .fixed(size: 180),
-                               positionReference: .center,
-                               position: .center)
+                               positionAnchor: .center,
+                               screenPosition: .center)
         case .popup:
             return ModalLayout(width: .inset(by: 20),
                                height: .inset(by: 20),
-                               positionReference: .center,
-                               position: .center)
+                               positionAnchor: .center,
+                               screenPosition: .center)
         case .topHalf:
             return ModalLayout(width: .full,
                                height: .half,
-                               positionReference: .topMiddle,
-                               position: .top)
+                               positionAnchor: .topMiddle,
+                               screenPosition: .topMiddle)
         case .bottomHalf:
             return ModalLayout(width: .full,
                                height: .half,
-                               positionReference: .bottomMiddle,
-                               position: .bottom)
+                               positionAnchor: .bottomMiddle,
+                               screenPosition: .bottomMiddle)
         case .fullScreen:
             return ModalLayout(width: .full,
                                height: .full,
-                               positionReference: .center,
-                               position: .center)
+                               positionAnchor: .center,
+                               screenPosition: .center)
         case .custom(let layout):
             return layout
         }
@@ -71,6 +71,16 @@ public enum PresentationType {
             return .coverVertical
         }
     }
+    
+    func defaultDismissSwipeDirection() -> DismissSwipeDirection {
+        switch self {
+        case .topHalf:
+            return .top
+        default:
+            return .bottom
+        }
+    }
+    
 
     /// Default round corners setting.
     var shouldRoundCorners: Bool {

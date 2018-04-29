@@ -24,8 +24,6 @@ public enum PresentrConstants {
 }
 
 public enum DismissSwipeDirection {
-
-    case `default`
     case bottom
     case top
 
@@ -77,8 +75,8 @@ public class Presentr: NSObject {
     /// Should the presented controller dismiss on Swipe inside the presented view controller. Default is false.
     public var dismissOnSwipe = false
 
-    /// If dismissOnSwipe is true, the direction for the swipe. Default depends on presentation type.
-    public var dismissOnSwipeDirection: DismissSwipeDirection = .default
+    /// If dismissOnSwipe is true, the direction for the swipe. Nil = default for presentation type.
+    public var dismissOnSwipeDirection: DismissSwipeDirection? = nil
 
     /// Should the presented controller use animation when dismiss on background tap or swipe. Default is true.
     public var dismissAnimated = true

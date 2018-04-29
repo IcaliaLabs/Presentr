@@ -170,10 +170,11 @@ class MainTableViewController: UITableViewController {
 	}()
 
     let customBackgroundPresenter: Presentr = {
-        let width = ModalSize.full
-        let height = ModalSize.fluid(percentage: 0.20)
-        let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
-        let customType = PresentationType.custom(width: width, height: height, center: center)
+        let layout = ModalLayout(width: .full,
+                                 height: .fraction(multiplier: 0.2),
+                                 positionAnchor: .topMiddle,
+                                 screenPosition: .topMiddle)
+        let customType = PresentationType.custom(layout: layout)
         
         let customPresenter = Presentr(presentationType: customType)
         customPresenter.transitionType = .coverVerticalFromTop

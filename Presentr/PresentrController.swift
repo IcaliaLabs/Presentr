@@ -21,7 +21,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     let dismissOnSwipe: Bool
 
     /// DismissSwipe direction
-    let dismissOnSwipeDirection: DismissSwipeDirection
+    let dismissOnSwipeDirection: DismissSwipeDirection?
     
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
@@ -53,6 +53,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate var containerFrame: CGRect {
         return contextFrameForPresentation ?? containerView?.bounds ?? CGRect()
     }
+    
+    
+    fileprivate var dismissOnSwipeDirectionFinal: DismissSwipeDirection {
+        return dismissOnSwipeDirection ?? presentationType.defaultDismissSwipeDirection()
+    }
+    
 
     fileprivate var keyboardIsShowing: Bool = false
 
@@ -74,15 +80,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var latestShouldDismiss: Bool = true
 
-    fileprivate lazy var shouldSwipeBottom: Bool = {
-        let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection
-    }()
-
-    fileprivate lazy var shouldSwipeTop: Bool = {
-        let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection
-    }()
 
     // MARK: - Init
 
@@ -94,7 +91,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          dropShadow: PresentrShadow?,
          dismissOnTap: Bool,
          dismissOnSwipe: Bool,
-         dismissOnSwipeDirection: DismissSwipeDirection,
+         dismissOnSwipeDirection: DismissSwipeDirection?,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
@@ -361,7 +358,7 @@ extension PresentrController {
             presentedViewCenter = presentedViewController.view.center
 
             let directionDown = gesture.translation(in: presentedViewController.view).y > 0
-            if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
+            if (dismissOnSwipeDirectionFinal == .bottom && directionDown) || (dismissOnSwipeDirectionFinal == .top && !directionDown) {
                 latestShouldDismiss = conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true
             }
         } else if gesture.state == .changed {
@@ -378,20 +375,20 @@ extension PresentrController {
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
 
-        if shouldSwipeTop && amount.y > 0 {
+        if dismissOnSwipeDirectionFinal == .top && amount.y > 0 {
             return
-        } else if shouldSwipeBottom && amount.y < 0 {
+        } else if dismissOnSwipeDirectionFinal == .bottom && amount.y < 0 {
             return
         }
 
         var swipeLimit: CGFloat = 100
-        if shouldSwipeTop {
+        if dismissOnSwipeDirectionFinal == .top {
             swipeLimit = -swipeLimit
         }
 
         presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
 
-        let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
+        let dismiss = dismissOnSwipeDirectionFinal == .top ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
         if dismiss && latestShouldDismiss {
             presentedViewIsBeingDissmissed = true
             presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
