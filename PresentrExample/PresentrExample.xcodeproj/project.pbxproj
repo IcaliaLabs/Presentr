@@ -19,6 +19,7 @@
 		06A1F0B91CF3D17E0057C79B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0B71CF3D17E0057C79B /* Main.storyboard */; };
 		06A1F0BB1CF3D17E0057C79B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */; };
 		06A1F0BE1CF3D17E0057C79B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A1F0BC1CF3D17E0057C79B /* LaunchScreen.storyboard */; };
+		06C00C772095478A00727CC2 /* PasstroughExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C00C762095478A00727CC2 /* PasstroughExampleViewController.swift */; };
 		25591534D92612E66093237C /* Pods_PresentrExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9985464B38C3FFC83D568727 /* Pods_PresentrExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A1F0BD1CF3D17E0057C79B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06A1F0BF1CF3D17E0057C79B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06C00C762095478A00727CC2 /* PasstroughExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasstroughExampleViewController.swift; sourceTree = "<group>"; };
 		2D9A1F9F4161E3588659C3CF /* Pods-PresentrExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PresentrExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-PresentrExample/Pods-PresentrExample.release.xcconfig"; sourceTree = "<group>"; };
 		9985464B38C3FFC83D568727 /* Pods_PresentrExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PresentrExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37B2AC285D84D58CC7D5CA3 /* Pods-PresentrExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PresentrExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PresentrExample/Pods-PresentrExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				069265841DD12CF400B67915 /* ExampleTableViewCell.swift */,
 				0636751F1E81D8A9005D5B9C /* DynamicViewController.swift */,
 				0644CEC01DADCD02002E586F /* PopupViewController.swift */,
+				06C00C762095478A00727CC2 /* PasstroughExampleViewController.swift */,
 				068A1D071E13212000883454 /* CustomAnimation.swift */,
 				06A1F0B71CF3D17E0057C79B /* Main.storyboard */,
 				06A1F0BA1CF3D17E0057C79B /* Assets.xcassets */,
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				062501601E80627300574FF2 /* SecondViewController.swift in Sources */,
+				06C00C772095478A00727CC2 /* PasstroughExampleViewController.swift in Sources */,
 				069265831DD0F9AD00B67915 /* MainTableViewController.swift in Sources */,
 				069265851DD12CF400B67915 /* ExampleTableViewCell.swift in Sources */,
 				06A1F0B41CF3D17E0057C79B /* AppDelegate.swift in Sources */,

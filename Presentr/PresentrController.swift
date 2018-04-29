@@ -14,10 +14,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Presentation type must be passed in to make all the sizing and position decisions.
     let presentationType: PresentationType
 
-    /// Should the presented controller dismiss on background tap.
-    let dismissOnTap: Bool
-    
-    /// Should the presented controller dismiss on background Swipe.
+	/// What should happen when background is tapped.
+	let backgroundTap: BackgroundTapAction
+
+	/// What should happen when the area outside the current context is tapped.
+	let outsideContextTap: BackgroundTapAction
+
+    /// Should the presented controller dismiss on presented view controller's view Swipe.
     let dismissOnSwipe: Bool
 
     /// DismissSwipe direction
@@ -31,9 +34,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     /// The frame used for a current context presentation. If nil, normal presentation.
     let contextFrameForPresentation: CGRect?
-
-    /// If contextFrameForPresentation is set, this handles what happens when tap outside context frame.
-    let shouldIgnoreTapOutsideContext: Bool
 
     /// A custom background view to be added on top of the regular background view.
     let customBackgroundView: UIView?
@@ -64,9 +64,19 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Background Views
 
-    fileprivate var chromeView = UIView()
+	fileprivate lazy var chromeView: PassthroughView = {
+		let view = PassthroughView()
+		view.shouldPassthrough = false
+		view.passthroughViews = []
+		return view
+	}()
 
-    fileprivate var backgroundView = PassthroughBackgroundView()
+	fileprivate lazy var backgroundView: PassthroughView = {
+		let view = PassthroughView()
+		view.shouldPassthrough = false
+		view.passthroughViews = []
+		return view
+	}()
 
     fileprivate var visualEffect: UIVisualEffect?
 
@@ -89,7 +99,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          roundCorners: Bool?,
          cornerRadius: CGFloat,
          dropShadow: PresentrShadow?,
-         dismissOnTap: Bool,
+         backgroundTap: BackgroundTapAction,
          dismissOnSwipe: Bool,
          dismissOnSwipeDirection: DismissSwipeDirection?,
          backgroundColor: UIColor,
@@ -100,16 +110,16 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool,
          contextFrameForPresentation: CGRect?,
-         shouldIgnoreTapOutsideContext: Bool) {
+         outsideContextTap: BackgroundTapAction) {
 
         self.presentationType = presentationType
-        self.dismissOnTap = dismissOnTap
+        self.backgroundTap = backgroundTap
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
-        self.shouldIgnoreTapOutsideContext = shouldIgnoreTapOutsideContext
+        self.outsideContextTap = outsideContextTap
         self.customBackgroundView = customBackgroundView
 
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
@@ -138,10 +148,10 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
-        if !shouldIgnoreTapOutsideContext {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-            backgroundView.addGestureRecognizer(tap)
-        }
+		if outsideContextTap != .passthrough {
+			let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+			backgroundView.addGestureRecognizer(tap)
+		}
 
         if blurBackground {
             visualEffect = UIBlurEffect(style: blurStyle)
@@ -228,6 +238,7 @@ extension PresentrController {
         guard !keyboardIsShowing else {
             return // prevent resetting of presented frame when the frame is being translated
         }
+
         chromeView.frame = containerFrame
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
@@ -239,9 +250,17 @@ extension PresentrController {
             return
         }
 
-        setupBackgroundView()
+		if outsideContextTap == .passthrough {
+			backgroundView.shouldPassthrough = true
+			backgroundView.passthroughViews = presentingViewController.view.subviews
+		}
 
-        backgroundView.frame = containerView.bounds
+		if backgroundTap == .passthrough {
+			chromeView.shouldPassthrough = true
+			chromeView.passthroughViews = presentingViewController.view.subviews
+		}
+
+		backgroundView.frame = containerView.bounds
         chromeView.frame = containerFrame
 
         containerView.insertSubview(backgroundView, at: 0)
@@ -284,18 +303,6 @@ extension PresentrController {
         }, completion: nil)
     }
 
-    // MARK: - Animation Helper's
-
-    func setupBackgroundView() {
-        if shouldIgnoreTapOutsideContext {
-            backgroundView.shouldPassthrough = true
-            backgroundView.passthroughViews = presentingViewController.view.subviews
-        } else {
-            backgroundView.shouldPassthrough = false
-            backgroundView.passthroughViews = []
-        }
-    }
-
 }
 
 // MARK: - Sizing, Position
@@ -332,9 +339,9 @@ fileprivate extension PresentrController {
 extension PresentrController {
 
     @objc func chromeViewTapped(gesture: UIGestureRecognizer) {
-        guard dismissOnTap else {
-            return
-        }
+		guard backgroundTap == .dismiss else {
+			return
+		}
 
         guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
             return
@@ -367,8 +374,6 @@ extension PresentrController {
             swipeGestureEnded()
         }
     }
-
-
 
     // MARK: Helper's
 
