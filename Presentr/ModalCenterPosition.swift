@@ -16,6 +16,7 @@ import Foundation
  - BottomCenter: Center of the bottom half of the screen.
  - Custom: A custom center position using a CGPoint which represents the center point of the presented view controller.
  - Custom: A custom center position to be calculated, using a CGPoint which represents the origin of the presented view controller.
+ - Dynamic: A custom center position using a closure to calculate the center point of the presented view controller dynamically.
  */
 public enum ModalCenterPosition {
 
@@ -24,6 +25,7 @@ public enum ModalCenterPosition {
     case bottomCenter
     case custom(centerPoint: CGPoint)
     case customOrigin(origin: CGPoint)
+    case dynamicOrigin(closure: () -> CGPoint)
 
     /**
      Calculates the exact position for the presented view controller center.
@@ -45,7 +47,7 @@ public enum ModalCenterPosition {
                            y: containerFrame.origin.y + (containerFrame.height * (3 / 4)))
         case .custom(let point):
             return point
-        case .customOrigin(_):
+        case .customOrigin(_), .dynamicOrigin(_):
             return nil
         }
     }
@@ -54,6 +56,8 @@ public enum ModalCenterPosition {
         switch self {
         case .customOrigin(let origin):
             return origin
+        case .dynamicOrigin(let closure):
+            return closure()
         default:
             return nil
         }
