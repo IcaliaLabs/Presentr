@@ -35,7 +35,7 @@ enum ExampleSection {
         case .other:
             return [.backgroundBlur, .customBackground, .keyboardTest, .fullScreen]
         case .advanced:
-            return [.custom, .customAnimation, .modifiedAnimation, .coverVerticalWithSpring, .dynamicSize, .currentContext]
+            return [.custom, .customAnimation, .modifiedAnimation, .coverVerticalWithSpring, .dynamicSize, .currentContext, .topCenterWithMargin, .bottomCenterWithMargin]
         }
     }
 
@@ -67,6 +67,8 @@ enum ExampleItem: String {
     case coverVerticalWithSpring = "Cover vertical with spring"
     case currentContext = "Using a custom context"
     case dynamicSize = "Using dynamic sizing (Auto Layout)"
+    case topCenterWithMargin = "Top center with margin (15 points)"
+    case bottomCenterWithMargin = "Bottom center with margin (15 points)"
 
     var action: Selector {
         switch self {
@@ -114,6 +116,10 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.currentContext)
         case .dynamicSize:
             return #selector(MainTableViewController.dynamicSize)
+        case .topCenterWithMargin:
+            return #selector(MainTableViewController.topCenterWithMarginPresentation)
+        case .bottomCenterWithMargin:
+            return #selector(MainTableViewController.bottomCenterWithMarginPresentation)
         }
     }
 
@@ -395,6 +401,22 @@ extension MainTableViewController {
     func currentContext() {
         let splitVC = storyboard!.instantiateViewController(withIdentifier: "SplitViewController")
         navigationController?.pushViewController(splitVC, animated: true)
+    }
+    
+    func topCenterWithMarginPresentation() {
+        presenter.presentationType = .custom(width: .default, height: .custom(size: 150), center: .topCenterWithMargin(margin: 15.0))
+        presenter.transitionType = .coverHorizontalFromLeft
+        presenter.dismissTransitionType = .coverHorizontalFromRight
+        presenter.dismissAnimated = true
+        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+    }
+    
+    func bottomCenterWithMarginPresentation() {
+        presenter.presentationType = .custom(width: .default, height: .custom(size: 150), center: .bottomCenterWithMargin(margin: 15))
+        presenter.transitionType = .coverHorizontalFromLeft
+        presenter.dismissTransitionType = .coverHorizontalFromRight
+        presenter.dismissAnimated = true
+        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
 }
