@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// Helper struct that represents the shadow properties
-public struct PresentrShadow {
+/// Struct that represents the shadow properties for the presented ViewController's view
+public struct Shadow {
 
     public let shadowColor: UIColor?
 

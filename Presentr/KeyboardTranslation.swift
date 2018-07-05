@@ -12,9 +12,22 @@ import UIKit
 public enum KeyboardTranslationType {
 
     case none
-    case moveUp
-    case compress
-    case stickToTop
+    case moveUp(keyboardPadding: Float?)
+    case compress(keyboardPadding: Float?)
+    case stickToTop(keyboardPadding: Float?)
+
+    private var keyboardPadding: Float? {
+        switch self {
+        case let .moveUp(keyboardPadding):
+            return keyboardPadding
+        case let .compress(keyboardPadding):
+            return keyboardPadding
+        case let .stickToTop(keyboardPadding):
+            return keyboardPadding
+        default:
+            return nil
+        }
+    }
 
     /**
      Calculates the correct frame for the keyboard translation type.
@@ -25,9 +38,20 @@ public enum KeyboardTranslationType {
      */
     public func getTranslationFrame(keyboardFrame: CGRect, presentedFrame: CGRect) -> CGRect {
         let keyboardTop = UIScreen.main.bounds.height - keyboardFrame.size.height
-        let buffer: CGFloat = (presentedFrame.origin.y + presentedFrame.size.height == UIScreen.main.bounds.height) ? 0 : 20.0 // add a 20 pt buffer except when the presentedFrame is stick to bottom
+
+        let isFullScreen = (presentedFrame.origin.y + presentedFrame.size.height) == UIScreen.main.bounds.height
+        let buffer: CGFloat
+        if isFullScreen {
+            buffer = 0
+        } else if let keyboardPadding = keyboardPadding {
+            buffer = CGFloat(keyboardPadding)
+        } else {
+            buffer = 20
+        }
+
         let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + buffer
         let offset = presentedViewBottom - keyboardTop
+
         switch self {
         case .moveUp:
             if offset > 0.0 {

@@ -69,14 +69,16 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType or default value will be used.
     public var dismissTransitionType: TransitionType?
 
-    /// Should the presented controller have rounded corners. Each presentation type has its own default if nil.
-    public var roundCorners: Bool?
+//    /// Should the presented controller have rounded corners. Each presentation type has its own default if nil.
+//    public var roundCorners: Bool?
+//
+//    /// Radius of rounded corners for presented controller if roundCorners is true. Default is 4.
+//    public var cornerRadius: CGFloat = 4
 
-    /// Radius of rounded corners for presented controller if roundCorners is true. Default is 4.
-    public var cornerRadius: CGFloat = 4
+    public var roundedCorners: RoundedCorners = .none
 
     /// Shadow settings for presented controller.
-    public var dropShadow: PresentrShadow?
+    public var dropShadow: Shadow?
 
 	/// What should happen when background is tapped. Default is dismiss which dismisses the presented ViewController.
 	public var backgroundTap: BackgroundTapAction = .dismiss
@@ -179,8 +181,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
         return PresentrController(presentedViewController: presented,
                                     presentingViewController: presenting,
                                     presentationType: presentationType,
-                                    roundCorners: roundCorners,
-                                    cornerRadius: cornerRadius,
+                                    roundedCorners: roundedCorners,
                                     dropShadow: dropShadow,
                                     backgroundTap: backgroundTap,
                                     dismissOnSwipe: dismissOnSwipe,

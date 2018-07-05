@@ -32,6 +32,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// How the presented view controller should respond in response to keyboard presentation.
     let keyboardTranslationType: KeyboardTranslationType
 
+    /// The corner radius to be set on the presented view controller's view
+    let roundedCorners: RoundedCorners
+
+    /// The shadow to be set on the presented view controller's view
+    let dropShadow: Shadow?
+
     /// The frame used for a current context presentation. If nil, normal presentation.
     let contextFrameForPresentation: CGRect?
 
@@ -47,7 +53,16 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     fileprivate var shouldObserveKeyboard: Bool {
-        return conformingPresentedController != nil || keyboardTranslationType != .none
+        let hasConformingPresentedController = conformingPresentedController != nil
+
+        let hasKeyboardTranslationType: Bool
+        if case .none = keyboardTranslationType {
+            hasKeyboardTranslationType = false
+        } else {
+            hasKeyboardTranslationType = true
+        }
+
+        return hasConformingPresentedController || hasKeyboardTranslationType
     }
 
     fileprivate var containerFrame: CGRect {
@@ -99,9 +114,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     init(presentedViewController: UIViewController,
          presentingViewController: UIViewController?,
          presentationType: PresentationType,
-         roundCorners: Bool?,
-         cornerRadius: CGFloat,
-         dropShadow: PresentrShadow?,
+         roundedCorners: RoundedCorners,
+         dropShadow: Shadow?,
          backgroundTap: BackgroundTapAction,
          dismissOnSwipe: Bool,
          dismissOnSwipeDirection: DismissSwipeDirection,
@@ -116,6 +130,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          outsideContextTap: BackgroundTapAction) {
 
         self.presentationType = presentationType
+        self.roundedCorners = roundedCorners
+        self.dropShadow = dropShadow
         self.backgroundTap = backgroundTap
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
@@ -128,8 +144,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
         setupBackground(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
-        setupCornerRadius(roundCorners: roundCorners, cornerRadius: cornerRadius)
-        addDropShadow(shadow: dropShadow)
+        setupRoundedCorners()
+        setupDropShadow()
         
         if dismissOnSwipe {
             setupDismissOnSwipe()
@@ -163,39 +179,40 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
 
-    private func setupCornerRadius(roundCorners: Bool?, cornerRadius: CGFloat) {
-        let shouldRoundCorners = roundCorners ?? presentationType.shouldRoundCorners
+    private func setupRoundedCorners() {
+        let clipToBounds: Bool
 
-        if shouldRoundCorners {
-            presentedViewController.view.layer.cornerRadius = cornerRadius
+        if let userClipToBounds = roundedCorners.clipToBounds {
+            clipToBounds = userClipToBounds
+        } else if dropShadow == nil {
+            clipToBounds = false
         } else {
-            presentedViewController.view.layer.cornerRadius = 0
+            clipToBounds = true
         }
 
-		if let settable = presentedViewController as? CornerRadiusSettable {
-			settable.customContainerViewSetCornerRadius(cornerRadius)
-		}
+        presentedViewController.view.clipsToBounds = clipToBounds
+        presentedViewController.view.rounded(corners: roundedCorners.corners, radius: roundedCorners.radius)
     }
-    
-    private func addDropShadow(shadow: PresentrShadow?) {
-        guard let shadow = shadow else {
+
+    private func setupDropShadow() {
+        guard let dropShadow = dropShadow else {
             presentedViewController.view.layer.shadowOpacity = 0
             return
         }
 
-        if let shadowColor = shadow.shadowColor?.cgColor {
+        if let shadowColor = dropShadow.shadowColor?.cgColor {
             presentedViewController.view.layer.shadowColor = shadowColor
         }
 
-        if let shadowOpacity = shadow.shadowOpacity {
+        if let shadowOpacity = dropShadow.shadowOpacity {
             presentedViewController.view.layer.shadowOpacity = shadowOpacity
         }
 
-        if let shadowOffset = shadow.shadowOffset {
+        if let shadowOffset = dropShadow.shadowOffset {
             presentedViewController.view.layer.shadowOffset = shadowOffset
         }
 
-        if let shadowRadius = shadow.shadowRadius {
+        if let shadowRadius = dropShadow.shadowRadius {
             presentedViewController.view.layer.shadowRadius = shadowRadius
         }
     }

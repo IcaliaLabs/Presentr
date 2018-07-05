@@ -87,14 +87,8 @@ private struct ColorPalette {
 
 }
 
-protocol CornerRadiusSettable {
-
-	func customContainerViewSetCornerRadius(_ radius: CGFloat)
-
-}
-
 /// UIViewController subclass that displays the alert
-public class AlertViewController: UIViewController, CornerRadiusSettable {
+public class AlertViewController: UIViewController {
 
     /// Text that will be used as the title for the alert
 	public var titleText: String = "" {
@@ -158,7 +152,6 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
             addAction(okAction)
         }
 
-		setupContainerView()
         setupFonts()
         setupLabels()
         setupButtons()
@@ -180,15 +173,7 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
         actions += [action]
     }
 
-    // MARK: Setup, CornerRadiusSettable
-
-	func customContainerViewSetCornerRadius(_ radius: CGFloat) {
-		containerView.layer.cornerRadius = radius
-	}
-
-	private func setupContainerView() {
-		containerView.clipsToBounds = true
-	}
+    // MARK: Setup
 
     private func setupFonts() {
 		if titleFont == nil || bodyFont == nil || buttonFont == nil {
