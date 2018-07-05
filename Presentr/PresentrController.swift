@@ -196,7 +196,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     private func setupDropShadow() {
         guard let dropShadow = dropShadow else {
-            presentedViewController.view.layer.shadowOpacity = 0
             return
         }
 
@@ -227,6 +226,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
 
+
+    fileprivate var _widthCache: CGFloat?
+
+    fileprivate var _heightCache: CGFloat?
+
+    fileprivate var _originCache: CGPoint?
+
 }
 
 // MARK: - UIPresentationController
@@ -236,29 +242,13 @@ extension PresentrController {
     // MARK: Presentation
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        var presentedViewFrame = CGRect.zero
-        let containerBounds = containerFrame
-        let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
-        
-        let origin: CGPoint
-        // If the Presentation Type's calculate center point returns nil
-        // this means that the user provided the origin, not a center point.
-        if let center = getCenterPointFromType() {
-            origin = calculateOrigin(center, size: size)
-        } else {
-            origin = getOriginFromType() ?? CGPoint(x: 0, y: 0)
-        }
-        
-        presentedViewFrame.size = size
-        presentedViewFrame.origin = origin
-
-        return presentedViewFrame
+        let presentedFrameOrigin = getOriginFromPresentationType(parentContainerSize: containerFrame.size)
+        let presentedFrameSize = size(forChildContentContainer: presentedViewController, withParentContainerSize: containerFrame.size)
+        return CGRect(origin: presentedFrameOrigin, size: presentedFrameSize)
     }
     
     override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-        let width = getWidthFromType(parentSize)
-        let height = getHeightFromType(parentSize)
-        return CGSize(width: CGFloat(width), height: CGFloat(height))
+        return getPresentedFrameSizeWith(parentContainerSize: parentSize)
     }
     
     override func containerViewWillLayoutSubviews() {
@@ -332,49 +322,79 @@ extension PresentrController {
 
 }
 
-// MARK: - Sizing, Position
+// MARK: - Sizing, Position Calculation
 
 fileprivate extension PresentrController {
 
-    func getWidthFromType(_ parentSize: CGSize) -> Float {
-        guard let size = presentationType.size() else {
-            if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
-            }
-            return 0
+    func getPresentedFrameSizeWith(parentContainerSize: CGSize) -> CGSize {
+        let width = getWidthFromPresentationTypeWith(parentContainerSize: parentContainerSize)
+        let height = getHeightFromPresentationTypeWith(parentContainerSize: parentContainerSize)
+        return CGSize(width: width, height: height)
+    }
+
+    func getWidthFromPresentationTypeWith(parentContainerSize: CGSize) -> CGFloat {
+        if let width = _widthCache {
+            return width
         }
 
-        return size.width.calculateWidth(parentSize)
-    }
+        let width: CGFloat
 
-    func getHeightFromType(_ parentSize: CGSize) -> Float {
-        guard let size = presentationType.size() else {
+        if let size = presentationType.size() {
+            width = CGFloat(size.width.calculateWidth(parentContainerSize))
+        } else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
+                width = presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width
+            } else {
+                width = 0
             }
-            return 0
         }
 
-        return size.height.calculateHeight(parentSize)
+        _widthCache = width
+        return width
     }
 
-    func getCenterPointFromType() -> CGPoint? {
-        let containerBounds = containerFrame
-        let position = presentationType.position()
-        return position.calculateCenterPoint(containerBounds)
+    func getHeightFromPresentationTypeWith(parentContainerSize: CGSize) -> CGFloat {
+        if let height = _heightCache {
+            return height
+        }
+
+        let height: CGFloat
+
+        if let size = presentationType.size() {
+            height = CGFloat(size.height.calculateHeight(parentContainerSize))
+        } else {
+            if case .dynamic = presentationType {
+                height = presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+            } else {
+                height = 0
+            }
+        }
+
+        _heightCache = height
+        return height
     }
 
-    func getOriginFromType() -> CGPoint? {
-        let position = presentationType.position()
-        return position.calculateOrigin()
+    func getOriginFromPresentationType(parentContainerSize: CGSize) -> CGPoint {
+        if let origin = _originCache {
+            return origin
+        }
+
+        let origin: CGPoint
+        let presentedFrameSize = getPresentedFrameSizeWith(parentContainerSize: parentContainerSize)
+
+        switch presentationType.position() {
+        case let .origin(originPoint):
+            origin = originPoint
+        case let .center(centerPosition):
+            origin = centerPosition.calculateOriginWith(presentedFrameSize: presentedFrameSize, containerFrame: containerFrame)
+        case let .stickTo(edgePosition):
+            origin = edgePosition.calculateOriginWith(presentedFrameSize: presentedFrameSize, containerFrame: containerFrame)
+        }
+
+        _originCache = origin
+        return origin
     }
 
-    func calculateOrigin(_ center: CGPoint, size: CGSize) -> CGPoint {
-        let x: CGFloat = center.x - size.width / 2
-        let y: CGFloat = center.y - size.height / 2
-        return CGPoint(x: x, y: y)
-    }
-    
 }
 
 // MARK: - Gesture Handling

@@ -24,8 +24,8 @@ public enum PresentationType {
     case topHalf
     case bottomHalf
     case fullScreen
-    case dynamic(center: ModalCenterPosition)
-    case custom(width: ModalSize, height: ModalSize, center: ModalCenterPosition)
+    case dynamic(position: ModalPosition)
+    case custom(width: ModalSize, height: ModalSize, position: ModalPosition)
 
     /// Describes the sizing for each Presentr type. It is meant to be non device/width specific, except for the .custom case.
     ///
@@ -50,20 +50,20 @@ public enum PresentationType {
     /// Describes the position for each Presentr type. It is meant to be non device/width specific, except for the .custom case.
     ///
     /// - Returns: Returns a 'ModalCenterPosition' enum describing the center point for the presented modal.
-    func position() -> ModalCenterPosition {
+    func position() -> ModalPosition {
         switch self {
         case .alert, .popup:
-            return .center
+            return .center(.screenCenter)
         case .topHalf:
-            return .topCenter
+            return .center(.topCenter)
         case .bottomHalf:
-            return .bottomCenter
+            return .center(.bottomCenter)
         case .fullScreen:
-            return .center
-        case .custom(_, _, let center):
-            return center
-        case .dynamic(let center):
-            return center
+            return .center(.screenCenter)
+        case .dynamic(let position):
+            return position
+        case .custom(_, _, let position):
+            return position
         }
     }
 
