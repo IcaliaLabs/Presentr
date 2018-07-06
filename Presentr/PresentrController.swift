@@ -152,7 +152,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
         setupBackground(backgroundColor, backgroundOpacity: backgroundOpacity, blurBackground: blurBackground, blurStyle: blurStyle)
-        setupRoundedCorners()
+//        setupRoundedCorners()
         setupDropShadow()
         
         if dismissOnSwipe {
@@ -199,6 +199,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
 
         presentedViewController.view.clipsToBounds = clipToBounds
+        presentedViewController.view.layer.masksToBounds = clipToBounds
         presentedViewController.view.rounded(corners: roundedCorners.corners, radius: roundedCorners.radius)
     }
 
@@ -244,21 +245,26 @@ extension PresentrController {
     
     override var frameOfPresentedViewInContainerView: CGRect {
         let presentedFrameOrigin = getOriginFromPresentationType(parentContainerSize: containerFrame.size)
-        let presentedFrameSize = size(forChildContentContainer: presentedViewController, withParentContainerSize: containerFrame.size)
+        let presentedFrameSize = getPresentedFrameSizeWith(parentContainerSize: containerFrame.size)
+//        let presentedFrameSize = size(forChildContentContainer: presentedViewController, withParentContainerSize: containerFrame.size)
         return CGRect(origin: presentedFrameOrigin, size: presentedFrameSize)
     }
     
-    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-        return getPresentedFrameSizeWith(parentContainerSize: parentSize)
-    }
-    
+//    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
+//        return getPresentedFrameSizeWith(parentContainerSize: parentSize)
+//    }
+
     override func containerViewWillLayoutSubviews() {
         guard !keyboardIsShowing else {
             return // prevent resetting of presented frame when the frame is being translated
         }
 
         chromeView.frame = containerFrame
-        presentedView!.frame = frameOfPresentedViewInContainerView
+//        presentedView!.frame = frameOfPresentedViewInContainerView
+    }
+
+    override func containerViewDidLayoutSubviews() {
+        setupRoundedCorners()
     }
     
     // MARK: Animation
