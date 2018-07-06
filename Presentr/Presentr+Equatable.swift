@@ -67,9 +67,9 @@ extension ModalPosition: Equatable {
 
 }
 
-extension ModalPosition.CenterPosition: Equatable {
+extension CenterPosition: Equatable {
 
-    public static func == (lhs: ModalPosition.CenterPosition, rhs: ModalPosition.CenterPosition) -> Bool {
+    public static func == (lhs: CenterPosition, rhs: CenterPosition) -> Bool {
         switch (lhs, rhs) {
         case (.screenCenter, .screenCenter):
             return true
@@ -86,9 +86,9 @@ extension ModalPosition.CenterPosition: Equatable {
 
 }
 
-extension ModalPosition.ScreenEdgePosition: Equatable {
+extension ScreenEdgePosition: Equatable {
 
-    public static func == (lhs: ModalPosition.ScreenEdgePosition, rhs: ModalPosition.ScreenEdgePosition) -> Bool {
+    public static func == (lhs: ScreenEdgePosition, rhs: ScreenEdgePosition) -> Bool {
         switch (lhs, rhs) {
         case (.topLeft, .topLeft):
             return true

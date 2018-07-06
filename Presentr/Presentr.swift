@@ -69,12 +69,7 @@ public class Presentr: NSObject {
     /// The type of transition animation to be used to dismiss the view controller. This is optional, if not provided transitionType or default value will be used.
     public var dismissTransitionType: TransitionType?
 
-//    /// Should the presented controller have rounded corners. Each presentation type has its own default if nil.
-//    public var roundCorners: Bool?
-//
-//    /// Radius of rounded corners for presented controller if roundCorners is true. Default is 4.
-//    public var cornerRadius: CGFloat = 4
-
+    /// Should the presented controller's view have rounded corners.
     public var roundedCorners: RoundedCorners = .none
 
     /// Shadow settings for presented controller.

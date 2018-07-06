@@ -109,6 +109,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         return defaultDirection ? presentationType == .topHalf : dismissOnSwipeDirection == .top
     }()
 
+    // MARK: Cache's
+
+    fileprivate var _widthCache: CGFloat?
+
+    fileprivate var _heightCache: CGFloat?
+
+    fileprivate var _originCache: CGPoint?
+
     // MARK: - Init
 
     init(presentedViewController: UIViewController,
@@ -184,7 +192,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
         if let userClipToBounds = roundedCorners.clipToBounds {
             clipToBounds = userClipToBounds
-        } else if dropShadow == nil {
+        } else if dropShadow != nil {
             clipToBounds = false
         } else {
             clipToBounds = true
@@ -225,13 +233,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
-
-
-    fileprivate var _widthCache: CGFloat?
-
-    fileprivate var _heightCache: CGFloat?
-
-    fileprivate var _originCache: CGPoint?
 
 }
 

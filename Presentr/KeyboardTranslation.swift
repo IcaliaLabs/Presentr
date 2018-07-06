@@ -12,18 +12,18 @@ import UIKit
 public enum KeyboardTranslationType {
 
     case none
-    case moveUp(keyboardPadding: Float?)
-    case compress(keyboardPadding: Float?)
-    case stickToTop(keyboardPadding: Float?)
+    case moveUp(padding: Float?)
+    case compress(padding: Float?)
+    case stickToTop(padding: Float?)
 
-    private var keyboardPadding: Float? {
+    private var padding: Float? {
         switch self {
-        case let .moveUp(keyboardPadding):
-            return keyboardPadding
-        case let .compress(keyboardPadding):
-            return keyboardPadding
-        case let .stickToTop(keyboardPadding):
-            return keyboardPadding
+        case let .moveUp(padding):
+            return padding
+        case let .compress(padding):
+            return padding
+        case let .stickToTop(padding):
+            return padding
         default:
             return nil
         }
@@ -43,8 +43,8 @@ public enum KeyboardTranslationType {
         let buffer: CGFloat
         if isFullScreen {
             buffer = 0
-        } else if let keyboardPadding = keyboardPadding {
-            buffer = CGFloat(keyboardPadding)
+        } else if let padding = padding {
+            buffer = CGFloat(padding)
         } else {
             buffer = 20
         }
