@@ -62,13 +62,24 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var visualEffect: UIVisualEffect?
 
+    fileprivate lazy var swipeIndicatorView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 5))
+        view.backgroundColor = .white
+        view.alpha = 0
+        view.rounded(radius: 2.5)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+
     // MARK: Swipe gesture
 
     fileprivate var presentedViewIsBeingDissmissed: Bool = false
 
     fileprivate var presentedViewFrame: CGRect = .zero
-
     fileprivate var presentedViewCenter: CGPoint = .zero
+
+    fileprivate var swipeIndicatorViewFrame: CGRect = .zero
+    fileprivate var swipeIndicatorViewCenter: CGPoint = .zero
 
     fileprivate var latestShouldDismiss: Bool = true
 
@@ -127,8 +138,11 @@ extension PresentrController {
     // MARK: UI Setup
 
     private func setupDismissOnSwipe() {
-        let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
-        presentedViewController.view.addGestureRecognizer(swipe)
+        let presentedSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
+        presentedViewController.view.addGestureRecognizer(presentedSwipe)
+
+        let chromeSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
+        chromeView.addGestureRecognizer(chromeSwipe)
     }
 
     private func setupBackground() {
@@ -228,6 +242,10 @@ extension PresentrController {
 
     override func containerViewDidLayoutSubviews() {
         setupRoundedCorners()
+
+        let presentedFrame = frameOfPresentedViewInContainerView
+        swipeIndicatorView.frame.origin = CGPoint(x: presentedFrame.minX + presentedFrame.width / 2 - swipeIndicatorView.frame.width / 2,
+                                                  y: presentedFrame.minY - 10)
     }
     
     // MARK: Animation
@@ -253,6 +271,8 @@ extension PresentrController {
         containerView.insertSubview(backgroundView, at: 0)
         containerView.insertSubview(chromeView, at: 1)
 
+        chromeView.addSubview(swipeIndicatorView)
+
         if let customBackgroundView = appearance.customBackgroundView {
             chromeView.addSubview(customBackgroundView)
         }
@@ -270,23 +290,27 @@ extension PresentrController {
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
             chromeView.alpha = 1.0
+            swipeIndicatorView.alpha = 0.7
             return
         }
 
         coordinator.animate(alongsideTransition: { context in
             blurEffectView?.effect = self.visualEffect
             self.chromeView.alpha = 1.0
+            self.swipeIndicatorView.alpha = 0.7
         }, completion: nil)
     }
     
     override func dismissalTransitionWillBegin() {
         guard let coordinator = presentedViewController.transitionCoordinator else {
-            chromeView.alpha = 0.0
+            chromeView.alpha = 0
+            swipeIndicatorView.alpha = 0
             return
         }
 
         coordinator.animate(alongsideTransition: { context in
-            self.chromeView.alpha = 0.0
+            self.chromeView.alpha = 0
+            self.swipeIndicatorView.alpha = 0
         }, completion: nil)
     }
 
@@ -409,6 +433,8 @@ extension PresentrController {
         if gesture.state == .began {
             presentedViewFrame = presentedViewController.view.frame
             presentedViewCenter = presentedViewController.view.center
+            swipeIndicatorViewFrame = swipeIndicatorView.frame
+            swipeIndicatorViewCenter = swipeIndicatorView.center
 
             let directionDown = gesture.translation(in: presentedViewController.view).y > 0
             if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
@@ -437,6 +463,7 @@ extension PresentrController {
             swipeLimit = -swipeLimit
         }
 
+        swipeIndicatorView.center = CGPoint(x: swipeIndicatorViewCenter.x, y: swipeIndicatorViewCenter.y + amount.y)
         presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
 
         let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
@@ -458,6 +485,7 @@ extension PresentrController {
                        options: [],
                        animations: {
             self.presentedViewController.view.frame = self.presentedViewFrame
+            self.swipeIndicatorView.frame = self.swipeIndicatorViewFrame
         }, completion: nil)
     }
 

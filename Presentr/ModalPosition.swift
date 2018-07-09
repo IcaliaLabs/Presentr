@@ -18,11 +18,7 @@ public enum ModalPosition {
     case origin(CGPoint)
     case center(Center)
     case stickTo(ScreenEdge)
-    
-}
 
-public protocol PositionDescriptor {
-    func calculateOriginWith(presentedFrameSize: CGSize, containerFrame: CGRect) -> CGPoint
 }
 
 public extension ModalPosition {
