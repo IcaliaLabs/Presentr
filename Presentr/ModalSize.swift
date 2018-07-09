@@ -24,8 +24,8 @@ public enum ModalSize {
     case `default`
     case half
     case full
-	case fluid(percentage: Float)
-	case sideMargin(value: Float)
+    case fullMinusMargin(Float)
+	case percentage(Float)
     case custom(size: Float)
     case customOrientation(sizePortrait: Float, sizeLandscape: Float)
 
@@ -39,11 +39,15 @@ public enum ModalSize {
     func calculateWidth(_ parentSize: CGSize) -> Float {
         switch self {
         case .default:
-            return floorf(Float(parentSize.width) - (PresentrConstants.Values.defaultSideMargin * 2.0))
+            return floorf(Float(parentSize.width) - (Presentr.Constants.Values.defaultSideMargin * 2.0))
         case .half:
             return floorf(Float(parentSize.width) / 2.0)
         case .full:
             return Float(parentSize.width)
+        case .fullMinusMargin(let value):
+            return floorf(Float(parentSize.width) - value * 2.0)
+        case .percentage(let percentage):
+            return floorf(Float(parentSize.width) * percentage)
         case .custom(let size):
             return size
         case .customOrientation(let sizePortrait, let sizeLandscape):
@@ -55,10 +59,6 @@ public enum ModalSize {
             default:
                 return min(Float(UIScreen.main.bounds.width), sizePortrait)
             }
-        case .fluid(let percentage):
-            return floorf(Float(parentSize.width) * percentage)
-        case .sideMargin(let value):
-            return floorf(Float(parentSize.width) - value * 2.0)
         }
     }
 
@@ -72,11 +72,15 @@ public enum ModalSize {
     func calculateHeight(_ parentSize: CGSize) -> Float {
         switch self {
         case .default:
-            return floorf(Float(parentSize.height) * PresentrConstants.Values.defaultHeightPercentage)
+            return floorf(Float(parentSize.height) * Presentr.Constants.Values.defaultHeightPercentage)
         case .half:
             return floorf(Float(parentSize.height) / 2.0)
         case .full:
             return Float(parentSize.height)
+        case .fullMinusMargin(let value):
+            return floorf(Float(parentSize.height) - value * 2)
+        case .percentage(let percentage):
+            return floorf(Float(parentSize.height) * percentage)
         case .custom(let size):
             return size
         case .customOrientation(let sizePortrait, let sizeLandscape):
@@ -88,10 +92,6 @@ public enum ModalSize {
             default:
                 return min(Float(UIScreen.main.bounds.height), sizePortrait)
             }
-        case .fluid(let percentage):
-            return floorf(Float(parentSize.height) * percentage)
-        case .sideMargin(let value):
-            return floorf(Float(parentSize.height) - value * 2)
         }
     }
     
