@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// <#Description#>
 public struct KeyboardTranslation {
 
     public let translationType: TranslationType
@@ -46,7 +47,10 @@ public struct KeyboardTranslation {
         switch self.translationType {
         case .moveUp:
             if offset > 0.0 {
-                let frame = CGRect(x: presentedFrame.origin.x, y: presentedFrame.origin.y-offset, width: presentedFrame.size.width, height: presentedFrame.size.height)
+                let frame = CGRect(x: presentedFrame.origin.x,
+                                   y: presentedFrame.origin.y-offset,
+                                   width: presentedFrame.size.width,
+                                   height: presentedFrame.size.height)
                 return frame
             }
             return presentedFrame
@@ -54,14 +58,20 @@ public struct KeyboardTranslation {
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
                 let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40.0
-                let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: newHeight)
+                let frame = CGRect(x: presentedFrame.origin.x,
+                                   y: y,
+                                   width: presentedFrame.size.width,
+                                   height: newHeight)
                 return frame
             }
             return presentedFrame
         case .stickToTop:
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
-                let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: presentedFrame.size.height)
+                let frame = CGRect(x: presentedFrame.origin.x,
+                                   y: y,
+                                   width: presentedFrame.size.width,
+                                   height: presentedFrame.size.height)
                 return frame
             }
             return presentedFrame

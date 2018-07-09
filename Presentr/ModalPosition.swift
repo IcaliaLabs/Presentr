@@ -18,20 +18,21 @@ public enum ModalPosition {
     case origin(CGPoint)
     case center(Center)
     case stickTo(ScreenEdge)
+    
+}
 
+public protocol PositionDescriptor {
+    func calculateOriginWith(presentedFrameSize: CGSize, containerFrame: CGRect) -> CGPoint
 }
 
 public extension ModalPosition {
 
-    /**
-     Describes the presented presented view controller's center position. It is meant to be non-specific, but we can use the 'calculatePoint' method when we want to calculate the exact point by passing in the 'containerBounds' rect that only the presentation controller should be aware of.
-
-     - Center:       Center of the screen.
-     - TopCenter:    Center of the top half of the screen.
-     - BottomCenter: Center of the bottom half of the screen.
-     - Custom: A custom center position using a CGPoint which represents the center point of the presented view controller.
-     - Custom: A custom center position to be calculated, using a CGPoint which represents the origin of the presented view controller.
-     */
+    /// Describes the presented view's center position.
+    ///
+    /// - screenCenter: Center of the screen.
+    /// - topCenter: Center of the top half of the screen.
+    /// - bottomCenter: Center of the bottom half of the screen.
+    /// - custom: A custom center position using a CGPoint which represents the center point of the presented view controller.
     public enum Center {
 
         case screenCenter
@@ -39,49 +40,29 @@ public extension ModalPosition {
         case bottomCenter
         case custom(centerPoint: CGPoint)
 
-        /**
-         Calculates the exact position for the presented view controller center.
-
-         - parameter containerBounds: The container bounds the controller is being presented in.
-
-         - returns: CGPoint representing the presented view controller's center point.
-         */
-//        func calculateCenterPointWith(containerFrame: CGRect) -> CGPoint {
-//            let halfWidth = containerFrame.width / 2
-//            let halfHeight = containerFrame.height / 2
-//
-//            switch self {
-//            case .screenCenter:
-//                return CGPoint(x: containerFrame.minX + halfWidth,
-//                               y: containerFrame.minY + halfHeight)
-//            case .topCenter:
-//                return CGPoint(x: containerFrame.minX + halfWidth,
-//                               y: containerFrame.minY + (containerFrame.height * (1 / 4) - 1))
-//            case .bottomCenter:
-//                return CGPoint(x: containerFrame.minX + halfWidth,
-//                               y: containerFrame.minY + (containerFrame.height * (3 / 4)))
-//            case .custom(let point):
-//                return point
-//            }
-//        }
-
+        /// Calculates the origin point for the presented view's frame.
+        ///
+        /// - Parameters:
+        ///   - presentedFrameSize: The size for the presented view.
+        ///   - containerFrame: The frame for the container view the controller is being presented in.
+        /// - Returns: CGPoint representing the presented view's frame origin.
         func calculateOriginWith(presentedFrameSize: CGSize, containerFrame: CGRect) -> CGPoint {
-            let presentedFrameHalfWidth = presentedFrameSize.width / 2
-            let presentedFrameHalfHeight = presentedFrameSize.height / 2
+            let presentedHalfWidth = presentedFrameSize.width / 2
+            let presentedHalfHeight = presentedFrameSize.height / 2
 
-            let containerFrameHalfWidth = containerFrame.width / 2
-            let containerFrameHalfHeight = containerFrame.height / 2
+            let containerHalfWidth = containerFrame.width / 2
+            let containerHalfHeight = containerFrame.height / 2
 
             switch self {
             case .screenCenter:
-                return CGPoint(x: containerFrame.minX + containerFrameHalfWidth - presentedFrameHalfWidth,
-                               y: containerFrame.minY + containerFrameHalfHeight - presentedFrameHalfHeight)
+                return CGPoint(x: containerFrame.minX + containerHalfWidth - presentedHalfWidth,
+                               y: containerFrame.minY + containerHalfHeight - presentedHalfHeight)
             case .topCenter:
-                return CGPoint(x: containerFrame.minX + containerFrameHalfWidth - presentedFrameHalfWidth,
-                               y: containerFrame.minY + (containerFrame.height * (1 / 4) - 1) - presentedFrameHalfHeight)
+                return CGPoint(x: containerFrame.minX + containerHalfWidth - presentedHalfWidth,
+                               y: containerFrame.minY + (containerFrame.height * (1 / 4) - 1) - presentedHalfHeight)
             case .bottomCenter:
-                return CGPoint(x: containerFrame.minX + containerFrameHalfWidth - presentedFrameHalfWidth,
-                               y: containerFrame.minY + (containerFrame.height * (3 / 4)) - presentedFrameHalfHeight)
+                return CGPoint(x: containerFrame.minX + containerHalfWidth - presentedHalfWidth,
+                               y: containerFrame.minY + (containerFrame.height * (3 / 4)) - presentedHalfHeight)
             case .custom(let point):
                 return point
             }
@@ -110,7 +91,7 @@ public extension ModalPosition {
         case bottomMiddle(padding: CGFloat)
         case bottomRight(padding: CGFloat)
 
-        var padding: CGFloat {
+        private var padding: CGFloat {
             switch self {
             case .topLeft(let padding):
                 return padding
@@ -127,6 +108,12 @@ public extension ModalPosition {
             }
         }
 
+        /// Calculates the origin point for the presented view's frame.
+        ///
+        /// - Parameters:
+        ///   - presentedFrameSize: The size for the presented view.
+        ///   - containerFrame: The frame for the container view the controller is being presented in.
+        /// - Returns: CGPoint representing the presented view's frame origin.
         func calculateOriginWith(presentedFrameSize: CGSize, containerFrame: CGRect) -> CGPoint {
             switch self {
             case .topLeft:

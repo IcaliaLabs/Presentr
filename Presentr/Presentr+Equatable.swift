@@ -20,7 +20,7 @@ extension PresentationType: Equatable {
             return true
         case (.bottomHalf, .bottomHalf):
             return true
-        case (.dynamic, .dynamic):
+        case (.dynamicSize, .dynamicSize):
             return true
         case (let .custom(lhsWidth, lhsHeight, lhsPosition), let .custom(rhsWidth, rhsHeight, rhsPosition)):
             return lhsWidth == rhsWidth && lhsHeight == rhsHeight && lhsPosition == rhsPosition
@@ -34,6 +34,14 @@ extension PresentationType: Equatable {
 extension ModalSize: Equatable {
 
     public static func == (lhs: ModalSize, rhs: ModalSize) -> Bool {
+        return lhs.width == rhs.width && lhs.height == rhs.height
+    }
+
+}
+
+extension ModalDimension: Equatable {
+
+    public static func == (lhs: ModalDimension, rhs: ModalDimension) -> Bool {
         switch (lhs, rhs) {
         case (.default, .default):
             return true

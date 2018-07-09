@@ -9,43 +9,55 @@
 import Foundation
 import UIKit
 
-/**
- Descibes a presented modal's size dimension (width or height). It is meant to be non-specific, but the exact position can be calculated by calling the 'calculate' methods, passing in the 'parentSize' which only the Presentation Controller should be aware of.
- 
- - Default:     Default size. Will use Presentr's default margins to calculate size of presented controller. This is the size the .Popup presentation type uses.
- - Half:        Half of the screen.
- - Full:        Full screen.
- - Custom:      Custom fixed size.
- - Fluid:       Custom percentage-based fluid size.
- - SideMargin:  Uses side margins to calculate size.
- */
-public enum ModalSize {
-    
+/// Descibes a presented modal's size dimension (width or height).
+///
+/// - default: Default size. Will use Presentr's default margins to calculate size of presented controller.
+/// - half: Half of the screen.
+/// - full: Full screen.
+/// - fullMinusPadding: Full screen minus custom padding.
+/// - percentage: Percentage of full screen.
+/// - custom: Custom fixed-point size.
+/// - customOrientation: Custom fixed point size, varies depending on orientation.
+public enum ModalDimension {
+
     case `default`
     case half
     case full
-    case fullMinusMargin(Float)
-	case percentage(Float)
-    case custom(size: Float)
+    case fullMinusPadding(Float)
+    case percentage(Float)
+    case custom(Float)
     case customOrientation(sizePortrait: Float, sizeLandscape: Float)
 
-    /**
-     Calculates the exact width value for the presented view controller.
-     
-     - parameter parentSize: The presenting view controller's size. Provided by the presentation controller.
-     
-     - returns: Exact float width value.
-     */
-    func calculateWidth(_ parentSize: CGSize) -> Float {
-        switch self {
+}
+
+struct ModalSize {
+
+    let width: ModalDimension
+    let height: ModalDimension
+
+    /// <#Description#>
+    ///
+    /// - Parameter parentSize: <#parentSize description#>
+    /// - Returns: <#return value description#>
+    func calculateSize(parentSize: CGSize) -> CGSize {
+        return CGSize(width: CGFloat(calculateWidth(parentSize: parentSize)),
+                      height: CGFloat(calculateHeight(parentSize: parentSize)))
+    }
+
+    /// Calculates the exact width value for the presented view.
+    ///
+    /// - Parameter parentSize: The container view size for the presentation.
+    /// - Returns: Exact width value.
+    func calculateWidth(parentSize: CGSize) -> Float {
+        switch width {
         case .default:
             return floorf(Float(parentSize.width) - (Presentr.Constants.Values.defaultSideMargin * 2.0))
         case .half:
             return floorf(Float(parentSize.width) / 2.0)
         case .full:
             return Float(parentSize.width)
-        case .fullMinusMargin(let value):
-            return floorf(Float(parentSize.width) - value * 2.0)
+        case .fullMinusPadding(let padding):
+            return floorf(Float(parentSize.width) - padding * 2.0)
         case .percentage(let percentage):
             return floorf(Float(parentSize.width) * percentage)
         case .custom(let size):
@@ -62,23 +74,20 @@ public enum ModalSize {
         }
     }
 
-    /**
-     Calculates the exact height value for the presented view controller.
-     
-     - parameter parentSize: The presenting view controller's size. Provided by the presentation controller.
-     
-     - returns: Exact float height value.
-     */
-    func calculateHeight(_ parentSize: CGSize) -> Float {
-        switch self {
+    /// Calculates the exact height value for the presented view.
+    ///
+    /// - Parameter parentSize: The container view size for the presentation.
+    /// - Returns: Exact height value.
+    func calculateHeight(parentSize: CGSize) -> Float {
+        switch height {
         case .default:
             return floorf(Float(parentSize.height) * Presentr.Constants.Values.defaultHeightPercentage)
         case .half:
             return floorf(Float(parentSize.height) / 2.0)
         case .full:
             return Float(parentSize.height)
-        case .fullMinusMargin(let value):
-            return floorf(Float(parentSize.height) - value * 2)
+        case .fullMinusPadding(let padding):
+            return floorf(Float(parentSize.height) - padding * 2)
         case .percentage(let percentage):
             return floorf(Float(parentSize.height) * percentage)
         case .custom(let size):
@@ -94,5 +103,5 @@ public enum ModalSize {
             }
         }
     }
-    
+
 }

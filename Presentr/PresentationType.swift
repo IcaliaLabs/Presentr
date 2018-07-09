@@ -21,56 +21,55 @@ public enum PresentationType {
 
     case alert
     case popup
+    case bottomCard
     case topHalf
     case bottomHalf
     case fullScreen
-    case dynamic(position: ModalPosition)
-    case custom(width: ModalSize, height: ModalSize, position: ModalPosition)
+    case dynamicSize(position: ModalPosition)
+    case custom(width: ModalDimension, height: ModalDimension, position: ModalPosition)
 
-    /// Describes the sizing for each Presentr type. It is meant to be non device/width specific, except for the .custom case.
-    ///
-    /// - Returns: A tuple containing two 'ModalSize' enums, describing its width and height.
-    func size() -> (width: ModalSize, height: ModalSize)? {
+    /// Describes the sizing for each PresentationType.
+    var size: ModalSize? {
         switch self {
         case .alert:
-            return (.custom(size: 270), .custom(size: 180))
+            return ModalSize(width: .custom(270), height: .custom(180))
         case .popup:
-            return (.default, .default)
+            return ModalSize(width: .default, height: .default)
+        case .bottomCard:
+            return ModalSize(width: .full, height: .custom(350))
         case .topHalf, .bottomHalf:
-            return (.full, .half)
+            return ModalSize(width: .full, height: .half)
         case .fullScreen:
-            return (.full, .full)
+            return ModalSize(width: .full, height: .full)
         case .custom(let width, let height, _):
-            return (width, height)
-        case .dynamic(_):
+            return ModalSize(width: width, height: height)
+        case .dynamicSize(_):
             return nil
         }
     }
 
-    /// Describes the position for each Presentr type. It is meant to be non device/width specific, except for the .custom case.
-    ///
-    /// - Returns: Returns a 'ModalCenterPosition' enum describing the center point for the presented modal.
-    func position() -> ModalPosition {
+    /// Describes the position for each PresentationType.
+    var position: ModalPosition {
         switch self {
         case .alert, .popup:
             return .center(.screenCenter)
+        case .bottomCard:
+            return .stickTo(.bottomMiddle(padding: 0))
         case .topHalf:
             return .center(.topCenter)
         case .bottomHalf:
             return .center(.bottomCenter)
         case .fullScreen:
             return .center(.screenCenter)
-        case .dynamic(let position):
+        case .dynamicSize(let position):
             return position
         case .custom(_, _, let position):
             return position
         }
     }
 
-    /// Associates each Presentr type with a default transition type, in case one is not provided to the Presentr object.
-    ///
-    /// - Returns: Return a 'TransitionType' which describes a transition animation.
-    func defaultTransitionType() -> TransitionType {
+    /// Default transition type.
+    var defaultTransitionType: TransitionType {
         switch self {
         case .topHalf:
             return .coverVerticalFromTop
@@ -79,13 +78,15 @@ public enum PresentationType {
         }
     }
 
-    /// Default round corners setting.
-    var shouldRoundCorners: Bool {
+    /// Default rounded corners setting.
+    var defaultRoundedCorners: RoundedCorners {
         switch self {
         case .alert, .popup:
-            return true
+            return .all
+        case .bottomCard:
+            return RoundedCorners(.top, radius: 15)
         default:
-            return false
+            return .none
         }
     }
 

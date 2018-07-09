@@ -68,11 +68,11 @@ public final class Presentr: NSObject {
     }
 
     private var transitionForPresent: TransitionType {
-        return transitionType ?? presentationType.defaultTransitionType()
+        return transitionType ?? presentationType.defaultTransitionType
     }
 
     private var transitionForDismiss: TransitionType {
-        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType()
+        return dismissTransitionType ?? transitionType ?? presentationType.defaultTransitionType
     }
 
 }

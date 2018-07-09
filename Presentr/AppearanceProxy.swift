@@ -10,8 +10,8 @@ import Foundation
 /// <#Description#>
 public struct AppearanceProxy {
 
-    /// Should the presented controller's view have rounded corners, default is none
-    public var roundedCorners: RoundedCorners
+    /// Should the presented controller's view have rounded corners, if nil will use default for chosen presentation type.
+    public var roundedCorners: RoundedCorners?
 
     /// Shadow settings for presented controller.
     public var dropShadow: Shadow?
@@ -31,7 +31,7 @@ public struct AppearanceProxy {
     /// A custom background view to be added on top of the regular background view.
     public var customBackgroundView: UIView?
 
-    public init(roundedCorners: RoundedCorners = .none,
+    public init(roundedCorners: RoundedCorners? = nil,
                 dropShadow: Shadow? = nil,
                 backgroundColor: UIColor = .black,
                 backgroundOpacity: Float = 0.7,

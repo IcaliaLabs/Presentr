@@ -82,7 +82,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         return defaultDirection ? presentationType == .topHalf : behavior.dismissOnSwipeDirection == .top
     }()
 
-    // MARK: Cache's
+    // MARK: Cache
+
+    fileprivate var _sizeCache: CGSize?
 
     fileprivate var _widthCache: CGFloat?
 
@@ -105,10 +107,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
 
         setupDropShadow()
-        setupBackground(appearance.backgroundColor,
-                        backgroundOpacity: appearance.backgroundOpacity,
-                        blurBackground: appearance.blurBackground,
-                        blurStyle: appearance.blurStyle)
+        setupBackground()
 
         if behavior.dismissOnSwipe {
             setupDismissOnSwipe()
@@ -119,33 +118,40 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         }
     }
 
-    // MARK: - Setup
+}
+
+// MARK: - Setup
+
+extension PresentrController {
+
+    // MARK: UI Setup
 
     private func setupDismissOnSwipe() {
         let swipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
         presentedViewController.view.addGestureRecognizer(swipe)
     }
-    
-    private func setupBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+
+    private func setupBackground() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
-		if behavior.outsideContextTap != .passthrough {
-			let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-			backgroundView.addGestureRecognizer(tap)
-		}
+        if behavior.outsideContextTap != .passthrough {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+            backgroundView.addGestureRecognizer(tap)
+        }
 
         if appearance.blurBackground {
-            visualEffect = UIBlurEffect(style: blurStyle)
+            visualEffect = UIBlurEffect(style: appearance.blurStyle)
         } else {
-            chromeView.backgroundColor = backgroundColor.withAlphaComponent(CGFloat(backgroundOpacity))
+            chromeView.backgroundColor = appearance.backgroundColor.withAlphaComponent(CGFloat(appearance.backgroundOpacity))
         }
     }
 
     private func setupRoundedCorners() {
+        let roundedCorners = appearance.roundedCorners ?? presentationType.defaultRoundedCorners
         let clipToBounds: Bool
 
-        if let userClipToBounds = appearance.roundedCorners.clipToBounds {
+        if let userClipToBounds = roundedCorners.clipToBounds {
             clipToBounds = userClipToBounds
         } else if appearance.dropShadow != nil {
             clipToBounds = false
@@ -155,8 +161,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
         presentedViewController.view.clipsToBounds = clipToBounds
         presentedViewController.view.layer.masksToBounds = clipToBounds
-        presentedViewController.view.rounded(corners: appearance.roundedCorners.corners,
-                                             radius: appearance.roundedCorners.radius)
+        presentedViewController.view.rounded(corners: roundedCorners.corners, radius: roundedCorners.radius)
     }
 
     private func setupDropShadow() {
@@ -180,12 +185,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
             presentedViewController.view.layer.shadowRadius = shadowRadius
         }
     }
-    
+
+    // MARK: Keyboard observation
+
     fileprivate func registerKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
-    
+
     fileprivate func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
@@ -290,9 +297,22 @@ extension PresentrController {
 fileprivate extension PresentrController {
 
     func getPresentedFrameSizeWith(parentContainerSize: CGSize) -> CGSize {
-        let width = getWidthFromPresentationTypeWith(parentContainerSize: parentContainerSize)
-        let height = getHeightFromPresentationTypeWith(parentContainerSize: parentContainerSize)
-        return CGSize(width: width, height: height)
+        if let size = _sizeCache {
+            return size
+        }
+
+        if let size = presentationType.size {
+            return size.calculateSize(parentSize: parentContainerSize)
+        } else {
+            if case .dynamicSize = presentationType {
+                return presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            } else {
+                return .zero
+            }
+        }
+//        let width = getWidthFromPresentationTypeWith(parentContainerSize: parentContainerSize)
+//        let height = getHeightFromPresentationTypeWith(parentContainerSize: parentContainerSize)
+//        return CGSize(width: width, height: height)
     }
 
     func getWidthFromPresentationTypeWith(parentContainerSize: CGSize) -> CGFloat {
@@ -302,10 +322,10 @@ fileprivate extension PresentrController {
 
         let width: CGFloat
 
-        if let size = presentationType.size() {
-            width = CGFloat(size.width.calculateWidth(parentContainerSize))
+        if let size = presentationType.size {
+            width = CGFloat(size.calculateWidth(parentSize: parentContainerSize))
         } else {
-            if case .dynamic = presentationType {
+            if case .dynamicSize = presentationType {
                 width = presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width
             } else {
                 width = 0
@@ -323,10 +343,10 @@ fileprivate extension PresentrController {
 
         let height: CGFloat
 
-        if let size = presentationType.size() {
-            height = CGFloat(size.height.calculateHeight(parentContainerSize))
+        if let size = presentationType.size {
+            height = CGFloat(size.calculateHeight(parentSize: parentContainerSize))
         } else {
-            if case .dynamic = presentationType {
+            if case .dynamicSize = presentationType {
                 height = presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
             } else {
                 height = 0
@@ -345,7 +365,7 @@ fileprivate extension PresentrController {
         let origin: CGPoint
         let presentedFrameSize = getPresentedFrameSizeWith(parentContainerSize: parentContainerSize)
 
-        switch presentationType.position() {
+        switch presentationType.position {
         case let .origin(originPoint):
             origin = originPoint
         case let .center(centerPosition):
