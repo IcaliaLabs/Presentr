@@ -9,24 +9,15 @@
 import Foundation
 import UIKit
 
-public enum KeyboardTranslationType {
+public struct KeyboardTranslation {
 
-    case none
-    case moveUp(padding: Float?)
-    case compress(padding: Float?)
-    case stickToTop(padding: Float?)
+    public let translationType: TranslationType
 
-    private var padding: Float? {
-        switch self {
-        case let .moveUp(padding):
-            return padding
-        case let .compress(padding):
-            return padding
-        case let .stickToTop(padding):
-            return padding
-        default:
-            return nil
-        }
+    public let padding: Float?
+
+    public init(_ translationType: TranslationType, padding: Float? = nil) {
+        self.translationType = translationType
+        self.padding = padding
     }
 
     /**
@@ -52,7 +43,7 @@ public enum KeyboardTranslationType {
         let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height + buffer
         let offset = presentedViewBottom - keyboardTop
 
-        switch self {
+        switch self.translationType {
         case .moveUp:
             if offset > 0.0 {
                 let frame = CGRect(x: presentedFrame.origin.x, y: presentedFrame.origin.y-offset, width: presentedFrame.size.width, height: presentedFrame.size.height)
@@ -78,6 +69,24 @@ public enum KeyboardTranslationType {
             return presentedFrame
         }
     }
+
+}
+
+public extension KeyboardTranslation {
+
+    /// <#Description#>
+    ///
+    /// - none: <#none description#>
+    /// - moveUp: <#moveUp description#>
+    /// - compress: <#compress description#>
+    /// - stickToTop: <#stickToTop description#>
+    public enum TranslationType {
+        case none
+        case moveUp
+        case compress
+        case stickToTop
+    }
+
 }
 
 // MARK: Notification + UIKeyboardInfo

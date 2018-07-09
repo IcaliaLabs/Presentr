@@ -1,5 +1,5 @@
 //
-//  BackgroundView.swift
+//  PassthroughView.swift
 //  Pods
 //
 //  Created by Daniel Lozano Valdés on 3/20/17.

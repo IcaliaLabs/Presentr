@@ -23,7 +23,7 @@ public struct BehaviorProxy {
     public var dismissAnimated: Bool
 
     /// How the presented view controller should respond to keyboard presentation.
-    public var keyboardTranslationType: KeyboardTranslationType
+    public var keyboardTranslation: KeyboardTranslation
 
     /// When a ViewController for context is set this handles what happens to a tap when it is outside the context. Default is passing it through to the background ViewController's. If this is set to anything but the default (.passthrough), the normal background tap cannot passthrough.
     public var outsideContextTap: BackgroundTapAction
@@ -32,13 +32,13 @@ public struct BehaviorProxy {
                 dismissOnSwipe: Bool = false,
                 dismissOnSwipeDirection: DismissSwipeDirection = .default,
                 dismissAnimated: Bool = true,
-                keyboardTranslationType: KeyboardTranslationType = .none,
+                keyboardTranslation: KeyboardTranslation = .init(.none),
                 outsideContextTap: BackgroundTapAction = .passthrough) {
         self.backgroundTap = backgroundTap
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
         self.dismissAnimated = dismissAnimated
-        self.keyboardTranslationType = keyboardTranslationType
+        self.keyboardTranslation = keyboardTranslation
         self.outsideContextTap = outsideContextTap
     }
 

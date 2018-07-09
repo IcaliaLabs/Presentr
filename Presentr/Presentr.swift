@@ -51,16 +51,13 @@ public final class Presentr: NSObject {
         self.behavior = behavior
     }
 
-    // MARK: Private Methods
-
-    /**
-     Private method for presenting a view controller, using the custom presentation. Called from the UIViewController extension.
-
-     - parameter presentingVC: The view controller which is doing the presenting.
-     - parameter presentedVC:  The view controller to be presented.
-     - parameter animated:     Animation boolean.
-     - parameter completion:   Completion block.
-     */
+    /// Method for presenting a view controller, using the custom presentation.
+    ///
+    /// - Parameters:
+    ///   - presentingViewController: The view controller which is doing the presenting.
+    ///   - presentedViewController: The view controller to be presented.
+    ///   - animated: Animation boolean.
+    ///   - completion: Completion block.
     func customPresent(presenting presentingViewController: UIViewController,
                        presented presentedViewController: UIViewController,
                        animated: Bool,

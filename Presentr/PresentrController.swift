@@ -34,14 +34,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var shouldObserveKeyboard: Bool {
         let hasConformingPresentedController = conformingPresentedController != nil
-
-        let hasKeyboardTranslationType: Bool
-        if case .none = behavior.keyboardTranslationType {
-            hasKeyboardTranslationType = false
-        } else {
-            hasKeyboardTranslationType = true
-        }
-
+        let hasKeyboardTranslationType = behavior.keyboardTranslation.translationType != .none
         return hasConformingPresentedController || hasKeyboardTranslationType
     }
 
@@ -457,8 +450,7 @@ extension PresentrController {
     @objc func keyboardWasShown(notification: Notification) {
         if let keyboardFrame = notification.keyboardEndFrame() {
             let presentedFrame = frameOfPresentedViewInContainerView
-            let translatedFrame = behavior.keyboardTranslationType.getTranslationFrame(keyboardFrame: keyboardFrame,
-                                                                                       presentedFrame: presentedFrame)
+            let translatedFrame = behavior.keyboardTranslation.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
             if translatedFrame != presentedFrame {
                 UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
                     self.presentedView?.frame = translatedFrame

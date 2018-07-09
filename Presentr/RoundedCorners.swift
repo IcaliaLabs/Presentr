@@ -16,7 +16,7 @@ public struct RoundedCorners {
 
     public let clipToBounds: Bool?
 
-    public init(corners: Corners, radius: CGFloat = 4.0, clipToBounds: Bool? = nil) {
+    public init(_ corners: Corners, radius: CGFloat = 4.0, clipToBounds: Bool? = nil) {
         self.corners = corners
         self.radius = radius
         self.clipToBounds = clipToBounds
@@ -43,7 +43,11 @@ public enum Corners {
 
 extension RoundedCorners {
 
-    public static let none = RoundedCorners(corners: .none)
-    public static let all = RoundedCorners(corners: .all)
+    public static let none = RoundedCorners(.none)
+    public static let all = RoundedCorners(.all)
+    public static let top = RoundedCorners(.top)
+    public static let bottom = RoundedCorners(.bottom)
+    public static let left = RoundedCorners(.left)
+    public static let right = RoundedCorners(.right)
 
 }

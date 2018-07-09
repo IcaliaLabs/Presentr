@@ -9,33 +9,7 @@
 import Foundation
 import UIKit
 
-public enum Corner {
-
-	case topLeft
-	case topRight
-	case bottomLeft
-	case bottomRight
-
-	var top: Bool {
-		switch self {
-		case .topLeft, .topRight:
-			return true
-		default:
-			return false
-		}
-	}
-
-	var left: Bool {
-		switch self {
-		case .topLeft, .bottomLeft:
-			return true
-		case .topRight, .bottomRight:
-			return false
-		}
-	}
-
-}
-
+/// <#Description#>
 public class CoverFromCornerAnimation: PresentrAnimation {
 
 	let corner: Corner
@@ -62,4 +36,32 @@ public class CoverFromCornerAnimation: PresentrAnimation {
         return initialFrame
     }
     
+}
+
+/// <#Description#>
+public enum Corner {
+
+    case topLeft
+    case topRight
+    case bottomLeft
+    case bottomRight
+
+    var top: Bool {
+        switch self {
+        case .topLeft, .topRight:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var left: Bool {
+        switch self {
+        case .topLeft, .bottomLeft:
+            return true
+        case .topRight, .bottomRight:
+            return false
+        }
+    }
+
 }
