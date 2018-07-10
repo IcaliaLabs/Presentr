@@ -136,7 +136,7 @@ extension PresentrController {
 
     // MARK: UI Setup
 
-    private func setupDismissOnSwipe() {
+    fileprivate func setupDismissOnSwipe() {
         let presentedSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
         presentedViewController.view.addGestureRecognizer(presentedSwipe)
 
@@ -144,7 +144,7 @@ extension PresentrController {
         chromeView.addGestureRecognizer(chromeSwipe)
     }
 
-    private func setupBackground() {
+    fileprivate func setupBackground() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
@@ -160,7 +160,7 @@ extension PresentrController {
         }
     }
 
-    private func setupRoundedCorners() {
+    fileprivate func setupRoundedCorners() {
         let roundedCorners = appearance.roundedCorners ?? presentationType.defaultRoundedCorners
         let clipToBounds: Bool
 
@@ -177,7 +177,7 @@ extension PresentrController {
         presentedViewController.view.rounded(corners: roundedCorners.corners, radius: roundedCorners.radius)
     }
 
-    private func setupDropShadow() {
+    fileprivate func setupDropShadow() {
         guard let dropShadow = appearance.dropShadow else {
             return
         }
@@ -197,6 +197,17 @@ extension PresentrController {
         if let shadowRadius = dropShadow.shadowRadius {
             presentedViewController.view.layer.shadowRadius = shadowRadius
         }
+    }
+
+    fileprivate func setupSwipeIndicator() {
+        let shouldShowSwipeIndicator = appearance.showSwipeIndicator ?? presentationType.defaultShowSwipeIndicator
+
+        guard shouldShowSwipeIndicator, let presentedViewFrame = presentedView?.frame else {
+            return
+        }
+
+        swipeIndicatorView.frame.origin = CGPoint(x: presentedViewFrame.minX + presentedViewFrame.width / 2 - swipeIndicatorView.frame.width / 2,
+                                                  y: presentedViewFrame.minY - 10)
     }
 
     // MARK: Keyboard observation
@@ -222,7 +233,6 @@ extension PresentrController {
     override var frameOfPresentedViewInContainerView: CGRect {
         let presentedFrameOrigin = getOriginFromPresentationType(parentContainerSize: containerFrame.size)
         let presentedFrameSize = getPresentedFrameSizeWith(parentContainerSize: containerFrame.size)
-//        let presentedFrameSize = size(forChildContentContainer: presentedViewController, withParentContainerSize: containerFrame.size)
         return CGRect(origin: presentedFrameOrigin, size: presentedFrameSize)
     }
     
@@ -241,14 +251,11 @@ extension PresentrController {
 
     override func containerViewDidLayoutSubviews() {
         setupRoundedCorners()
-
-        let presentedFrame = frameOfPresentedViewInContainerView
-        swipeIndicatorView.frame.origin = CGPoint(x: presentedFrame.minX + presentedFrame.width / 2 - swipeIndicatorView.frame.width / 2,
-                                                  y: presentedFrame.minY - 10)
+        setupSwipeIndicator()
     }
     
-    // MARK: Animation
-    
+    // MARK: Presentation/Dismissal Animation
+
     override func presentationTransitionWillBegin() {
         guard let containerView = containerView else {
             return
@@ -269,8 +276,6 @@ extension PresentrController {
 
         containerView.insertSubview(backgroundView, at: 0)
         containerView.insertSubview(chromeView, at: 1)
-
-        chromeView.addSubview(swipeIndicatorView)
 
         if let customBackgroundView = appearance.customBackgroundView {
             chromeView.addSubview(customBackgroundView)
@@ -299,17 +304,29 @@ extension PresentrController {
             self.swipeIndicatorView.alpha = 0.7
         }, completion: nil)
     }
+
+    override func presentationTransitionDidEnd(_ completed: Bool) {
+        let shouldShowSwipeIndicator = appearance.showSwipeIndicator ?? presentationType.defaultShowSwipeIndicator
+
+        guard completed, shouldShowSwipeIndicator else {
+            return
+        }
+
+        if shouldShowSwipeIndicator {
+            chromeView.addSubview(swipeIndicatorView)
+        }
+    }
     
     override func dismissalTransitionWillBegin() {
+        swipeIndicatorView.alpha = 0
+
         guard let coordinator = presentedViewController.transitionCoordinator else {
             chromeView.alpha = 0
-            swipeIndicatorView.alpha = 0
             return
         }
 
         coordinator.animate(alongsideTransition: { context in
             self.chromeView.alpha = 0
-            self.swipeIndicatorView.alpha = 0
         }, completion: nil)
     }
 

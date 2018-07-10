@@ -90,4 +90,14 @@ public enum PresentationType {
         }
     }
 
+    /// <#Description#>
+    var defaultShowSwipeIndicator: Bool {
+        switch self {
+        case .bottomCard:
+            return true
+        default:
+            return false
+        }
+    }
+
 }

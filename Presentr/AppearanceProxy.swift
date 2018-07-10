@@ -31,13 +31,17 @@ public struct AppearanceProxy {
     /// A custom background view to be added on top of the regular background view.
     public var customBackgroundView: UIView?
 
+    /// Show swipe indicator nub. If nil, will default to true when using .bottomCard PresentationType.
+    public var showSwipeIndicator: Bool?
+
     public init(roundedCorners: RoundedCorners? = nil,
                 dropShadow: Shadow? = nil,
                 backgroundColor: UIColor = .black,
                 backgroundOpacity: Float = 0.7,
                 blurBackground: Bool = false,
                 blurStyle: UIBlurEffectStyle = .dark,
-                customBackgroundView: UIView? = nil) {
+                customBackgroundView: UIView? = nil,
+                showSwipeIndicator: Bool? = nil) {
         self.roundedCorners = roundedCorners
         self.dropShadow = dropShadow
         self.backgroundColor = backgroundColor
@@ -45,6 +49,7 @@ public struct AppearanceProxy {
         self.blurBackground = blurBackground
         self.blurStyle = blurStyle
         self.customBackgroundView = customBackgroundView
+        self.showSwipeIndicator = showSwipeIndicator
     }
 
 }
