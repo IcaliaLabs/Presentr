@@ -44,7 +44,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var keyboardIsShowing: Bool = false
 
-    // MARK: Background View's
+    // MARK: Custom View's
 
 	fileprivate lazy var chromeView: PassthroughView = {
 		let view = PassthroughView()
@@ -73,13 +73,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Swipe gesture
 
-    fileprivate var presentedViewIsBeingDissmissed: Bool = false
+    fileprivate var presentedViewIsBeingDissmissed = false
 
-    fileprivate var presentedViewFrame: CGRect = .zero
-    fileprivate var presentedViewCenter: CGPoint = .zero
-
-    fileprivate var swipeIndicatorViewFrame: CGRect = .zero
-    fileprivate var swipeIndicatorViewCenter: CGPoint = .zero
+    fileprivate var initialPresentedViewFrame: CGRect = .zero
+    fileprivate var initialPresentedViewCenter: CGPoint = .zero
+    fileprivate var initialSwipeIndicatorViewFrame: CGRect = .zero
+    fileprivate var initialSwipeIndicatorViewCenter: CGPoint = .zero
 
     fileprivate var latestShouldDismiss: Bool = true
 
@@ -431,10 +430,10 @@ extension PresentrController {
         }
 
         if gesture.state == .began {
-            presentedViewFrame = presentedViewController.view.frame
-            presentedViewCenter = presentedViewController.view.center
-            swipeIndicatorViewFrame = swipeIndicatorView.frame
-            swipeIndicatorViewCenter = swipeIndicatorView.center
+            initialPresentedViewFrame = presentedViewController.view.frame
+            initialPresentedViewCenter = presentedViewController.view.center
+            initialSwipeIndicatorViewFrame = swipeIndicatorView.frame
+            initialSwipeIndicatorViewCenter = swipeIndicatorView.center
 
             let directionDown = gesture.translation(in: presentedViewController.view).y > 0
             if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
@@ -463,8 +462,8 @@ extension PresentrController {
             swipeLimit = -swipeLimit
         }
 
-        swipeIndicatorView.center = CGPoint(x: swipeIndicatorViewCenter.x, y: swipeIndicatorViewCenter.y + amount.y)
-        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
+        swipeIndicatorView.center = CGPoint(x: initialSwipeIndicatorViewCenter.x, y: initialSwipeIndicatorViewCenter.y + amount.y)
+        presentedViewController.view.center = CGPoint(x: initialPresentedViewCenter.x, y: initialPresentedViewCenter.y + amount.y)
 
         let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
         if dismiss && latestShouldDismiss {
@@ -484,8 +483,8 @@ extension PresentrController {
                        initialSpringVelocity: 1,
                        options: [],
                        animations: {
-            self.presentedViewController.view.frame = self.presentedViewFrame
-            self.swipeIndicatorView.frame = self.swipeIndicatorViewFrame
+            self.presentedViewController.view.frame = self.initialPresentedViewFrame
+            self.swipeIndicatorView.frame = self.initialSwipeIndicatorViewFrame
         }, completion: nil)
     }
 
