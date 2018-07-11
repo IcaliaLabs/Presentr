@@ -74,13 +74,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Swipe gesture
 
     fileprivate var presentedViewIsBeingDissmissed = false
+    fileprivate var latestShouldDismiss = true
 
     fileprivate var initialPresentedViewFrame: CGRect = .zero
     fileprivate var initialPresentedViewCenter: CGPoint = .zero
     fileprivate var initialSwipeIndicatorViewFrame: CGRect = .zero
     fileprivate var initialSwipeIndicatorViewCenter: CGPoint = .zero
-
-    fileprivate var latestShouldDismiss: Bool = true
 
     fileprivate lazy var shouldSwipeBottom: Bool = {
 		let defaultDirection = behavior.dismissOnSwipeDirection == .default
@@ -90,6 +89,16 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     fileprivate lazy var shouldSwipeTop: Bool = {
 		let defaultDirection = behavior.dismissOnSwipeDirection == .default
         return defaultDirection ? presentationType == .topHalf : behavior.dismissOnSwipeDirection == .top
+    }()
+
+    // MARK: Default Helper's
+
+    fileprivate lazy var roundedCorners: RoundedCorners = {
+        return appearance.roundedCorners ?? presentationType.defaultRoundedCorners
+    }()
+
+    fileprivate lazy var showSwipeIndicator: Bool = {
+        return appearance.showSwipeIndicator ?? presentationType.defaultShowSwipeIndicator
     }()
 
     // MARK: Cache
@@ -117,11 +126,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
 
         setupDropShadow()
-        setupBackground()
-
-        if behavior.dismissOnSwipe {
-            setupDismissOnSwipe()
-        }
+        setupGestureRecognizers()
 
         if shouldObserveKeyboard {
             registerKeyboardObserver()
@@ -136,27 +141,39 @@ extension PresentrController {
 
     // MARK: UI Setup
 
-    fileprivate func setupDismissOnSwipe() {
-        let presentedSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
-        presentedViewController.view.addGestureRecognizer(presentedSwipe)
+    fileprivate func setupGestureRecognizers() {
+        let chromeTap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+        chromeView.addGestureRecognizer(chromeTap)
 
-        let chromeSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
-        chromeView.addGestureRecognizer(chromeSwipe)
+        if behavior.dismissOnSwipe {
+            let presentedSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
+            presentedViewController.view.addGestureRecognizer(presentedSwipe)
+
+            let chromeSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentedViewSwipe))
+            chromeView.addGestureRecognizer(chromeSwipe)
+        }
+
+        if behavior.outsideContextTap != .passthrough {
+            let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+            backgroundView.addGestureRecognizer(backgroundTap)
+        }
     }
 
     fileprivate func setupBackground() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-        chromeView.addGestureRecognizer(tap)
-
-        if behavior.outsideContextTap != .passthrough {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-            backgroundView.addGestureRecognizer(tap)
-        }
-
         if appearance.blurBackground {
             visualEffect = UIBlurEffect(style: appearance.blurStyle)
         } else {
             chromeView.backgroundColor = appearance.backgroundColor.withAlphaComponent(CGFloat(appearance.backgroundOpacity))
+        }
+
+        if behavior.outsideContextTap == .passthrough {
+            backgroundView.shouldPassthrough = true
+            backgroundView.passthroughViews = presentingViewController.view.subviews
+        }
+
+        if behavior.backgroundTap == .passthrough {
+            chromeView.shouldPassthrough = true
+            chromeView.passthroughViews = presentingViewController.view.subviews
         }
     }
 
@@ -200,9 +217,7 @@ extension PresentrController {
     }
 
     fileprivate func setupSwipeIndicator() {
-        let shouldShowSwipeIndicator = appearance.showSwipeIndicator ?? presentationType.defaultShowSwipeIndicator
-
-        guard shouldShowSwipeIndicator, let presentedViewFrame = presentedView?.frame else {
+        guard showSwipeIndicator, let presentedViewFrame = presentedView?.frame else {
             return
         }
 
@@ -231,47 +246,36 @@ extension PresentrController {
     // MARK: Presentation
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        let presentedFrameOrigin = getOriginFromPresentationType(parentContainerSize: containerFrame.size)
-        let presentedFrameSize = getPresentedFrameSizeWith(parentContainerSize: containerFrame.size)
-        return CGRect(origin: presentedFrameOrigin, size: presentedFrameSize)
+        return CGRect(origin: getOriginFromPresentationType(parentContainerSize: containerFrame.size),
+                      size: getPresentedFrameSizeWith(parentContainerSize: containerFrame.size))
     }
     
 //    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
 //        return getPresentedFrameSizeWith(parentContainerSize: parentSize)
 //    }
 
-    override func containerViewWillLayoutSubviews() {
-        guard !keyboardIsShowing else {
-            return // prevent resetting of presented frame when the frame is being translated
-        }
-
-        chromeView.frame = containerFrame
-//        presentedView!.frame = frameOfPresentedViewInContainerView
-    }
+//    override func containerViewWillLayoutSubviews() {
+//        guard !keyboardIsShowing else {
+//            return // prevent resetting of presented frame when the frame is being translated
+//        }
+//
+//        chromeView.frame = containerFrame
+//    }
 
     override func containerViewDidLayoutSubviews() {
+        setupBackground()
         setupRoundedCorners()
         setupSwipeIndicator()
     }
     
-    // MARK: Presentation/Dismissal Animation
+    // MARK: Presentation / Dismissal Callbacks
 
     override func presentationTransitionWillBegin() {
         guard let containerView = containerView else {
             return
         }
 
-		if behavior.outsideContextTap == .passthrough {
-			backgroundView.shouldPassthrough = true
-			backgroundView.passthroughViews = presentingViewController.view.subviews
-		}
-
-		if behavior.backgroundTap == .passthrough {
-			chromeView.shouldPassthrough = true
-			chromeView.passthroughViews = presentingViewController.view.subviews
-		}
-
-		backgroundView.frame = containerView.bounds
+        backgroundView.frame = containerView.bounds
         chromeView.frame = containerFrame
 
         containerView.insertSubview(backgroundView, at: 0)
@@ -306,19 +310,15 @@ extension PresentrController {
     }
 
     override func presentationTransitionDidEnd(_ completed: Bool) {
-        let shouldShowSwipeIndicator = appearance.showSwipeIndicator ?? presentationType.defaultShowSwipeIndicator
-
-        guard completed, shouldShowSwipeIndicator else {
+        guard showSwipeIndicator, completed else {
             return
         }
 
-        if shouldShowSwipeIndicator {
-            chromeView.addSubview(swipeIndicatorView)
-        }
+        chromeView.addSubview(swipeIndicatorView)
     }
     
     override func dismissalTransitionWillBegin() {
-        swipeIndicatorView.alpha = 0
+        swipeIndicatorView.isHidden = true
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
             chromeView.alpha = 0
@@ -423,6 +423,8 @@ fileprivate extension PresentrController {
 // MARK: - Gesture Handling
 
 extension PresentrController {
+
+    // MARK: Tap & Swipe gestures
 
     @objc func chromeViewTapped(gesture: UIGestureRecognizer) {
 		guard behavior.backgroundTap == .dismiss else {
