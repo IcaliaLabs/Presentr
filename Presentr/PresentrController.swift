@@ -75,6 +75,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var presentedViewIsBeingDissmissed = false
     fileprivate var latestShouldDismiss = true
+    fileprivate var swipeLimit: CGFloat = 100
 
     fileprivate var initialPresentedViewFrame: CGRect = .zero
     fileprivate var initialPresentedViewCenter: CGPoint = .zero
@@ -476,7 +477,8 @@ extension PresentrController {
             return
         }
 
-        var swipeLimit: CGFloat = 100
+//        var swipeLimit: CGFloat = 100
+        swipeLimit = initialPresentedViewFrame.height / 1.5
         if shouldSwipeTop {
             swipeLimit = -swipeLimit
         }
@@ -503,6 +505,9 @@ extension PresentrController {
                        options: [],
                        animations: {
             self.presentedViewController.view.frame = self.initialPresentedViewFrame
+                        // TODO: Fix squished sign up button
+                        // TODO: Fix email making another keyboard thing appear, now is not going to fit in SE ... remove toolbar?
+//            self.presentedViewController.view.layoutIfNeeded()
             self.swipeIndicatorView.frame = self.initialSwipeIndicatorViewFrame
         }, completion: nil)
     }
