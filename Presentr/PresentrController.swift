@@ -255,13 +255,14 @@ extension PresentrController {
 //        return getPresentedFrameSizeWith(parentContainerSize: parentSize)
 //    }
 
-//    override func containerViewWillLayoutSubviews() {
-//        guard !keyboardIsShowing else {
-//            return // prevent resetting of presented frame when the frame is being translated
-//        }
-//
-//        chromeView.frame = containerFrame
-//    }
+    override func containerViewWillLayoutSubviews() {
+        guard !keyboardIsShowing else {
+            return // prevent resetting of presented frame when the frame is being translated
+        }
+
+        chromeView.frame = containerFrame
+        presentedView?.frame = frameOfPresentedViewInContainerView
+    }
 
     override func containerViewDidLayoutSubviews() {
         setupBackground()
@@ -484,7 +485,7 @@ extension PresentrController {
         }
 
         swipeIndicatorView.center = CGPoint(x: initialSwipeIndicatorViewCenter.x, y: initialSwipeIndicatorViewCenter.y + amount.y)
-        presentedViewController.view.center = CGPoint(x: initialPresentedViewCenter.x, y: initialPresentedViewCenter.y + amount.y)
+        presentedView?.center = CGPoint(x: initialPresentedViewCenter.x, y: initialPresentedViewCenter.y + amount.y)
 
         let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
         if dismiss && latestShouldDismiss {
@@ -504,10 +505,7 @@ extension PresentrController {
                        initialSpringVelocity: 1,
                        options: [],
                        animations: {
-            self.presentedViewController.view.frame = self.initialPresentedViewFrame
-                        // TODO: Fix squished sign up button
-                        // TODO: Fix email making another keyboard thing appear, now is not going to fit in SE ... remove toolbar?
-//            self.presentedViewController.view.layoutIfNeeded()
+            self.presentedView?.center = self.initialPresentedViewCenter
             self.swipeIndicatorView.frame = self.initialSwipeIndicatorViewFrame
         }, completion: nil)
     }
