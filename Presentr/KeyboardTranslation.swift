@@ -28,7 +28,7 @@ public struct KeyboardTranslation {
      - parameter presentedFrame: The frame of the presented controller that may need to be translated.
      - returns: CGRect representing the new frame of the presented view.
      */
-    public func getTranslationFrame(keyboardFrame: CGRect, presentedFrame: CGRect) -> CGRect {
+    public func getTranslationFrame(keyboardFrame: CGRect, presentedFrame: CGRect) -> (frame: CGRect, yOffset: CGFloat) {
         let keyboardTop = UIScreen.main.bounds.height - keyboardFrame.size.height
 
         let isFullScreen = (presentedFrame.origin.y + presentedFrame.size.height) == UIScreen.main.bounds.height
@@ -51,9 +51,9 @@ public struct KeyboardTranslation {
                                    y: presentedFrame.origin.y-offset,
                                    width: presentedFrame.size.width,
                                    height: presentedFrame.size.height)
-                return frame
+                return (frame, offset)
             }
-            return presentedFrame
+            return (presentedFrame, 0)
         case .compress:
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
@@ -62,9 +62,9 @@ public struct KeyboardTranslation {
                                    y: y,
                                    width: presentedFrame.size.width,
                                    height: newHeight)
-                return frame
+                return (frame, 0)
             }
-            return presentedFrame
+            return (presentedFrame, 0)
         case .stickToTop:
             if offset > 0.0 {
                 let y = max(presentedFrame.origin.y-offset, 20.0)
@@ -72,11 +72,11 @@ public struct KeyboardTranslation {
                                    y: y,
                                    width: presentedFrame.size.width,
                                    height: presentedFrame.size.height)
-                return frame
+                return (frame, offset)
             }
-            return presentedFrame
+            return (presentedFrame, 0)
         case .none:
-            return presentedFrame
+            return (presentedFrame, 0)
         }
     }
 

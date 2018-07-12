@@ -74,13 +74,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Swipe gesture
 
     fileprivate var presentedViewIsBeingDissmissed = false
-    fileprivate var latestShouldDismiss = true
-    fileprivate var swipeLimit: CGFloat = 100
 
-    fileprivate var initialPresentedViewFrame: CGRect = .zero
+    fileprivate var latestShouldDismiss = true
+
     fileprivate var initialPresentedViewCenter: CGPoint = .zero
-    fileprivate var initialSwipeIndicatorViewFrame: CGRect = .zero
+
     fileprivate var initialSwipeIndicatorViewCenter: CGPoint = .zero
+
+    fileprivate var swipeLimit: CGFloat = 100
 
     fileprivate lazy var shouldSwipeBottom: Bool = {
 		let defaultDirection = behavior.dismissOnSwipeDirection == .default
@@ -218,19 +219,18 @@ extension PresentrController {
     }
 
     fileprivate func setupSwipeIndicator() {
-        guard showSwipeIndicator, let presentedViewFrame = presentedView?.frame else {
+        guard showSwipeIndicator else {
             return
         }
 
-        swipeIndicatorView.frame.origin = CGPoint(x: presentedViewFrame.minX + presentedViewFrame.width / 2 - swipeIndicatorView.frame.width / 2,
-                                                  y: presentedViewFrame.minY - 10)
+        swipeIndicatorView.center = centerOfSwipeIndicatorFor(presentedViewFrame: presentedViewController.view.frame)
     }
 
     // MARK: Keyboard observation
 
     fileprivate func registerKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
 
     fileprivate func removeObservers() {
@@ -247,13 +247,16 @@ extension PresentrController {
     // MARK: Presentation
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        return CGRect(origin: getOriginFromPresentationType(parentContainerSize: containerFrame.size),
-                      size: getPresentedFrameSizeWith(parentContainerSize: containerFrame.size))
+        let origin = getOriginFromPresentationType(parentContainerSize: containerFrame.size)
+        let size = getPresentedFrameSizeWith(parentContainerSize: containerFrame.size)
+        return CGRect(origin: origin, size: size)
     }
-    
-//    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-//        return getPresentedFrameSizeWith(parentContainerSize: parentSize)
-//    }
+
+    func centerOfSwipeIndicatorFor(presentedViewFrame: CGRect) -> CGPoint {
+        let x = presentedViewFrame.minX + presentedViewFrame.width / 2
+        let y = presentedViewFrame.minY - 7.5
+        return CGPoint(x: x, y: y)
+    }
 
     override func containerViewWillLayoutSubviews() {
         guard !keyboardIsShowing else {
@@ -451,9 +454,7 @@ extension PresentrController {
         }
 
         if gesture.state == .began {
-            initialPresentedViewFrame = presentedViewController.view.frame
             initialPresentedViewCenter = presentedViewController.view.center
-            initialSwipeIndicatorViewFrame = swipeIndicatorView.frame
             initialSwipeIndicatorViewCenter = swipeIndicatorView.center
 
             let directionDown = gesture.translation(in: presentedViewController.view).y > 0
@@ -478,14 +479,13 @@ extension PresentrController {
             return
         }
 
-//        var swipeLimit: CGFloat = 100
-        swipeLimit = initialPresentedViewFrame.height / 1.5
+        swipeLimit = frameOfPresentedViewInContainerView.height / 1.5
         if shouldSwipeTop {
             swipeLimit = -swipeLimit
         }
 
-        swipeIndicatorView.center = CGPoint(x: initialSwipeIndicatorViewCenter.x, y: initialSwipeIndicatorViewCenter.y + amount.y)
         presentedView?.center = CGPoint(x: initialPresentedViewCenter.x, y: initialPresentedViewCenter.y + amount.y)
+        swipeIndicatorView.center = CGPoint(x: initialSwipeIndicatorViewCenter.x, y: initialSwipeIndicatorViewCenter.y + amount.y)
 
         let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
         if dismiss && latestShouldDismiss {
@@ -506,7 +506,7 @@ extension PresentrController {
                        options: [],
                        animations: {
             self.presentedView?.center = self.initialPresentedViewCenter
-            self.swipeIndicatorView.frame = self.initialSwipeIndicatorViewFrame
+            self.swipeIndicatorView.center = self.initialSwipeIndicatorViewCenter
         }, completion: nil)
     }
 
@@ -516,25 +516,36 @@ extension PresentrController {
 
 extension PresentrController {
 
-    @objc func keyboardWasShown(notification: Notification) {
+    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardFrame = notification.keyboardEndFrame() {
             let presentedFrame = frameOfPresentedViewInContainerView
-            let translatedFrame = behavior.keyboardTranslation.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
+            let initialSwipeIndicatorCenter = centerOfSwipeIndicatorFor(presentedViewFrame: presentedFrame)
+
+            let (translatedFrame, yOffset) = behavior.keyboardTranslation.getTranslationFrame(keyboardFrame: keyboardFrame, presentedFrame: presentedFrame)
             if translatedFrame != presentedFrame {
                 UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
                     self.presentedView?.frame = translatedFrame
+                    if self.showSwipeIndicator {
+                        self.swipeIndicatorView.center = CGPoint(x: initialSwipeIndicatorCenter.x,
+                                                                 y: initialSwipeIndicatorCenter.y - yOffset)
+                    }
                 })
             }
             keyboardIsShowing = true
         }
     }
 
-    @objc func keyboardWillHide (notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         if keyboardIsShowing {
             let presentedFrame = frameOfPresentedViewInContainerView
+            let initialSwipeIndicatorCenter = centerOfSwipeIndicatorFor(presentedViewFrame: presentedFrame)
+
             if self.presentedView?.frame !=  presentedFrame {
                 UIView.animate(withDuration: notification.keyboardAnimationDuration() ?? 0.5, animations: {
                     self.presentedView?.frame = presentedFrame
+                    if self.showSwipeIndicator {
+                        self.swipeIndicatorView.center = initialSwipeIndicatorCenter
+                    }
                 })
             }
             keyboardIsShowing = false
