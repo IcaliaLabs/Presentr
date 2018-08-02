@@ -328,8 +328,9 @@ fileprivate extension PresentrController {
     func calculateOrigin(size: CGSize, presenterSize: CGSize) -> CGPoint {
         let point = presentationType.layout.positionIn(presenterSize: presenterSize)
         let offsetMultiplier = presentationType.layout.positionOffsetMultiplier
-        return CGPoint(x: point.x - size.width * offsetMultiplier.x,
-                       y: point.y - size.height * offsetMultiplier.y)
+        let x = max(min(point.x - size.width * offsetMultiplier.x, presenterSize.width - size.width), 0)
+        let y = max(min(point.y - size.height * offsetMultiplier.y, presenterSize.height - size.height), 0)
+        return CGPoint(x: x, y: y)
     }
     
 }
