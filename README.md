@@ -22,7 +22,11 @@ This can be cumbersome, specially if you do it multiple times in your app. **Pre
 
 ## What's New
 
-#### 1.3.1 (April 15/ 2018)
+#### 1.9 
+- Support for Xcode 10 / iOS 12 / Swift 4.2
+- Last version before big 2.0 update
+
+#### 1.3.1
 - New `FlipHorizontal` transition type (thanks to @falkobuttler)
 - New `CoverFromCorner` transition type (thanks to @freakdragon)
 - New `customOrientation` ModalSize (thanks to @freakdragon)
