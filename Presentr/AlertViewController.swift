@@ -220,8 +220,8 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
     private func apply(_ action: AlertAction, toButton: UIButton) {
         let title = action.title.uppercased()
         let style = action.style
-        toButton.setTitle(title, for: UIControlState())
-        toButton.setTitleColor(style.color(), for: UIControlState())
+        toButton.setTitle(title, for: UIControl.State())
+        toButton.setTitleColor(style.color(), for: UIControl.State())
     }
 
     // MARK: IBAction's
