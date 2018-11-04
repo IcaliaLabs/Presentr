@@ -103,6 +103,11 @@ public extension KeyboardTranslation {
 
 extension Notification {
 
+    /// Gets the optional CGRect value of the UIKeyboardFrameBeginUserInfoKey from a UIKeyboard notification
+    func keyboardStartFrame () -> CGRect? {
+        return (self.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+    }
+
     /// Gets the optional CGRect value of the UIKeyboardFrameEndUserInfoKey from a UIKeyboard notification
     func keyboardEndFrame () -> CGRect? {
         return (self.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
