@@ -201,13 +201,29 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
     
     fileprivate func registerKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        #if swift(>=4.2)
+        let keyboardWasShownKey = UIResponder.keyboardWillShowNotification
+        let keyboardWillHideKey = UIResponder.keyboardWillHideNotification
+        #else
+        let keyboardWasShownKey = NSNotification.Name.UIKeyboardWillShow
+        let keyboardWillHideKey = NSNotification.Name.UIKeyboardWillHide
+        #endif
+
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: keyboardWasShownKey, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: keyboardWillHideKey, object: nil)
     }
     
     fileprivate func removeObservers() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        #if swift(>=4.2)
+        let keyboardWasShownKey = UIResponder.keyboardWillShowNotification
+        let keyboardWillHideKey = UIResponder.keyboardWillHideNotification
+        #else
+        let keyboardWasShownKey = NSNotification.Name.UIKeyboardWillShow
+        let keyboardWillHideKey = NSNotification.Name.UIKeyboardWillHide
+        #endif
+
+        NotificationCenter.default.removeObserver(self, name: keyboardWasShownKey, object: nil)
+        NotificationCenter.default.removeObserver(self, name: keyboardWillHideKey, object: nil)
     }
 
 }
@@ -322,7 +338,13 @@ fileprivate extension PresentrController {
     func getWidthFromType(_ parentSize: CGSize) -> Float {
         guard let size = presentationType.size() else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width)
+                #if swift(>=4.2)
+                let sizeKey = UIView.layoutFittingCompressedSize
+                #else
+                let sizeKey = UILayoutFittingCompressedSize
+                #endif
+
+                return Float(presentedViewController.view.systemLayoutSizeFitting(sizeKey).width)
             }
             return 0
         }
@@ -333,7 +355,13 @@ fileprivate extension PresentrController {
     func getHeightFromType(_ parentSize: CGSize) -> Float {
         guard let size = presentationType.size() else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height)
+                #if swift(>=4.2)
+                let sizeKey = UIView.layoutFittingCompressedSize
+                #else
+                let sizeKey = UILayoutFittingCompressedSize
+                #endif
+
+                return Float(presentedViewController.view.systemLayoutSizeFitting(sizeKey).height)
             }
             return 0
         }
