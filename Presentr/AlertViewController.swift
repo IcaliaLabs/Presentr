@@ -68,17 +68,6 @@ public enum AlertActionStyle {
 
 }
 
-private enum Font: String {
-
-    case Montserrat = "Montserrat-Regular"
-    case SourceSansPro = "SourceSansPro-Regular"
-
-    func font(_ size: CGFloat = 15.0) -> UIFont {
-        return UIFont(name: self.rawValue, size: size)!
-    }
-
-}
-
 private struct ColorPalette {
 
     static let grayColor = UIColor(red: 151.0/255.0, green: 151.0/255.0, blue: 151.0/255.0, alpha: 1)
@@ -191,14 +180,10 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
 	}
 
     private func setupFonts() {
-		if titleFont == nil || bodyFont == nil || buttonFont == nil {
-			loadFonts
-		}
-
-        titleLabel.font = titleFont ?? Font.Montserrat.font()
-        bodyLabel.font = bodyFont ?? Font.SourceSansPro.font()
-        firstButton.titleLabel?.font = buttonFont ?? Font.Montserrat.font(11.0)
-        secondButton.titleLabel?.font = buttonFont ?? Font.Montserrat.font(11.0)
+        titleLabel.font = titleFont ?? UIFont.boldSystemFont(ofSize: 17)
+        bodyLabel.font = bodyFont ?? UIFont.systemFont(ofSize: 15, weight: .medium)
+        firstButton.titleLabel?.font = buttonFont ?? UIFont.boldSystemFont(ofSize: 17)
+        secondButton.titleLabel?.font = buttonFont ?? UIFont.systemFont(ofSize: 15, weight: .medium)
     }
 
     private func setupLabels() {
@@ -243,41 +228,6 @@ public class AlertViewController: UIViewController, CornerRadiusSettable {
     func dismiss() {
         guard autoDismiss else { return }
         self.dismiss(animated: dismissAnimated, completion: nil)
-    }
-
-}
-
-// MARK: - Font Loading
-
-let loadFonts: () = {
-    let loadedFontMontserrat = AlertViewController.loadFont(Font.Montserrat.rawValue)
-    let loadedFontSourceSansPro = AlertViewController.loadFont(Font.SourceSansPro.rawValue)
-    if loadedFontMontserrat && loadedFontSourceSansPro {
-        print("LOADED FONTS")
-    }
-}()
-
-extension AlertViewController {
-
-    static func loadFont(_ name: String) -> Bool {
-        let bundle = Bundle(for: self)
-        guard let fontPath = bundle.path(forResource: name, ofType: "ttf"),
-            let data = try? Data(contentsOf: URL(fileURLWithPath: fontPath)),
-            let provider = CGDataProvider(data: data as CFData),
-            let font = CGFont(provider)
-        else {
-            return false
-        }
-
-        var error: Unmanaged<CFError>?
-
-        let success = CTFontManagerRegisterGraphicsFont(font, &error)
-        if !success {
-            print("Error loading font. Font is possibly already registered.")
-            return false
-        }
-
-        return true
     }
 
 }
