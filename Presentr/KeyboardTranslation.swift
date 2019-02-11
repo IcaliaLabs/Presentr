@@ -37,10 +37,19 @@ public enum KeyboardTranslationType {
             return presentedFrame
         case .compress:
             if offset > 0.0 {
-                let y = max(presentedFrame.origin.y-offset, 20.0)
-                let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40.0
-                let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: newHeight)
-                return frame
+                if #available(iOS 11.0, *) {
+                    let topInsets =  UIApplication.shared.keyWindow?.safeAreaInsets.top
+                    var y = max(presentedFrame.origin.y-offset, 20.0)
+                    let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40 - (topInsets ?? 0.0)
+                    y += topInsets ?? 0.0
+                    let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: newHeight)
+                    return frame
+                } else {
+                    let y = max(presentedFrame.origin.y-offset, 20.0)
+                    let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40
+                    let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: newHeight)
+                    return frame
+                }
             }
             return presentedFrame
         case .stickToTop:
