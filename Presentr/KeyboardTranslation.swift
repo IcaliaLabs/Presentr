@@ -46,7 +46,7 @@ public enum KeyboardTranslationType {
                     return frame
                 } else {
                     let y = max(presentedFrame.origin.y-offset, 20.0)
-                    let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop
+                    let newHeight = y != 20.0 ? presentedFrame.size.height : keyboardTop - 40
                     let frame = CGRect(x: presentedFrame.origin.x, y: y, width: presentedFrame.size.width, height: newHeight)
                     return frame
                 }
