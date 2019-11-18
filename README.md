@@ -255,10 +255,10 @@ shadow.shadowRadius = 4.0
 presenter.dropShadow = shadow
 ```
 
-You can choose to disable dismissOnTap that dismisses the presented view controller on tapping the background. Default is true. Or you can disable the animation for the dismissOnTap and dismissOnSwipe.
+You can choose to disable backgroundTap that dismisses the presented view controller on tapping the background. Default is `dismiss`. Or you can disable the animation for the backgroundTap and dismissOnSwipe.
 
 ```swift
-presenter.dismissOnTap = false
+presenter.backgroundTap = false
 presenter.dismissAnimated = false
 ```
 
