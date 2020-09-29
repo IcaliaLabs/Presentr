@@ -6,7 +6,7 @@
 //  Copyright © 2016 danielozano. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /**
  Describes the presented presented view controller's center position. It is meant to be non-specific, but we can use the 'calculatePoint' method when we want to calculate the exact point by passing in the 'containerBounds' rect that only the presentation controller should be aware of.
