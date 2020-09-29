@@ -6,7 +6,7 @@
 //  Copyright © 2016 danielozano. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class CoverVerticalFromTopAnimation: PresentrAnimation {
 
