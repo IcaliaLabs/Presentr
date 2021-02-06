@@ -439,6 +439,11 @@ extension PresentrController {
         let amount = gesture.translation(in: presentedViewController.view)
         
         if dismissOnSwipeDirection == .left || dismissOnSwipeDirection == .right {
+            if dismissOnSwipeDirection == .left && amount.x > 0 {
+                return
+            } else if dismissOnSwipeDirection == .right && amount.x < 0 {
+                return
+            }
             let swipeLimit: CGFloat = dismissOnSwipeDirection == .left ? -50 : 50
             presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + amount.x, y: presentedViewCenter.y)
             let dismiss = dismissOnSwipeDirection == .left ? (amount.x < swipeLimit) : (amount.x > swipeLimit)
