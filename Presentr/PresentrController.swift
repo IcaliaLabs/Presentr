@@ -446,25 +446,25 @@ extension PresentrController {
                 presentedViewIsBeingDissmissed = true
                 presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
             }
-        }
+        } else {
+            if shouldSwipeTop && amount.y > 0 {
+                return
+            } else if shouldSwipeBottom && amount.y < 0 {
+                return
+            }
 
-        if shouldSwipeTop && amount.y > 0 {
-            return
-        } else if shouldSwipeBottom && amount.y < 0 {
-            return
-        }
+            var swipeLimit: CGFloat = 100
+            if shouldSwipeTop {
+                swipeLimit = -swipeLimit
+            }
 
-        var swipeLimit: CGFloat = 100
-        if shouldSwipeTop {
-            swipeLimit = -swipeLimit
-        }
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
 
-        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
-
-        let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
-        if dismiss && latestShouldDismiss {
-            presentedViewIsBeingDissmissed = true
-            presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+            let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
+            if dismiss && latestShouldDismiss {
+                presentedViewIsBeingDissmissed = true
+                presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+            }
         }
     }
 
