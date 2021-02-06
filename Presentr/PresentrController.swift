@@ -418,9 +418,13 @@ extension PresentrController {
             presentedViewFrame = presentedViewController.view.frame
             presentedViewCenter = presentedViewController.view.center
 
-            let directionDown = gesture.translation(in: presentedViewController.view).y > 0
-            if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
+            if dismissOnSwipeDirection == .left || dismissOnSwipeDirection == .right {
                 latestShouldDismiss = conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true
+            } else {
+                let directionDown = gesture.translation(in: presentedViewController.view).y > 0
+                if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
+                    latestShouldDismiss = conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true
+                }
             }
         } else if gesture.state == .changed {
             swipeGestureChanged(gesture: gesture)
@@ -433,6 +437,16 @@ extension PresentrController {
 
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
+        
+        if dismissOnSwipeDirection == .left || dismissOnSwipeDirection == .right {
+            let swipeLimit: CGFloat = dismissOnSwipeDirection == .left ? -50 : 50
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + amount.x, y: presentedViewCenter.y)
+            let dismiss = dismissOnSwipeDirection == .left ? (amount.x < swipeLimit) : (amount.x > swipeLimit)
+            if dismiss && latestShouldDismiss {
+                presentedViewIsBeingDissmissed = true
+                presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+            }
+        }
 
         if shouldSwipeTop && amount.y > 0 {
             return
