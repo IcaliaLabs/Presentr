@@ -23,8 +23,10 @@ public enum PresentrConstants {
 
 public enum DismissSwipeDirection {
     case `default`
-    case bottom
     case top
+    case bottom
+    case left
+    case right
 }
 
 /// The action that should happen when the background is tapped.

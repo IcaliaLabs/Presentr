@@ -425,7 +425,7 @@ extension PresentrController {
         } else if gesture.state == .changed {
             swipeGestureChanged(gesture: gesture)
         } else if gesture.state == .ended || gesture.state == .cancelled {
-            swipeGestureEnded()
+            swipeGestureEnded(gesture: gesture)
         }
     }
 
@@ -434,28 +434,80 @@ extension PresentrController {
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
 
-        if shouldSwipeTop && amount.y > 0 {
-            return
-        } else if shouldSwipeBottom && amount.y < 0 {
-            return
-        }
-
-        var swipeLimit: CGFloat = 100
-        if shouldSwipeTop {
-            swipeLimit = -swipeLimit
-        }
-
-        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
-
-        let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
-        if dismiss && latestShouldDismiss {
-            presentedViewIsBeingDissmissed = true
-            presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+        switch dismissOnSwipeDirection {
+        case .top:
+            if amount.y > 0 {
+                return
+            }
+                        
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
+        case .bottom:
+            if amount.y < 0 {
+                return
+            }
+            
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
+        case .left:
+            if amount.x > 0 {
+                return
+            }
+            
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + amount.x, y: presentedViewCenter.y)
+        case .right:
+            if amount.x < 0 {
+                return
+            }
+            
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + amount.x, y: presentedViewCenter.y)
+        case .default:
+            break
         }
     }
 
-    func swipeGestureEnded() {
+    func swipeGestureEnded(gesture: UIPanGestureRecognizer) {
         guard !presentedViewIsBeingDissmissed else {
+            return
+        }
+        
+        let amount = gesture.translation(in: presentedViewController.view)
+        let velocity = gesture.velocity(in: presentedViewController.view)
+
+        var shouldDismiss = false
+        
+        print(amount, presentedViewFrame.height)
+        
+        switch dismissOnSwipeDirection {
+        case .top:
+            if amount.y > 0 {
+                return
+            }
+            
+            shouldDismiss = -velocity.y > 1000 || -amount.y > (presentedViewFrame.height / 2)
+        case .bottom:
+            if amount.y < 0 {
+                return
+            }
+            
+            shouldDismiss = velocity.y > 1000 || amount.y > (presentedViewFrame.height / 2)
+        case .left:
+            if amount.x > 0 {
+                return
+            }
+            
+            shouldDismiss = -velocity.x > 1000 || -amount.x > (presentedViewFrame.width / 2)
+        case .right:
+            if amount.x < 0 {
+                return
+            }
+            
+            shouldDismiss = velocity.x > 1000 || amount.x > (presentedViewFrame.width / 2)
+        case .default:
+            break
+        }
+
+        guard !shouldDismiss else {
+            presentedViewIsBeingDissmissed = true
+            presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
             return
         }
 
