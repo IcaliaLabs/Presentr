@@ -88,6 +88,9 @@ public class Presentr: NSObject {
 
     /// If dismissOnSwipe is true, the direction for the swipe. Default depends on presentation type.
     public var dismissOnSwipeDirection: DismissSwipeDirection = .default
+    
+    /// Should the presented controller be dismissed when the gesture is ended (e.g. the user lifts their finger from the screen). Default is false
+    public var dismissOnRelease = false
 
     /// Should the presented controller use animation when dismiss on background tap or swipe. Default is true.
     public var dismissAnimated = true
@@ -187,6 +190,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                     backgroundTap: backgroundTap,
                                     dismissOnSwipe: dismissOnSwipe,
                                     dismissOnSwipeDirection: dismissOnSwipeDirection,
+                                    dismissOnRelease: dismissOnRelease,
                                     backgroundColor: backgroundColor,
                                     backgroundOpacity: backgroundOpacity,
                                     blurBackground: blurBackground,

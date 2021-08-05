@@ -26,6 +26,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// DismissSwipe direction
     let dismissOnSwipeDirection: DismissSwipeDirection
     
+    /// Should the presented controller dismiss on gesture release
+    let dismissOnRelease: Bool
+    
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
 
@@ -105,6 +108,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundTap: BackgroundTapAction,
          dismissOnSwipe: Bool,
          dismissOnSwipeDirection: DismissSwipeDirection,
+         dismissOnRelease: Bool,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
@@ -119,6 +123,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.backgroundTap = backgroundTap
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
+        self.dismissOnRelease = dismissOnRelease
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
@@ -462,6 +467,11 @@ extension PresentrController {
         case .default:
             break
         }
+        
+        if !dismissOnRelease && shouldDismiss(gesture: gesture) {
+            presentedViewIsBeingDissmissed = true
+            presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+        }
     }
 
     func swipeGestureEnded(gesture: UIPanGestureRecognizer) {
@@ -469,46 +479,13 @@ extension PresentrController {
             return
         }
         
-        let amount = gesture.translation(in: presentedViewController.view)
-        let velocity = gesture.velocity(in: presentedViewController.view)
-
-        var shouldDismiss = false
-        
-        switch dismissOnSwipeDirection {
-        case .top:
-            if amount.y > 0 {
-                return
-            }
-            
-            shouldDismiss = -velocity.y > 1000 || -amount.y > (presentedViewFrame.height / 2)
-        case .bottom:
-            if amount.y < 0 {
-                return
-            }
-            
-            shouldDismiss = velocity.y > 1000 || amount.y > (presentedViewFrame.height / 2)
-        case .left:
-            if amount.x > 0 {
-                return
-            }
-            
-            shouldDismiss = -velocity.x > 1000 || -amount.x > (presentedViewFrame.width / 2)
-        case .right:
-            if amount.x < 0 {
-                return
-            }
-            
-            shouldDismiss = velocity.x > 1000 || amount.x > (presentedViewFrame.width / 2)
-        case .default:
-            break
-        }
-
-        guard !shouldDismiss else {
+        if dismissOnRelease && shouldDismiss(gesture: gesture) {
             presentedViewIsBeingDissmissed = true
             presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+            
             return
         }
-
+        
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
@@ -517,6 +494,44 @@ extension PresentrController {
                        animations: {
             self.presentedViewController.view.frame = self.presentedViewFrame
         }, completion: nil)
+    }
+    
+    private func shouldDismiss(gesture: UIPanGestureRecognizer) -> Bool {
+        let amount = gesture.translation(in: presentedViewController.view)
+        let velocity = gesture.velocity(in: presentedViewController.view)
+
+        var shouldDismiss = false
+        
+        switch dismissOnSwipeDirection {
+        case .top:
+            if amount.y > 0 {
+                break
+            }
+            
+            shouldDismiss = -velocity.y > 1000 || -amount.y > (presentedViewFrame.height / 2)
+        case .bottom:
+            if amount.y < 0 {
+                break
+            }
+            
+            shouldDismiss = velocity.y > 1000 || amount.y > (presentedViewFrame.height / 2)
+        case .left:
+            if amount.x > 0 {
+                break
+            }
+            
+            shouldDismiss = -velocity.x > 1000 || -amount.x > (presentedViewFrame.width / 2)
+        case .right:
+            if amount.x < 0 {
+                break
+            }
+            
+            shouldDismiss = velocity.x > 1000 || amount.x > (presentedViewFrame.width / 2)
+        case .default:
+            break
+        }
+        
+        return shouldDismiss
     }
 
 }
