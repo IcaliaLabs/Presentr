@@ -26,6 +26,12 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// DismissSwipe direction
     let dismissOnSwipeDirection: DismissSwipeDirection
     
+    /// Should the presented controller dismiss on gesture release
+    let dismissOnRelease: Bool
+    
+    /// Amount of overdrag resistance
+    let overdragResistanceFactor: Float?
+    
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
 
@@ -82,18 +88,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var presentedViewCenter: CGPoint = .zero
 
-    fileprivate var latestShouldDismiss: Bool = true
-
-    fileprivate lazy var shouldSwipeBottom: Bool = {
-		let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection ? presentationType != .topHalf : dismissOnSwipeDirection == .bottom
-    }()
-
-    fileprivate lazy var shouldSwipeTop: Bool = {
-		let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection ? presentationType == .topHalf : dismissOnSwipeDirection == .top
-    }()
-
     // MARK: - Init
 
     init(presentedViewController: UIViewController,
@@ -105,6 +99,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundTap: BackgroundTapAction,
          dismissOnSwipe: Bool,
          dismissOnSwipeDirection: DismissSwipeDirection,
+         dismissOnRelease: Bool,
+         overdragResistanceFactor: Float?,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
@@ -119,6 +115,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.backgroundTap = backgroundTap
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
+        self.dismissOnRelease = dismissOnRelease
+        self.overdragResistanceFactor = overdragResistanceFactor
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
@@ -417,15 +415,10 @@ extension PresentrController {
         if gesture.state == .began {
             presentedViewFrame = presentedViewController.view.frame
             presentedViewCenter = presentedViewController.view.center
-
-            let directionDown = gesture.translation(in: presentedViewController.view).y > 0
-            if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
-                latestShouldDismiss = conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true
-            }
         } else if gesture.state == .changed {
             swipeGestureChanged(gesture: gesture)
         } else if gesture.state == .ended || gesture.state == .cancelled {
-            swipeGestureEnded()
+            swipeGestureEnded(gesture: gesture)
         }
     }
 
@@ -434,31 +427,61 @@ extension PresentrController {
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
 
-        if shouldSwipeTop && amount.y > 0 {
-            return
-        } else if shouldSwipeBottom && amount.y < 0 {
-            return
+        var allowRender: Bool = true
+        var overdragResistance: CGFloat = 1
+        
+        switch dismissOnSwipeDirection {
+        case .top:
+            allowRender = amount.y < 0
+        case .bottom:
+            allowRender = amount.y > 0
+        case .left:
+            allowRender = amount.x < 0
+        case .right:
+            allowRender = amount.x > 0
+        case .default:
+            break
+        }
+        
+        if let overdragResistanceFactor = overdragResistanceFactor {
+            if !allowRender {
+                overdragResistance = 1 - .init(overdragResistanceFactor)
+            }
+            
+            allowRender = true
         }
 
-        var swipeLimit: CGFloat = 100
-        if shouldSwipeTop {
-            swipeLimit = -swipeLimit
+        guard allowRender else {
+            return
         }
-
-        presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
-
-        let dismiss = shouldSwipeTop ? (amount.y < swipeLimit) : ( amount.y > swipeLimit)
-        if dismiss && latestShouldDismiss {
+        
+        switch dismissOnSwipeDirection {
+        case .top, .bottom:
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + (amount.y * overdragResistance))
+        case .left, .right:
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + (amount.x * overdragResistance), y: presentedViewCenter.y)
+        default:
+            break
+        }
+        
+        if !dismissOnRelease && shouldDismiss(gesture: gesture) {
             presentedViewIsBeingDissmissed = true
             presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
         }
     }
 
-    func swipeGestureEnded() {
+    func swipeGestureEnded(gesture: UIPanGestureRecognizer) {
         guard !presentedViewIsBeingDissmissed else {
             return
         }
-
+        
+        if dismissOnRelease && shouldDismiss(gesture: gesture) {
+            presentedViewIsBeingDissmissed = true
+            presentedViewController.dismiss(animated: dismissAnimated, completion: nil)
+            
+            return
+        }
+        
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
@@ -467,6 +490,44 @@ extension PresentrController {
                        animations: {
             self.presentedViewController.view.frame = self.presentedViewFrame
         }, completion: nil)
+    }
+    
+    private func shouldDismiss(gesture: UIPanGestureRecognizer) -> Bool {
+        let amount = gesture.translation(in: presentedViewController.view)
+        let velocity = gesture.velocity(in: presentedViewController.view)
+
+        var shouldDismiss = false
+        
+        switch dismissOnSwipeDirection {
+        case .top:
+            if amount.y > 0 {
+                break
+            }
+            
+            shouldDismiss = -velocity.y > 1000 || -amount.y > (presentedViewFrame.height / 2)
+        case .bottom:
+            if amount.y < 0 {
+                break
+            }
+            
+            shouldDismiss = velocity.y > 1000 || amount.y > (presentedViewFrame.height / 2)
+        case .left:
+            if amount.x > 0 {
+                break
+            }
+            
+            shouldDismiss = -velocity.x > 1000 || -amount.x > (presentedViewFrame.width / 2)
+        case .right:
+            if amount.x < 0 {
+                break
+            }
+            
+            shouldDismiss = velocity.x > 1000 || amount.x > (presentedViewFrame.width / 2)
+        case .default:
+            break
+        }
+        
+        return shouldDismiss
     }
 
 }
