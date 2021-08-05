@@ -29,6 +29,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Should the presented controller dismiss on gesture release
     let dismissOnRelease: Bool
     
+    /// Amount of overdrag resistance
+    let overdragResistanceFactor: Float?
+    
     /// Should the presented controller use animation when dismiss on background tap.
     let dismissAnimated: Bool
 
@@ -109,6 +112,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          dismissOnSwipe: Bool,
          dismissOnSwipeDirection: DismissSwipeDirection,
          dismissOnRelease: Bool,
+         overdragResistanceFactor: Float?,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
@@ -124,6 +128,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
         self.dismissOnRelease = dismissOnRelease
+        self.overdragResistanceFactor = overdragResistanceFactor
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
@@ -439,32 +444,40 @@ extension PresentrController {
     func swipeGestureChanged(gesture: UIPanGestureRecognizer) {
         let amount = gesture.translation(in: presentedViewController.view)
 
+        var allowRender: Bool = true
+        var overdragResistance: CGFloat = 1
+        
         switch dismissOnSwipeDirection {
         case .top:
-            if amount.y > 0 {
-                return
-            }
-                        
-            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
+            allowRender = amount.y < 0
         case .bottom:
-            if amount.y < 0 {
-                return
-            }
-            
-            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + amount.y)
+            allowRender = amount.y > 0
         case .left:
-            if amount.x > 0 {
-                return
-            }
-            
-            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + amount.x, y: presentedViewCenter.y)
+            allowRender = amount.x < 0
         case .right:
-            if amount.x < 0 {
-                return
+            allowRender = amount.x > 0
+        case .default:
+            break
+        }
+        
+        if let overdragResistanceFactor = overdragResistanceFactor {
+            if !allowRender {
+                overdragResistance = 1 - .init(overdragResistanceFactor)
             }
             
-            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + amount.x, y: presentedViewCenter.y)
-        case .default:
+            allowRender = true
+        }
+
+        guard allowRender else {
+            return
+        }
+        
+        switch dismissOnSwipeDirection {
+        case .top, .bottom:
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x, y: presentedViewCenter.y + (amount.y * overdragResistance))
+        case .left, .right:
+            presentedViewController.view.center = CGPoint(x: presentedViewCenter.x + (amount.x * overdragResistance), y: presentedViewCenter.y)
+        default:
             break
         }
         

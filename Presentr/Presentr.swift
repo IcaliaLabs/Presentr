@@ -94,6 +94,9 @@ public class Presentr: NSObject {
 
     /// Should the presented controller use animation when dismiss on background tap or swipe. Default is true.
     public var dismissAnimated = true
+    
+    /// How much the presented controller should resist being dragged in the opposite direction (1 is max, 0 is no resistance).
+    public var overdragResistanceFactor: Float?
 
     /// Color of the background. Default is Black.
     public var backgroundColor = UIColor.black
@@ -191,6 +194,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                     dismissOnSwipe: dismissOnSwipe,
                                     dismissOnSwipeDirection: dismissOnSwipeDirection,
                                     dismissOnRelease: dismissOnRelease,
+                                    overdragResistanceFactor: overdragResistanceFactor,
                                     backgroundColor: backgroundColor,
                                     backgroundOpacity: backgroundOpacity,
                                     blurBackground: blurBackground,
