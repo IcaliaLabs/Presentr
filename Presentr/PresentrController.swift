@@ -88,18 +88,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     fileprivate var presentedViewCenter: CGPoint = .zero
 
-    fileprivate var latestShouldDismiss: Bool = true
-
-    fileprivate lazy var shouldSwipeBottom: Bool = {
-		let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection ? presentationType != .topHalf : dismissOnSwipeDirection == .bottom
-    }()
-
-    fileprivate lazy var shouldSwipeTop: Bool = {
-		let defaultDirection = dismissOnSwipeDirection == .default
-        return defaultDirection ? presentationType == .topHalf : dismissOnSwipeDirection == .top
-    }()
-
     // MARK: - Init
 
     init(presentedViewController: UIViewController,
@@ -427,11 +415,6 @@ extension PresentrController {
         if gesture.state == .began {
             presentedViewFrame = presentedViewController.view.frame
             presentedViewCenter = presentedViewController.view.center
-
-            let directionDown = gesture.translation(in: presentedViewController.view).y > 0
-            if (shouldSwipeBottom && directionDown) || (shouldSwipeTop && !directionDown) {
-                latestShouldDismiss = conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true
-            }
         } else if gesture.state == .changed {
             swipeGestureChanged(gesture: gesture)
         } else if gesture.state == .ended || gesture.state == .cancelled {
