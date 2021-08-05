@@ -474,8 +474,6 @@ extension PresentrController {
 
         var shouldDismiss = false
         
-        print(amount, presentedViewFrame.height)
-        
         switch dismissOnSwipeDirection {
         case .top:
             if amount.y > 0 {
