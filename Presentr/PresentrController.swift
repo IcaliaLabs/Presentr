@@ -108,7 +108,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
-         blurStyle: UIBlurEffectStyle,
+         blurStyle: UIBlurEffect.Style,
          customBackgroundView: UIView?,
          keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool,
@@ -147,7 +147,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.addGestureRecognizer(swipe)
     }
     
-    private func setupBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+    private func setupBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffect.Style) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
@@ -201,13 +201,29 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
     
     fileprivate func registerKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+        #if swift(>=4.2)
+        let keyboardWasShownKey = UIResponder.keyboardWillShowNotification
+        let keyboardWillHideKey = UIResponder.keyboardWillHideNotification
+        #else
+        let keyboardWasShownKey = NSNotification.Name.UIKeyboardWillShow
+        let keyboardWillHideKey = NSNotification.Name.UIKeyboardWillHide
+        #endif
+
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: keyboardWasShownKey, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: keyboardWillHideKey, object: nil)
     }
     
     fileprivate func removeObservers() {
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        #if swift(>=4.2)
+        let keyboardWasShownKey = UIResponder.keyboardWillShowNotification
+        let keyboardWillHideKey = UIResponder.keyboardWillHideNotification
+        #else
+        let keyboardWasShownKey = NSNotification.Name.UIKeyboardWillShow
+        let keyboardWillHideKey = NSNotification.Name.UIKeyboardWillHide
+        #endif
+
+        NotificationCenter.default.removeObserver(self, name: keyboardWasShownKey, object: nil)
+        NotificationCenter.default.removeObserver(self, name: keyboardWillHideKey, object: nil)
     }
 
 }
@@ -322,7 +338,13 @@ fileprivate extension PresentrController {
     func getWidthFromType(_ parentSize: CGSize) -> Float {
         guard let size = presentationType.size() else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
+                #if swift(>=4.2)
+                let sizeKey = UIView.layoutFittingCompressedSize
+                #else
+                let sizeKey = UILayoutFittingCompressedSize
+                #endif
+
+                return Float(presentedViewController.view.systemLayoutSizeFitting(sizeKey).width)
             }
             return 0
         }
@@ -333,7 +355,13 @@ fileprivate extension PresentrController {
     func getHeightFromType(_ parentSize: CGSize) -> Float {
         guard let size = presentationType.size() else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
+                #if swift(>=4.2)
+                let sizeKey = UIView.layoutFittingCompressedSize
+                #else
+                let sizeKey = UILayoutFittingCompressedSize
+                #endif
+
+                return Float(presentedViewController.view.systemLayoutSizeFitting(sizeKey).height)
             }
             return 0
         }

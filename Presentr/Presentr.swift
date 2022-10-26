@@ -100,7 +100,7 @@ public class Presentr: NSObject {
     public var blurBackground = false
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
-    public var blurStyle: UIBlurEffectStyle = .dark
+    public var blurStyle: UIBlurEffect.Style = .dark
 
     /// A custom background view to be added on top of the regular background view.
     public var customBackgroundView: UIView?
