@@ -7,30 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06021444208590E800036E68 /* CoverFromCornerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06021443208590E800036E68 /* CoverFromCornerAnimation.swift */; };
-		06021446208592CA00036E68 /* FlipHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06021445208592CA00036E68 /* FlipHorizontalAnimation.swift */; };
-		06218DB71E897CAE00D6FE4B /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DB41E897CAE00D6FE4B /* BackgroundView.swift */; };
-		06218DB81E897CAE00D6FE4B /* CoverVerticalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DB51E897CAE00D6FE4B /* CoverVerticalAnimation.swift */; };
-		06218DB91E897CAE00D6FE4B /* CrossDissolveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DB61E897CAE00D6FE4B /* CrossDissolveAnimation.swift */; };
-		06218DBB1E897CF900D6FE4B /* PresentrShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06218DBA1E897CF900D6FE4B /* PresentrShadow.swift */; };
-		06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C731CE8248D00F88216 /* PresentrAnimation.swift */; };
-		06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */; };
-		06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */; };
-		0680CC331CE3EFA900CBAE4F /* Presentr.h in Headers */ = {isa = PBXBuildFile; fileRef = 0680CC321CE3EFA900CBAE4F /* Presentr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0680CC3A1CE3EFA900CBAE4F /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0680CC2F1CE3EFA900CBAE4F /* Presentr.framework */; };
 		0680CC3F1CE3EFA900CBAE4F /* PresentrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC3E1CE3EFA900CBAE4F /* PresentrTests.swift */; };
-		0680CC4D1CE3EFC500CBAE4F /* Presentr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC491CE3EFC500CBAE4F /* Presentr.swift */; };
-		0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */; };
-		0680CC531CE3EFFA00CBAE4F /* AlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0680CC511CE3EFFA00CBAE4F /* AlertViewController.xib */; };
-		0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */; };
-		06B585471D2D5FDB0045C8DA /* Presentr+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B585461D2D5FDB0045C8DA /* Presentr+Equatable.swift */; };
-		06B585581D2D6F4B0045C8DA /* PresentationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B585571D2D6F4B0045C8DA /* PresentationType.swift */; };
-		06B5855B1D2D6F8B0045C8DA /* TransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B5855A1D2D6F8B0045C8DA /* TransitionType.swift */; };
-		06B5855D1D2D6FB00045C8DA /* ModalSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B5855C1D2D6FB00045C8DA /* ModalSize.swift */; };
-		06B5855F1D2D6FE20045C8DA /* ModalCenterPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B5855E1D2D6FE20045C8DA /* ModalCenterPosition.swift */; };
-		06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */; };
-		06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */; };
-		28E70FD41D5E8AD600B0B885 /* KeyboardTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */; };
+		E00D417829096EB000B5B082 /* CoverVerticalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416129096EB000B5B082 /* CoverVerticalAnimation.swift */; };
+		E00D417929096EB000B5B082 /* PresentrController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416229096EB000B5B082 /* PresentrController.swift */; };
+		E00D417A29096EB000B5B082 /* Presentr.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416329096EB000B5B082 /* Presentr.swift */; };
+		E00D417B29096EB000B5B082 /* PresentrShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416429096EB000B5B082 /* PresentrShadow.swift */; };
+		E00D417C29096EB000B5B082 /* FlipHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416529096EB000B5B082 /* FlipHorizontalAnimation.swift */; };
+		E00D417D29096EB000B5B082 /* CoverHorizontalAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416629096EB000B5B082 /* CoverHorizontalAnimation.swift */; };
+		E00D417E29096EB000B5B082 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E00D416729096EB000B5B082 /* SourceSansPro-Regular.ttf */; };
+		E00D417F29096EB000B5B082 /* AlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E00D416829096EB000B5B082 /* AlertViewController.xib */; };
+		E00D418029096EB000B5B082 /* CoverFromCornerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416929096EB000B5B082 /* CoverFromCornerAnimation.swift */; };
+		E00D418129096EB000B5B082 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416A29096EB000B5B082 /* AlertViewController.swift */; };
+		E00D418229096EB000B5B082 /* PresentrAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416B29096EB000B5B082 /* PresentrAnimation.swift */; };
+		E00D418329096EB000B5B082 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416C29096EB000B5B082 /* BackgroundView.swift */; };
+		E00D418429096EB000B5B082 /* TransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416D29096EB000B5B082 /* TransitionType.swift */; };
+		E00D418529096EB000B5B082 /* KeyboardTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416E29096EB000B5B082 /* KeyboardTranslation.swift */; };
+		E00D418629096EB000B5B082 /* PresentationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D416F29096EB000B5B082 /* PresentationType.swift */; };
+		E00D418729096EB000B5B082 /* Presentr.h in Headers */ = {isa = PBXBuildFile; fileRef = E00D417029096EB000B5B082 /* Presentr.h */; };
+		E00D418829096EB000B5B082 /* CrossDissolveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D417129096EB000B5B082 /* CrossDissolveAnimation.swift */; };
+		E00D418929096EB000B5B082 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E00D417229096EB000B5B082 /* Montserrat-Regular.ttf */; };
+		E00D418A29096EB000B5B082 /* ModalCenterPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D417329096EB000B5B082 /* ModalCenterPosition.swift */; };
+		E00D418B29096EB000B5B082 /* CoverVerticalFromTopAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D417429096EB000B5B082 /* CoverVerticalFromTopAnimation.swift */; };
+		E00D418D29096EB000B5B082 /* Presentr+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D417629096EB000B5B082 /* Presentr+Equatable.swift */; };
+		E00D418E29096EB000B5B082 /* ModalSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00D417729096EB000B5B082 /* ModalSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,33 +44,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		06021443208590E800036E68 /* CoverFromCornerAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverFromCornerAnimation.swift; sourceTree = "<group>"; };
-		06021445208592CA00036E68 /* FlipHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipHorizontalAnimation.swift; sourceTree = "<group>"; };
-		06218DB41E897CAE00D6FE4B /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
-		06218DB51E897CAE00D6FE4B /* CoverVerticalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalAnimation.swift; sourceTree = "<group>"; };
-		06218DB61E897CAE00D6FE4B /* CrossDissolveAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveAnimation.swift; sourceTree = "<group>"; };
-		06218DBA1E897CF900D6FE4B /* PresentrShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrShadow.swift; sourceTree = "<group>"; };
-		06686C731CE8248D00F88216 /* PresentrAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrAnimation.swift; sourceTree = "<group>"; };
-		06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalFromTopAnimation.swift; sourceTree = "<group>"; };
-		06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverHorizontalAnimation.swift; sourceTree = "<group>"; };
 		0680CC2F1CE3EFA900CBAE4F /* Presentr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0680CC321CE3EFA900CBAE4F /* Presentr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentr.h; sourceTree = "<group>"; };
-		0680CC341CE3EFA900CBAE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0680CC391CE3EFA900CBAE4F /* PresentrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PresentrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0680CC3E1CE3EFA900CBAE4F /* PresentrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentrTests.swift; sourceTree = "<group>"; };
 		0680CC401CE3EFA900CBAE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0680CC491CE3EFC500CBAE4F /* Presentr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentr.swift; sourceTree = "<group>"; };
-		0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrController.swift; sourceTree = "<group>"; };
-		0680CC511CE3EFFA00CBAE4F /* AlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewController.xib; sourceTree = "<group>"; };
-		0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
-		06B585461D2D5FDB0045C8DA /* Presentr+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Presentr+Equatable.swift"; sourceTree = "<group>"; };
-		06B585571D2D6F4B0045C8DA /* PresentationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationType.swift; sourceTree = "<group>"; };
-		06B5855A1D2D6F8B0045C8DA /* TransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionType.swift; sourceTree = "<group>"; };
-		06B5855C1D2D6FB00045C8DA /* ModalSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalSize.swift; sourceTree = "<group>"; };
-		06B5855E1D2D6FE20045C8DA /* ModalCenterPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCenterPosition.swift; sourceTree = "<group>"; };
-		06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
-		06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTranslation.swift; sourceTree = "<group>"; };
+		E00D416129096EB000B5B082 /* CoverVerticalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalAnimation.swift; sourceTree = "<group>"; };
+		E00D416229096EB000B5B082 /* PresentrController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrController.swift; sourceTree = "<group>"; };
+		E00D416329096EB000B5B082 /* Presentr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentr.swift; sourceTree = "<group>"; };
+		E00D416429096EB000B5B082 /* PresentrShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrShadow.swift; sourceTree = "<group>"; };
+		E00D416529096EB000B5B082 /* FlipHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipHorizontalAnimation.swift; sourceTree = "<group>"; };
+		E00D416629096EB000B5B082 /* CoverHorizontalAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverHorizontalAnimation.swift; sourceTree = "<group>"; };
+		E00D416729096EB000B5B082 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		E00D416829096EB000B5B082 /* AlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewController.xib; sourceTree = "<group>"; };
+		E00D416929096EB000B5B082 /* CoverFromCornerAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverFromCornerAnimation.swift; sourceTree = "<group>"; };
+		E00D416A29096EB000B5B082 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		E00D416B29096EB000B5B082 /* PresentrAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentrAnimation.swift; sourceTree = "<group>"; };
+		E00D416C29096EB000B5B082 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		E00D416D29096EB000B5B082 /* TransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionType.swift; sourceTree = "<group>"; };
+		E00D416E29096EB000B5B082 /* KeyboardTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTranslation.swift; sourceTree = "<group>"; };
+		E00D416F29096EB000B5B082 /* PresentationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationType.swift; sourceTree = "<group>"; };
+		E00D417029096EB000B5B082 /* Presentr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Presentr.h; sourceTree = "<group>"; };
+		E00D417129096EB000B5B082 /* CrossDissolveAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveAnimation.swift; sourceTree = "<group>"; };
+		E00D417229096EB000B5B082 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		E00D417329096EB000B5B082 /* ModalCenterPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCenterPosition.swift; sourceTree = "<group>"; };
+		E00D417429096EB000B5B082 /* CoverVerticalFromTopAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverVerticalFromTopAnimation.swift; sourceTree = "<group>"; };
+		E00D417529096EB000B5B082 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E00D417629096EB000B5B082 /* Presentr+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Presentr+Equatable.swift"; sourceTree = "<group>"; };
+		E00D417729096EB000B5B082 /* ModalSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,33 +92,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		06218DBC1E897CFF00D6FE4B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				06218DB41E897CAE00D6FE4B /* BackgroundView.swift */,
-				06218DBA1E897CF900D6FE4B /* PresentrShadow.swift */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		06686CB41CE96DCE00F88216 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				06686C731CE8248D00F88216 /* PresentrAnimation.swift */,
-				06218DB51E897CAE00D6FE4B /* CoverVerticalAnimation.swift */,
-				06218DB61E897CAE00D6FE4B /* CrossDissolveAnimation.swift */,
-				06686C9C1CE947E200F88216 /* CoverHorizontalAnimation.swift */,
-				06686C751CE8250200F88216 /* CoverVerticalFromTopAnimation.swift */,
-				06021443208590E800036E68 /* CoverFromCornerAnimation.swift */,
-				06021445208592CA00036E68 /* FlipHorizontalAnimation.swift */,
-			);
-			name = Animation;
-			sourceTree = "<group>";
-		};
 		0680CC251CE3EFA900CBAE4F = {
 			isa = PBXGroup;
 			children = (
-				0680CC311CE3EFA900CBAE4F /* Presentr */,
+				E00D415C29096E8200B5B082 /* Sources */,
 				0680CC3D1CE3EFA900CBAE4F /* PresentrTests */,
 				0680CC301CE3EFA900CBAE4F /* Products */,
 			);
@@ -133,25 +110,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0680CC311CE3EFA900CBAE4F /* Presentr */ = {
-			isa = PBXGroup;
-			children = (
-				0680CC321CE3EFA900CBAE4F /* Presentr.h */,
-				0680CC491CE3EFC500CBAE4F /* Presentr.swift */,
-				0680CC4B1CE3EFC500CBAE4F /* PresentrController.swift */,
-				06B585571D2D6F4B0045C8DA /* PresentationType.swift */,
-				06B5855A1D2D6F8B0045C8DA /* TransitionType.swift */,
-				06B5855C1D2D6FB00045C8DA /* ModalSize.swift */,
-				06B5855E1D2D6FE20045C8DA /* ModalCenterPosition.swift */,
-				06218DBC1E897CFF00D6FE4B /* Views */,
-				06686CB41CE96DCE00F88216 /* Animation */,
-				06D8AE8E1CE40BF300E00A6C /* Alert */,
-				06B585591D2D6F550045C8DA /* Utils */,
-				06A1F0C51CF3D1C70057C79B /* Assets */,
-			);
-			path = Presentr;
-			sourceTree = "<group>";
-		};
 		0680CC3D1CE3EFA900CBAE4F /* PresentrTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,32 +119,42 @@
 			path = PresentrTests;
 			sourceTree = "<group>";
 		};
-		06A1F0C51CF3D1C70057C79B /* Assets */ = {
+		E00D415C29096E8200B5B082 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0680CC341CE3EFA900CBAE4F /* Info.plist */,
-				06BE3E4D1CED58EA0052424E /* Montserrat-Regular.ttf */,
-				06BE3E4B1CED58DB0052424E /* SourceSansPro-Regular.ttf */,
+				E00D416029096EB000B5B082 /* Presentr */,
 			);
-			name = Assets;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		06B585591D2D6F550045C8DA /* Utils */ = {
+		E00D416029096EB000B5B082 /* Presentr */ = {
 			isa = PBXGroup;
 			children = (
-				28E70FD31D5E8AD600B0B885 /* KeyboardTranslation.swift */,
-				06B585461D2D5FDB0045C8DA /* Presentr+Equatable.swift */,
+				E00D416129096EB000B5B082 /* CoverVerticalAnimation.swift */,
+				E00D416229096EB000B5B082 /* PresentrController.swift */,
+				E00D416329096EB000B5B082 /* Presentr.swift */,
+				E00D416429096EB000B5B082 /* PresentrShadow.swift */,
+				E00D416529096EB000B5B082 /* FlipHorizontalAnimation.swift */,
+				E00D416629096EB000B5B082 /* CoverHorizontalAnimation.swift */,
+				E00D416729096EB000B5B082 /* SourceSansPro-Regular.ttf */,
+				E00D416829096EB000B5B082 /* AlertViewController.xib */,
+				E00D416929096EB000B5B082 /* CoverFromCornerAnimation.swift */,
+				E00D416A29096EB000B5B082 /* AlertViewController.swift */,
+				E00D416B29096EB000B5B082 /* PresentrAnimation.swift */,
+				E00D416C29096EB000B5B082 /* BackgroundView.swift */,
+				E00D416D29096EB000B5B082 /* TransitionType.swift */,
+				E00D416E29096EB000B5B082 /* KeyboardTranslation.swift */,
+				E00D416F29096EB000B5B082 /* PresentationType.swift */,
+				E00D417029096EB000B5B082 /* Presentr.h */,
+				E00D417129096EB000B5B082 /* CrossDissolveAnimation.swift */,
+				E00D417229096EB000B5B082 /* Montserrat-Regular.ttf */,
+				E00D417329096EB000B5B082 /* ModalCenterPosition.swift */,
+				E00D417429096EB000B5B082 /* CoverVerticalFromTopAnimation.swift */,
+				E00D417529096EB000B5B082 /* Info.plist */,
+				E00D417629096EB000B5B082 /* Presentr+Equatable.swift */,
+				E00D417729096EB000B5B082 /* ModalSize.swift */,
 			);
-			name = Utils;
-			sourceTree = "<group>";
-		};
-		06D8AE8E1CE40BF300E00A6C /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				0680CC511CE3EFFA00CBAE4F /* AlertViewController.xib */,
-				0680CC521CE3EFFA00CBAE4F /* AlertViewController.swift */,
-			);
-			name = Alert;
+			path = Presentr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,7 +164,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0680CC331CE3EFA900CBAE4F /* Presentr.h in Headers */,
+				E00D418729096EB000B5B082 /* Presentr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +232,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 0680CC251CE3EFA900CBAE4F;
@@ -282,9 +251,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06BE3E4E1CED58EA0052424E /* Montserrat-Regular.ttf in Resources */,
-				0680CC531CE3EFFA00CBAE4F /* AlertViewController.xib in Resources */,
-				06BE3E4C1CED58DB0052424E /* SourceSansPro-Regular.ttf in Resources */,
+				E00D418929096EB000B5B082 /* Montserrat-Regular.ttf in Resources */,
+				E00D417E29096EB000B5B082 /* SourceSansPro-Regular.ttf in Resources */,
+				E00D417F29096EB000B5B082 /* AlertViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,24 +271,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06686C761CE8250200F88216 /* CoverVerticalFromTopAnimation.swift in Sources */,
-				06021446208592CA00036E68 /* FlipHorizontalAnimation.swift in Sources */,
-				06B5855B1D2D6F8B0045C8DA /* TransitionType.swift in Sources */,
-				06218DB71E897CAE00D6FE4B /* BackgroundView.swift in Sources */,
-				06B5855F1D2D6FE20045C8DA /* ModalCenterPosition.swift in Sources */,
-				06218DB81E897CAE00D6FE4B /* CoverVerticalAnimation.swift in Sources */,
-				06686C9D1CE947E200F88216 /* CoverHorizontalAnimation.swift in Sources */,
-				28E70FD41D5E8AD600B0B885 /* KeyboardTranslation.swift in Sources */,
-				0680CC4D1CE3EFC500CBAE4F /* Presentr.swift in Sources */,
-				06218DBB1E897CF900D6FE4B /* PresentrShadow.swift in Sources */,
-				0680CC541CE3EFFA00CBAE4F /* AlertViewController.swift in Sources */,
-				06021444208590E800036E68 /* CoverFromCornerAnimation.swift in Sources */,
-				0680CC4F1CE3EFC500CBAE4F /* PresentrController.swift in Sources */,
-				06218DB91E897CAE00D6FE4B /* CrossDissolveAnimation.swift in Sources */,
-				06B5855D1D2D6FB00045C8DA /* ModalSize.swift in Sources */,
-				06B585471D2D5FDB0045C8DA /* Presentr+Equatable.swift in Sources */,
-				06686C741CE8248D00F88216 /* PresentrAnimation.swift in Sources */,
-				06B585581D2D6F4B0045C8DA /* PresentationType.swift in Sources */,
+				E00D418329096EB000B5B082 /* BackgroundView.swift in Sources */,
+				E00D417B29096EB000B5B082 /* PresentrShadow.swift in Sources */,
+				E00D417929096EB000B5B082 /* PresentrController.swift in Sources */,
+				E00D417D29096EB000B5B082 /* CoverHorizontalAnimation.swift in Sources */,
+				E00D418A29096EB000B5B082 /* ModalCenterPosition.swift in Sources */,
+				E00D418829096EB000B5B082 /* CrossDissolveAnimation.swift in Sources */,
+				E00D418E29096EB000B5B082 /* ModalSize.swift in Sources */,
+				E00D418629096EB000B5B082 /* PresentationType.swift in Sources */,
+				E00D418529096EB000B5B082 /* KeyboardTranslation.swift in Sources */,
+				E00D418129096EB000B5B082 /* AlertViewController.swift in Sources */,
+				E00D417C29096EB000B5B082 /* FlipHorizontalAnimation.swift in Sources */,
+				E00D418D29096EB000B5B082 /* Presentr+Equatable.swift in Sources */,
+				E00D417A29096EB000B5B082 /* Presentr.swift in Sources */,
+				E00D418029096EB000B5B082 /* CoverFromCornerAnimation.swift in Sources */,
+				E00D418429096EB000B5B082 /* TransitionType.swift in Sources */,
+				E00D417829096EB000B5B082 /* CoverVerticalAnimation.swift in Sources */,
+				E00D418B29096EB000B5B082 /* CoverVerticalFromTopAnimation.swift in Sources */,
+				E00D418229096EB000B5B082 /* PresentrAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +465,7 @@
 		0680CC471CE3EFA900CBAE4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = PresentrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = danielozano.PresentrTests;
@@ -508,6 +478,7 @@
 		0680CC481CE3EFA900CBAE4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = PresentrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = danielozano.PresentrTests;
