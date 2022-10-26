@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public class CoverHorizontalAnimation: PresentrAnimation {
 
